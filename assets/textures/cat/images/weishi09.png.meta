@@ -1,6 +1,6 @@
 {
   "ver": "2.3.4",
-  "uuid": "4cb9cb99-72ac-4543-b057-a587a494f274",
+  "uuid": "792c1e70-2773-4c24-9b28-d0ddc2e8f1b2",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -13,8 +13,8 @@
   "subMetas": {
     "weishi09": {
       "ver": "1.0.4",
-      "uuid": "47adb580-5f40-44f5-aa7f-ad7d8c4a7412",
-      "rawTextureUuid": "4cb9cb99-72ac-4543-b057-a587a494f274",
+      "uuid": "3592e812-9ecc-4c1f-b458-8047d02bf297",
+      "rawTextureUuid": "792c1e70-2773-4c24-9b28-d0ddc2e8f1b2",
       "trimType": "auto",
       "trimThreshold": 1,
       "rotated": false,

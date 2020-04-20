@@ -1,6 +1,6 @@
 {
   "ver": "2.3.4",
-  "uuid": "96d8aa42-788c-4566-be8c-1a15234c4c43",
+  "uuid": "952e64bb-c008-47a7-b917-7a19df542621",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -13,8 +13,8 @@
   "subMetas": {
     "Zshenti": {
       "ver": "1.0.4",
-      "uuid": "f3639dc2-449b-48a8-96f6-53df5a4a78bb",
-      "rawTextureUuid": "96d8aa42-788c-4566-be8c-1a15234c4c43",
+      "uuid": "305f1f6a-3e10-4446-ae1a-7fe1bbad36a9",
+      "rawTextureUuid": "952e64bb-c008-47a7-b917-7a19df542621",
       "trimType": "auto",
       "trimThreshold": 1,
       "rotated": false,
