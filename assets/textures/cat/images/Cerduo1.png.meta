@@ -1,0 +1,36 @@
+{
+  "ver": "2.3.4",
+  "uuid": "431aa3df-d5fc-47f4-b16d-70b984e0fb3d",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "genMipmaps": false,
+  "packable": true,
+  "width": 65,
+  "height": 96,
+  "platformSettings": {},
+  "subMetas": {
+    "Cerduo1": {
+      "ver": "1.0.4",
+      "uuid": "0dfeb266-5a3b-43ef-8926-ecf9501dcfbf",
+      "rawTextureUuid": "431aa3df-d5fc-47f4-b16d-70b984e0fb3d",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 1,
+      "trimY": 1,
+      "width": 63,
+      "height": 94,
+      "rawWidth": 65,
+      "rawHeight": 96,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

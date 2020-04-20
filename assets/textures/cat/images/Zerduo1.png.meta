@@ -1,0 +1,36 @@
+{
+  "ver": "2.3.4",
+  "uuid": "7a900af9-5e8d-414f-8d77-c1495cc3f411",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "premultiplyAlpha": false,
+  "genMipmaps": false,
+  "packable": true,
+  "width": 65,
+  "height": 96,
+  "platformSettings": {},
+  "subMetas": {
+    "Zerduo1": {
+      "ver": "1.0.4",
+      "uuid": "6828c59b-8650-4b60-a7b5-cb8e5c638cbc",
+      "rawTextureUuid": "7a900af9-5e8d-414f-8d77-c1495cc3f411",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 1,
+      "trimY": 1,
+      "width": 63,
+      "height": 94,
+      "rawWidth": 65,
+      "rawHeight": 96,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}
