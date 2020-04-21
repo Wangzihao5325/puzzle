@@ -1,6 +1,6 @@
 {
   "ver": "2.3.4",
-  "uuid": "b8c40d67-e1d9-4ec1-aa2f-58c340d2e768",
+  "uuid": "e9d46338-844e-4a0b-a50d-4f05472bc640",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -13,8 +13,8 @@
   "subMetas": {
     "Zweiba": {
       "ver": "1.0.4",
-      "uuid": "2211eab4-0f37-4ac9-9e52-e3e519e6ee9f",
-      "rawTextureUuid": "b8c40d67-e1d9-4ec1-aa2f-58c340d2e768",
+      "uuid": "8bfc62e8-ca00-489e-9719-6bfa92988290",
+      "rawTextureUuid": "e9d46338-844e-4a0b-a50d-4f05472bc640",
       "trimType": "auto",
       "trimThreshold": 1,
       "rotated": false,

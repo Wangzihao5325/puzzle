@@ -1,6 +1,6 @@
 {
   "ver": "2.3.4",
-  "uuid": "22b049ab-c020-46bb-a39d-396ff467963e",
+  "uuid": "ea4becc1-2b98-4f21-873e-3e3281fedce8",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -13,8 +13,8 @@
   "subMetas": {
     "Cbiyan": {
       "ver": "1.0.4",
-      "uuid": "de567376-2cf4-4f96-9f5c-34a0487f7073",
-      "rawTextureUuid": "22b049ab-c020-46bb-a39d-396ff467963e",
+      "uuid": "bfc925dd-5dd7-4cce-aedc-3ba9b1ec6586",
+      "rawTextureUuid": "ea4becc1-2b98-4f21-873e-3e3281fedce8",
       "trimType": "auto",
       "trimThreshold": 1,
       "rotated": false,

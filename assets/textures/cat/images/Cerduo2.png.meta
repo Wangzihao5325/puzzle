@@ -1,6 +1,6 @@
 {
   "ver": "2.3.4",
-  "uuid": "f64bc30c-e80e-4a5a-addf-542c3b7598fb",
+  "uuid": "a5f7ce69-1c6c-44c4-a8da-f68481ee319e",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -13,8 +13,8 @@
   "subMetas": {
     "Cerduo2": {
       "ver": "1.0.4",
-      "uuid": "5467e4cc-1f16-456a-8a70-27e598e14ef2",
-      "rawTextureUuid": "f64bc30c-e80e-4a5a-addf-542c3b7598fb",
+      "uuid": "ac25b917-50a9-47ac-b58b-edeaa2fcd79e",
+      "rawTextureUuid": "a5f7ce69-1c6c-44c4-a8da-f68481ee319e",
       "trimType": "auto",
       "trimThreshold": 1,
       "rotated": false,

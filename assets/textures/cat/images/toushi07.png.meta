@@ -1,6 +1,6 @@
 {
   "ver": "2.3.4",
-  "uuid": "a57b2049-defa-4856-81c0-0a99d8dadb8d",
+  "uuid": "d561a4a5-9840-4122-bdf2-46147f88ca6b",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -13,8 +13,8 @@
   "subMetas": {
     "toushi07": {
       "ver": "1.0.4",
-      "uuid": "faad01f0-c478-419a-a633-18e2dd57f760",
-      "rawTextureUuid": "a57b2049-defa-4856-81c0-0a99d8dadb8d",
+      "uuid": "908cac8e-41d4-419b-b725-bd3e4fbc4569",
+      "rawTextureUuid": "d561a4a5-9840-4122-bdf2-46147f88ca6b",
       "trimType": "auto",
       "trimThreshold": 1,
       "rotated": false,
