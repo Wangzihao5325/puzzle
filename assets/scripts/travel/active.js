@@ -5,7 +5,6 @@
 // Learn life-cycle callbacks:
 //  - https://docs.cocos.com/creator/manual/en/scripting/life-cycle-callbacks.html
 
-import alert from '../../component/Alert'
 
 cc.Class({
     extends: cc.Component,
@@ -34,15 +33,8 @@ cc.Class({
     onLoad () {
         this.coco.node.on(cc.Node.EventType.TOUCH_START, function (event) {
 
-            console.log("TOUCH_START this.coco", event.type);
-            alert.show.call(this, "确认退出游戏？", "取消", "确认", function (type) {
-                if (type == "取消") {
-                    console.log("取消");
-                }
-                if (type == "确认") {
-                    console.log("确认");
-                }
-            });
+            console.log("TOUCH_START this.coco");
+            Toast.show("难道还有这种操作？",2000);
             });
             
              
