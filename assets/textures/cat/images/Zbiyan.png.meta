@@ -1,6 +1,6 @@
 {
   "ver": "2.3.4",
-  "uuid": "0485ffe4-3b7f-4f5c-98b3-3c5cfcd649be",
+  "uuid": "5c540b99-a2dd-4109-9092-6374511b11e9",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -13,8 +13,8 @@
   "subMetas": {
     "Zbiyan": {
       "ver": "1.0.4",
-      "uuid": "85566a6e-38e2-4b8f-ad79-d4ed0d6bcffa",
-      "rawTextureUuid": "0485ffe4-3b7f-4f5c-98b3-3c5cfcd649be",
+      "uuid": "14e55812-c823-4628-b376-a2c40d9ada80",
+      "rawTextureUuid": "5c540b99-a2dd-4109-9092-6374511b11e9",
       "trimType": "auto",
       "trimThreshold": 1,
       "rotated": false,

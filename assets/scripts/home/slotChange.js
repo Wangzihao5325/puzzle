@@ -24,19 +24,10 @@ cc.Class({
         var ske_com = spine.getComponent(sp.Skeleton);
         this.ske_com = ske_com;
         const skeletonData = this.ske_com.skeletonData.getRuntimeData();
-        console.log("--obj--");
-        console.log(this.ske_com);
-        console.log('--skeletonData--')
-        console.log(skeletonData);
         const skin = skeletonData.findSkin('default');
-        //const bone27 = skeletonData.findBone('bone27');
-
-        //bone27.rotation = -150;
-        //bone27.updateWorldTransform();
 
         let parts = ["Ctoushi00", "Cboshi00", "Cweishi00"]//["toushi00", "boshi00", "weishi00"];
         let randomNum = Math.floor(Math.random() * 8);
-        console.log(`randomNum:${randomNum}`)
         for (let i = 0; i < parts.length; i++) {
             let regSlot = this.ske_com.findSlot(parts[i]);
             switch (i) {
@@ -44,33 +35,37 @@ cc.Class({
                     {
                         let slotIndex = skeletonData.findSlotIndex(`toushi0${randomNum}`);
                         let atta = skin.getAttachment(slotIndex, `toushi0${randomNum}`);
-                        regSlot.setAttachment(atta);
+                        //regSlot.setAttachment(atta);
+                        regSlot.attachment = atta;
+
                         break;
                     }
                 case 1:
                     {
                         let slotIndex = skeletonData.findSlotIndex(`boshi0${randomNum}`);
                         let atta = skin.getAttachment(slotIndex, `boshi0${randomNum}`);
-                        regSlot.setAttachment(atta);
+                        //regSlot.setAttachment(atta);
+                        regSlot.attachment = atta;
                         break;
                     }
                 case 2:
                     {
                         let slotIndex = skeletonData.findSlotIndex(`weishi0${randomNum}`);
                         let atta = skin.getAttachment(slotIndex, `weishi0${randomNum}`);
-                        regSlot.setAttachment(atta);
+                        //regSlot.setAttachment(atta);
+                        regSlot.attachment = atta;
                         break;
                     }
             }
         }
-        this.ske_com.debugSlots = true;
-        this.ske_com.debugBones = true;
-        let bone27Obj = this.ske_com.findBone('Cbone21');
-        bone27Obj.rotateWorld(180);
-        bone27Obj.updateWorldTransform();
-        this.ske_com.updateWorldTransform();
-        console.log('--270')
-        console.log(bone27Obj);
+        // this.ske_com.debugSlots = true;
+        // this.ske_com.debugBones = true;
+        // let bone27Obj = this.ske_com.findBone('Cbone21');
+        // bone27Obj.rotateWorld(180);
+        // bone27Obj.updateWorldTransform();
+        // this.ske_com.updateWorldTransform();
+        // console.log('--270')
+        // console.log(bone27Obj);
 
     },
 

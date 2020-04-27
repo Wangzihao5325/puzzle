@@ -1,6 +1,6 @@
 {
   "ver": "2.3.4",
-  "uuid": "8f334a79-cbbd-4c71-8b22-9cfd200c15e8",
+  "uuid": "613f2f97-64a6-4169-be96-164d4d253631",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -13,8 +13,8 @@
   "subMetas": {
     "maopa": {
       "ver": "1.0.4",
-      "uuid": "02920e60-3953-41c2-bf03-b55fe656cfaa",
-      "rawTextureUuid": "8f334a79-cbbd-4c71-8b22-9cfd200c15e8",
+      "uuid": "27af8c4d-e388-4428-a29a-4abca4f59bf0",
+      "rawTextureUuid": "613f2f97-64a6-4169-be96-164d4d253631",
       "trimType": "auto",
       "trimThreshold": 1,
       "rotated": false,

@@ -1,6 +1,6 @@
 {
   "ver": "2.3.4",
-  "uuid": "d68c7157-36f1-4cfc-840f-c026066bfbee",
+  "uuid": "1801a325-7e8d-46b9-92a5-4e3f16956d4c",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -13,8 +13,8 @@
   "subMetas": {
     "erduo1": {
       "ver": "1.0.4",
-      "uuid": "badee2b9-7f96-4554-83bc-6e051657ab4c",
-      "rawTextureUuid": "d68c7157-36f1-4cfc-840f-c026066bfbee",
+      "uuid": "24480cc4-795c-485e-a30c-c0e4ec6fef7f",
+      "rawTextureUuid": "1801a325-7e8d-46b9-92a5-4e3f16956d4c",
       "trimType": "auto",
       "trimThreshold": 1,
       "rotated": false,

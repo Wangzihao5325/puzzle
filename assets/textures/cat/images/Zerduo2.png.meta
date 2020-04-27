@@ -1,6 +1,6 @@
 {
   "ver": "2.3.4",
-  "uuid": "74014c59-cbab-4031-90ff-1920f07e6514",
+  "uuid": "00e9c8dd-d18f-4611-a4b1-b34ce9169aad",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -13,8 +13,8 @@
   "subMetas": {
     "Zerduo2": {
       "ver": "1.0.4",
-      "uuid": "e0199fc2-0b99-4b24-bfac-1945bf8f20a1",
-      "rawTextureUuid": "74014c59-cbab-4031-90ff-1920f07e6514",
+      "uuid": "f894456a-16e2-44a2-92a7-698a663f0b6e",
+      "rawTextureUuid": "00e9c8dd-d18f-4611-a4b1-b34ce9169aad",
       "trimType": "auto",
       "trimThreshold": 1,
       "rotated": false,
