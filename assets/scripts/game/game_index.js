@@ -10,6 +10,8 @@ const TYPES = [[2, 3], [4, 6], [6, 8]];
 const BG_WIDTH = 644;
 const BG_HEIGHT = 857;
 
+
+
 cc.Class({
     extends: cc.Component,
 
@@ -58,6 +60,9 @@ cc.Class({
             let item_node = cc.instantiate(this.pre_item);
             item_node.width = item[2];
             item_node.height = item[3];
+            // console.log("item_node.getComponent('item_puzzle')",item_node.getComponent('item_puzzle'))
+            // item_node.getComponent('item_puzzle').width = item[2];
+            // item_node.getComponent('item_puzzle').height = item[3];
             item_node.parent = this.game_bg;
             let y_index = Math.floor(index / type[0]);
             let x_index = index % type[0];
@@ -68,6 +73,7 @@ cc.Class({
             if (obj) {
                 obj.init(index);
                 obj.setSpItem(this.defaultRect(item));
+                obj.setMarsk(index)
                 obj.item_node = item_node;
             }
         });
@@ -80,6 +86,7 @@ cc.Class({
         spframe_puzzle_clone.setRect(rect);
         return spframe_puzzle_clone
     },
+
 
     picCut() {
         let rect = new cc.Rect(0, 0, 406, 351);
