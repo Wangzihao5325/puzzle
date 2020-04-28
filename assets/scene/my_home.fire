@@ -183,7 +183,7 @@
       "array": [
         0,
         0,
-        389.7114317029974,
+        416.55821922031504,
         0,
         0,
         0,
@@ -1320,7 +1320,7 @@
     "_groupIndex": 0,
     "groupIndex": 0,
     "showInEditor": false,
-    "_id": "6eIatTjDtAzZDipAMUIHtg"
+    "_id": "75g8sb/oJKI6Ncrs4XXn/O"
   },
   {
     "__type__": "cc.Graphics",
@@ -1353,7 +1353,7 @@
       "a": 255
     },
     "_miterLimit": 10,
-    "_id": "0elbQ0eY9Jo5a7Y5icvcG/"
+    "_id": "57wo7LN9dIqqzL+1yI2iEp"
   },
   {
     "__type__": "sp.Skeleton",
@@ -1387,7 +1387,7 @@
     "_playTimes": 1,
     "_isAniComplete": true,
     "_N$skeletonData": {
-      "__uuid__": "885b8807-e99b-49d3-acb3-f6d811c0184a"
+      "__uuid__": "3d7e75e8-f6c1-4756-bed5-c8493219d3ed"
     },
     "_N$_defaultCacheMode": 0,
     "_N$debugSlots": true,
