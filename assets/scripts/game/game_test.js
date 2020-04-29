@@ -5,12 +5,10 @@
 // Learn life-cycle callbacks:
 //  - https://docs.cocos.com/creator/manual/en/scripting/life-cycle-callbacks.html
 
-const SIZES_0 = [[0, 0, 406, 351], [303, 0, 341, 353], [0, 351 - 13, 333, 310], [235, 353 - 90, 409, 317], [0, 857 - 362, 399, 362], [644 - 342, 857 - 369, 342, 369]];//01图片尺寸 23图片起始点坐标
+const SIZES_0 = [[0, 0, 406, 351], [303, 0, 341, 353], [0, 351 - 13, 333, 310], [235, 353 - 90, 409, 371], [0, 857 - 362, 399, 362], [644 - 342, 857 - 369, 342, 369]];//01图片尺寸 23图片起始点坐标
 const TYPES = [[2, 3], [4, 6], [6, 8]];
 const BG_WIDTH = 644;
 const BG_HEIGHT = 857;
-
-
 
 cc.Class({
     extends: cc.Component,
@@ -18,31 +16,19 @@ cc.Class({
     properties: {
         game_bg: cc.Node,
         pre_item: cc.Prefab,
-        spframe_puzzle: cc.SpriteFrame,
-        sp_puzzle: cc.Sprite
     },
 
-    onLoad() {
+    // LIFE-CYCLE CALLBACKS:
+
+    onLoad () {
         this.init();
     },
 
-    init() {
-        //设置绿色背景布
-        this.game_bg.width = 640;
-        this.game_bg.height = 1136;
-        // let item_node = cc.instantiate(this.pre_item);
-        // item_node.parent = this.game_bg;
-
-        /*截取一块
-        this.picCut();
-        this.sp_puzzle.spriteFrame = this.spframe_puzzle
-        */
-        //初始化所有的块
-
-        this.initItem(0);
+    init(){
+        this.initItem()
     },
 
-    initItem(typeKey) {
+    initItem(typeKey=0) {
         //根据key取type
         let type = TYPES[typeKey];
         //根据type取size
@@ -61,36 +47,46 @@ cc.Class({
             item_node.width = item[2];
             item_node.height = item[3];
             // console.log("item_node.getComponent('item_puzzle')",item_node.getComponent('item_puzzle'))
-            // item_node.getComponent('item_puzzle').width = item[2];
-            // item_node.getComponent('item_puzzle').height = item[3];
+            item_node.getChildByName('item_puzzle').width = item[2];
+            item_node.getChildByName('item_puzzle').height = item[3];
             item_node.parent = this.game_bg;
             let y_index = Math.floor(index / type[0]);
             let x_index = index % type[0];
             //一负一正是为了块排列顺序与切割顺序一致
-            let position = cc.v2(x_start + (2 * x_index + 1) * widthSeparate, y_start - (2 * y_index + 1) * heightSeparate);
+            const positionarr=this.claPosition(index,item)
+            let position = cc.v2(positionarr[0],positionarr[1]);
             item_node.setPosition(position);
-            let obj = item_node.getComponent('item_index');
-            console.log("obj",obj)
+            item_node.zIndex=10;
+            // if(index===0){
+            //     item_node.active=false
+            // }
+            let obj = item_node.getComponent('itembg_index');
+            console.log('obj',obj)
             if (obj) {
-                obj.init(index);
-                obj.setSpItem(this.defaultRect(item));
+                obj.init(index); 
+                // obj.setSpItem(this.defaultRect(item));
                 obj.setMarsk(index)
                 obj.item_node = item_node;
             }
         });
     },
 
-
-    defaultRect(item) {
-        let rect = new cc.Rect(item[0], item[1], item[2], item[3]);
-        let spframe_puzzle_clone = this.spframe_puzzle.clone();
-        spframe_puzzle_clone.setRect(rect);
-        return spframe_puzzle_clone
+    claPosition(index,item){
+        const x=item[2]/2-BG_WIDTH/2+item[0];
+        let y;
+        if(index===0||index===1){
+            y=BG_HEIGHT/2-item[3]/2
+        }else if(index===4||index===5){
+            y=-BG_HEIGHT/2+item[3]/2
+        }else{
+            y=0
+        }
+        return [x,y]
     },
 
+    start () {
 
-    picCut() {
-        let rect = new cc.Rect(0, 0, 406, 351);
-        this.spframe_puzzle.setRect(rect);
     },
+
+    // update (dt) {},
 });

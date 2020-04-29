@@ -4,21 +4,20 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
-        label_num: cc.Label,
-        sp_item: cc.Sprite,
+        // label_num: cc.Label,
+        // sp_item: cc.Sprite,
         mask_item: cc.Mask,
     },
 
+
     init(num) {
-        this.num = num;
-        this.label_num.string = this.num
+        // this.num = num;
+        // this.label_num.string = this.num
     },
 
-    setSpItem(spt) {
-        this.sp_item.spriteFrame = spt
-    },
 
     setMarsk(index){
+        console.log("setMarsk")
         var urls = ['2x3-1/1', '2x3-1/2','2x3-1/3', '2x3-1/4','2x3-1/5', '2x3-1/6'];
         const self = this;
         cc.loader.loadResArray(urls, cc.SpriteFrame, function (err, assets) {
@@ -33,35 +32,25 @@ cc.Class({
 
     setTouch() {
         this.node.on(cc.Node.EventType.TOUCH_START, () => {
-            this.item_node.zIndex= 100000000//拿起增加z-index
-            this.item_node.setScale(1)
+            this.item_node.zIndex= 10//拿起增加z-index
         })
         this.node.on(cc.Node.EventType.TOUCH_MOVE, (event) => {
+            // console.log("evnt",event)
             if (this.item_node) {
                 let delta = event.touch.getDelta();
                 let newPositin = cc.v2(this.item_node.x + delta.x, this.item_node.y + delta.y)
                 this.item_node.setPosition(newPositin);
             }
         })
-        this.node.on(cc.Node.EventType.TOUCH_CANCEL, ()=>{
-            console.log("TOUCH_CANCEL")
-
-            //移动结束
-            // this.item_node.setScale(0.3)
-
-        })
         this.node.on(cc.Node.EventType.TOUCH_END, () => {
-            console.log("touchEnd")
             this.item_node.zIndex= 1//恢复z-index
-            this.item_node.setScale(0.3)
-
         })
     },
 
     // LIFE-CYCLE CALLBACKS:
 
     onLoad() {
-        this.num = 0;
+        // this.num = 0;
         this.setTouch();
     },
 

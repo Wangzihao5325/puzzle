@@ -19,7 +19,7 @@ cc.Class({
         game_bg: cc.Node,
         pre_item: cc.Prefab,
         spframe_puzzle: cc.SpriteFrame,
-        sp_puzzle: cc.Sprite
+        // sp_puzzle: cc.Sprite
     },
 
     onLoad() {
@@ -67,7 +67,7 @@ cc.Class({
             let y_index = Math.floor(index / type[0]);
             let x_index = index % type[0];
             //一负一正是为了块排列顺序与切割顺序一致
-            let position = cc.v2(x_start + (2 * x_index + 1) * widthSeparate, y_start - (2 * y_index + 1) * heightSeparate);
+            let position = cc.v2(-344+(140*index)+20, 0);
             item_node.setPosition(position);
             let obj = item_node.getComponent('item_index');
             console.log("obj",obj)
