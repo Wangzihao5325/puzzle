@@ -35,6 +35,16 @@ cc.Class({
 
 
     setMarsk(index,item){
+        var urls = ['2x3-1/1', '2x3-1/2'];
+        cc.loader.loadResArray(urls, cc.SpriteFrame, function (err, assets) {
+            if (err) {
+                cc.error(err);
+                return;
+            }
+            console.log("assets",assets)
+            // spriteFrames = assets;
+            // ...
+        });
         const spframList=[this.spframe_mask1,this.spframe_mask2,this.spframe_mask3,this.spframe_mask4,this.spframe_mask5,this.spframe_mask6]
         this.mask_item.spriteFrame =this.defaultRect(spframList[index],index)
     },
