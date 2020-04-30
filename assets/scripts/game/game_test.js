@@ -5,7 +5,8 @@
 // Learn life-cycle callbacks:
 //  - https://docs.cocos.com/creator/manual/en/scripting/life-cycle-callbacks.html
 
-const SIZES_0 = [[0, 0, 406, 351], [303, 0, 341, 353], [0, 351 - 13, 333, 310], [235, 353 - 90, 409, 371], [0, 857 - 362, 399, 362], [644 - 342, 857 - 369, 342, 369]];//01图片尺寸 23图片起始点坐标
+const SIZES_0 = [[0, 0, 406, 351, -119, 253], [303, 0, 341, 353, 151.5, 252], [0, 351 - 82, 333, 310, -155.5, 4.5], [235, 353 - 87, 409, 317, 117.5, 4], [0, 857 - 362, 399, 362, -122.5, -247.5], [644 - 342, 857 - 369, 342, 369, 151, -244]];
+
 const TYPES = [[2, 3], [4, 6], [6, 8]];
 const BG_WIDTH = 644;
 const BG_HEIGHT = 857;
@@ -21,6 +22,7 @@ cc.Class({
     // LIFE-CYCLE CALLBACKS:
 
     onLoad () {
+        this.game_bg.zIndex=1
         this.init();
     },
 
@@ -53,9 +55,8 @@ cc.Class({
             let y_index = Math.floor(index / type[0]);
             let x_index = index % type[0];
             //一负一正是为了块排列顺序与切割顺序一致
-            const positionarr=this.claPosition(index,item)
-            let position = cc.v2(positionarr[0],positionarr[1]);
-            item_node.setPosition(position);
+    
+            item_node.setPosition(item[4],item[5]);
             item_node.zIndex=10;
             // if(index===0){
             //     item_node.active=false
@@ -71,18 +72,7 @@ cc.Class({
         });
     },
 
-    claPosition(index,item){
-        const x=item[2]/2-BG_WIDTH/2+item[0];
-        let y;
-        if(index===0||index===1){
-            y=BG_HEIGHT/2-item[3]/2
-        }else if(index===4||index===5){
-            y=-BG_HEIGHT/2+item[3]/2
-        }else{
-            y=0
-        }
-        return [x,y]
-    },
+
 
     start () {
 

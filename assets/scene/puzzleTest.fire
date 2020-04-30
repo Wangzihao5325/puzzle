@@ -73,21 +73,18 @@
       },
       {
         "__id__": 5
-      },
-      {
-        "__id__": 7
       }
     ],
     "_active": true,
     "_components": [
       {
-        "__id__": 20
-      },
-      {
         "__id__": 21
       },
       {
         "__id__": 22
+      },
+      {
+        "__id__": 23
       }
     ],
     "_prefab": null,
@@ -177,7 +174,7 @@
       "array": [
         0,
         0,
-        305.70696753590687,
+        490.1703785419923,
         0,
         0,
         0,
@@ -243,11 +240,15 @@
     "_parent": {
       "__id__": 2
     },
-    "_children": [],
+    "_children": [
+      {
+        "__id__": 6
+      }
+    ],
     "_active": true,
     "_components": [
       {
-        "__id__": 6
+        "__id__": 20
       }
     ],
     "_prefab": null,
@@ -274,7 +275,7 @@
       "ctor": "Float64Array",
       "array": [
         0,
-        0,
+        87.393,
         0,
         0,
         0,
@@ -299,55 +300,15 @@
     "_id": "ccvg0ceUFJSqsagh9IvNnw"
   },
   {
-    "__type__": "dragonBones.ArmatureDisplay",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 5
-    },
-    "_enabled": true,
-    "_materials": [
-      {
-        "__uuid__": "eca5d2f2-8ef6-41c2-bbe6-f9c79d09c432"
-      }
-    ],
-    "_armatureName": "chunyuanhaixianguangchang",
-    "_animationName": "newAnimation",
-    "_preCacheMode": 0,
-    "_cacheMode": 0,
-    "playTimes": -1,
-    "premultipliedAlpha": false,
-    "_armatureKey": "6aebf5d3-ded2-4bb3-831a-7b3011817ffc#07d303ae-cdfa-4d0e-9cbb-87e10c703373",
-    "_accTime": 0,
-    "_playCount": 0,
-    "_frameCache": null,
-    "_curFrame": null,
-    "_playing": false,
-    "_armatureCache": null,
-    "_N$dragonAsset": {
-      "__uuid__": "6aebf5d3-ded2-4bb3-831a-7b3011817ffc"
-    },
-    "_N$dragonAtlasAsset": {
-      "__uuid__": "07d303ae-cdfa-4d0e-9cbb-87e10c703373"
-    },
-    "_N$_defaultArmatureIndex": 0,
-    "_N$_animationIndex": 1,
-    "_N$_defaultCacheMode": 0,
-    "_N$timeScale": 1,
-    "_N$debugBones": false,
-    "_N$enableBatch": false,
-    "_id": "c1RhLRCPRPsbqnIVqHfTSt"
-  },
-  {
     "__type__": "cc.Node",
     "_name": "puzzleContent",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 2
+      "__id__": 5
     },
     "_children": [
       {
-        "__id__": 8
+        "__id__": 7
       }
     ],
     "_active": true,
@@ -373,7 +334,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 644,
+      "width": 690,
       "height": 185
     },
     "_anchorPoint": {
@@ -385,8 +346,8 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        3.5749999999999886,
-        -543.435,
+        -4.266999999999996,
+        -545.993,
         0,
         0,
         0,
@@ -415,11 +376,11 @@
     "_name": "puzzleWarp",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 7
+      "__id__": 6
     },
     "_children": [
       {
-        "__id__": 9
+        "__id__": 8
       }
     ],
     "_active": true,
@@ -445,7 +406,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 624,
+      "width": 670,
       "height": 180
     },
     "_anchorPoint": {
@@ -457,8 +418,8 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        0.3849999999999909,
-        -3.781000000000006,
+        0,
+        8.528999999999996,
         0,
         0,
         0,
@@ -487,11 +448,11 @@
     "_name": "view",
     "_objFlags": 512,
     "_parent": {
-      "__id__": 8
+      "__id__": 7
     },
     "_children": [
       {
-        "__id__": 10
+        "__id__": 9
       }
     ],
     "_active": true,
@@ -553,11 +514,11 @@
     "_name": "content",
     "_objFlags": 512,
     "_parent": {
-      "__id__": 9
+      "__id__": 8
     },
     "_children": [
       {
-        "__id__": 11
+        "__id__": 10
       }
     ],
     "_active": true,
@@ -573,7 +534,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 630,
+      "width": 780,
       "height": 150
     },
     "_anchorPoint": {
@@ -615,11 +576,14 @@
     "_name": "list",
     "_objFlags": 0,
     "_parent": {
-      "__id__": 10
+      "__id__": 9
     },
     "_children": [],
     "_active": true,
     "_components": [
+      {
+        "__id__": 11
+      },
       {
         "__id__": 12
       }
@@ -635,7 +599,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 630,
+      "width": 780,
       "height": 150
     },
     "_anchorPoint": {
@@ -647,8 +611,8 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        0,
-        -110.304,
+        94.719,
+        -114.61,
         0,
         0,
         0,
@@ -677,11 +641,11 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 11
+      "__id__": 10
     },
     "_enabled": true,
     "game_bg": {
-      "__id__": 11
+      "__id__": 10
     },
     "pre_item": {
       "__uuid__": "17ec578f-559d-4d2a-935f-6f5bb1b76925"
@@ -692,11 +656,38 @@
     "_id": "delG7Fy/BPS6yck/AL3Yy0"
   },
   {
+    "__type__": "cc.Widget",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 10
+    },
+    "_enabled": true,
+    "alignMode": 2,
+    "_target": null,
+    "_alignFlags": 16,
+    "_left": 0,
+    "_right": 0,
+    "_top": 0,
+    "_bottom": 0,
+    "_verticalCenter": 0,
+    "_horizontalCenter": 94.719,
+    "_isAbsLeft": true,
+    "_isAbsRight": true,
+    "_isAbsTop": true,
+    "_isAbsBottom": true,
+    "_isAbsHorizontalCenter": true,
+    "_isAbsVerticalCenter": true,
+    "_originalWidth": 0,
+    "_originalHeight": 0,
+    "_id": "4fiUF8oIdME4NcRokYMwDh"
+  },
+  {
     "__type__": "cc.Mask",
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 9
+      "__id__": 8
     },
     "_enabled": true,
     "_materials": [
@@ -716,7 +707,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 8
+      "__id__": 7
     },
     "_enabled": true,
     "_materials": [
@@ -748,7 +739,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 8
+      "__id__": 7
     },
     "_enabled": true,
     "horizontal": true,
@@ -758,12 +749,12 @@
     "elastic": true,
     "bounceDuration": 0.23,
     "scrollEvents": [],
-    "cancelInnerEvents": true,
+    "cancelInnerEvents": false,
     "_N$content": {
-      "__id__": 10
+      "__id__": 9
     },
     "content": {
-      "__id__": 10
+      "__id__": 9
     },
     "_N$horizontalScrollBar": null,
     "_N$verticalScrollBar": null,
@@ -774,16 +765,16 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 8
+      "__id__": 7
     },
     "_enabled": true,
     "alignMode": 1,
     "_target": null,
     "_alignFlags": 44,
-    "_left": 10.385000000000016,
-    "_right": 9.614999999999998,
+    "_left": 9.999999999999972,
+    "_right": 9.999999999999972,
     "_top": 0,
-    "_bottom": -1.2809999999999988,
+    "_bottom": 11.028999999999993,
     "_verticalCenter": 0,
     "_horizontalCenter": 0,
     "_isAbsLeft": true,
@@ -801,7 +792,7 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 7
+      "__id__": 6
     },
     "_enabled": true,
     "_materials": [
@@ -833,12 +824,12 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 7
+      "__id__": 6
     },
     "_enabled": true,
     "_layoutSize": {
       "__type__": "cc.Size",
-      "width": 644,
+      "width": 690,
       "height": 185
     },
     "_resize": 0,
@@ -865,16 +856,16 @@
     "_name": "",
     "_objFlags": 0,
     "node": {
-      "__id__": 7
+      "__id__": 6
     },
     "_enabled": true,
     "alignMode": 1,
     "_target": null,
-    "_alignFlags": 44,
-    "_left": 3.5749999999999797,
-    "_right": -3.5749999999999797,
+    "_alignFlags": 40,
+    "_left": -4.267000000000012,
+    "_right": 4.267000000000012,
     "_top": 0,
-    "_bottom": -67.93499999999995,
+    "_bottom": -208.99300000000005,
     "_verticalCenter": 0,
     "_horizontalCenter": 0,
     "_isAbsLeft": true,
@@ -886,6 +877,46 @@
     "_originalWidth": 640,
     "_originalHeight": 0,
     "_id": "0er/BGRZZEwJe8eVRCuMYo"
+  },
+  {
+    "__type__": "dragonBones.ArmatureDisplay",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 5
+    },
+    "_enabled": true,
+    "_materials": [
+      {
+        "__uuid__": "eca5d2f2-8ef6-41c2-bbe6-f9c79d09c432"
+      }
+    ],
+    "_armatureName": "chunyuanhaixianguangchang",
+    "_animationName": "newAnimation",
+    "_preCacheMode": 0,
+    "_cacheMode": 0,
+    "playTimes": -1,
+    "premultipliedAlpha": false,
+    "_armatureKey": "6aebf5d3-ded2-4bb3-831a-7b3011817ffc#07d303ae-cdfa-4d0e-9cbb-87e10c703373",
+    "_accTime": 0,
+    "_playCount": 0,
+    "_frameCache": null,
+    "_curFrame": null,
+    "_playing": false,
+    "_armatureCache": null,
+    "_N$dragonAsset": {
+      "__uuid__": "6aebf5d3-ded2-4bb3-831a-7b3011817ffc"
+    },
+    "_N$dragonAtlasAsset": {
+      "__uuid__": "07d303ae-cdfa-4d0e-9cbb-87e10c703373"
+    },
+    "_N$_defaultArmatureIndex": 0,
+    "_N$_animationIndex": 1,
+    "_N$_defaultCacheMode": 0,
+    "_N$timeScale": 1,
+    "_N$debugBones": false,
+    "_N$enableBatch": false,
+    "_id": "c1RhLRCPRPsbqnIVqHfTSt"
   },
   {
     "__type__": "cc.Canvas",
