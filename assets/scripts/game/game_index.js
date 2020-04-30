@@ -37,7 +37,16 @@ cc.Class({
         */
         //初始化所有的块
 
-        this.initItem(0);
+        //this.initItem(0);
+        this.loadResource();
+    },
+
+    loadResource() {
+        cc.loader.loadRes("background/haixianbg", cc.SpriteFrame, (err, spriteFrame) => {
+            this.spframe_puzzle = spriteFrame;
+            this.initItem(0);
+            //self.node.getComponent(cc.Sprite).spriteFrame = spriteFrame;
+        });
     },
 
     initItem(typeKey) {
