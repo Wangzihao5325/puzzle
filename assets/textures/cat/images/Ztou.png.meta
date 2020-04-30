@@ -1,6 +1,6 @@
 {
   "ver": "2.3.4",
-  "uuid": "812751fb-da61-4ad0-b594-07053ddac922",
+  "uuid": "4edf72c4-e7e6-4c6c-a925-a47b7ff95cb3",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -13,8 +13,8 @@
   "subMetas": {
     "Ztou": {
       "ver": "1.0.4",
-      "uuid": "61b00780-3b44-4049-b347-68644862bdb1",
-      "rawTextureUuid": "812751fb-da61-4ad0-b594-07053ddac922",
+      "uuid": "dd49732d-29e9-4f3c-bc65-a27c0929eb58",
+      "rawTextureUuid": "4edf72c4-e7e6-4c6c-a925-a47b7ff95cb3",
       "trimType": "auto",
       "trimThreshold": 1,
       "rotated": false,

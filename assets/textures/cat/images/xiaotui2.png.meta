@@ -1,6 +1,6 @@
 {
   "ver": "2.3.4",
-  "uuid": "215e203f-dcab-418b-bf24-95e4b5eebec5",
+  "uuid": "0347d3e6-9a87-4351-8742-efa9a89bb7b4",
   "type": "sprite",
   "wrapMode": "clamp",
   "filterMode": "bilinear",
@@ -13,8 +13,8 @@
   "subMetas": {
     "xiaotui2": {
       "ver": "1.0.4",
-      "uuid": "f3e9eda0-4973-442e-8d25-08d01549c630",
-      "rawTextureUuid": "215e203f-dcab-418b-bf24-95e4b5eebec5",
+      "uuid": "159fbf61-8bc9-45b1-b2dd-a68fd1ab9fca",
+      "rawTextureUuid": "0347d3e6-9a87-4351-8742-efa9a89bb7b4",
       "trimType": "auto",
       "trimThreshold": 1,
       "rotated": false,
