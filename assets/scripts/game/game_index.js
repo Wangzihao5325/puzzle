@@ -5,7 +5,7 @@
 // Learn life-cycle callbacks:
 //  - https://docs.cocos.com/creator/manual/en/scripting/life-cycle-callbacks.html
 
-const SIZES_0 = [[0, 0, 406, 351], [303, 0, 341, 353], [0, 351 - 13, 333, 310], [235, 353 - 90, 409, 317], [0, 857 - 362, 399, 362], [644 - 342, 857 - 369, 342, 369]];//01图片尺寸 23图片起始点坐标
+const SIZES_0 = [[0, 0, 406, 351], [303, 0, 341, 353], [0, 351 - 82, 333, 310], [235, 353 - 87, 409, 317], [0, 857 - 362, 399, 362], [644 - 342, 857 - 369, 342, 369]];//01图片尺寸 23图片起始点坐标
 const TYPES = [[2, 3], [4, 6], [6, 8]];
 const BG_WIDTH = 644;
 const BG_HEIGHT = 857;
@@ -79,7 +79,7 @@ cc.Class({
             let position = cc.v2(x_start + (2 * x_index + 1) * widthSeparate, y_start - (2 * y_index + 1) * heightSeparate);
             item_node.setPosition(position);
             let obj = item_node.getComponent('item_index');
-            console.log("obj",obj)
+            console.log("obj", obj)
             if (obj) {
                 obj.init(index);
                 obj.setSpItem(this.defaultRect(item));
