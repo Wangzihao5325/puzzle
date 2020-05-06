@@ -13,7 +13,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "item_puzzle_warp",
+    "_name": "item_puzzle_splice",
     "_objFlags": 0,
     "_parent": null,
     "_children": [
@@ -250,9 +250,9 @@
       "__id__": 1
     },
     "asset": {
-      "__uuid__": "17ec578f-559d-4d2a-935f-6f5bb1b76925"
+      "__uuid__": "756a7294-e6ed-407b-a264-15d137371a53"
     },
-    "fileId": "97gkJWpKFJGIpatoPGMNmE",
+    "fileId": "48BeslCoJCfZFY5gqbhS4O",
     "sync": false
   },
   {
@@ -293,9 +293,9 @@
       "__id__": 1
     },
     "asset": {
-      "__uuid__": "17ec578f-559d-4d2a-935f-6f5bb1b76925"
+      "__uuid__": "756a7294-e6ed-407b-a264-15d137371a53"
     },
-    "fileId": "3a3gRYE6RI4KV8LfrNF2WU",
+    "fileId": "fcs+VPnqVDbrvUu+XNVMx7",
     "sync": false
   },
   {
@@ -329,8 +329,12 @@
     "label_num": {
       "__id__": 4
     },
-    "sp_item": null,
-    "mask_item": null,
+    "sp_item": {
+      "__id__": 6
+    },
+    "mask_item": {
+      "__id__": 8
+    },
     "_id": ""
   },
   {
@@ -339,9 +343,9 @@
       "__id__": 1
     },
     "asset": {
-      "__uuid__": "17ec578f-559d-4d2a-935f-6f5bb1b76925"
+      "__uuid__": "756a7294-e6ed-407b-a264-15d137371a53"
     },
-    "fileId": "86BRQNIQhPHbzHE4zGD9LX",
+    "fileId": "dfK7ufLWVEN5LRcx3txxNe",
     "sync": false
   }
 ]

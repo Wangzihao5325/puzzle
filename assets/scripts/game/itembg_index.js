@@ -51,7 +51,7 @@ cc.Class({
 
     onLoad() {
         // this.num = 0;
-        this.setTouch();
+        // this.setTouch();
     },
 
     start() {
