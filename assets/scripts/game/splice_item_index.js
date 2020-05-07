@@ -61,6 +61,13 @@ cc.Class({
                     this.item_node.setPosition(resetPostion);
                 }
                 //todo:移回盒子代码
+                else if(outList&&this.item_node.y + delta.y<-428.5){
+                    var spliceWarp = cc.find(`Canvas/spliceWarp`)
+                    this.item_node.parent =spliceWarp
+                    this.item_node.setScale(1)
+                    const resetPostion=cc.v2(this.item_node.x + delta.x, this.item_node.y + delta.y+540)
+                    this.item_node.setPosition(resetPostion);
+                }
                 else{
                     this.item_node.setPosition(newPositin);
 
