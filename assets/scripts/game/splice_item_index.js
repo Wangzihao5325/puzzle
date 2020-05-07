@@ -48,14 +48,25 @@ cc.Class({
 
             this.node.on(cc.Node.EventType.TOUCH_MOVE, (event) => {
                 let delta = event.touch.getDelta();
-                console.log("evnt",this.item_node.x + delta.x, this.item_node.y + delta.y)
+                // console.log("evnt",this.item_node.x + delta.x, this.item_node.y + delta.y)
+                const outList = this.item_node.parent.name === 'puzzleBg'
+
                 let newPositin = cc.v2(this.item_node.x + delta.x, this.item_node.y + delta.y)
-                if(this.item_node.y + delta.y>90){
+                if(!outList&&this.item_node.y + delta.y>90){
+                    //移除范围内修改父级节点
+                    var puzzleBg = cc.find(`Canvas/puzzleWarp/puzzleBg`)
+                    this.item_node.parent =puzzleBg
                     this.item_node.setScale(4)
-                }else{
-                    this.item_node.setScale(1)
+                    const resetPostion=cc.v2(this.item_node.x + delta.x, this.item_node.y + delta.y-540)
+                    this.item_node.setPosition(resetPostion);
                 }
-                this.item_node.setPosition(newPositin);
+                //todo:移回盒子代码
+                else{
+                    this.item_node.setPosition(newPositin);
+
+                }
+
+       
             })
 
             this.node.on(cc.Node.EventType.TOUCH_CANCEL, ()=>{
@@ -69,9 +80,9 @@ cc.Class({
                 console.log("touchEnd")
                 let delta = event.touch.getDelta();
                 console.log("evnt",this.item_node.x + delta.x, this.item_node.y + delta.y)
-                this.calPostion(this.item_node.x + delta.x, this.item_node.y + delta.y-530)
+                this.calPostion(this.item_node.x + delta.x, this.item_node.y + delta.y)
 
-                this.item_node.zIndex= 1//恢复z-index
+                this.item_node.zIndex= 100//恢复z-index
                 // current_node.setScale(0.25)
     
             })
@@ -104,8 +115,7 @@ cc.Class({
             this.item_node.setPosition(newPositin)
             var item_puzzle_warp = cc.find(`Canvas/puzzleWarp/puzzleBg/item_puzzle_warp-${this.item_node.defaultIndex+1}`)
             item_puzzle_warp.active=false
-
-            var item_puzzle_splice = cc.find(`Canvas/spliceWarp/item_puzzle_splice-${this.item_node.defaultIndex+1}`)
+            var item_puzzle_splice = cc.find(`Canvas/puzzleWarp/puzzleBg/item_puzzle_splice-${this.item_node.defaultIndex+1}`)
             item_puzzle_splice.active=false
         }
     },
