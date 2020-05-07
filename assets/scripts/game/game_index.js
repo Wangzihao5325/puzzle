@@ -102,7 +102,7 @@ cc.Class({
             let position = cc.v2(item[4],item[5]);
             item_node.setPosition(position);
             let obj = item_node.getComponent('item_index');
-            console.log("obj",obj)
+            // console.log("obj",obj)
             if (obj) {
                 obj.init(index);
                 obj.setSpItem(this.defaultRect(item));

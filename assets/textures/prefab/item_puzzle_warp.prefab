@@ -319,7 +319,7 @@
     "_id": ""
   },
   {
-    "__type__": "e40a5fkRJBOM6iHvruaklE0",
+    "__type__": "1c20ajEjRlEuobGhFx20w8b",
     "_name": "",
     "_objFlags": 0,
     "node": {
@@ -329,8 +329,12 @@
     "label_num": {
       "__id__": 4
     },
-    "sp_item": null,
-    "mask_item": null,
+    "sp_item": {
+      "__id__": 6
+    },
+    "mask_item": {
+      "__id__": 8
+    },
     "_id": ""
   },
   {
