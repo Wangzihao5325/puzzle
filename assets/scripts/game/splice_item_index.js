@@ -36,42 +36,26 @@ cc.Class({
     },
 
     setTouch() {
-        this.node.on(cc.Node.EventType.TOUCH_START, () => {
-            this.item_node.zIndex= 10//拿起增加z-index
-        })
-        this.node.on(cc.Node.EventType.TOUCH_MOVE, (event) => {
-            // console.log("evnt",event)
-            if (this.item_node) {
-                let delta = event.touch.getDelta();
-                let newPositin = cc.v2(this.item_node.x + delta.x, this.item_node.y + delta.y)
-                this.item_node.setPosition(newPositin);
-            }
-        })
-        this.node.on(cc.Node.EventType.TOUCH_END, () => {
-            this.item_node.zIndex= 1//恢复z-index
-        })
-    },
-
-    setTouch() {
            
             this.node.on(cc.Node.EventType.TOUCH_START, () => {
                 const current_node=this.item_node||this.splice_item;
                 current_node.zIndex= 100//拿起增加z-index
       
-                current_node.setScale(4)
                 // current_node.setScale(4)
                 // this.scrollView.node.off(cc.Node.EventType.TOUCH_START, this.scrollView._onTouchBegan, this.scrollView, true);
                 current_node.setPropagateTouchEvents=false
             })
 
             this.node.on(cc.Node.EventType.TOUCH_MOVE, (event) => {
-                // console.log("evnt",event)
-                if (this.item_node) {
-                    let delta = event.touch.getDelta();
-                    let newPositin = cc.v2(this.item_node.x + delta.x, this.item_node.y + delta.y)
-                    this.item_node.setPosition(newPositin);
-    
+                let delta = event.touch.getDelta();
+                console.log("evnt",this.item_node.x + delta.x, this.item_node.y + delta.y)
+                let newPositin = cc.v2(this.item_node.x + delta.x, this.item_node.y + delta.y)
+                if(this.item_node.y + delta.y>90){
+                    this.item_node.setScale(4)
+                }else{
+                    this.item_node.setScale(1)
                 }
+                this.item_node.setPosition(newPositin);
             })
 
             this.node.on(cc.Node.EventType.TOUCH_CANCEL, ()=>{
@@ -81,12 +65,13 @@ cc.Class({
                 // current_node.setScale(0.25)
     
             })
-            this.node.on(cc.Node.EventType.TOUCH_END, () => {
-                const current_node=this.item_node||this.splice_item;
+            this.node.on(cc.Node.EventType.TOUCH_END, (event) => {
                 console.log("touchEnd")
-                this.calPostion(this.item_node.x , this.item_node.y -450)
+                let delta = event.touch.getDelta();
+                console.log("evnt",this.item_node.x + delta.x, this.item_node.y + delta.y)
+                this.calPostion(this.item_node.x + delta.x, this.item_node.y + delta.y-530)
 
-                current_node.zIndex= 1//恢复z-index
+                this.item_node.zIndex= 1//恢复z-index
                 // current_node.setScale(0.25)
     
             })
@@ -107,8 +92,8 @@ cc.Class({
 
     },
     //计算中心点距离
-    calPostion(x,y){
-        const adsorbPosition=150
+    calPostion(x,y,){
+        const adsorbPosition=80
         console.log("item_node",this.item_node.defaultPostion,[x,y])
         const defaultPostion=this.item_node.defaultPostion
         const defaultx=defaultPostion[0]
