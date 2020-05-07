@@ -53,49 +53,59 @@ cc.Class({
     // },
 
     setTouch() {
+           
+            this.node.on(cc.Node.EventType.TOUCH_START, () => {
+                const current_node=this.item_node||this.splice_item;
+                current_node.zIndex= 100//拿起增加z-index
+      
+                // current_node.setScale(4)
+                // this.scrollView.node.off(cc.Node.EventType.TOUCH_START, this.scrollView._onTouchBegan, this.scrollView, true);
+                current_node.setPropagateTouchEvents=false
+            })
 
-        this.node.on(cc.Node.EventType.TOUCH_START, (event) => {
-            const current_node = this.item_node || this.splice_item;
-            current_node.zIndex = 100//拿起增加z-index
-
-            current_node.setScale(4)
-            // current_node.setScale(4)
-            // this.scrollView.node.off(cc.Node.EventType.TOUCH_START, this.scrollView._onTouchBegan, this.scrollView, true);
-            current_node.setPropagateTouchEvents = false;
-            event.stopPropagation();
-        })
-
-        this.node.on(cc.Node.EventType.TOUCH_MOVE, (event) => {
-            event.stopPropagation();
-
-            // console.log("evnt",event)
-            if (this.item_node) {
+            this.node.on(cc.Node.EventType.TOUCH_MOVE, (event) => {
                 let delta = event.touch.getDelta();
+                // console.log("evnt",this.item_node.x + delta.x, this.item_node.y + delta.y)
+                const outList = this.item_node.parent.name === 'puzzleBg'
+
                 let newPositin = cc.v2(this.item_node.x + delta.x, this.item_node.y + delta.y)
-                this.item_node.setPosition(newPositin);
+                if(!outList&&this.item_node.y + delta.y>90){
+                    //移除范围内修改父级节点
+                    var puzzleBg = cc.find(`Canvas/puzzleWarp/puzzleBg`)
+                    this.item_node.parent =puzzleBg
+                    this.item_node.setScale(4)
+                    const resetPostion=cc.v2(this.item_node.x + delta.x, this.item_node.y + delta.y-540)
+                    this.item_node.setPosition(resetPostion);
+                }
+                //todo:移回盒子代码
+                else{
+                    this.item_node.setPosition(newPositin);
 
-            }
-        })
+                }
 
-        this.node.on(cc.Node.EventType.TOUCH_CANCEL, () => {
-            console.log("TOUCH_CANCEL")
+       
+            })
 
-            //移动结束
-            // current_node.setScale(0.25)
+            this.node.on(cc.Node.EventType.TOUCH_CANCEL, ()=>{
+                console.log("TOUCH_CANCEL")
+    
+                //移动结束
+                // current_node.setScale(0.25)
+    
+            })
+            this.node.on(cc.Node.EventType.TOUCH_END, (event) => {
+                console.log("touchEnd")
+                let delta = event.touch.getDelta();
+                console.log("evnt",this.item_node.x + delta.x, this.item_node.y + delta.y)
+                this.calPostion(this.item_node.x + delta.x, this.item_node.y + delta.y)
 
-        })
-        this.node.on(cc.Node.EventType.TOUCH_END, () => {
-            const current_node = this.item_node || this.splice_item;
-            console.log("touchEnd")
-            this.calPostion(this.item_node.x, this.item_node.y - 450)
-
-            current_node.zIndex = 1//恢复z-index
-            // current_node.setScale(0.25)
-
-        })
-
-
-
+                this.item_node.zIndex= 100//恢复z-index
+                // current_node.setScale(0.25)
+    
+            })
+        
+    
+   
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -110,21 +120,20 @@ cc.Class({
 
     },
     //计算中心点距离
-    calPostion(x, y) {
-        const adsorbPosition = 150
-        console.log("item_node", this.item_node.defaultPostion, [x, y])
-        const defaultPostion = this.item_node.defaultPostion
-        const defaultx = defaultPostion[0]
-        const defaulty = defaultPostion[1]
-        const distance = (defaultx - x) * (defaultx - x) + (defaulty - y) * (defaulty - y);
-        if (distance <= adsorbPosition * adsorbPosition) {
+    calPostion(x,y,){
+        const adsorbPosition=80
+        console.log("item_node",this.item_node.defaultPostion,[x,y])
+        const defaultPostion=this.item_node.defaultPostion
+        const defaultx=defaultPostion[0]
+        const defaulty=defaultPostion[1]
+        const distance = (defaultx-x)*(defaultx-x)+(defaulty-y)*(defaulty-y);
+        if(distance<=adsorbPosition*adsorbPosition){
             let newPositin = cc.v2(defaultx, defaulty)
             this.item_node.setPosition(newPositin)
-            var item_puzzle_warp = cc.find(`Canvas/puzzleWarp/puzzleBg/item_puzzle_warp-${this.item_node.defaultIndex + 1}`)
-            item_puzzle_warp.active = false
-
-            var item_puzzle_splice = cc.find(`Canvas/spliceWarp/item_puzzle_splice-${this.item_node.defaultIndex + 1}`)
-            item_puzzle_splice.active = false
+            var item_puzzle_warp = cc.find(`Canvas/puzzleWarp/puzzleBg/item_puzzle_warp-${this.item_node.defaultIndex+1}`)
+            item_puzzle_warp.active=false
+            var item_puzzle_splice = cc.find(`Canvas/puzzleWarp/puzzleBg/item_puzzle_splice-${this.item_node.defaultIndex+1}`)
+            item_puzzle_splice.active=false
         }
     },
 
