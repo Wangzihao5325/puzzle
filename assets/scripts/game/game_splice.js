@@ -5,7 +5,8 @@
 // Learn life-cycle callbacks:
 //  - https://docs.cocos.com/creator/manual/en/scripting/life-cycle-callbacks.html
 
-const SIZES_0 = [[0, 0, 406, 351], [303, 0, 341, 353], [0, 351 - 82, 333, 310], [235, 353 - 87, 409, 317], [0, 857 - 362, 399, 362], [644 - 342, 857 - 369, 342, 369]];//01图片尺寸 23图片起始点坐标
+const SIZES_0 = [[0, 0, 406, 351, -119, 253], [303, 0, 341, 353, 151.5, 252], [0, 351 - 82, 333, 310, -155.5, 4.5], [235, 353 - 87, 409, 317, 117.5, 4], [0, 857 - 362, 399, 362, -122.5, -247.5], [644 - 342, 857 - 369, 342, 369, 151, -244]];
+
 const TYPES = [[2, 3], [4, 6], [6, 8]];
 const BG_WIDTH = 644;
 const BG_HEIGHT = 857;
@@ -19,6 +20,7 @@ cc.Class({
         game_bg: cc.Node,
         pre_item: cc.Prefab,
         spframe_puzzle: cc.SpriteFrame,
+        puzzle_bg: cc.Node,
         // sp_puzzle: cc.Sprite
     },
 
@@ -28,8 +30,8 @@ cc.Class({
 
     init() {
         //设置绿色背景布
-        this.game_bg.width = 640;
-        this.game_bg.height = 1136;
+        this.game_bg.width = 800;
+        this.game_bg.height = 180;
         // let item_node = cc.instantiate(this.pre_item);
         // item_node.parent = this.game_bg;
 
@@ -58,19 +60,23 @@ cc.Class({
         //遍历size根据size生成item
         sizeArr.forEach((item, index) => {
             let item_node = cc.instantiate(this.pre_item);
-            item_node.width = item[2];
-            item_node.height = item[3];
+            item_node.width = item[2]*0.25;
+            item_node.height = item[3]*0.25;
+            item_node.name=`item_puzzle_splice-${index+1}`
+            item_node.defaultIndex=`${index+1}`
+            item_node.defaultPostion=[item[4],item[5]]
+            item_node.defaultIndex=index
             // console.log("item_node.getComponent('item_puzzle')",item_node.getComponent('item_puzzle'))
-            // item_node.getComponent('item_puzzle').width = item[2];
-            // item_node.getComponent('item_puzzle').height = item[3];
+            item_node.getChildByName('item_puzzle').width = item[2]*.25;
+            item_node.getChildByName('item_puzzle').height = item[3]*.25;
             item_node.parent = this.game_bg;
             let y_index = Math.floor(index / type[0]);
             let x_index = index % type[0];
             //一负一正是为了块排列顺序与切割顺序一致
             let position = cc.v2(-344+(140*index)+20, 0);
             item_node.setPosition(position);
-            let obj = item_node.getComponent('item_index');
-            console.log("obj",obj)
+            let obj = item_node.getComponent('splice_item_index');
+            // console.log("obj",obj)
             if (obj) {
                 obj.init(index);
                 obj.setSpItem(this.defaultRect(item));

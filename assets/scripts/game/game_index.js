@@ -6,7 +6,11 @@
 //  - https://docs.cocos.com/creator/manual/en/scripting/life-cycle-callbacks.html
 
 const SIZES_1 = [[0, 0, 406, 351, -119, 253], [303, 0, 341, 353, 151.5, 252], [0, 351 - 82, 333, 310, -155.5, 4.5], [235, 353 - 87, 409, 317, 117.5, 4], [0, 857 - 362, 399, 362, -122.5, -247.5], [644 - 342, 857 - 369, 342, 369, 151, -244]];
+<<<<<<< HEAD
 const SIZES_0 = [
+=======
+const SIZES_0=[
+>>>>>>> temp
     [0, 0, 198, 180, -223, 338.5],
     [150, 0, 177, 148, -83.5, 354.5],
     [279, 0, 238, 178, 76, 339.5],
@@ -102,7 +106,7 @@ cc.Class({
             let position = cc.v2(item[4], item[5]);
             item_node.setPosition(position);
             let obj = item_node.getComponent('item_index');
-            console.log("obj", obj)
+            // console.log("obj",obj)
             if (obj) {
                 obj.init(index);
                 obj.setSpItem(this.defaultRect(item));

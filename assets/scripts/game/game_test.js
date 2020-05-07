@@ -46,6 +46,7 @@ cc.Class({
         //遍历size根据size生成item
         sizeArr.forEach((item, index) => {
             let item_node = cc.instantiate(this.pre_item);
+            item_node.name=`item_puzzle_warp-${index+1}`
             item_node.width = item[2];
             item_node.height = item[3];
             // console.log("item_node.getComponent('item_puzzle')",item_node.getComponent('item_puzzle'))

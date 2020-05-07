@@ -19,6 +19,7 @@ cc.Class({
     },
 
     setMarsk(index){
+        // var urls=['2x3-1/1','2x3-1/2','2x3-1/3','2x3-1/4','2x3-1/5','2x3-1/6']
         var urls = ['4x6/01', '4x6/02','4x6/03', '4x6/04','4x6/05', '4x6/06','4x6/07', '4x6/08','4x6/09', '4x6/10','4x6/11', '4x6/12','4x6/13', '4x6/14','4x6/15', '4x6/16','4x6/17', '4x6/18','4x6/19', '4x6/20','4x6/21', '4x6/22','4x6/23', '4x6/24',];
         const self = this;
         cc.loader.loadResArray(urls, cc.SpriteFrame, function (err, assets) {
@@ -26,7 +27,7 @@ cc.Class({
                 cc.error(err);
                 return;
             }
-            console.log("assets",assets)
+            // console.log("assets",assets)
             self.mask_item.spriteFrame = assets[index]
         });
     },
@@ -34,7 +35,7 @@ cc.Class({
     setTouch() {
         this.node.on(cc.Node.EventType.TOUCH_START, () => {
             this.item_node.zIndex= 100000000//拿起增加z-index
-            // this.item_node.setScale(1)
+            // this.item_node.setScale(4)
             this.item_node.setPropagateTouchEvents=false
         })
         this.node.on(cc.Node.EventType.TOUCH_MOVE, (event) => {
@@ -48,13 +49,13 @@ cc.Class({
             console.log("TOUCH_CANCEL")
 
             //移动结束
-            // this.item_node.setScale(0.3)
+            // this.item_node.setScale(0.25)
 
         })
         this.node.on(cc.Node.EventType.TOUCH_END, () => {
             console.log("touchEnd")
             this.item_node.zIndex= 1//恢复z-index
-            // this.item_node.setScale(0.3)
+            // this.item_node.setScale(0.25)
 
         })
     },
@@ -62,6 +63,7 @@ cc.Class({
     // LIFE-CYCLE CALLBACKS:
 
     onLoad() {
+        // this.node.zIndex=10000;
         this.num = 0;
         this.setTouch();
     },
