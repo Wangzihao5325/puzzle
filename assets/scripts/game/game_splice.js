@@ -29,9 +29,18 @@ cc.Class({
     },
 
     init() {
-        //设置绿色背景布
+        //设置底部小块区域
         this.game_bg.width = 800;
         this.game_bg.height = 180;
+        this.game_bg.on(cc.Node.EventType.TOUCH_MOVE, (event) => {
+            if (this.game_bg) {
+                let delta = event.touch.getDelta();
+                if ((this.game_bg.x + delta.x < 156) && (this.game_bg.x + delta.x > - 156)) {
+                    let newPositin = cc.v2(this.game_bg.x + delta.x, this.game_bg.y)
+                    this.game_bg.setPosition(newPositin);
+                }
+            }
+        });
         // let item_node = cc.instantiate(this.pre_item);
         // item_node.parent = this.game_bg;
 
@@ -60,20 +69,20 @@ cc.Class({
         //遍历size根据size生成item
         sizeArr.forEach((item, index) => {
             let item_node = cc.instantiate(this.pre_item);
-            item_node.width = item[2]*0.25;
-            item_node.height = item[3]*0.25;
-            item_node.name=`item_puzzle_splice-${index+1}`
-            item_node.defaultIndex=`${index+1}`
-            item_node.defaultPostion=[item[4],item[5]]
-            item_node.defaultIndex=index
+            item_node.width = item[2] * 0.25;
+            item_node.height = item[3] * 0.25;
+            item_node.name = `item_puzzle_splice-${index + 1}`
+            item_node.defaultIndex = `${index + 1}`
+            item_node.defaultPostion = [item[4], item[5]]
+            item_node.defaultIndex = index
             // console.log("item_node.getComponent('item_puzzle')",item_node.getComponent('item_puzzle'))
-            item_node.getChildByName('item_puzzle').width = item[2]*.25;
-            item_node.getChildByName('item_puzzle').height = item[3]*.25;
+            item_node.getChildByName('item_puzzle').width = item[2] * .25;
+            item_node.getChildByName('item_puzzle').height = item[3] * .25;
             item_node.parent = this.game_bg;
             let y_index = Math.floor(index / type[0]);
             let x_index = index % type[0];
             //一负一正是为了块排列顺序与切割顺序一致
-            let position = cc.v2(-344+(140*index)+20, 0);
+            let position = cc.v2(-344 + (140 * index) + 20, 0);
             item_node.setPosition(position);
             let obj = item_node.getComponent('splice_item_index');
             // console.log("obj",obj)
@@ -92,11 +101,5 @@ cc.Class({
         let spframe_puzzle_clone = this.spframe_puzzle.clone();
         spframe_puzzle_clone.setRect(rect);
         return spframe_puzzle_clone
-    },
-
-
-    picCut() {
-        let rect = new cc.Rect(0, 0, 406, 351);
-        this.spframe_puzzle.setRect(rect);
     },
 });

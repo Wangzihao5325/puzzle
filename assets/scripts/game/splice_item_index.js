@@ -8,7 +8,7 @@ cc.Class({
         label_num: cc.Label,
         sp_item: cc.Sprite,
         mask_item: cc.Mask,
-        splice_item:cc.Node,
+        splice_item: cc.Node,
 
     },
 
@@ -21,8 +21,8 @@ cc.Class({
         this.sp_item.spriteFrame = spt
     },
 
-    setMarsk(index){
-        var urls=['2x3-1/1','2x3-1/2','2x3-1/3','2x3-1/4','2x3-1/5','2x3-1/6']
+    setMarsk(index) {
+        var urls = ['2x3-1/1', '2x3-1/2', '2x3-1/3', '2x3-1/4', '2x3-1/5', '2x3-1/6']
         // var urls = ['4x6/01', '4x6/02','4x6/03', '4x6/04','4x6/05', '4x6/06','4x6/07', '4x6/08','4x6/09', '4x6/10','4x6/11', '4x6/12','4x6/13', '4x6/14','4x6/15', '4x6/16','4x6/17', '4x6/18','4x6/19', '4x6/20','4x6/21', '4x6/22','4x6/23', '4x6/24',];
         const self = this;
         cc.loader.loadResArray(urls, cc.SpriteFrame, function (err, assets) {
@@ -30,10 +30,27 @@ cc.Class({
                 cc.error(err);
                 return;
             }
-            console.log("assets",assets)
+            console.log("assets", assets)
             self.mask_item.spriteFrame = assets[index]
         });
     },
+
+    // setTouch() {
+    //     this.node.on(cc.Node.EventType.TOUCH_START, () => {
+    //         this.item_node.zIndex= 10//拿起增加z-index
+    //     })
+    //     this.node.on(cc.Node.EventType.TOUCH_MOVE, (event) => {
+    //         // console.log("evnt",event)
+    //         if (this.item_node) {
+    //             let delta = event.touch.getDelta();
+    //             let newPositin = cc.v2(this.item_node.x + delta.x, this.item_node.y + delta.y)
+    //             this.item_node.setPosition(newPositin);
+    //         }
+    //     })
+    //     this.node.on(cc.Node.EventType.TOUCH_END, () => {
+    //         this.item_node.zIndex= 1//恢复z-index
+    //     })
+    // },
 
     setTouch() {
            

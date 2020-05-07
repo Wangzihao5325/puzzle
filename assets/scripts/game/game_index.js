@@ -99,7 +99,7 @@ cc.Class({
             let y_index = Math.floor(index / type[0]);
             let x_index = index % type[0];
             //一负一正是为了块排列顺序与切割顺序一致
-            let position = cc.v2(item[4],item[5]);
+            let position = cc.v2(item[4], item[5]);
             item_node.setPosition(position);
             let obj = item_node.getComponent('item_index');
             // console.log("obj",obj)
