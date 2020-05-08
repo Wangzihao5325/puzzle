@@ -6,6 +6,8 @@ cc.Class({
     properties: {
         game_bg: cc.Node,
         pre_item: cc.Prefab,
+        splice_warp: cc.Prefab,
+        game_root: cc.Node,
     },
 
     onLoad() {
@@ -14,7 +16,8 @@ cc.Class({
 
     init() {
         this.game_bg.zIndex = 1;
-        this.initItem()
+        this.initItem(1);
+        this.initSpliceWarp(1);
     },
 
     initItem(hardLevel = 0) {// hardLevel: 0->2*3; 1->4*6; 2->6*8
@@ -41,6 +44,18 @@ cc.Class({
                 obj.item_node = item_node;
             }
         });
+    },
+
+    initSpliceWarp(hardLevel = 0) {
+        let spliceWarp_node = cc.instantiate(this.splice_warp);
+        spliceWarp_node.width = 800;
+        spliceWarp_node.height = 180;
+        spliceWarp_node.parent = this.game_root;
+        spliceWarp_node.setPosition(0, -450);
+        let obj = spliceWarp_node.getComponent('game_splice');
+        if (obj) {
+            obj.init(hardLevel);
+        }
     },
 
     start() {
