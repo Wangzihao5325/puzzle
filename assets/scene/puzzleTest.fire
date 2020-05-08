@@ -78,13 +78,13 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 15
+        "__id__": 10
       },
       {
-        "__id__": 16
+        "__id__": 11
       },
       {
-        "__id__": 17
+        "__id__": 12
       }
     ],
     "_prefab": null,
@@ -243,15 +243,12 @@
     "_children": [
       {
         "__id__": 6
-      },
-      {
-        "__id__": 9
       }
     ],
     "_active": true,
     "_components": [
       {
-        "__id__": 14
+        "__id__": 9
       }
     ],
     "_prefab": null,
@@ -439,8 +436,8 @@
         "__uuid__": "eca5d2f2-8ef6-41c2-bbe6-f9c79d09c432"
       }
     ],
-    "_armatureName": "chunyuanhaixianguangchang",
-    "_animationName": "newAnimation",
+    "_armatureName": "",
+    "_animationName": "",
     "_preCacheMode": 0,
     "_cacheMode": 0,
     "playTimes": -1,
@@ -452,181 +449,15 @@
     "_curFrame": null,
     "_playing": false,
     "_armatureCache": null,
-    "_N$dragonAsset": {
-      "__uuid__": "6aebf5d3-ded2-4bb3-831a-7b3011817ffc"
-    },
-    "_N$dragonAtlasAsset": {
-      "__uuid__": "07d303ae-cdfa-4d0e-9cbb-87e10c703373"
-    },
+    "_N$dragonAsset": null,
+    "_N$dragonAtlasAsset": null,
     "_N$_defaultArmatureIndex": 0,
-    "_N$_animationIndex": 1,
+    "_N$_animationIndex": 0,
     "_N$_defaultCacheMode": 0,
     "_N$timeScale": 1,
     "_N$debugBones": false,
     "_N$enableBatch": false,
     "_id": "c1RhLRCPRPsbqnIVqHfTSt"
-  },
-  {
-    "__type__": "cc.Node",
-    "_name": "spliceWarp",
-    "_objFlags": 0,
-    "_parent": {
-      "__id__": 5
-    },
-    "_children": [],
-    "_active": false,
-    "_components": [
-      {
-        "__id__": 10
-      },
-      {
-        "__id__": 11
-      },
-      {
-        "__id__": 12
-      }
-    ],
-    "_prefab": {
-      "__id__": 13
-    },
-    "_opacity": 255,
-    "_color": {
-      "__type__": "cc.Color",
-      "r": 255,
-      "g": 255,
-      "b": 255,
-      "a": 255
-    },
-    "_contentSize": {
-      "__type__": "cc.Size",
-      "width": 200,
-      "height": 150
-    },
-    "_anchorPoint": {
-      "__type__": "cc.Vec2",
-      "x": 0.5,
-      "y": 0.5
-    },
-    "_trs": {
-      "__type__": "TypedArray",
-      "ctor": "Float64Array",
-      "array": [
-        6.039,
-        -450,
-        0,
-        0,
-        0,
-        0,
-        1,
-        1,
-        1,
-        1
-      ]
-    },
-    "_eulerAngles": {
-      "__type__": "cc.Vec3",
-      "x": 0,
-      "y": 0,
-      "z": 0
-    },
-    "_skewX": 0,
-    "_skewY": 0,
-    "_is3DNode": false,
-    "_groupIndex": 0,
-    "groupIndex": 0,
-    "_id": "39WS7mU1NFTpYAtON7eCk7"
-  },
-  {
-    "__type__": "cc.Sprite",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 9
-    },
-    "_enabled": true,
-    "_materials": [
-      {
-        "__uuid__": "eca5d2f2-8ef6-41c2-bbe6-f9c79d09c432"
-      }
-    ],
-    "_srcBlendFactor": 770,
-    "_dstBlendFactor": 771,
-    "_spriteFrame": {
-      "__uuid__": "9bbda31e-ad49-43c9-aaf2-f7d9896bac69"
-    },
-    "_type": 1,
-    "_sizeMode": 0,
-    "_fillType": 0,
-    "_fillCenter": {
-      "__type__": "cc.Vec2",
-      "x": 0,
-      "y": 0
-    },
-    "_fillStart": 0,
-    "_fillRange": 0,
-    "_isTrimmedMode": true,
-    "_atlas": null,
-    "_id": "4dLD8/4RxF6rLRI6jtHzDT"
-  },
-  {
-    "__type__": "cc.Layout",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 9
-    },
-    "_enabled": true,
-    "_layoutSize": {
-      "__type__": "cc.Size",
-      "width": 200,
-      "height": 150
-    },
-    "_resize": 0,
-    "_N$layoutType": 0,
-    "_N$cellSize": {
-      "__type__": "cc.Size",
-      "width": 40,
-      "height": 40
-    },
-    "_N$startAxis": 0,
-    "_N$paddingLeft": 0,
-    "_N$paddingRight": 20,
-    "_N$paddingTop": 0,
-    "_N$paddingBottom": 0,
-    "_N$spacingX": 0,
-    "_N$spacingY": 0,
-    "_N$verticalDirection": 1,
-    "_N$horizontalDirection": 0,
-    "_N$affectedByScale": false,
-    "_id": "f6L8YYdXlFgIsYBe0yGnKy"
-  },
-  {
-    "__type__": "c9fa87l+69GNawRx21r/7Fn",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 9
-    },
-    "_enabled": true,
-    "game_bg": {
-      "__id__": 9
-    },
-    "pre_item": {
-      "__uuid__": "756a7294-e6ed-407b-a264-15d137371a53"
-    },
-    "spframe_puzzle": {
-      "__uuid__": "827bdc23-9010-4440-a9ab-23cb6346a0d9"
-    },
-    "_id": "c8UVZEtpVIwYOK/nIGUGL8"
-  },
-  {
-    "__type__": "cc.PrefabInfo",
-    "root": {
-      "__id__": 9
-    },
-    "asset": null,
-    "fileId": "39WS7mU1NFTpYAtON7eCk7",
-    "sync": false
   },
   {
     "__type__": "cc.Sprite",
@@ -721,8 +552,11 @@
     "splice_warp": {
       "__uuid__": "b9b11687-4b9e-491b-8628-b1341a4ea1f8"
     },
-    "canvas": {
-      "__id__": 15
+    "game_root": {
+      "__id__": 5
+    },
+    "dragonBone": {
+      "__id__": 8
     },
     "_id": "68I6IaCFZFQo/RQNEWK4om"
   }

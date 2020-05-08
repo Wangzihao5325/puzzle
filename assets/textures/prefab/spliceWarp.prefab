@@ -157,9 +157,7 @@
     "pre_item": {
       "__uuid__": "756a7294-e6ed-407b-a264-15d137371a53"
     },
-    "spframe_puzzle": {
-      "__uuid__": "827bdc23-9010-4440-a9ab-23cb6346a0d9"
-    },
+    "spframe_puzzle": null,
     "_id": ""
   },
   {
@@ -168,7 +166,7 @@
       "__id__": 1
     },
     "asset": {
-      "__id__": 0
+      "__uuid__": "b9b11687-4b9e-491b-8628-b1341a4ea1f8"
     },
     "fileId": "39WS7mU1NFTpYAtON7eCk7",
     "sync": false

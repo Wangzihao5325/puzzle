@@ -9,19 +9,37 @@ cc.Class({
         spframe_puzzle: cc.SpriteFrame,
     },
 
-    init(hardLevel) {
+    loadingPic() {
+        cc.loader.loadRes("background/haixianbg", cc.SpriteFrame, (err, spriteFrame) => {
+            this.spframe_puzzle = spriteFrame;
+            this.initItem(0);
+            //self.node.getComponent(cc.Sprite).spriteFrame = spriteFrame;
+        });
+    },
+
+    init(hardLevel, imagePath) {
         /* 设置底部栏的水平滑动*/
         this.game_bg.on(cc.Node.EventType.TOUCH_MOVE, (event) => {
             if (this.game_bg) {
                 let delta = event.touch.getDelta();
-                if ((this.game_bg.x + delta.x < 156) && (this.game_bg.x + delta.x > - 156)) {
+                if ((this.game_bg.x + delta.x < this.game_bg.width - 322) && (this.game_bg.x + delta.x > 322 - this.game_bg.width)) {
                     let newPositin = cc.v2(this.game_bg.x + delta.x, this.game_bg.y)
                     this.game_bg.setPosition(newPositin);
                 }
             }
         });
-        /*初始化所有的块*/
-        this.initItem(hardLevel);
+
+        /*动态加载资源*/
+        cc.loader.loadRes(imagePath, cc.SpriteFrame, (err, spriteFrame) => {
+            if (spriteFrame) {
+                this.spframe_puzzle = spriteFrame;
+                /*初始化所有的块*/
+                this.initItem(hardLevel);
+            } else {
+                cc.error(err);
+            }
+        });
+
     },
 
     initItem(hardLevel) {

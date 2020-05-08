@@ -8,6 +8,10 @@ cc.Class({
         pre_item: cc.Prefab,
         splice_warp: cc.Prefab,
         game_root: cc.Node,
+        dragonBone: {
+            default: null,
+            type: dragonBones.ArmatureDisplay
+        }
     },
 
     onLoad() {
@@ -15,9 +19,18 @@ cc.Class({
     },
 
     init() {
+        const hardLevel = 0;
+        const imagePath = "background/haixianbg";
+        const animatePayload = {
+            animatePath: "dragonBones/chunyuanhaixianguangchang/chunyuanhaixianguangchang_tex.json",
+            animatePath2: "dragonBones/chunyuanhaixianguangchang/chunyuanhaixianguangchang_ske.json",
+            armature: "chunyuanhaixianguangchang",
+            animate: "newAnimation",
+        };
         this.game_bg.zIndex = 1;
-        this.initItem(1);
-        this.initSpliceWarp(1);
+        this.initItem(hardLevel);
+        this.initSpliceWarp(hardLevel, imagePath);
+        this.initBgAnimate(animatePayload);
     },
 
     initItem(hardLevel = 0) {// hardLevel: 0->2*3; 1->4*6; 2->6*8
@@ -46,16 +59,33 @@ cc.Class({
         });
     },
 
-    initSpliceWarp(hardLevel = 0) {
+    initSpliceWarp(hardLevel = 0, imagePath) {
         let spliceWarp_node = cc.instantiate(this.splice_warp);
-        spliceWarp_node.width = 800;
+        let sizeArr = SIZES[hardLevel];
+        spliceWarp_node.width = sizeArr.length * 140 + 20;
         spliceWarp_node.height = 180;
         spliceWarp_node.parent = this.game_root;
         spliceWarp_node.setPosition(0, -450);
         let obj = spliceWarp_node.getComponent('game_splice');
         if (obj) {
-            obj.init(hardLevel);
+            obj.init(hardLevel, imagePath);
         }
+    },
+
+    initBgAnimate(animatePayload) {
+        if (this.dragonBone.dragonAtlasAsset) {
+            return;
+        }
+        cc.loader.loadRes(animatePayload.animatePath, dragonBones.DragonBonesAtlasAsset, (err, res) => {
+            if (err) cc.error(err);
+            this.dragonBone.dragonAtlasAsset = res;
+            cc.loader.loadRes(animatePayload.animatePath2, dragonBones.DragonBonesAsset, (err, res) => {
+                if (err) cc.error(err);
+                this.dragonBone.dragonAsset = res;
+                this.dragonBone.armatureName = animatePayload.armature;
+                this.dragonBone.playAnimation(animatePayload.animate, 0);
+            });
+        });
     },
 
     start() {
