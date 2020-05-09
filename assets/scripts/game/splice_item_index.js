@@ -34,10 +34,11 @@ cc.Class({
     },
 
     setTouch() {
-        this.node.on(cc.Node.EventType.TOUCH_START, () => {
+        this.node.on(cc.Node.EventType.TOUCH_START, (event) => {
             const current_node = this.item_node || this.splice_item;
             current_node.zIndex = 100;//拿起增加z-index
             current_node.setPropagateTouchEvents = false;
+            event.stopPropagation();
         })
 
         this.node.on(cc.Node.EventType.TOUCH_MOVE, (event) => {
@@ -64,12 +65,14 @@ cc.Class({
                 this.item_node.setPosition(newPositin);
 
             }
+            event.stopPropagation();
         })
 
         this.node.on(cc.Node.EventType.TOUCH_END, (event) => {
             let delta = event.touch.getDelta();
             this.calPostion(this.item_node.x + delta.x, this.item_node.y + delta.y);
             this.item_node.zIndex = 100;//恢复z-index
+            event.stopPropagation();
         })
     },
 
