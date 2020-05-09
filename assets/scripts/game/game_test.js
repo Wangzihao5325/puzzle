@@ -1,4 +1,4 @@
-import { SIZES } from '../global/piece_index';
+import { SIZES, LEVEL } from '../global/piece_index';
 
 cc.Class({
     extends: cc.Component,
@@ -19,7 +19,7 @@ cc.Class({
     },
 
     init() {
-        const hardLevel = 2;
+        const hardLevel = LEVEL.EASY;
         const imagePath = "background/haixianbg";
         const animatePayload = {
             animatePath: "dragonBones/chunyuanhaixianguangchang/chunyuanhaixianguangchang_tex.json",
@@ -33,7 +33,7 @@ cc.Class({
         this.initBgAnimate(animatePayload);
     },
 
-    initItem(hardLevel = 0) {// hardLevel: 0->2*3; 1->4*6; 2->6*8
+    initItem(hardLevel = LEVEL.EASY) {// hardLevel: 0->2*3; 1->4*6; 2->6*8
         /*根据难度获取切片数据数组*/
         let sizeArr = SIZES[hardLevel];
         /*遍历sizeArr生成item*/
@@ -59,7 +59,7 @@ cc.Class({
         });
     },
 
-    initSpliceWarp(hardLevel = 0, imagePath) {
+    initSpliceWarp(hardLevel = LEVEL.EASY, imagePath) {
         let spliceWarp_node = cc.instantiate(this.splice_warp);
         let sizeArr = SIZES[hardLevel];
         spliceWarp_node.width = sizeArr.length * 140 + 20;

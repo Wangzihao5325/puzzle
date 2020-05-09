@@ -1,4 +1,4 @@
-import { MASK_RESOUSE } from '../global/piece_index';
+import { MASK_RESOUSE, LEVEL } from '../global/piece_index';
 
 cc.Class({
     extends: cc.Component,
@@ -8,7 +8,7 @@ cc.Class({
         sp_item: cc.Sprite,
         mask_item: cc.Mask,
         splice_item: cc.Node,
-
+        isMove: cc.boolean
     },
 
     init(num) {
@@ -33,7 +33,7 @@ cc.Class({
         });
     },
 
-    setTouch() {
+    setTouch(hardLevel) {
         this.node.on(cc.Node.EventType.TOUCH_START, (event) => {
             const current_node = this.item_node || this.splice_item;
             current_node.zIndex = 100;//拿起增加z-index
@@ -42,6 +42,7 @@ cc.Class({
         })
 
         this.node.on(cc.Node.EventType.TOUCH_MOVE, (event) => {
+            this.isMove = true;
             let delta = event.touch.getDelta();
             const outList = this.item_node.parent.name === 'puzzleBg';
             let newPositin = cc.v2(this.item_node.x + delta.x, this.item_node.y + delta.y);
@@ -69,21 +70,25 @@ cc.Class({
         })
 
         this.node.on(cc.Node.EventType.TOUCH_END, (event) => {
+            if (hardLevel == LEVEL.HARD && !this.isMove) {
+                this.item_node.rotation = (this.item_node.rotation + 90) % 360;
+            }
             let delta = event.touch.getDelta();
-            this.calPostion(this.item_node.x + delta.x, this.item_node.y + delta.y);
+            this.calPostion(this.item_node.x + delta.x, this.item_node.y + delta.y, this.item_node.rotation);
             this.item_node.zIndex = 100;//恢复z-index
+            this.isMove = false;
             event.stopPropagation();
         })
     },
 
     /*计算中心点距离*/
-    calPostion(x, y) {
+    calPostion(x, y, rotation) {
         const adsorbPosition = 80;
         const defaultPostion = this.item_node.defaultPostion;
         const defaultx = defaultPostion[0];
         const defaulty = defaultPostion[1];
         const distance = (defaultx - x) * (defaultx - x) + (defaulty - y) * (defaulty - y);
-        if (distance <= adsorbPosition * adsorbPosition) {
+        if (distance <= adsorbPosition * adsorbPosition && rotation == 0) {
             let newPositin = cc.v2(defaultx, defaulty);
             this.item_node.setPosition(newPositin);
             var item_puzzle_warp = cc.find(`Canvas/root/puzzleWarp/puzzleBg/item_puzzle_warp-${this.item_node.defaultIndex + 1}`);
@@ -92,5 +97,12 @@ cc.Class({
             item_puzzle_splice.active = false;
         }
     },
+
+    setRandomRotation(hardLevel) {
+        if (hardLevel == LEVEL.HARD) {
+            let randomNum = Math.floor(4 * Math.random()) * 90;
+            this.item_node.rotation = randomNum;
+        }
+    }
 
 });
