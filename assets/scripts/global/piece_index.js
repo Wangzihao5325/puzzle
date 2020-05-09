@@ -50,11 +50,17 @@ const MASK_RESOUSE = [MASK_PIECE2_3, MASK_PIECE4_6, MASK_PIECE6_8];
 const TYPES = [[2, 3], [4, 6], [6, 8]];
 const PIC_WIDTH = 644;
 const PIC_HEIGHT = 857;
+const LEVEL = {
+    EASY: 0,
+    NORMAL: 1,
+    HARD: 2
+}
 
 export default {
     SIZES,
     MASK_RESOUSE,
     TYPES,
     PIC_WIDTH,
-    PIC_HEIGHT
+    PIC_HEIGHT,
+    LEVEL
 };

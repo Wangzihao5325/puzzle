@@ -1,4 +1,4 @@
-import { SIZES, TYPES } from '../global/piece_index';
+import { SIZES } from '../global/piece_index';
 
 cc.Class({
     extends: cc.Component,
@@ -64,15 +64,18 @@ cc.Class({
 
             let obj = item_node.getComponent('splice_item_index');
             if (obj) {
+                /*保存引用*/
+                obj.item_node = item_node;
                 //设置切片编号，便于测试
                 obj.init(index);
                 /*底图切片*/
                 obj.setSpItem(this.defaultRect(item));
                 /*添加蒙版*/
                 obj.setMarsk(index, hardLevel);
-                obj.setTouch();
-                /*保存引用*/
-                obj.item_node = item_node;
+                /*拖拽手势+高难度下的旋转手势*/
+                obj.setTouch(hardLevel);
+                /*设置随机旋转*/
+                obj.setRandomRotation(hardLevel);
             }
         });
     },
