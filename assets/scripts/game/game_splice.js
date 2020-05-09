@@ -1,4 +1,4 @@
-import { SIZES } from '../global/piece_index';
+import { SIZES,SCALELEAVEL } from '../global/piece_index';
 
 cc.Class({
     extends: cc.Component,
@@ -45,18 +45,19 @@ cc.Class({
     initItem(hardLevel) {
         /*根据难度取对应切片数据*/
         let sizeArr = SIZES[hardLevel];
+        const scalLeavel= SCALELEAVEL[hardLevel]
+        console.log("scalLeavel",scalLeavel)
         //遍历size根据size生成item
         sizeArr.forEach((item, index) => {
             let item_node = cc.instantiate(this.pre_item);
-
-            item_node.width = item[2] * 0.25;
-            item_node.height = item[3] * 0.25;
+            item_node.width = item[2] * scalLeavel;
+            item_node.height = item[3] * scalLeavel;
             item_node.name = `item_puzzle_splice-${index + 1}`
             item_node.defaultIndex = `${index + 1}`
             item_node.defaultPostion = [item[4], item[5]]
             item_node.defaultIndex = index
-            item_node.getChildByName('item_puzzle').width = item[2] * .25;
-            item_node.getChildByName('item_puzzle').height = item[3] * .25;
+            item_node.getChildByName('item_puzzle').width = item[2] * scalLeavel;
+            item_node.getChildByName('item_puzzle').height = item[3] * scalLeavel;
             item_node.parent = this.game_bg;
             //应该要根据规格进行优化
             let position = cc.v2(-344 + (140 * index) + 20, 0);
@@ -71,7 +72,7 @@ cc.Class({
                 /*底图切片*/
                 obj.setSpItem(this.defaultRect(item));
                 /*添加蒙版*/
-                obj.setMarsk(index, hardLevel);
+                obj.setMarsk(item[6], hardLevel);
                 /*拖拽手势+高难度下的旋转手势*/
                 obj.setTouch(hardLevel);
                 /*设置随机旋转*/

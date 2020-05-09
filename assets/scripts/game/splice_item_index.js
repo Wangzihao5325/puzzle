@@ -1,4 +1,4 @@
-import { MASK_RESOUSE, LEVEL } from '../global/piece_index';
+import { MASK_RESOUSE, LEVEL,SCALELEAVEL } from '../global/piece_index';
 
 cc.Class({
     extends: cc.Component,
@@ -50,7 +50,7 @@ cc.Class({
                 /*移除范围内修改父级节点*/
                 var puzzleBg = cc.find(`Canvas/root/puzzleWarp/puzzleBg`);
                 this.item_node.parent = puzzleBg;
-                this.item_node.setScale(4);
+                this.item_node.setScale(1/SCALELEAVEL[hardLevel]);
                 const resetPostion = cc.v2(this.item_node.x + delta.x, this.item_node.y + delta.y - 540);
                 this.item_node.setPosition(resetPostion);
             }
