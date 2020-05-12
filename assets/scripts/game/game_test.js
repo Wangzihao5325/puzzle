@@ -19,7 +19,7 @@ cc.Class({
     },
 
     init() {
-        const hardLevel = LEVEL.EASY;
+        const hardLevel = LEVEL.HARD;
         const imagePath = "background/haixianbg";
         const animatePayload = {
             animatePath: "dragonBones/chunyuanhaixianguangchang/chunyuanhaixianguangchang_tex.json",
