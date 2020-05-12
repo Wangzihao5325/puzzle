@@ -78,13 +78,13 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 33
-      },
-      {
         "__id__": 34
       },
       {
         "__id__": 35
+      },
+      {
+        "__id__": 36
       }
     ],
     "_prefab": null,
@@ -174,7 +174,7 @@
       "array": [
         0,
         0,
-        445.1370575452015,
+        529.141521712292,
         0,
         0,
         0,
@@ -251,7 +251,7 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 32
+        "__id__": 33
       }
     ],
     "_prefab": null,
@@ -484,6 +484,9 @@
       },
       {
         "__id__": 31
+      },
+      {
+        "__id__": 32
       }
     ],
     "_prefab": null,
@@ -1485,6 +1488,29 @@
     "_N$horizontalDirection": 0,
     "_N$affectedByScale": false,
     "_id": "5bScL952pC6K/djHMHfbTX"
+  },
+  {
+    "__type__": "c00e7WbXRZGu4vl/px9uDGR",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 9
+    },
+    "_enabled": true,
+    "magnet": {
+      "__id__": 13
+    },
+    "sort": {
+      "__id__": 15
+    },
+    "game_bg": {
+      "__id__": 7
+    },
+    "pre_item": {
+      "__uuid__": "e3e4f92d-2094-41ce-b34e-ca6023dcbe32"
+    },
+    "spframe_puzzle": null,
+    "_id": "beE/p5mRZFGqqMdsfc94We"
   },
   {
     "__type__": "cc.Sprite",

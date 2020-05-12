@@ -1,4 +1,6 @@
-import { SIZES,SCALELEAVEL } from '../global/piece_index';
+import { SIZES,SCALELEAVEL,spliceArr } from '../global/piece_index';
+import { initItem }  from './initSplice';
+
 
 cc.Class({
     extends: cc.Component,
@@ -12,7 +14,8 @@ cc.Class({
     loadingPic() {
         cc.loader.loadRes("background/haixianbg", cc.SpriteFrame, (err, spriteFrame) => {
             this.spframe_puzzle = spriteFrame;
-            this.initItem(0);
+            // this.initItem(0);
+      
             //self.node.getComponent(cc.Sprite).spriteFrame = spriteFrame;
         });
     },
@@ -34,7 +37,8 @@ cc.Class({
             if (spriteFrame) {
                 this.spframe_puzzle = spriteFrame;
                 /*初始化所有的块*/
-                this.initItem(hardLevel);
+                 initItem(SIZES,hardLevel,0,this.pre_item,this.game_bg,this.spframe_puzzle)
+
             } else {
                 cc.error(err);
             }
@@ -46,16 +50,21 @@ cc.Class({
         /*根据难度取对应切片数据*/
         let sizeArr = SIZES[hardLevel];
         const scalLeavel= SCALELEAVEL[hardLevel]
-        console.log("scalLeavel",scalLeavel)
+
+        /*拼图块排序*/
+        const orderByRandom = this.orderByRandom(sizeArr)
+
+        const reSortSizeArr = this.orderByBorder(sizeArr,hardLevel)
+        console.log('reSortSizeArr',reSortSizeArr)
+        // spliceArr=reSortSizeArr
         //遍历size根据size生成item
-        sizeArr.forEach((item, index) => {
+        reSortSizeArr.forEach((item, index) => {
             let item_node = cc.instantiate(this.pre_item);
             item_node.width = item[2] * scalLeavel;
             item_node.height = item[3] * scalLeavel;
-            item_node.name = `item_puzzle_splice-${index + 1}`
-            item_node.defaultIndex = `${index + 1}`
+            item_node.name = `item_puzzle_splice-${item[6]}`
+            item_node.defaultIndex = `${item[6]}`
             item_node.defaultPostion = [item[4], item[5]]
-            item_node.defaultIndex = index
             item_node.getChildByName('item_puzzle').width = item[2] * scalLeavel;
             item_node.getChildByName('item_puzzle').height = item[3] * scalLeavel;
             item_node.parent = this.game_bg;
@@ -68,7 +77,7 @@ cc.Class({
                 /*保存引用*/
                 obj.item_node = item_node;
                 //设置切片编号，便于测试
-                obj.init(index);
+                obj.init(item[6]);
                 /*底图切片*/
                 obj.setSpItem(this.defaultRect(item));
                 /*添加蒙版*/
@@ -88,4 +97,38 @@ cc.Class({
         spframe_puzzle_clone.setRect(rect);
         return spframe_puzzle_clone
     },
+
+    //随机打乱
+    orderByRandom(arr){
+        return  arr.sort(function() {
+             return .5 - Math.random();
+         });
+     },
+ 
+     //边框排序
+     orderByBorder(arr,hardLevel){
+        const hardLeavelSore=[[2,3],[4,6],[6,8]]
+        const x=hardLeavelSore[hardLevel][0]
+        const y=hardLeavelSore[hardLevel][1]
+        // console.log("hardLeavel",hardLevel,x,y)
+        const arryIndex=[]
+        this.orderByRandom(arr).map((item,index)=>{
+            const i =item[6]+1
+            if(i<=x||i%x==1||i%x==0||i>=x*(y-1)){
+                console.log('firstEl',i)
+                item[7]=item[6]
+            }else{
+                item[7]=100
+            }
+            arryIndex.push(item)
+        })
+        
+        return  arryIndex.sort(function(firstEl,secondEl) {
+            return firstEl[7]-secondEl[7]
+
+        });
+     },
+ 
+ 
+ 
 });

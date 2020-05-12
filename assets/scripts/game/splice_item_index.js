@@ -1,4 +1,4 @@
-import { MASK_RESOUSE, LEVEL,SCALELEAVEL } from '../global/piece_index';
+import { MASK_RESOUSE, LEVEL,SCALELEAVEL,complateIndex,underwayIndex,spliceArr } from '../global/piece_index';
 
 cc.Class({
     extends: cc.Component,
@@ -14,6 +14,12 @@ cc.Class({
     init(num) {
         this.num = num;
         this.label_num.string = this.num;
+        Array.prototype.remove = function(val) {
+            var index = this.indexOf(val);
+            if (index > -1) {
+            this.splice(index, 1);
+            }
+        };
     },
 
     setSpItem(spt) {
@@ -38,7 +44,19 @@ cc.Class({
             const current_node = this.item_node || this.splice_item;
             current_node.zIndex = 100;//拿起增加z-index
             current_node.setPropagateTouchEvents = false;
+            // console.log(this.item_node.parent,'parents')
+            // const outList = this.item_node.parent.name === 'puzzleBg';
+            // if(!outList){
+            //     var puzzleBg = cc.find(`Canvas/root/puzzleWarp/puzzleBg`);
+            //     this.item_node.parent = puzzleBg;
+            //     this.item_node.setScale(1/SCALELEAVEL[hardLevel]);
+            //     const resetPostion = cc.v2(this.item_node.x+this.item_node.parent.x , this.item_node.y  - 540);
+            //     console.log("resetPostion",resetPostion)
+            //     this.item_node.setPosition(resetPostion);
+            // }
+
             event.stopPropagation();
+
         })
 
         this.node.on(cc.Node.EventType.TOUCH_MOVE, (event) => {
@@ -46,21 +64,39 @@ cc.Class({
             let delta = event.touch.getDelta();
             const outList = this.item_node.parent.name === 'puzzleBg';
             let newPositin = cc.v2(this.item_node.x + delta.x, this.item_node.y + delta.y);
-            if (!outList && this.item_node.y + delta.y > 90) {
+
+            // console.log('this.item_node.parent.x',this.item_node.x + delta.x,this.item_node.parent.x)
+            //在拼图盒子内移动
+            if (!outList&&this.item_node.y + delta.y < 90 ) {
+                //不移动x坐标
+                const resetPostion = cc.v2(this.item_node.x, this.item_node.y+ delta.y);
+                this.item_node.setPosition(resetPostion);
+             
+            }
+
+            else if (!outList&&this.item_node.y + delta.y > 90 ) {
+
+
                 /*移除范围内修改父级节点*/
                 var puzzleBg = cc.find(`Canvas/root/puzzleWarp/puzzleBg`);
+                const resetPostion = cc.v2(0, this.item_node.y + delta.y - 540 +180);
+                // console.log("resetPostion his.item_node.parent.x",this.item_node.x,this.item_node.parent)
+                
                 this.item_node.parent = puzzleBg;
                 this.item_node.setScale(1/SCALELEAVEL[hardLevel]);
-                const resetPostion = cc.v2(this.item_node.x + delta.x, this.item_node.y + delta.y - 540);
                 this.item_node.setPosition(resetPostion);
+                underwayIndex.push(this.item_node.defaultIndex)
+                this.removeSpliceNode(this.item_node.defaultIndex)
             }
             //todo:移回盒子代码
             else if (outList && this.item_node.y + delta.y < -428.5) {
                 var spliceWarp = cc.find(`Canvas/root/spliceWarp`)
                 this.item_node.parent = spliceWarp
                 this.item_node.setScale(1)
-                const resetPostion = cc.v2(this.item_node.x + delta.x, this.item_node.y + delta.y + 540)
+                const resetPostion = cc.v2(this.item_node.x + delta.x, 0)
                 this.item_node.setPosition(resetPostion);
+                underwayIndex.remove(this.item_node.defaultIndex)
+
             }
             else {
                 this.item_node.setPosition(newPositin);
@@ -70,15 +106,28 @@ cc.Class({
         })
 
         this.node.on(cc.Node.EventType.TOUCH_END, (event) => {
+            console.log("underwayIndex",underwayIndex,complateIndex)
+
             if (hardLevel == LEVEL.HARD && !this.isMove) {
-                this.item_node.rotation = (this.item_node.rotation + 90) % 360;
+                this.item_node.angle = (this.item_node.angle - 90) % 360;
             }
             let delta = event.touch.getDelta();
-            this.calPostion(this.item_node.x + delta.x, this.item_node.y + delta.y, this.item_node.rotation);
+            this.calPostion(this.item_node.x + delta.x, this.item_node.y + delta.y, this.item_node.angle);
             this.item_node.zIndex = 100;//恢复z-index
             this.isMove = false;
             event.stopPropagation();
         })
+    },
+
+    removeSpliceNode(removeIndex){
+        var currentArr=[...spliceArr[0]]
+        currentArr.map((item,index)=>{
+            if(item[6]==removeIndex){
+                currentArr.splice(index,1)
+            }
+        })
+        spliceArr[0]=currentArr
+
     },
 
     /*计算中心点距离*/
@@ -91,17 +140,19 @@ cc.Class({
         if (distance <= adsorbPosition * adsorbPosition && rotation == 0) {
             let newPositin = cc.v2(defaultx, defaulty);
             this.item_node.setPosition(newPositin);
-            var item_puzzle_warp = cc.find(`Canvas/root/puzzleWarp/puzzleBg/item_puzzle_warp-${this.item_node.defaultIndex + 1}`);
+            var item_puzzle_warp = cc.find(`Canvas/root/puzzleWarp/puzzleBg/item_puzzle_warp-${this.item_node.defaultIndex}`);
             item_puzzle_warp.active = false;
-            var item_puzzle_splice = cc.find(`Canvas/root/puzzleWarp/puzzleBg/item_puzzle_splice-${this.item_node.defaultIndex + 1}`);
+            var item_puzzle_splice = cc.find(`Canvas/root/puzzleWarp/puzzleBg/item_puzzle_splice-${this.item_node.defaultIndex}`);
             item_puzzle_splice.active = false;
+            complateIndex.push(this.item_node.defaultIndex)
+            setTimeout(()=>{item_puzzle_warp.destroy();item_puzzle_splice.destroy()},100)
         }
     },
 
     setRandomRotation(hardLevel) {
         if (hardLevel == LEVEL.HARD) {
             let randomNum = Math.floor(4 * Math.random()) * 90;
-            this.item_node.rotation = randomNum;
+            this.item_node.angle = randomNum;
         }
     }
 

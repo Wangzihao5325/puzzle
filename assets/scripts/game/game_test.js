@@ -1,4 +1,4 @@
-import { SIZES, LEVEL } from '../global/piece_index';
+import { SIZES, LEVEL,currentLeavel } from '../global/piece_index';
 
 cc.Class({
     extends: cc.Component,
@@ -11,7 +11,7 @@ cc.Class({
         dragonBone: {
             default: null,
             type: dragonBones.ArmatureDisplay
-        }
+        },
     },
 
     onLoad() {
@@ -19,7 +19,7 @@ cc.Class({
     },
 
     init() {
-        const hardLevel = LEVEL.HARD;
+        const hardLevel = currentLeavel;
         const imagePath = "background/haixianbg";
         const animatePayload = {
             animatePath: "dragonBones/chunyuanhaixianguangchang/chunyuanhaixianguangchang_tex.json",
@@ -41,7 +41,7 @@ cc.Class({
             /*根据预制资源实例化节点*/
             let item_node = cc.instantiate(this.pre_item);
             /*设置节点属性*/
-            item_node.name = `item_puzzle_warp-${index + 1}`
+            item_node.name = `item_puzzle_warp-${item[6]}`
             item_node.width = item[2];
             item_node.height = item[3];
             item_node.getChildByName('item_puzzle').width = item[2];
@@ -52,7 +52,7 @@ cc.Class({
             /*获取itembg_index对象*/
             let obj = item_node.getComponent('itembg_index');
             if (obj) {
-                obj.setMarsk(index, hardLevel)
+                obj.setMarsk(item[6], hardLevel)
                 /*在对象中保存节点引用，便于后续调用*/
                 obj.item_node = item_node;
             }
@@ -65,7 +65,7 @@ cc.Class({
         spliceWarp_node.width = sizeArr.length * 140 + 20;
         spliceWarp_node.height = 120;
         spliceWarp_node.parent = this.game_root;
-        spliceWarp_node.setPosition(0, -450);
+        spliceWarp_node.setPosition(0, -500);
         let obj = spliceWarp_node.getComponent('game_splice');
         if (obj) {
             obj.init(hardLevel, imagePath);

@@ -188,6 +188,16 @@ const SCALELEAVEL = {
     1:0.5,
     2:0.6
 }
+
+var currentLeavel=0
+
+
+var complateIndex=[]
+
+var underwayIndex=[]
+
+var spliceArr=[]
+
 // function rename (){
 //     let size1=''
 //     console.log("SIZE2_3",SIZE2_3)
@@ -211,5 +221,9 @@ export default {
   PIC_WIDTH,
   PIC_HEIGHT,
   LEVEL,
-  SCALELEAVEL
+  SCALELEAVEL,
+  complateIndex,
+  underwayIndex,
+  spliceArr,
+  currentLeavel
 };
