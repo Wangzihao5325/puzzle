@@ -198,6 +198,8 @@ var underwayIndex=[]
 
 var spliceArr=[]
 
+var coutnDown=0
+
 // function rename (){
 //     let size1=''
 //     console.log("SIZE2_3",SIZE2_3)
@@ -225,5 +227,6 @@ export default {
   complateIndex,
   underwayIndex,
   spliceArr,
-  currentLeavel
+  currentLeavel,
+  coutnDown
 };

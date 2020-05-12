@@ -174,7 +174,7 @@
       "array": [
         0,
         0,
-        529.141521712292,
+        387.3839884303267,
         0,
         0,
         0,
@@ -899,7 +899,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "tiemContent",
+    "_name": "timeContent",
     "_objFlags": 0,
     "_parent": {
       "__id__": 10
@@ -1092,7 +1092,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "New Label",
+    "_name": "coutnDown",
     "_objFlags": 0,
     "_parent": {
       "__id__": 17
@@ -1510,6 +1510,9 @@
       "__uuid__": "e3e4f92d-2094-41ce-b34e-ca6023dcbe32"
     },
     "spframe_puzzle": null,
+    "countDown_label": {
+      "__id__": 22
+    },
     "_id": "beE/p5mRZFGqqMdsfc94We"
   },
   {
