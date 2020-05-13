@@ -13,10 +13,13 @@ cc.Class({
         city_name_bg: cc.Sprite,
         mission_progress: cc.Label,
         city_image: cc.Sprite,
-        isMove: cc.boolean
+        isMove: cc.boolean,
+        itemObj: cc.object,
+        recommend: cc.Prefab,
     },
 
     init(itemObj) {
+        this.itemObj = itemObj;
         let height = itemObj.imageSizeH / 2 * 0.8;
         let width = itemObj.imageSizeW / 2 * 0.8;
         this.city_name.string = itemObj.name;
@@ -32,6 +35,10 @@ cc.Class({
             this.city_name_bg.node.y = -(height / 2 + 25);
             this.mission_progress.node.x = 0;
             this.mission_progress.node.y = -(height / 2 + 25 + 30);
+            if (itemObj.isRecommend) {
+                let recommend_node = cc.instantiate(this.recommend);
+                recommend_node.parent = this.node;
+            }
         });
     },
 
@@ -48,7 +55,7 @@ cc.Class({
         this.city_image.node.on(cc.Node.EventType.TOUCH_END, (event) => {
             event.stopPropagation();
             if (!this.isMove && callback) {
-                callback();
+                callback(this.itemObj);
             }
             this.isMove = false;
         })
