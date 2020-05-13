@@ -65,7 +65,7 @@ cc.Class({
         spliceWarp_node.width = sizeArr.length * 140 + 20;
         spliceWarp_node.height = 120;
         spliceWarp_node.parent = this.game_root;
-        spliceWarp_node.setPosition(0, -500);
+        spliceWarp_node.setPosition(-344, -500);
         let obj = spliceWarp_node.getComponent('game_splice');
         if (obj) {
             obj.init(hardLevel, imagePath);

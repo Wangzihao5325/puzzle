@@ -45,31 +45,35 @@ function initItem(SIZES,hardLevel,sortType=0,pre_item, game_bg,spframe_puzzle,re
     /*根据难度取对应切片数据*/
     let sizeArr = SIZES[hardLevel];
     const scalLeavel= SCALELEAVEL[hardLevel]
+    console.log("SIZES",SIZES)
 
     /*拼图块排序*/
     // const orderByRandom = orderByRandom(sizeArr)
 
-    const reSortSizeArr = sortType? orderByBorder(sizeArr,hardLevel):orderByRandom(sizeArr)
-    console.log('reSortSizeArr',reSortSizeArr)
+    const reSortSizeArr = sortType? orderByBorder(SIZES[0],hardLevel):orderByRandom(sizeArr)
+    // console.log('reSortSizeArr',reSortSizeArr)
     spliceArr.splice(0,1,reSortSizeArr)
     //遍历size根据size生成item
     if(resort){
         var spliceWarp = cc.find(`Canvas/root/spliceWarp`)
         var children=spliceWarp.children
+
         children.map(item=>{
             let index;
-            reSortSizeArr.filter((reitem,i)=>{
+            reSortSizeArr.map((reitem,i)=>{
                 if(reitem[6]==item.defaultIndex){
                     index=i
                 }
             })
-            console.log('item',index)
-            let position = cc.v2(-344 + (140 * index) + 20, 0);
+            let position = cc.v2( (120 * (index+0.5)) + 10, 0)
             item.setPosition(position);
         })
     }else{
+        var spliceWarp = cc.find(`Canvas/root/spliceWarp`)
+
+        spliceWarp.width=(120*(reSortSizeArr.length+0.5)+10)
+
         reSortSizeArr.forEach((item, index) => {
-            console.log(item,"item")
             let item_node = cc.instantiate(pre_item);
             item_node.width = item[2] * scalLeavel;
             item_node.height = item[3] * scalLeavel;
@@ -80,9 +84,8 @@ function initItem(SIZES,hardLevel,sortType=0,pre_item, game_bg,spframe_puzzle,re
             item_node.getChildByName('item_puzzle').height = item[3] * scalLeavel;
             item_node.parent = game_bg;
             //应该要根据规格进行优化
-            let position = cc.v2(-344 + (140 * index) + 20, 0);
+            let position = cc.v2( (120 * (index+0.5)) + 10, 0);
             item_node.setPosition(position);
-    
             let obj = item_node.getComponent('splice_item_index');
             if (obj) {
                 /*保存引用*/
@@ -131,7 +134,6 @@ function orderByRandom(arr){
     orderByRandom(arr).map((item,index)=>{
         const i =item[6]+1
         if(i<=x||i%x==1||i%x==0||i>=x*(y-1)){
-            console.log('firstEl',i)
             item[7]=item[6]
         }else{
             item[7]=100

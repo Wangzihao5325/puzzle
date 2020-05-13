@@ -79,10 +79,11 @@ cc.Class({
 
                 /*移除范围内修改父级节点*/
                 var puzzleBg = cc.find(`Canvas/root/puzzleWarp/puzzleBg`);
-                const resetPostion = cc.v2(0, this.item_node.y + delta.y - 540 +180);
                 // console.log("resetPostion his.item_node.parent.x",this.item_node.x,this.item_node.parent)
                 
                 this.item_node.parent = puzzleBg;
+                const resetPostion = cc.v2(0, this.item_node.y + delta.y - 540 +180);
+
                 this.item_node.setScale(1/SCALELEAVEL[hardLevel]);
                 this.item_node.setPosition(resetPostion);
                 underwayIndex.push(this.item_node.defaultIndex)

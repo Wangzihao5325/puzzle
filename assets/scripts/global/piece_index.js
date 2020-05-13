@@ -189,7 +189,7 @@ const SCALELEAVEL = {
     2:0.6
 }
 
-var currentLeavel=0
+var currentLeavel=2
 
 
 var complateIndex=[]

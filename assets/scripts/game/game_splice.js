@@ -69,7 +69,7 @@ cc.Class({
             item_node.getChildByName('item_puzzle').height = item[3] * scalLeavel;
             item_node.parent = this.game_bg;
             //应该要根据规格进行优化
-            let position = cc.v2(-344 + (140 * index) + 20, 0);
+            let position = cc.v2(  (140 * index) + 20, 0);
             item_node.setPosition(position);
 
             let obj = item_node.getComponent('splice_item_index');
