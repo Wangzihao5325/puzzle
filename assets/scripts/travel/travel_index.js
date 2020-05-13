@@ -1,5 +1,6 @@
 import { CITIES } from '../global/travel_global_index';
 import { CACHE } from '../global/usual_cache';
+import { SCENE } from '../global/app_global_index';
 
 cc.Class({
     extends: cc.Component,
@@ -8,6 +9,18 @@ cc.Class({
         city_item: cc.Prefab,
         china_map: cc.Node,
         line: cc.Graphics,
+        footer: cc.Prefab,
+        layout_root: cc.Node
+    },
+
+    stateUpdate() {
+        CACHE.scene = SCENE.TRAVEL;
+    },
+
+    footerInit() {
+        let footer = cc.instantiate(this.footer);
+        footer.parent = this.layout_root;
+        footer.setPosition(0, -500);
     },
 
     cityPress(itemObj) {
@@ -15,10 +28,13 @@ cc.Class({
     },
 
     init() {
+        this.stateUpdate();
+        this.footerInit();
+
         CITIES.forEach((item, index) => {
             /*画线*/
             if (index == 0) {
-               // line_graphics.moveTo(item.positionX, item.positionY);
+                // line_graphics.moveTo(item.positionX, item.positionY);
             } else if (index == CITIES.length - 1) {
                 // line_graphics.lineTo(item.positionX, item.positionY);
                 // line_graphics.close();
