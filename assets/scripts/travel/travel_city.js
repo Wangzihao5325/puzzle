@@ -10,6 +10,7 @@ cc.Class({
 
     properties: {
         city_name: cc.Label,
+        city_name_bg: cc.Sprite,
         mission_progress: cc.Label,
         city_image: cc.Sprite,
         isMove: cc.boolean
@@ -25,10 +26,12 @@ cc.Class({
         cc.loader.loadRes(itemObj.imageUrl, cc.SpriteFrame, (err, assets) => {
             if (err) cc.error(err);
             this.city_image.spriteFrame = assets;
-            this.city_image.node.x = 0;
-            this.city_image.node.y = height / 2 + 25;
             this.city_image.node.width = width;
             this.city_image.node.height = height;
+            this.city_name_bg.node.x = 0;
+            this.city_name_bg.node.y = -(height / 2 + 25);
+            this.mission_progress.node.x = 0;
+            this.mission_progress.node.y = -(height / 2 + 25 + 30);
         });
     },
 
