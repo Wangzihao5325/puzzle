@@ -17,14 +17,14 @@ cc.Class({
             let cityItemNode = cc.instantiate(this.city_item);
             cityItemNode.name = `city_item-${item.name}`;
             cityItemNode.parent = this.china_map;
-            cityItemNode.setPosition(item.positionX, item.positionY);
+            //cityItemNode.setPosition(item.positionX, item.positionY);
             /*获取itembg_index对象*/
             let obj = cityItemNode.getComponent('travel_city');
             if (obj) {
-                obj.init(item.name, item.missionDone, item.missionNum, item.imageUrl, item.isRecommend);
-                obj.setTouch(this.cityPress);
                 /*在对象中保存节点引用，便于后续调用*/
                 obj.item_node = cityItemNode;
+                obj.init(item);
+                obj.setTouch(this.cityPress);
             }
         });
     },

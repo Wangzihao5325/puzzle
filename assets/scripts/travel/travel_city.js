@@ -15,13 +15,20 @@ cc.Class({
         isMove: cc.boolean
     },
 
-    init(cityName, missionDone, missionNum, cityImage) {
-        this.city_name.string = cityName;
-        let missionProgress = `${missionDone}/${missionNum}`;
+    init(itemObj) {
+        let height = itemObj.imageSizeH / 2 * 0.8;
+        let width = itemObj.imageSizeW / 2 * 0.8;
+        this.city_name.string = itemObj.name;
+        let missionProgress = `${itemObj.missionDone}/${itemObj.missionNum}`;
         this.mission_progress.string = missionProgress;
-        cc.loader.loadRes(cityImage, cc.SpriteFrame, (err, assets) => {
+        this.item_node.setPosition(itemObj.positionX, itemObj.positionY);
+        cc.loader.loadRes(itemObj.imageUrl, cc.SpriteFrame, (err, assets) => {
             if (err) cc.error(err);
             this.city_image.spriteFrame = assets;
+            this.city_image.node.x = 0;
+            this.city_image.node.y = height / 2 + 25;
+            this.city_image.node.width = width;
+            this.city_image.node.height = height;
         });
     },
 
