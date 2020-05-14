@@ -10,7 +10,7 @@ cc.Class({
         china_map: cc.Node,
         line: cc.Graphics,
         footer: cc.Prefab,
-        layout_root: cc.Node
+        layout_root: cc.Node,
     },
 
     stateUpdate() {
@@ -19,6 +19,8 @@ cc.Class({
 
     footerInit() {
         let footer = cc.instantiate(this.footer);
+        let obj = footer.getComponent('navi_footer');
+        obj.initWithScene(CACHE.scene);
         footer.parent = this.layout_root;
         footer.setPosition(0, -500);
     },
@@ -29,6 +31,7 @@ cc.Class({
 
     init() {
         this.stateUpdate();
+
         this.footerInit();
 
         CITIES.forEach((item, index) => {
@@ -60,7 +63,7 @@ cc.Class({
 
     // LIFE-CYCLE CALLBACKS:
 
-    // onLoad () {},
+    onLoad() { },
 
     start() {
         this.init();
