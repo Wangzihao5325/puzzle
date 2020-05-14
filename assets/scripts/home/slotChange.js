@@ -25,8 +25,8 @@ cc.Class({
         this.ske_com = ske_com;
         const skeletonData = this.ske_com.skeletonData.getRuntimeData();
         const skin = skeletonData.findSkin('default');
-
-        let parts = ["Ctoushi00", "Cboshi00", "Cweishi00"]//["toushi00", "boshi00", "weishi00"];
+        // console.log("ske_com",skeletonData)
+        let parts = ["toushi00", "boshi00", "weishi00"]//["toushi00", "boshi00", "weishi00"];
         let randomNum = Math.floor(Math.random() * 8);
         for (let i = 0; i < parts.length; i++) {
             let regSlot = this.ske_com.findSlot(parts[i]);

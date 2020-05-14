@@ -174,7 +174,7 @@
       "array": [
         0,
         0,
-        473.36922796291833,
+        471.10112755911524,
         0,
         0,
         0,
@@ -1306,8 +1306,8 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        0,
-        0,
+        -10.064,
+        86.613,
         0,
         0,
         0,
@@ -1392,7 +1392,7 @@
     "_groupIndex": 0,
     "groupIndex": 0,
     "showInEditor": false,
-    "_id": "bfrePev6lFYYcdtrObJsxv"
+    "_id": "06OnESGldFnqjYGycSc6bq"
   },
   {
     "__type__": "cc.Graphics",
@@ -1410,22 +1410,22 @@
     "_lineWidth": 2,
     "_strokeColor": {
       "__type__": "cc.Color",
-      "r": 255,
+      "r": 0,
       "g": 0,
-      "b": 0,
+      "b": 255,
       "a": 255
     },
     "_lineJoin": 2,
     "_lineCap": 0,
     "_fillColor": {
       "__type__": "cc.Color",
-      "r": 0,
+      "r": 255,
       "g": 255,
-      "b": 0,
+      "b": 255,
       "a": 255
     },
     "_miterLimit": 10,
-    "_id": "22mfx60elKAoaqb+Yfwd0/"
+    "_id": "b8s8XEJUlGd69lELNu+NR1"
   },
   {
     "__type__": "sp.Skeleton",
@@ -1463,7 +1463,7 @@
     },
     "_N$_defaultCacheMode": 0,
     "_N$debugSlots": true,
-    "_N$debugBones": true,
+    "_N$debugBones": false,
     "_N$debugMesh": false,
     "_N$useTint": false,
     "_N$enableBatch": false,
