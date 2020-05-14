@@ -23,6 +23,7 @@ cc.Class({
 
     onLoad() {
         var spine = this.ske_anim;
+        spine.debugSlots = true;
         var ske_com = spine.getComponent(sp.Skeleton);
         this.ske_com = ske_com;
 

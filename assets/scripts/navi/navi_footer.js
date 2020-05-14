@@ -1,7 +1,7 @@
 import { SCENE } from '../global/app_global_index';
 import { CACHE } from '../global/usual_cache';
 
-const PATHS = ['navi/jiaweixuanzhong', 'navi/jiayuan', 'navi/lvxing3', 'navi/zhanlanweixianzhong', 'navi/zhanlan'];
+const PATHS = ['navi/jiaweixuanzhong', 'navi/jiayuan', 'navi/lvxingweixuanzhong', 'navi/lvxing3', 'navi/zhanlanweixianzhong', 'navi/zhanlan'];
 
 cc.Class({
     extends: cc.Component,
@@ -15,30 +15,28 @@ cc.Class({
 
     initBtnBg(sceneType) {
         this.home_btn.normalSprite = sceneType == SCENE.HOME ? NAVI_BG_ASSETS[1] : NAVI_BG_ASSETS[0];
-        this.travel_btn.normalSprite = sceneType == SCENE.TRAVEL ? NAVI_BG_ASSETS[2] : NAVI_BG_ASSETS[2];
-        this.show_btn.normalSprite = sceneType == SCENE.SHOW ? NAVI_BG_ASSETS[4] : NAVI_BG_ASSETS[3];
+        this.travel_btn.normalSprite = sceneType == SCENE.TRAVEL ? NAVI_BG_ASSETS[3] : NAVI_BG_ASSETS[2];
+        this.show_btn.normalSprite = sceneType == SCENE.SHOW ? NAVI_BG_ASSETS[5] : NAVI_BG_ASSETS[4];
     },
 
     initAnimate(sceneType) {
-        if (sceneType == SCENE.TRAVEL) {
-            let pinNode = this.pin.item_node;
-            let obj = pinNode.getComponent('navi_pin');
-            if (obj) {
-                obj.animatStart();
-            }
-            cc.tween(this.travel_btn.node)
-                .to(1, { scale: 1.05 })
-                .to(1, { scale: 1 })
-                .union()
-                .repeatForever()
-                .start()
+        let pinNode = this.pin.item_node;
+        let obj = pinNode.getComponent('navi_pin');
+        if (obj) {
+            obj.animatStart();
         }
+        cc.tween(this.travel_btn.node)
+            .to(1, { scale: 1.05 })
+            .to(1, { scale: 1 })
+            .union()
+            .repeatForever()
+            .start()
     },
 
     initPin() {
         let pinNode = cc.instantiate(this.pin);
         pinNode.parent = this.travel_btn.node;
-        pinNode.setPosition(-30, -20);
+        pinNode.setPosition(-50, -20);
         this.pin.item_node = pinNode;
     },
 
@@ -47,8 +45,10 @@ cc.Class({
             if (err) cc.error(err);
             NAVI_BG_ASSETS = assets;
             this.initBtnBg(sceneType);
-            this.initPin();
-            this.initAnimate(sceneType);
+            if (sceneType == SCENE.TRAVEL) {
+                this.initPin();
+                this.initAnimate(sceneType);
+            }
         });
     },
 
