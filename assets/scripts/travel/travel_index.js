@@ -10,7 +10,7 @@ cc.Class({
         china_map: cc.Node,
         line: cc.Graphics,
         footer: cc.Prefab,
-        layout_root: cc.Node
+        layout_root: cc.Node,
     },
 
     stateUpdate() {
@@ -63,7 +63,7 @@ cc.Class({
 
     // LIFE-CYCLE CALLBACKS:
 
-    onLoad () {},
+    onLoad() { },
 
     start() {
         this.init();
