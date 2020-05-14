@@ -38,6 +38,14 @@ cc.Class({
             if (itemObj.isRecommend) {
                 let recommend_node = cc.instantiate(this.recommend);
                 recommend_node.parent = this.node;
+                /*动画*/
+                cc.tween(recommend_node)
+                    .to(0.3, { position: cc.v2(0, 10) })
+                    .to(0.3, { position: cc.v2(0, 0) })
+                    .delay(2)
+                    .union()
+                    .repeatForever()
+                    .start()
             }
         });
     },
