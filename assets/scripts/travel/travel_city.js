@@ -52,6 +52,7 @@ cc.Class({
 
     setTouch(callback) {
         this.city_image.node.on(cc.Node.EventType.TOUCH_START, (event) => {
+            cc.director.loadScene("puzzle");
             event.stopPropagation();
         })
 
