@@ -50,10 +50,19 @@ cc.Class({
         .start()
         // feedWarpInstan.setPosition(0, -408);
     },
+    handleClose(){
+        this.Action_warp.active=false
+
+    },
 
     setTouch() {
         this.Feed.on(cc.Node.EventType.TOUCH_START, (event) => {
             this.show_feed()
+            event.stopPropagation();
+
+        })
+        this.Action_warp.on(cc.Node.EventType.TOUCH_START,(event)=>{
+            this.handleClose()
             event.stopPropagation();
 
         })
