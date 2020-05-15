@@ -1802,6 +1802,8 @@
     },
     "_enabled": true,
     "radio": null,
+    "bg": null,
+    "map": null,
     "_id": "11PQulHEVBVYfm5itHsBsW"
   },
   {
@@ -1814,6 +1816,12 @@
     "_enabled": true,
     "radio": {
       "__id__": 38
+    },
+    "bg": {
+      "__id__": 36
+    },
+    "map": {
+      "__id__": 10
     },
     "_id": "00aA8JyxVPP6Fd/lLX1jFE"
   },
@@ -1881,9 +1889,6 @@
     },
     "layout_root": {
       "__id__": 19
-    },
-    "map": {
-      "__id__": 10
     },
     "_id": "20fVuZIGVORLknmWynsrmc"
   }
