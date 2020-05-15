@@ -9,8 +9,13 @@ cc.Class({
             type: sp.Skeleton, // 
             default: null,
         },
+        cat:cc.Node,
         footer: cc.Prefab,
+        cat_action: cc.Prefab,
         layout_root: cc.Node,
+        home_root:cc.Node,
+        feed_warp: cc.Prefab,
+        
 
     },
 
@@ -21,6 +26,7 @@ cc.Class({
     init() {
         this.stateUpdate();
         this.footerInit();
+        this.setTouch()
 
     },
 
@@ -36,7 +42,7 @@ cc.Class({
 
     onLoad() {
         var spine = this.ske_anim;
-        spine.debugSlots = true;
+        // spine.debugSlots = true;
         var ske_com = spine.getComponent(sp.Skeleton);
         this.ske_com = ske_com;
         /**
@@ -57,6 +63,18 @@ cc.Class({
     start() {
         this.init();
     },
+    showCatAction(){
+        let catActionInstan = cc.instantiate(this.cat_action)
+        catActionInstan.parent=this.home_root
+        catActionInstan.setPosition(0, 64);
 
+    },
+    setTouch(hardLevel) {
+        this.cat.on(cc.Node.EventType.TOUCH_START, (event) => {
+            this.showCatAction()
+            event.stopPropagation();
+
+        })
+    }
     // update (dt) {},
 });
