@@ -45,7 +45,7 @@ Toast.show = function (detailString, timer=2000, enterCallBack, needCancel, anim
       self.actionFadeOut = cc.sequence(cc.spawn(cc.fadeTo(Toast._animSpeed, 0), cc.scaleTo(Toast._animSpeed, 2.0)), cbFadeOut);
 
       // // 获取子节点
-      Toast._detailLabel = cc.find("toastText", toast).getComponent(cc.Label);
+      Toast._detailLabel = cc.find("toastContent/toastText", toast).getComponent(cc.Label);
       console.log('Toast._detailLabel', Toast._detailLabel)
 
       // 父视图

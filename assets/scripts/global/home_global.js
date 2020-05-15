@@ -1,0 +1,23 @@
+CAR_FOOD=[
+    {
+        type:0,
+        name:'普通猫食',
+        energy:10,
+        lucky:0,
+    },
+    {
+        type:1,
+        name:'高级猫食',
+        energy:30,
+        lucky:0,
+    },
+    {
+        type:2,
+        name:'猫草',
+        energy:0,
+        lucky:10,
+    }
+]
+export default {
+    CAR_FOOD
+};

@@ -9,6 +9,14 @@ cc.Class({
             type: sp.Skeleton, // 
             default: null,
         },
+        cat:cc.Node,
+        footer: cc.Prefab,
+        cat_action: cc.Prefab,
+        layout_root: cc.Node,
+        home_root:cc.Node,
+        feed_warp: cc.Prefab,
+        
+
     },
 
     stateUpdate() {
@@ -17,36 +25,56 @@ cc.Class({
 
     init() {
         this.stateUpdate();
+        this.footerInit();
+        this.setTouch()
+
     },
 
     // LIFE-CYCLE CALLBACKS:
 
+    footerInit() {
+        let footer = cc.instantiate(this.footer);
+        let obj = footer.getComponent('navi_footer');
+        obj.initWithScene(CACHE.scene);
+        footer.parent = this.layout_root;
+        footer.setPosition(0, -500);
+    },
+
     onLoad() {
         var spine = this.ske_anim;
-        spine.debugSlots = true;
+        // spine.debugSlots = true;
         var ske_com = spine.getComponent(sp.Skeleton);
         this.ske_com = ske_com;
-        this.ske_com.DebugSlots=true;
         /**
          * 随机选择一种动画循环播放（Zou00,PA00,Zhan00）
          */
-
         let randomNum = Math.random();
         this.ske_com.clearTrack(0);
-        this.ske_com.setAnimation(0, "PA00", true)
-
-        // if (randomNum < 0.33) {
-        //     this.ske_com.setAnimation(0, "Zou00", true)
-        // } else if (randomNum >= 0.33 && randomNum <= 0.66) {
-        //     this.ske_com.setAnimation(0, "PA00", true)
-        // } else {
-        //     this.ske_com.setAnimation(0, "Zhan00", true)
-        // }
+        // this.ske_com.setAnimation(0, "PA00", true)
+        if (randomNum < 0.33) {
+            this.ske_com.setAnimation(0, "Zou00", true)
+        } else if (randomNum >= 0.33 && randomNum <= 0.66) {
+            this.ske_com.setAnimation(0, "PA00", true)
+        } else {
+            this.ske_com.setAnimation(0, "Zhan00", true)
+        }
     },
 
     start() {
         this.init();
     },
+    showCatAction(){
+        let catActionInstan = cc.instantiate(this.cat_action)
+        catActionInstan.parent=this.home_root
+        catActionInstan.setPosition(0, 64);
 
+    },
+    setTouch(hardLevel) {
+        this.cat.on(cc.Node.EventType.TOUCH_START, (event) => {
+            this.showCatAction()
+            event.stopPropagation();
+
+        })
+    }
     // update (dt) {},
 });
