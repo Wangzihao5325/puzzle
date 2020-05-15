@@ -9,13 +9,14 @@ cc.Class({
             type: sp.Skeleton, // 
             default: null,
         },
-        cat:cc.Node,
+        cat: cc.Node,
         footer: cc.Prefab,
+        header: cc.Prefab,
         cat_action: cc.Prefab,
         layout_root: cc.Node,
-        home_root:cc.Node,
+        home_root: cc.Node,
         feed_warp: cc.Prefab,
-        
+
 
     },
 
@@ -26,6 +27,7 @@ cc.Class({
     init() {
         this.stateUpdate();
         this.footerInit();
+        this.headerInit();
         this.setTouch()
 
     },
@@ -38,6 +40,14 @@ cc.Class({
         obj.initWithScene(CACHE.scene);
         footer.parent = this.layout_root;
         footer.setPosition(0, -500);
+    },
+
+    headerInit() {
+        let header = cc.instantiate(this.header);
+        let obj = header.getComponent('header_warp_index');
+        obj.render();
+        header.parent = this.layout_root;
+        header.setPosition(0, 528);
     },
 
     onLoad() {
@@ -63,9 +73,9 @@ cc.Class({
     start() {
         this.init();
     },
-    showCatAction(){
+    showCatAction() {
         let catActionInstan = cc.instantiate(this.cat_action)
-        catActionInstan.parent=this.home_root
+        catActionInstan.parent = this.home_root
         catActionInstan.setPosition(0, 64);
 
     },
