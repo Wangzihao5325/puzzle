@@ -28,7 +28,7 @@ cc.Class({
         startPosition:[x,y],
         pausePosition:[x,y],
         endPosition:[x,y],
-        //  period必须为2的整数倍
+        //  period必须为2的整数倍,推荐速度 200pt/s
         firstPeriod:number,
         secondPeriod:number,
         pausePeriod:number,
@@ -59,7 +59,7 @@ cc.Class({
             .start()
     },
 
-    randomCreateVistor(){
+    randomCreateVistor() {
 
     },
 
