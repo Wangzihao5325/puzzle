@@ -10,6 +10,7 @@ cc.Class({
         china_map: cc.Node,
         line: cc.Graphics,
         footer: cc.Prefab,
+        header: cc.Prefab,
         layout_root: cc.Node,
     },
 
@@ -25,6 +26,14 @@ cc.Class({
         footer.setPosition(0, -500);
     },
 
+    headerInit() {
+        let header = cc.instantiate(this.header);
+        let obj = header.getComponent('header_warp_index');
+        obj.render();
+        header.parent = this.layout_root;
+        header.setPosition(0, 528);
+    },
+
     cityPress(itemObj) {
         CACHE.travel_city_press = itemObj;//在cache中存储点击选项，新场景加载后读取，获得传值
     },
@@ -33,6 +42,7 @@ cc.Class({
         this.stateUpdate();
 
         this.footerInit();
+        this.headerInit();
 
         CITIES.forEach((item, index) => {
             /*画线*/

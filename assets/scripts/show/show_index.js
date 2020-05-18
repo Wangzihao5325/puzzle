@@ -7,6 +7,7 @@ cc.Class({
     properties: {
         root: cc.Node,
         footer: cc.Prefab,
+        header: cc.Prefab,
         vistor: cc.Prefab,
     },
 
@@ -21,6 +22,15 @@ cc.Class({
         footer.parent = this.root;
         footer.setPosition(0, -500);
         footer.zIndex = 10;
+    },
+
+    headerInit() {
+        let header = cc.instantiate(this.header);
+        let obj = header.getComponent('header_warp_index');
+        obj.render();
+        header.parent = this.root;
+        header.setPosition(0, 528);
+        header.zIndex = 10;
     },
 
     /*
@@ -76,6 +86,7 @@ cc.Class({
         }
         this.stateUpdate();
         this.footerInit();
+        this.headerInit();
         this.vistorInit(payload);
     },
 
