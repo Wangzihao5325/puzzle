@@ -27,11 +27,11 @@ const missionDetails = (hurdleId = 101001, callback, failedCallback) => new CusH
 
 /**
  * 通知后台关卡完成&获取掉落
- * @param {*} payload {hurdleId:101001,star:1}
+ * @param {*} payload
  * @param {*} callback 
  * @param {*} failedCallback 
  */
-const missionComplete = (payload, callback, failedCallback) => new CusHttp().Post(`${API_DOMAIN}/travel/complete`, payload, callback, failedCallback);
+const missionComplete = (payload = { hurdleId: 101001, star: 1 }, callback, failedCallback) => new CusHttp().Post(`${API_DOMAIN}/travel/complete`, payload, callback, failedCallback);
 
 /**
  * 获取用户资产
@@ -46,7 +46,7 @@ const userBalance = (callback, failedCallback) => new CusHttp().Get(`${API_DOMAI
  * @param {*} callback 
  * @param {*} failedCallback 
  */
-const travel = (payload, callback, failedCallback) => new CusHttp().Post(`${API_DOMAIN}/user/assets/travel`, payload, callback, failedCallback);
+const travel = (payload = { key: 1 }, callback, failedCallback) => new CusHttp().Post(`${API_DOMAIN}/user/assets/travel`, payload, callback, failedCallback);
 
 export default {
     cityDetails,
