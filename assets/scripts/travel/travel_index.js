@@ -1,6 +1,7 @@
 import { CITIES } from '../global/travel_global_index';
 import { CACHE } from '../global/usual_cache';
 import { SCENE } from '../global/app_global_index';
+import Api from '../api/api_index';
 
 cc.Class({
     extends: cc.Component,
@@ -81,7 +82,6 @@ cc.Class({
 
     init() {
         this.stateUpdate();
-
         this.footerInit();
         this.headerInit();
 
