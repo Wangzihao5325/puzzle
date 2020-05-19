@@ -14,8 +14,8 @@ cc.Class({
     render() {
         let { userData } = CACHE;
         this.coinLabel.string = `${userData.coin}`;
-        this.gemLabel.string = `${userData.coin}`;
-        this.STAMLabel.string = `${userData.coin}`;
+        this.gemLabel.string = `${userData.gem}`;
+        this.STAMLabel.string = `${userData.STAM}`;
     },
 
     // LIFE-CYCLE CALLBACKS:

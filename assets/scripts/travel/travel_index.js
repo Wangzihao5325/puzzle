@@ -1,7 +1,7 @@
 import { CITIES } from '../global/travel_global_index';
 import { CACHE } from '../global/usual_cache';
 import { SCENE } from '../global/app_global_index';
-import Api from '../api/api_index';
+import Action from '../api/api_action';
 
 cc.Class({
     extends: cc.Component,
@@ -71,9 +71,11 @@ cc.Class({
     headerInit() {
         let header = cc.instantiate(this.header);
         let obj = header.getComponent('header_warp_index');
-        obj.render();
         header.parent = this.layout_root;
         header.setPosition(0, 528);
+        Action.User.BalanceUpdate((res) => {
+            obj.render();
+        });
     },
 
     cityPress(itemObj) {
