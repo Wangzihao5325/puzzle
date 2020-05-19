@@ -80,6 +80,7 @@ cc.Class({
 
     cityPress(itemObj) {
         CACHE.travel_city_press = itemObj;//在cache中存储点击选项，新场景加载后读取，获得传值
+        cc.director.loadScene("mission");
     },
 
     init() {

@@ -16,10 +16,35 @@ const BalanceUpdate = (callback, failedCallback) => {
     }, failedCallback);
 }
 
+const CityDetails = (callback, failedCallback) => {
+    let cityItem = CACHE.travel_city_press;
+    if (cityItem && cityItem.key) {
+        Api.cityDetails(cityItem.key, (res) => {
+            const data = res.data;
+            const cityData = {
+                chapterId: data.chapterId,
+                goodsList: data.goodsList,
+                introduceInfo: data.introduceInfo,
+                introduceShort: data.introduceShort,
+                name: data.name
+            };
+            CACHE.cityData = { ...cityData };
+            if (callback) {
+                callback(res);
+            }
+        }, failedCallback);
+    }
+}
+
 const User = {
     BalanceUpdate
 }
 
+const Mission = {
+    CityDetails
+}
+
 export default {
-    User
+    User,
+    Mission
 };
