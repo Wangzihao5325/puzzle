@@ -14,6 +14,7 @@ cc.Class({
         Dress:cc.Node,
         Feed:cc.Node,
         Feed_warp:cc.Prefab,
+        Dress_warp:cc.Prefab,
         Home_Warp:cc.Node,
 
     },
@@ -55,22 +56,34 @@ cc.Class({
 
     },
 
+    show_dress(){
+        this.Action_warp.active=false
+        const deedWarpInstan=  cc.find(`Canvas/dressWarp`)
+        deedWarpInstan.active=true
+        // let obj=deedWarpInstan.getComponent('dress')
+        cc.tween(deedWarpInstan)
+        .to(.2, { position: cc.v2(0, -300) },{ easing: 'sineOutIn'})
+        // .to(.1, { position: cc.v2(0, -408) })
+        .start()
+        // obj.show_dress()
+    },
+
     setTouch() {
         this.Feed.on(cc.Node.EventType.TOUCH_START, (event) => {
             this.show_feed()
             event.stopPropagation();
 
         })
-        this.Action_warp.on(cc.Node.EventType.TOUCH_START,(event)=>{
-            this.handleClose()
+        this.Dress.on(cc.Node.EventType.TOUCH_START,(event)=>{
+            this.show_dress()
             event.stopPropagation();
 
         })
 
-        // this.node.on(cc.Node.EventType.TOUCH_MOVE, (event) => {
-    
-        //     event.stopPropagation();
-        // })
+        this.node.on(cc.Node.EventType.TOUCH_MOVE, (event) => {
+            this.handleClose()
+            event.stopPropagation();
+        })
 
         // this.node.on(cc.Node.EventType.TOUCH_END, (event) => {
         //     console.log("underwayIndex",underwayIndex,complateIndex)

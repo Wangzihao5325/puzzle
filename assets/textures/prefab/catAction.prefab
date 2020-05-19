@@ -62,7 +62,7 @@
       "ctor": "Float64Array",
       "array": [
         0,
-        64,
+        80,
         0,
         0,
         0,
@@ -1229,6 +1229,9 @@
     },
     "Feed_warp": {
       "__uuid__": "3d3f01a1-d71d-4045-bb71-db0ec9067143"
+    },
+    "Dress_warp": {
+      "__uuid__": "00c3ed84-8ead-4656-9b14-e491651ba15c"
     },
     "Home_Warp": null,
     "_id": ""

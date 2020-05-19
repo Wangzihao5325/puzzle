@@ -1,5 +1,6 @@
 import { CACHE } from '../global/usual_cache';
 import { SCENE } from '../global/app_global_index';
+import { HOME_CACHE  } from '../global/home_global';
 
 cc.Class({
     extends: cc.Component,
@@ -16,6 +17,7 @@ cc.Class({
         layout_root: cc.Node,
         home_root: cc.Node,
         feed_warp: cc.Prefab,
+        dress_warp: cc.Prefab,
 
 
     },
@@ -28,8 +30,8 @@ cc.Class({
         this.stateUpdate();
         this.footerInit();
         this.headerInit();
+        this.initDress()
         this.setTouch()
-
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -50,24 +52,51 @@ cc.Class({
         header.setPosition(0, 528);
     },
 
-    onLoad() {
+    initCatPost(){
         var spine = this.ske_anim;
-        // spine.debugSlots = true;
         var ske_com = spine.getComponent(sp.Skeleton);
         this.ske_com = ske_com;
-        /**
-         * 随机选择一种动画循环播放（Zou00,PA00,Zhan00）
-         */
-        let randomNum = Math.random();
+        const catPostList=['Zou00','PA00','Zhan00']
         this.ske_com.clearTrack(0);
-        // this.ske_com.setAnimation(0, "PA00", true)
-        if (randomNum < 0.33) {
-            this.ske_com.setAnimation(0, "Zou00", true)
-        } else if (randomNum >= 0.33 && randomNum <= 0.66) {
-            this.ske_com.setAnimation(0, "PA00", true)
-        } else {
-            this.ske_com.setAnimation(0, "Zhan00", true)
+        //随机姿势
+        if(HOME_CACHE.cat_post===undefined){
+            HOME_CACHE.cat_post=Math.round(Math.random() * 2)
         }
+        const currentPost=catPostList[HOME_CACHE.cat_post]
+        this.ske_com.setAnimation(0, currentPost, true)
+    },
+
+    initDress(){
+        let dressWarpInstan = cc.instantiate(this.dress_warp)
+        var warp_parent = cc.find(`Canvas`)
+        dressWarpInstan.parent=warp_parent
+        dressWarpInstan.setPosition(0, -868);
+        dressWarpInstan.active=false
+        let obj = dressWarpInstan.getComponent('dress')
+        obj.init()
+
+    },
+
+    onLoad() {
+        this.initCatPost()
+
+        // var spine = this.ske_anim;
+        // // spine.debugSlots = true;
+        // var ske_com = spine.getComponent(sp.Skeleton);
+        // this.ske_com = ske_com;
+        // /**
+        //  * 随机选择一种动画循环播放（Zou00,PA00,Zhan00）
+        //  */
+        // let randomNum = Math.random();
+        // this.ske_com.clearTrack(0);
+        // // this.ske_com.setAnimation(0, "PA00", true)
+        // if (randomNum < 0.33) {
+        //     this.ske_com.setAnimation(0, "Zou00", true)
+        // } else if (randomNum >= 0.33 && randomNum <= 0.66) {
+        //     this.ske_com.setAnimation(0, "PA00", true)
+        // } else {
+        //     this.ske_com.setAnimation(0, "Zhan00", true)
+        // }
     },
 
     start() {
@@ -76,7 +105,7 @@ cc.Class({
     showCatAction() {
         let catActionInstan = cc.instantiate(this.cat_action)
         catActionInstan.parent = this.home_root
-        catActionInstan.setPosition(0, 64);
+        catActionInstan.setPosition(0, 80);
 
     },
     setTouch(hardLevel) {
