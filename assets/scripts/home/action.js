@@ -15,6 +15,7 @@ cc.Class({
         Feed:cc.Node,
         Feed_warp:cc.Prefab,
         Dress_warp:cc.Prefab,
+        OutSide:cc.Prefab,
         Home_Warp:cc.Node,
 
     },
@@ -68,6 +69,21 @@ cc.Class({
         // obj.show_dress()
     },
 
+    handleGoout(){
+        this.Action_warp.active=false
+        // const feedWarpInstan=  cc.find(`Canvas/feedWarp`)
+        let OutSide=cc.instantiate(this.OutSide)
+        var cat = cc.find(`Canvas/rootWarp/my_home/cat`)
+        var my_home = cc.find(`Canvas/rootWarp/my_home`)
+        cat.active=false
+        OutSide.parent=my_home
+        OutSide.active=true
+        // const obj = newNode.getComponent('dress_item')
+
+        // obj.init(currentpages[i])
+
+    },
+
     setTouch() {
         this.Feed.on(cc.Node.EventType.TOUCH_START, (event) => {
             this.show_feed()
@@ -79,7 +95,12 @@ cc.Class({
             event.stopPropagation();
 
         })
+        this.Goout.on(cc.Node.EventType.TOUCH_START,(event)=>{
+            this.handleGoout()
+            event.stopPropagation();
 
+        })
+        
         this.node.on(cc.Node.EventType.TOUCH_MOVE, (event) => {
             this.handleClose()
             event.stopPropagation();

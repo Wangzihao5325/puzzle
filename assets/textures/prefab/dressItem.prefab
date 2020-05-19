@@ -649,7 +649,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 72,
+      "width": 54,
       "height": 22.68
     },
     "_anchorPoint": {
@@ -700,8 +700,8 @@
       }
     ],
     "_useOriginalSize": false,
-    "_string": "普通猫粮",
-    "_N$string": "普通猫粮",
+    "_string": "已拥有",
+    "_N$string": "已拥有",
     "_fontSize": 18,
     "_lineHeight": 18,
     "_enableWrapText": true,
@@ -776,6 +776,7 @@
       "__id__": 5
     },
     "type": 1,
+    "close": null,
     "toushi": null,
     "boshi": {
       "__uuid__": "474198b7-6e42-4e92-a0a3-fa5cf739f402"
