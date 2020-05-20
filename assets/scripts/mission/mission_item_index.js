@@ -1,9 +1,4 @@
-// Learn cc.Class:
-//  - https://docs.cocos.com/creator/manual/en/scripting/class.html
-// Learn Attribute:
-//  - https://docs.cocos.com/creator/manual/en/scripting/reference/attributes.html
-// Learn life-cycle callbacks:
-//  - https://docs.cocos.com/creator/manual/en/scripting/life-cycle-callbacks.html
+import { CACHE } from '../global/usual_cache';
 
 cc.Class({
     extends: cc.Component,
@@ -17,7 +12,7 @@ cc.Class({
         hurdleId: cc.Number
     },
 
-    initWithItem(item) {
+    render(item) {
         this.title.string = item.hurdleName;
         this.hurdleId = item.hurdleId;///*item.logoUrl*/
         cc.loader.load({ url: item.logoUrl, type: 'png' }, (err, texture) => {
@@ -47,6 +42,31 @@ cc.Class({
             }
 
         });
+    },
+
+    setTouch(item) {
+        this.missionPic.node.on(cc.Node.EventType.TOUCH_START, (event) => {
+            event.stopPropagation();
+        });
+
+        this.missionPic.node.on(cc.Node.EventType.TOUCH_MOVE, (event) => {
+            this.isMove = true;
+            event.stopPropagation();
+        });
+
+        this.missionPic.node.on(cc.Node.EventType.TOUCH_END, (event) => {
+            if (!this.isMove) {
+                CACHE.mission_press = item;
+                cc.director.loadScene("puzzle");
+            }
+            this.isMove = false;
+            event.stopPropagation();
+        });
+    },
+
+    initWithItem(item) {
+        this.render(item);
+        this.setTouch(item);
     },
 
     // LIFE-CYCLE CALLBACKS:
