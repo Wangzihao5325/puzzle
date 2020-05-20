@@ -9,7 +9,8 @@ cc.Class({
         shortIntroduceLabel: cc.Label,
         titleLabel: cc.Label,
         back: cc.Sprite,
-        detail: cc.Sprite
+        detail: cc.Sprite,
+        scroll: cc.ScrollView
     },
 
     stateUpdate() {
@@ -63,7 +64,14 @@ cc.Class({
             /**必须设置一个宽度才能自动换行 */
             this.shortIntroduceLabel.node.width = 600;
             this.shortIntroduceLabel.string = CACHE.cityData.introduceShort;
-            console.log(res);
+        });
+        Action.Mission.MissionList((res) => {
+            /**获取关卡列表  */
+            console.log(CACHE.list)
+            let obj = this.scroll.getComponent('mission_scroll_index');
+            if (CACHE.list.length > 0) {
+                obj.initWithArr(CACHE.list);
+            }
         });
     },
 

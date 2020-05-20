@@ -14,7 +14,8 @@ const CACHE = {
         introduceInfo: '',
         introduceShort: '',
         name: ''
-    }
+    },
+    list:[],
 }
 
 export default {
