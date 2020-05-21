@@ -10,7 +10,9 @@ cc.Class({
         titleLabel: cc.Label,
         back: cc.Sprite,
         detail: cc.Sprite,
-        scroll: cc.ScrollView
+        scroll: cc.ScrollView,
+        levelSelect: cc.Prefab,
+        root: cc.Node
     },
 
     stateUpdate() {
@@ -22,6 +24,24 @@ cc.Class({
     },
 
     seeDetails() { },
+
+    missionItemClickCallback(item) {
+        if (!this._mission_select_obj) {
+            let missionSelect = cc.instantiate(this.levelSelect);
+            let obj = missionSelect.getComponent('mission_level_index');
+            this._mission_select_obj = obj;
+            if (obj) {
+                obj.item_node = missionSelect;
+                obj.initWithItem(item);
+            }
+            missionSelect.name = `mission_level`;
+            missionSelect.parent = this.root;
+            missionSelect.setPosition(cc.v2(0, 0));
+        } else {
+            this._mission_select_obj.item_node.active = true;
+            this._mission_select_obj.initWithItem(item);
+        }
+    },
 
     btnSetTouch() {
         /*返回按钮事件绑定 */
@@ -70,7 +90,7 @@ cc.Class({
             console.log(CACHE.list)
             let obj = this.scroll.getComponent('mission_scroll_index');
             if (CACHE.list.length > 0) {
-                obj.initWithArr(CACHE.list);
+                obj.initWithArr(CACHE.list, (item) => this.missionItemClickCallback(item));
             }
         });
     },

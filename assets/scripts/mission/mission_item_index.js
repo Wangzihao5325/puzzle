@@ -44,7 +44,7 @@ cc.Class({
         });
     },
 
-    setTouch(item) {
+    setTouch(item, missionItemClickCallback) {
         this.missionPic.node.on(cc.Node.EventType.TOUCH_START, (event) => {
             event.stopPropagation();
         });
@@ -56,17 +56,18 @@ cc.Class({
 
         this.missionPic.node.on(cc.Node.EventType.TOUCH_END, (event) => {
             if (!this.isMove) {
-                CACHE.mission_press = item;
-                cc.director.loadScene("puzzle");
+                if (missionItemClickCallback) {
+                    missionItemClickCallback(item)
+                }
             }
             this.isMove = false;
             event.stopPropagation();
         });
     },
 
-    initWithItem(item) {
+    initWithItem(item, missionItemClickCallback) {
         this.render(item);
-        this.setTouch(item);
+        this.setTouch(item, missionItemClickCallback);
     },
 
     // LIFE-CYCLE CALLBACKS:

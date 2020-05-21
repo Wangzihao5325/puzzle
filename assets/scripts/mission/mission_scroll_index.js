@@ -18,7 +18,7 @@ cc.Class({
         }
     },
 
-    initWithArr(arr) {
+    initWithArr(arr, missionItemClickCallback) {
         let totalHeight = (Math.floor((arr.length - 1) / 2) + 1) * 380;
         this.scroll_content.height = totalHeight;
         arr.forEach((item, index) => {
@@ -29,7 +29,7 @@ cc.Class({
             let missionItemNode = cc.instantiate(this.item_prefab);
             let obj = missionItemNode.getComponent('mission_item_index');
             if (obj) {
-                obj.initWithItem(item);
+                obj.initWithItem(item, missionItemClickCallback);
             }
             missionItemNode.name = `mission_item-${item.hurdleName}`;
             missionItemNode.parent = this.scroll_content;

@@ -1,0 +1,95 @@
+import { LEVEL } from '../global/piece_index';
+
+const TYPE = [
+    ['mission/6xuanzhong2', 'mission/6xuanzhong1'],
+    ['mission/24xuanzhong2', 'mission/24xuanzhong1'],
+    ['mission/48xuanzhong2', 'mission/48xuanzhong1'],
+    ['mission/48xuanzhong2', 'mission/48xuanzhong1'],
+];
+
+const TITLE = ['6块', '24块', '48块', '48块 旋转'];
+
+cc.Class({
+    extends: cc.Component,
+
+    properties: {
+        mainBg: cc.Sprite,
+        arrow: cc.Sprite,
+        circle: cc.Sprite,
+        label: cc.Label
+    },
+
+    setTitle(hardLevel) {
+        let title = TITLE[hardLevel];
+        this.label.string = title;
+    },
+
+    setUnclick() {
+        this.circle.node.active = false;
+        this.arrow.node.active = false;
+        cc.loader.loadRes('mission/weixuanzhong', cc.SpriteFrame, (err, asset) => {
+            if (err) cc.error(err);
+            this.mainBg.spriteFrame = asset;
+        })
+    },
+
+    setClicked(hardLevel, callback) {
+        const assetsArr = TYPE[hardLevel];
+        cc.loader.loadResArray(assetsArr, cc.SpriteFrame, (err, assets) => {
+            if (err) cc.error(err);
+            this.mainBg.spriteFrame = assets[0];
+            this.arrow.spriteFrame = assets[1];
+            this.arrow.node.scale = 0.5;
+            this.arrow.node.active = true;
+            cc.tween(this.arrow.node)
+                .to(0.2, { position: cc.v2(115, 0) })
+                .to(0.2, { position: cc.v2(110, 0) })
+                .to(0.2, { position: cc.v2(115, 0) })
+                .to(0.2, { position: cc.v2(110, 0) })
+                .start();
+            if (hardLevel == LEVEL.VERY_HARD) {
+                this.circle.active = true;
+                this.circle.node.scale = 0.5;
+                cc.tween(this.circle.node)
+                    .to(0.2, { scale: 0.55 })
+                    .to(0.2, { scale: 0.5 })
+                    .to(0.2, { scale: 0.55 })
+                    .to(0.2, { scale: 0.5 })
+                    .start();
+            }
+            if (callback) {
+                callback(hardLevel)
+            }
+        });
+    },
+
+    initWithHard(hardLevel, callback) {
+        this.setTitle(hardLevel);
+        this.setUnclick();
+
+        this.mainBg.node.on(cc.Node.EventType.TOUCH_START, (event) => {
+            event.stopPropagation();
+        });
+        this.mainBg.node.on(cc.Node.EventType.TOUCH_MOVE, (event) => {
+            this.isMove = true;
+            event.stopPropagation();
+        });
+        this.mainBg.node.on(cc.Node.EventType.TOUCH_END, (event) => {
+            event.stopPropagation();
+            if (!this.isMove) {
+                this.setClicked(hardLevel, callback);
+            }
+            this.isMove = false;
+        });
+    },
+
+    // LIFE-CYCLE CALLBACKS:
+
+    // onLoad () {},
+
+    start() {
+
+    },
+
+    // update (dt) {},
+});
