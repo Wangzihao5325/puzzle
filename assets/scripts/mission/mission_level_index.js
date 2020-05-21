@@ -65,6 +65,26 @@ cc.Class({
         }
     },
 
+    setStartBtn() {
+        /*返回按钮事件绑定 */
+        this.startBtn.node.on(cc.Node.EventType.TOUCH_START, (event) => {
+            event.stopPropagation();
+        });
+        this.startBtn.node.on(cc.Node.EventType.TOUCH_MOVE, (event) => {
+            this.isMove = true;
+            event.stopPropagation();
+        });
+        this.startBtn.node.on(cc.Node.EventType.TOUCH_END, (event) => {
+            event.stopPropagation();
+            if (!this.isMove) {
+                if (!isNaN(CACHE.hard_level)) {
+                    cc.director.loadScene("puzzle");
+                }
+            }
+            this.isMove = false;
+        });
+    },
+
     initWithItem(item) {
         this.title.string = item.hurdleName;
         cc.loader.load({ url: item.logoUrl, type: 'png' }, (err, texture) => {
@@ -97,6 +117,7 @@ cc.Class({
         this.setback();
         if (!this.btnObj) {
             this.setBtn();
+            this.setStartBtn();
         }
     },
 
