@@ -30,7 +30,7 @@ cc.Class({
         const self = this;
         var urls = MASK_RESOUSE[hardLevel];
         /*理论上来说，加载地图块时，由于负责遮挡的背景片已经加载完毕，因此资源不需要再次进行加载，直接使用即可*/
-        cc.loader.loadRes(urls[index], function (err, assets) {
+        cc.loader.loadRes(urls[index], cc.SpriteFrame,function (err, assets) {
             if (err) {
                 cc.error(err);
                 return;
