@@ -177,7 +177,7 @@
       "array": [
         0,
         0,
-        387.1133554916441,
+        417.42424462409946,
         0,
         0,
         0,
@@ -847,9 +847,7 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_spriteFrame": {
-      "__uuid__": "3e0c8fe4-08b7-436f-9ae3-af9dc74b03a1"
-    },
+    "_spriteFrame": null,
     "_type": 0,
     "_sizeMode": 0,
     "_fillType": 0,
@@ -1647,7 +1645,7 @@
         "__id__": 39
       }
     ],
-    "_active": true,
+    "_active": false,
     "_components": [
       {
         "__id__": 41
@@ -1981,6 +1979,9 @@
     },
     "china_map": {
       "__id__": 14
+    },
+    "chhina_map_pic": {
+      "__id__": 17
     },
     "line_node": {
       "__id__": 15

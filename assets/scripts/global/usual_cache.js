@@ -18,6 +18,9 @@ const CACHE = {
         name: ''
     },
     list: [],
+    assets: {//用来存放已经加载过的图片资源
+        bg: null//场景背景图片资源
+    },
 }
 
 export default {

@@ -1,6 +1,6 @@
 import { CITIES } from '../global/travel_global_index';
 import { CACHE } from '../global/usual_cache';
-import { SCENE } from '../global/app_global_index';
+import { SCENE, BG_ASSET_URL, SCENE_KEY } from '../global/app_global_index';
 import Action from '../api/api_action';
 
 cc.Class({
@@ -9,6 +9,7 @@ cc.Class({
     properties: {
         city_item: cc.Prefab,
         china_map: cc.Node,
+        chhina_map_pic: cc.Sprite,
         line_node: cc.Node,
         footer: cc.Prefab,
         header: cc.Prefab,
@@ -60,6 +61,12 @@ cc.Class({
         CACHE.scene = SCENE.TRAVEL;
     },
 
+    setBg() {
+        const bg_assets = CACHE.assets.bg;
+        let travelBgTex = bg_assets[SCENE_KEY.TRAVEL];
+        this.chhina_map_pic.spriteFrame = new cc.SpriteFrame(travelBgTex);
+    },
+
     footerInit() {
         let footer = cc.instantiate(this.footer);
         let obj = footer.getComponent('navi_footer');
@@ -85,6 +92,7 @@ cc.Class({
 
     init() {
         this.stateUpdate();
+        this.setBg();
         this.footerInit();
         this.headerInit();
 
