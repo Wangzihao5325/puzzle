@@ -5,6 +5,7 @@
 // Learn life-cycle callbacks:
 //  - https://docs.cocos.com/creator/manual/en/scripting/life-cycle-callbacks.html
 import { HOME_CACHE  } from '../global/home_global';
+import { CurrencyIdtoName } from '../utils/utils'
 
 cc.Class({
     extends: cc.Component,
@@ -13,10 +14,13 @@ cc.Class({
         dress_item: cc.Node,
         bg: cc.Sprite,
         type: cc.Sprite,
-        close:cc.Node,
+        iconWarp:cc.Node,
+        iconWarpContent:cc.Node,
         toushi:cc.SpriteFrame,
         boshi: cc.SpriteFrame,
         weishi: cc.SpriteFrame,
+        selectBorder: cc.SpriteFrame,
+        defaultPanle:cc.SpriteFrame,
         itemDes:cc.Label,
         current:cc.Node,
         own:cc.Node,
@@ -30,6 +34,10 @@ cc.Class({
         position:{
             type:Number,
             default:1
+        },
+        select:{
+            type:Boolean,
+            default:false
         }
 
         // ske_anim: {
@@ -64,17 +72,46 @@ cc.Class({
         this.status=item.status;
         const derreType=['',this.toushi,this.boshi,this.weishi,]
         this.type.spriteFrame=derreType[item.position]
-        // if(this.status===0){
-        //     this.priceWarp=active;
-        //     this.currency=this.costGoodsType
-        //     this.price.string=this.costNum
-        // }else if(this.status===1){
-        //     this.own=active
-        // }else if(this.status===2){
-        //     this.current=active
-        // }
+        console.log('costGoodsType',CurrencyIdtoName(item.costGoodsType))
+        // CurrencyIdtoName(.costGoodsType)
+        if(item.status===0){
+            this.priceWarp.active=true;
+            this.currency=item.costGoodsType
+            this.price.string=item.costNum
+        }else if(this.status===1){
+            this.own.active=true
+        }else if(this.status===2){
+            this.current.active=true
+        }
     },
     
+    setSelect(event){
+        console.log("event",event)
+        const node=this.iconWarp.getComponent(cc.Sprite)
+        const contentNode=this.iconWarpContent.getComponent(cc.Sprite)
+        if(!this.select){
+            if(HOME_CACHE.selectDecorations){
+                var feedWarp = cc.find(`Canvas/dressWarp`)
+            }
+
+            HOME_CACHE.selectDecorations=event.currentTarget
+
+            node.spriteFrame=this.selectBorder
+            contentNode.spriteFrame=this.selectBorder
+            contentNode.color=new cc.color(254, 248, 212)
+            this.select=!this.select;
+
+        }
+
+    },
+
+    removeSelect(){
+        const node=this.iconWarp.getComponent(cc.Sprite)
+        const contentNode=this.iconWarpContent.getComponent(cc.Sprite)
+        node.spriteFrame=this.defaultPanle
+        contentNode.spriteFrame=this.defaultPanle
+        contentNode.color=new cc.color(236,236,236)
+    },
 
     start () {
 
@@ -165,7 +202,8 @@ cc.Class({
     },
     setTouch() {
         this.dress_item.on(cc.Node.EventType.TOUCH_START, (event) => {
-            this.handleDressItem()
+            // this.handleDressItem()
+            this.setSelect(event)
             event.stopPropagation();
 
         })

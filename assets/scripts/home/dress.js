@@ -47,11 +47,13 @@ cc.Class({
                 const obj = newNode.getComponent('dress_item')
     
                 obj.init(currentpages[i])
+                obj.name=currentpages[i].name
+
     
                 newNode.parent = currentPageContent
                 indexX=i>=4?i-4:i
                 indexY=Math.ceil((i+1)/4)
-                let position = cc.v2((160 * (indexX+1)) - 80-320, (210-(190*(-0.5+indexY)))+30);
+                let position = cc.v2((160 * (indexX+1)) - 80-320, (210-(180*(-0.5+indexY)))+10);
                 newNode.setPosition(position)
             }
 

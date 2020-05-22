@@ -9,4 +9,4 @@ const CURRENCY=[
     }
 ]
 
-export default {CURRENCY}
+export  {CURRENCY}

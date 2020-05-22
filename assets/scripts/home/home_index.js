@@ -100,6 +100,36 @@ cc.Class({
         });
     },
 
+    getPetHunger(callBack) {
+        Api.petHungry((res) => {
+            const data = res.data;
+            console.log("getPetHunger", res)
+            if (res.code === 0) {
+                HOME_CACHE.pet_info = {
+                    ...HOME_CACHE.pet_info,
+                    ...data,
+                }
+                this.setHungerTimer(data.refreshTime)
+
+                this.resetUI()
+                if (callBack) {
+                    callBack()
+                }
+            }
+        });
+    },
+
+    setHungerTimer(refreshTime) {
+        const time = refreshTime - (new Date()).getTime()
+        console.log("tiem", time)
+        if (hunberTimer) {
+            clearTimeout(hunberTimer)
+        }
+        let hunberTimer = setTimeout(() => {
+            this.getPetHunger()
+        }, time)
+    },
+
     getFoodRemain(callBack) {
         Api.petRemainFood((res) => {
             const data = res.data;
@@ -129,6 +159,7 @@ cc.Class({
         this.initCatPost()
         this.getPetInfo()
         this.getFoodRemain()
+        this.getPetHunger()
         this.resetUI()
 
 
