@@ -44,7 +44,6 @@ cc.Class({
             for(let i=0;i<currentpages.length;i++){
                 let newNode=cc.instantiate(this.dress_item)
     
-       
                 const obj = newNode.getComponent('dress_item')
     
                 obj.init(currentpages[i])

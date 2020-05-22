@@ -36,14 +36,25 @@ const CityDetails = (callback, failedCallback) => {
     }
 }
 
-
+const MissionList = (callback, failedCallback) => {
+    let cityItem = CACHE.travel_city_press;
+    if (cityItem && cityItem.key) {
+        Api.missionList(cityItem.key, (res) => {
+            CACHE.list = [...res.data];
+            if (callback) {
+                callback(res);
+            }
+        }, failedCallback)
+    }
+}
 
 const User = {
     BalanceUpdate
 }
 
 const Mission = {
-    CityDetails
+    CityDetails,
+    MissionList
 }
 
 export default {

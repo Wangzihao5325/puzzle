@@ -168,11 +168,12 @@ const MASK_PIECE6_8 = [
   "6x8/48"
 ];
 
-const SIZES = [SIZE2_3, SIZE4_6, SIZE6_8];
-const MASK_RESOUSE = [MASK_PIECE2_3, MASK_PIECE4_6, MASK_PIECE6_8];
+const SIZES = [SIZE2_3, SIZE4_6, SIZE6_8, SIZE6_8];
+const MASK_RESOUSE = [MASK_PIECE2_3, MASK_PIECE4_6, MASK_PIECE6_8, MASK_PIECE6_8];
 const TYPES = [
   [2, 3],
   [4, 6],
+  [6, 8],
   [6, 8]
 ];
 const PIC_WIDTH = 644;
@@ -180,25 +181,27 @@ const PIC_HEIGHT = 857;
 const LEVEL = {
   EASY: 0,
   NORMAL: 1,
-  HARD: 2
+  HARD: 2,
+  //VERY_HARD: 3
 };
 
 const SCALELEAVEL = {
-    0:0.25,
-    1:0.5,
-    2:0.6
+  0: 0.25,
+  1: 0.5,
+  2: 0.6,
+  3: 0.6
 }
 
-var currentLeavel=2
+var currentLeavel = 2
 
 
-var complateIndex=[]
+var complateIndex = []
 
-var underwayIndex=[]
+var underwayIndex = []
 
-var spliceArr=[]
+var spliceArr = []
 
-var coutnDown=0
+var coutnDown = 0
 
 // function rename (){
 //     let size1=''

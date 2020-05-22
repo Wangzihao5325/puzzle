@@ -3,6 +3,8 @@ import { SCENE } from './app_global_index';
 const CACHE = {
     scene: SCENE.TRAVEL,
     travel_city_press: null,//用来记录在travel场景选择的城市
+    mission_press: null,//用来记录在城市中选择的景点
+    hard_level: NaN,
     userData: {//用户资产
         coin: 0,
         gem: 0,
@@ -14,7 +16,8 @@ const CACHE = {
         introduceInfo: '',
         introduceShort: '',
         name: ''
-    }
+    },
+    list: [],
 }
 
 export default {
