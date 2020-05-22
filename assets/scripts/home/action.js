@@ -4,6 +4,7 @@
 //  - https://docs.cocos.com/creator/manual/en/scripting/reference/attributes.html
 // Learn life-cycle callbacks:
 //  - https://docs.cocos.com/creator/manual/en/scripting/life-cycle-callbacks.html
+import Api from '../api/api_index'
 
 cc.Class({
     extends: cc.Component,
@@ -79,7 +80,7 @@ cc.Class({
         // obj.show_dress()
     },
 
-    handleGoout(){
+    setOUtUi(){
         // Hunger.show("")
         Tire.show(50)
         this.Action_warp.active=false
@@ -94,6 +95,19 @@ cc.Class({
 
         // obj.init(currentpages[i])
 
+    },
+
+    handleGoout(){
+        Api.petGoout((res) => {
+            console.log("res",res)
+            if(res.code===0){
+                Toast.show("宠物已外出")
+                // this.init()
+                // this.resetUI()
+            }else{
+                Toast.show(res.message||'外出失败')
+            }
+        });
     },
 
     setTouch() {

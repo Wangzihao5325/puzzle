@@ -1820,7 +1820,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "New Label",
+    "_name": "saveText",
     "_objFlags": 0,
     "_parent": {
       "__id__": 49
@@ -2300,6 +2300,9 @@
     },
     "dress_warp": {
       "__id__": 1
+    },
+    "save": {
+      "__id__": 49
     },
     "_id": ""
   },

@@ -70,6 +70,10 @@ cc.Class({
         this.costNum=item.costNum;
         this.name=item.name;
         this.status=item.status;
+
+        this.dress_item.goodsId=item.goodsId
+        this.dress_item.info=item
+
         const derreType=['',this.toushi,this.boshi,this.weishi,]
         this.type.spriteFrame=derreType[item.position]
         console.log('costGoodsType',CurrencyIdtoName(item.costGoodsType))
@@ -78,18 +82,24 @@ cc.Class({
             this.priceWarp.active=true;
             this.currency=item.costGoodsType
             this.price.string=item.costNum
+            this.current.active=false
+            this.own.active=false
         }else if(this.status===1){
             this.own.active=true
+            this.current.active=false
+            this.priceWarp.active=false;
+
         }else if(this.status===2){
             this.current.active=true
+            this.own.active=false
+            this.priceWarp.active=false
         }
     },
     
     setSelect(event){
-        console.log("event",event)
         const node=this.iconWarp.getComponent(cc.Sprite)
         const contentNode=this.iconWarpContent.getComponent(cc.Sprite)
-        if(!this.select){
+       
             if(HOME_CACHE.selectDecorations){
                 var feedWarp = cc.find(`Canvas/dressWarp`)
             }
@@ -100,8 +110,11 @@ cc.Class({
             contentNode.spriteFrame=this.selectBorder
             contentNode.color=new cc.color(254, 248, 212)
             this.select=!this.select;
+            this.handleDressItem()
+            var feedWarpSave = cc.find(`Canvas/dressWarp/save/saveText`).getComponent(cc.Label)
+            feedWarpSave.string=(HOME_CACHE.selectDecorations.info.status===0?'购买并装扮':'保存装扮')
 
-        }
+        
 
     },
 

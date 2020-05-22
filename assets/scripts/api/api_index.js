@@ -1,5 +1,5 @@
 import CusHttp from './custom_http';
-const API_DOMAIN = 'http://192.168.3.231:8090';
+const API_DOMAIN = 'http://192.168.3.140:8090';
 
 /**
  * 根据城市id获取城市详情
@@ -103,6 +103,15 @@ const petBuyEquip = (payload = { goodsId: 1 }, callback, failedCallback) => new 
 const petEquip = (payload = { goodsId: 1 }, callback, failedCallback) => new CusHttp().Post(`${API_DOMAIN}/pet/decoration/equip`, payload, callback, failedCallback);
 
 
+/**
+ * 保存当前装饰物为当前形象&喂食
+ * @param {Object} payload {null:null}
+ * @param {Function} callback 
+ * @param {Function} failedCallback 
+ */
+const petGoout = ( callback, failedCallback) => new CusHttp().Post(`${API_DOMAIN}/pet/go_outward`, callback, failedCallback);
+
+
 
 export default {
     cityDetails,
@@ -119,5 +128,6 @@ export default {
     petDecorations,
     petFeed,
     petBuyEquip,
-    petEquip
+    petEquip,
+    petGoout
 }

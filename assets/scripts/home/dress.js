@@ -20,7 +20,8 @@ cc.Class({
         pageItem3:cc.Node,
         pageItem4:cc.Node,
         dress_item:cc.Prefab,
-        dress_warp:cc.Node
+        dress_warp:cc.Node,
+        save:cc.Node,
 
 
     },
@@ -95,11 +96,32 @@ cc.Class({
         .start()
 
     },
+    handleSave(){
+        const data={
+            goodsId:HOME_CACHE.selectDecorations.goodsId
+        }
+        const status=HOME_CACHE.selectDecorations.info.status
+        const api=status===0?Api.petBuyEquip:Api.petEquip
+        api(data,(res) => {
+            const data = res.data;
+            console.log("res",res)
+            if(res.code===0){
+                Toast.show(status===0?"购买成功":'装扮成功')
+                this.getDecorations()
+            }else{
+                Toast.show(res.message||(status===0?"购买失败'":'装扮失败'))
+            }
+        });
+    },
 
     setTouch() {
 
         this.close.on(cc.Node.EventType.TOUCH_START, (event) => {
             this.handleClose(2)
+            event.stopPropagation();
+        })
+        this.save.on(cc.Node.EventType.TOUCH_START, (event) => {
+            this.handleSave(2)
             event.stopPropagation();
         })
     }
