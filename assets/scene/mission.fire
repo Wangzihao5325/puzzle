@@ -313,9 +313,7 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_spriteFrame": {
-      "__uuid__": "71486446-1e83-4a40-af75-379eef584f72"
-    },
+    "_spriteFrame": null,
     "_type": 0,
     "_sizeMode": 0,
     "_fillType": 0,
@@ -1948,6 +1946,9 @@
     },
     "root": {
       "__id__": 7
+    },
+    "bg": {
+      "__id__": 6
     },
     "_id": "bbh7r8Y21LMJvAUYL8rGIi"
   }

@@ -1,6 +1,6 @@
 import { CITIES } from '../global/travel_global_index';
 import { CACHE } from '../global/usual_cache';
-import { SCENE, BG_ASSET_URL, SCENE_KEY } from '../global/app_global_index';
+import { SCENE, SCENE_KEY } from '../global/app_global_index';
 import Action from '../api/api_action';
 
 cc.Class({

@@ -1,5 +1,5 @@
 import { CACHE } from '../global/usual_cache';
-import { SCENE } from '../global/app_global_index';
+import { SCENE, SCENE_KEY } from '../global/app_global_index';
 import Action from '../api/api_action';
 
 cc.Class({
@@ -12,11 +12,18 @@ cc.Class({
         detail: cc.Sprite,
         scroll: cc.ScrollView,
         levelSelect: cc.Prefab,
-        root: cc.Node
+        root: cc.Node,
+        bg: cc.Sprite,
     },
 
     stateUpdate() {
         CACHE.scene = SCENE.MISSION;
+    },
+
+    setBg() {
+        const bg_assets = CACHE.assets.bg;
+        let missionBgTex = bg_assets[SCENE_KEY.MISSION];
+        this.bg.spriteFrame = new cc.SpriteFrame(missionBgTex);
     },
 
     goBack() {
@@ -99,6 +106,7 @@ cc.Class({
 
     init() {
         this.stateUpdate();
+        this.setBg();
         this.render();
         this.btnSetTouch();
     },

@@ -1,6 +1,6 @@
 import { CACHE } from '../global/usual_cache';
-import { SCENE } from '../global/app_global_index';
-import { HOME_CACHE  } from '../global/home_global';
+import { SCENE, SCENE_KEY } from '../global/app_global_index';
+import { HOME_CACHE } from '../global/home_global';
 import Api from '../api/api_index'
 
 cc.Class({
@@ -17,6 +17,7 @@ cc.Class({
         cat_action: cc.Prefab,
         layout_root: cc.Node,
         home_root: cc.Node,
+        home_bg: cc.Sprite,
         hungry_bar: cc.Node,
         lucky_bar: cc.Node,
         feed_warp: cc.Prefab,
@@ -30,8 +31,15 @@ cc.Class({
         CACHE.scene = SCENE.HOME;
     },
 
+    setBg() {
+        const bg_assets = CACHE.assets.bg;
+        let homeBgTex = bg_assets[SCENE_KEY.HOME];
+        this.home_bg.spriteFrame = new cc.SpriteFrame(homeBgTex);
+    },
+
     init() {
         this.stateUpdate();
+        this.setBg();
         this.footerInit();
         this.headerInit();
         this.initDress()
@@ -56,65 +64,65 @@ cc.Class({
         header.setPosition(0, 528);
     },
 
-    initCatPost(){
+    initCatPost() {
         var spine = this.ske_anim;
         var ske_com = spine.getComponent(sp.Skeleton);
         this.ske_com = ske_com;
-        const catPostList=['Zou00','PA00','Zhan00']
+        const catPostList = ['Zou00', 'PA00', 'Zhan00']
         this.ske_com.clearTrack(0);
         //随机姿势
-        if(HOME_CACHE.cat_post===undefined){
-            HOME_CACHE.cat_post=Math.round(Math.random() * 2)
+        if (HOME_CACHE.cat_post === undefined) {
+            HOME_CACHE.cat_post = Math.round(Math.random() * 2)
         }
-        const currentPost=catPostList[HOME_CACHE.cat_post]
+        const currentPost = catPostList[HOME_CACHE.cat_post]
         this.ske_com.setAnimation(0, currentPost, true)
     },
 
-    initDress(){
+    initDress() {
         let dressWarpInstan = cc.instantiate(this.dress_warp)
         var warp_parent = cc.find(`Canvas`)
-        dressWarpInstan.parent=warp_parent
+        dressWarpInstan.parent = warp_parent
         dressWarpInstan.setPosition(0, -868);
-        dressWarpInstan.active=false
+        dressWarpInstan.active = false
         let obj = dressWarpInstan.getComponent('dress')
         obj.init()
 
     },
 
-    getPetInfo(){
+    getPetInfo() {
         Api.petHome((res) => {
             const data = res.data;
-            console.log("res",res)
-            if(res.code===0){
-                HOME_CACHE.pet_info=res.data;
+            console.log("res", res)
+            if (res.code === 0) {
+                HOME_CACHE.pet_info = res.data;
                 this.resetUI()
             }
         });
     },
 
-    getFoodRemain(callBack){
+    getFoodRemain(callBack) {
         Api.petRemainFood((res) => {
             const data = res.data;
-            console.log("res",res)
-            if(res.code===0){
-                HOME_CACHE.cat_food=res.data;
+            console.log("res", res)
+            if (res.code === 0) {
+                HOME_CACHE.cat_food = res.data;
                 this.resetUI()
-                if(callBack){
+                if (callBack) {
                     callBack()
                 }
             }
         });
     },
 
-    resetUI(){
-        var hungry_warp = cc.find(`processText`,this.hungry_bar)
-        hungry_warp.getComponent(cc.Label).string=`${HOME_CACHE.pet_info.currentHungry} \ ${HOME_CACHE.pet_info.hungryUpperLimit}`
-        this.hungry_bar.width=200*HOME_CACHE.pet_info.currentHungry/HOME_CACHE.pet_info.hungryUpperLimit
-        
-        var lucky_warp = cc.find(`processText`,this.lucky_bar)
-        lucky_warp.getComponent(cc.Label).string=`${HOME_CACHE.pet_info.currentLucky} \ ${HOME_CACHE.pet_info.luckyUpperLimit}`
-        this.lucky_bar.width=200*HOME_CACHE.pet_info.currentLucky/HOME_CACHE.pet_info.luckyUpperLimit
-        
+    resetUI() {
+        var hungry_warp = cc.find(`processText`, this.hungry_bar)
+        hungry_warp.getComponent(cc.Label).string = `${HOME_CACHE.pet_info.currentHungry} \ ${HOME_CACHE.pet_info.hungryUpperLimit}`
+        this.hungry_bar.width = 200 * HOME_CACHE.pet_info.currentHungry / HOME_CACHE.pet_info.hungryUpperLimit
+
+        var lucky_warp = cc.find(`processText`, this.lucky_bar)
+        lucky_warp.getComponent(cc.Label).string = `${HOME_CACHE.pet_info.currentLucky} \ ${HOME_CACHE.pet_info.luckyUpperLimit}`
+        this.lucky_bar.width = 200 * HOME_CACHE.pet_info.currentLucky / HOME_CACHE.pet_info.luckyUpperLimit
+
     },
 
     onLoad() {

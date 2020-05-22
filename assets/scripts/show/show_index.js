@@ -1,11 +1,12 @@
 import { CACHE } from '../global/usual_cache';
-import { SCENE } from '../global/app_global_index';
+import { SCENE, SCENE_KEY } from '../global/app_global_index';
 
 cc.Class({
     extends: cc.Component,
 
     properties: {
         root: cc.Node,
+        root_bg: cc.Sprite,
         footer: cc.Prefab,
         header: cc.Prefab,
         vistor: cc.Prefab,
@@ -13,6 +14,12 @@ cc.Class({
 
     stateUpdate() {
         CACHE.scene = SCENE.SHOW;
+    },
+
+    setBg() {
+        const bg_assets = CACHE.assets.bg;
+        let showBgTex = bg_assets[SCENE_KEY.SHOW];
+        this.root_bg.spriteFrame = new cc.SpriteFrame(showBgTex);
     },
 
     footerInit() {
@@ -85,6 +92,7 @@ cc.Class({
             pausePeriod: 2
         }
         this.stateUpdate();
+        this.setBg();
         this.footerInit();
         this.headerInit();
         this.vistorInit(payload);
