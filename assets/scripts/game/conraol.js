@@ -1,4 +1,5 @@
-import { SIZES, SCALELEAVEL, complateIndex, underwayIndex, spliceArr, currentLeavel } from '../global/piece_index';
+import { SIZES, SCALELEAVEL, complateIndex, underwayIndex, spliceArr } from '../global/piece_index';
+import { CACHE } from '../global/usual_cache';
 
 import { initItem } from './initSplice';
 import GLOBAL_VAR from '../global/index'
@@ -65,7 +66,7 @@ cc.Class({
             var item_puzzle_warp = cc.find(`Canvas/root/puzzleWarp/puzzleBg/item_puzzle_warp-${currentNode.defaultIndex}`);
 
             cc.tween(currentNode)
-                .to(.4, { position: cc.v2(currentNode.defaultPostion[0], currentNode.defaultPostion[1]), scale: 1 / SCALELEAVEL[currentLeavel], angle: 0 })
+                .to(.4, { position: cc.v2(currentNode.defaultPostion[0], currentNode.defaultPostion[1]), scale: 1 / SCALELEAVEL[CACHE.hard_level], angle: 0 })
                 .start()
 
             const index = currentNode.defaultIndex;
@@ -84,7 +85,7 @@ cc.Class({
         if (this.checkComplate()) {
             return false
         }
-        initItem(spliceArr, currentLeavel, 1, this.pre_item, this.game_bg, this.spframe_puzzle, true);
+        initItem(spliceArr, CACHE.hard_level, 1, this.pre_item, this.game_bg, this.spframe_puzzle, true);
     },
 
     gamePause() {
@@ -110,7 +111,7 @@ cc.Class({
     },
 
     checkComplate() {
-        if (SIZES[currentLeavel].length == complateIndex.length) {
+        if (SIZES[CACHE.hard_level].length == complateIndex.length) {
             Toast.show("拼图完成", 1000);
             return true
         } else {

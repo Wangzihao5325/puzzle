@@ -30,9 +30,9 @@ cc.Class({
         });
 
         /*动态加载资源*/
-        cc.loader.loadRes(imagePath, cc.SpriteFrame, (err, spriteFrame) => {
-            if (spriteFrame) {
-                this.spframe_puzzle = spriteFrame;
+        cc.loader.load({ url: imagePath, type: 'png' }, (err, texture) => {
+            if (texture) {
+                this.spframe_puzzle = new cc.SpriteFrame(texture);;
                 /*初始化所有的块*/
                 initItem(SIZES, hardLevel, 0, this.pre_item, this.game_bg, this.spframe_puzzle)
 

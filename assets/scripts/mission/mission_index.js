@@ -26,6 +26,8 @@ cc.Class({
     seeDetails() { },
 
     missionItemClickCallback(item) {
+        CACHE.mission_press = item;
+
         if (!this._mission_select_obj) {
             let missionSelect = cc.instantiate(this.levelSelect);
             let obj = missionSelect.getComponent('mission_level_index');
@@ -87,7 +89,7 @@ cc.Class({
         });
         Action.Mission.MissionList((res) => {
             /**获取关卡列表  */
-            console.log(CACHE.list)
+            //console.log(CACHE.list)
             let obj = this.scroll.getComponent('mission_scroll_index');
             if (CACHE.list.length > 0) {
                 obj.initWithArr(CACHE.list, (item) => this.missionItemClickCallback(item));

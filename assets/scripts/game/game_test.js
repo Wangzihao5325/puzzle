@@ -1,4 +1,6 @@
-import { SIZES, LEVEL,currentLeavel } from '../global/piece_index';
+import { SIZES, LEVEL } from '../global/piece_index';
+import { CACHE } from '../global/usual_cache';
+import Api from '../api/api_index';
 
 cc.Class({
     extends: cc.Component,
@@ -19,18 +21,25 @@ cc.Class({
     },
 
     init() {
-        const hardLevel = currentLeavel;
-        const imagePath = "background/haixianbg";
-        const animatePayload = {
-            animatePath: "dragonBones/chunyuanhaixianguangchang/chunyuanhaixianguangchang_tex.json",
-            animatePath2: "dragonBones/chunyuanhaixianguangchang/chunyuanhaixianguangchang_ske.json",
-            armature: "chunyuanhaixianguangchang",
-            animate: "newAnimation",
-        };
-        this.game_bg.zIndex = 1;
-        this.initItem(hardLevel);
-        this.initSpliceWarp(hardLevel, imagePath);
-        this.initBgAnimate(animatePayload);
+        const hardLevel = CACHE.hard_level;
+        const missionObj = CACHE.mission_press;
+        console.log('dddd');
+        console.log(missionObj);
+        Api.missionDetails(missionObj.hurdleId, (res) => {
+            console.log(res);
+            const imagePath = missionObj.logoUrl;
+            const animatePayload = {
+                animatePath: res.data.texJson,
+                animatePath2: res.data.skeJson,
+                picPath: res.data.texPng,
+                armature: "chunyuanhaixianguangchang",
+                animate: "newAnimation",
+            };
+            this.game_bg.zIndex = 1;
+            this.initItem(hardLevel);
+            this.initSpliceWarp(hardLevel, imagePath);
+            this.initBgAnimate(animatePayload);
+        })
     },
 
     initItem(hardLevel = LEVEL.EASY) {// hardLevel: 0->2*3; 1->4*6; 2->6*8
@@ -76,16 +85,39 @@ cc.Class({
         if (this.dragonBone.dragonAtlasAsset) {
             return;
         }
-        cc.loader.loadRes(animatePayload.animatePath, dragonBones.DragonBonesAtlasAsset, (err, res) => {
-            if (err) cc.error(err);
-            this.dragonBone.dragonAtlasAsset = res;
-            cc.loader.loadRes(animatePayload.animatePath2, dragonBones.DragonBonesAsset, (err, res) => {
-                if (err) cc.error(err);
-                this.dragonBone.dragonAsset = res;
-                this.dragonBone.armatureName = animatePayload.armature;
-                this.dragonBone.playAnimation(animatePayload.animate, 0);
+
+        cc.loader.load(animatePayload.picPath, (error, texture) => {
+            cc.loader.load({ url: animatePayload.animatePath, type: 'txt' }, (error1, atlasJson) => {
+                cc.loader.load({ url: animatePayload.animatePath2, type: 'txt' }, (error2, dragonBonesJson) => {
+                    var atlas = new dragonBones.DragonBonesAtlasAsset();
+                    atlas._uuid = animatePayload.animatePath;
+                    atlas.atlasJson = atlasJson;
+                    atlas.texture = texture;
+                    var asset = new dragonBones.DragonBonesAsset();
+                    asset._uuid = animatePayload.animatePath2;
+                    asset.dragonBonesJson = dragonBonesJson;
+                    let dbJson = JSON.parse(dragonBonesJson);
+
+                    this.dragonBone.dragonAtlasAsset = atlas;
+                    this.dragonBone.dragonAsset = asset;
+
+                    this.dragonBone.armatureName = dbJson.armature[0].name;
+                    this.dragonBone.playAnimation(dbJson.armature[0].defaultActions[0].gotoAndPlay, 0);
+                });
             });
         });
+        /* dragonbone图片加载demo
+                cc.loader.loadRes(animatePayload.animatePath, dragonBones.DragonBonesAtlasAsset, (err, res) => {
+                    if (err) cc.error(err);
+                    this.dragonBone.dragonAtlasAsset = res;
+                    cc.loader.loadRes(animatePayload.animatePath2, dragonBones.DragonBonesAsset, (err, res) => {
+                        if (err) cc.error(err);
+                        this.dragonBone.dragonAsset = res;
+                        this.dragonBone.armatureName = animatePayload.armature;
+                        this.dragonBone.playAnimation(animatePayload.animate, 0);
+                    });
+                });
+        */
     },
 
     start() {
