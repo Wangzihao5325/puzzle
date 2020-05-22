@@ -55,13 +55,12 @@ const travel = (payload = { key: 1 }, callback, failedCallback) => new CusHttp()
  */
 const petHome = (callback, failedCallback) => new CusHttp().Get(`${API_DOMAIN}/pet/home`, callback, failedCallback);
 
-
 /**
- * 宠物当前饥饿信息
+ * 宠物当前饥饿信息&喂食
  * @param {Function} callback 
  * @param {Function} failedCallback 
  */
-const petHungry = (callback, failedCallback) => new CusHttp().Get(`${API_DOMAIN}/pet/hungry_info`, callback, failedCallback);
+const petHungry = ( callback, failedCallback) => new CusHttp().Post(`${API_DOMAIN}/pet/hungry_info`, {}, callback, failedCallback);
 
 
 /**

@@ -37,7 +37,9 @@ HOME_CACHE ={
             "name": "高级猫粮"
           }
     ],
-    cat_decorations:[]
+    cat_decorations:[],
+    selectDecorations:undefined,
+
     
 }
 

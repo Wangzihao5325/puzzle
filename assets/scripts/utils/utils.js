@@ -83,11 +83,12 @@ export function parseFormat(format, timeData) {
 
 export function CurrencyIdtoName(id) {
   let str='-'
-  if(id){
-    
+  if(id!==undefined){
+    CURRENCY.map(item=>{
+      if(id===item.id){
+        str=item.label
+      }
+    })
   } 
-  let  hours, minutes, seconds, milliseconds 
-
-
-  return format;
+  return str;
 }

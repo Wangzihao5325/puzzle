@@ -1240,7 +1240,12 @@
     "type": {
       "__id__": 8
     },
-    "close": null,
+    "iconWarp": {
+      "__id__": 2
+    },
+    "iconWarpContent": {
+      "__id__": 3
+    },
     "toushi": {
       "__uuid__": "19ded31f-3a65-41d5-aafb-c77e82308117"
     },
@@ -1249,6 +1254,12 @@
     },
     "weishi": {
       "__uuid__": "0b72c5d2-ecba-45be-bd76-61bf0d7b2e06"
+    },
+    "selectBorder": {
+      "__uuid__": "6d4aa7dc-f9fa-43c6-b26a-266aee1b1700"
+    },
+    "defaultPanle": {
+      "__uuid__": "9bbda31e-ad49-43c9-aaf2-f7d9896bac69"
     },
     "itemDes": {
       "__id__": 18
@@ -1270,6 +1281,7 @@
     },
     "iconName": "",
     "position": 1,
+    "select": false,
     "_id": ""
   },
   {
