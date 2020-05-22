@@ -36,6 +36,8 @@ const CityDetails = (callback, failedCallback) => {
     }
 }
 
+
+
 const User = {
     BalanceUpdate
 }

@@ -1,6 +1,7 @@
 import { CACHE } from '../global/usual_cache';
 import { SCENE } from '../global/app_global_index';
 import { HOME_CACHE  } from '../global/home_global';
+import Api from '../api/api_index'
 
 cc.Class({
     extends: cc.Component,
@@ -16,8 +17,11 @@ cc.Class({
         cat_action: cc.Prefab,
         layout_root: cc.Node,
         home_root: cc.Node,
+        hungry_bar: cc.Node,
+        lucky_bar: cc.Node,
         feed_warp: cc.Prefab,
         dress_warp: cc.Prefab,
+        currency_warp: cc.Prefab,
 
 
     },
@@ -77,8 +81,48 @@ cc.Class({
 
     },
 
+    getPetInfo(){
+        Api.petHome((res) => {
+            const data = res.data;
+            console.log("res",res)
+            if(res.code===0){
+                HOME_CACHE.pet_info=res.data;
+                this.resetUI()
+            }
+        });
+    },
+
+    getFoodRemain(callBack){
+        Api.petRemainFood((res) => {
+            const data = res.data;
+            console.log("res",res)
+            if(res.code===0){
+                HOME_CACHE.cat_food=res.data;
+                this.resetUI()
+                if(callBack){
+                    callBack()
+                }
+            }
+        });
+    },
+
+    resetUI(){
+        var hungry_warp = cc.find(`processText`,this.hungry_bar)
+        hungry_warp.getComponent(cc.Label).string=`${HOME_CACHE.pet_info.currentHungry} \ ${HOME_CACHE.pet_info.hungryUpperLimit}`
+        this.hungry_bar.width=200*HOME_CACHE.pet_info.currentHungry/HOME_CACHE.pet_info.hungryUpperLimit
+        
+        var lucky_warp = cc.find(`processText`,this.lucky_bar)
+        lucky_warp.getComponent(cc.Label).string=`${HOME_CACHE.pet_info.currentLucky} \ ${HOME_CACHE.pet_info.luckyUpperLimit}`
+        this.lucky_bar.width=200*HOME_CACHE.pet_info.currentLucky/HOME_CACHE.pet_info.luckyUpperLimit
+        
+    },
+
     onLoad() {
         this.initCatPost()
+        this.getPetInfo()
+        this.getFoodRemain()
+        this.resetUI()
+
 
         // var spine = this.ske_anim;
         // // spine.debugSlots = true;

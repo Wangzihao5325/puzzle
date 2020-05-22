@@ -21,6 +21,23 @@ CAR_FOOD=[
 
 HOME_CACHE ={
     cat_post:undefined,
+    pet_info:{
+        currentHungry: 130,
+        currentLucky: 100,
+        hungryUpperLimit: 500,
+        luckyUpperLimit: 500,
+        outward: false 
+    },
+    cat_food:[
+        {
+            "count": 0,
+            "goodsId": 0,
+            "hungry": 0,
+            "lucky": 0,
+            "name": "高级猫粮"
+          }
+    ],
+    cat_decorations:[]
     
 }
 

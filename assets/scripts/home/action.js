@@ -44,6 +44,15 @@ cc.Class({
     
     //喂养
     show_feed(){
+        const goodsList=[{name:'花木他',url:'http://att3.citysbs.com/200x200/hangzhou/2020/04/15/11/dd6719bd4287d9efd49434c43563a032_v2_.jpg'},
+        {name:'花木他',url:'http://att3.citysbs.com/200x200/hangzhou/2020/04/15/11/dd6719bd4287d9efd49434c43563a032_v2_.jpg'},
+        {name:'花木他',url:'http://att3.citysbs.com/200x200/hangzhou/2020/04/15/11/dd6719bd4287d9efd49434c43563a032_v2_.jpg'},
+        {name:'花木他',url:'http://att3.citysbs.com/200x200/hangzhou/2020/04/15/11/dd6719bd4287d9efd49434c43563a032_v2_.jpg'},
+        {name:'花木他',url:'http://att3.citysbs.com/200x200/hangzhou/2020/04/15/11/dd6719bd4287d9efd49434c43563a032_v2_.jpg'},
+        {name:'花木他',url:'http://att3.citysbs.com/200x200/hangzhou/2020/04/15/11/dd6719bd4287d9efd49434c43563a032_v2_.jpg'},
+    ]
+    
+        // ComeBack.show(goodsList)
         this.Action_warp.active=false
         const feedWarpInstan=  cc.find(`Canvas/feedWarp`)
         cc.tween(feedWarpInstan)
@@ -58,6 +67,7 @@ cc.Class({
     },
 
     show_dress(){
+        // ConfirmOut.show()
         this.Action_warp.active=false
         const deedWarpInstan=  cc.find(`Canvas/dressWarp`)
         deedWarpInstan.active=true
@@ -70,6 +80,8 @@ cc.Class({
     },
 
     handleGoout(){
+        // Hunger.show("")
+        Tire.show(50)
         this.Action_warp.active=false
         // const feedWarpInstan=  cc.find(`Canvas/feedWarp`)
         let OutSide=cc.instantiate(this.OutSide)

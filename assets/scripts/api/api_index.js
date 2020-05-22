@@ -1,5 +1,5 @@
 import CusHttp from './custom_http';
-const API_DOMAIN = 'http://192.168.3.231:8090';
+const API_DOMAIN = 'http://192.168.3.140:8090';
 
 /**
  * 根据城市id获取城市详情
@@ -48,6 +48,63 @@ const userBalance = (callback, failedCallback) => new CusHttp().Get(`${API_DOMAI
  */
 const travel = (payload = { key: 1 }, callback, failedCallback) => new CusHttp().Post(`${API_DOMAIN}/user/assets/travel`, payload, callback, failedCallback);
 
+/**
+ * 宠物家主页
+ * @param {Function} callback 
+ * @param {Function} failedCallback 
+ */
+const petHome = (callback, failedCallback) => new CusHttp().Get(`${API_DOMAIN}/pet/home`, callback, failedCallback);
+
+
+/**
+ * 宠物当前饥饿信息
+ * @param {Function} callback 
+ * @param {Function} failedCallback 
+ */
+const petHungry = (callback, failedCallback) => new CusHttp().Get(`${API_DOMAIN}/pet/hungry_info`, callback, failedCallback);
+
+
+/**
+ * 剩余宠物粮
+ * @param {Function} callback 
+ * @param {Function} failedCallback 
+ */
+const petRemainFood = (callback, failedCallback) => new CusHttp().Get(`${API_DOMAIN}/pet/remain_food`, callback, failedCallback);
+
+
+/**
+ * 装饰品信息列表
+ * @param {Function} callback 
+ * @param {Function} failedCallback 
+ */
+const petDecorations = (callback, failedCallback) => new CusHttp().Get(`${API_DOMAIN}/pet/decorations`, callback, failedCallback);
+
+/**
+ * 开始旅行&喂食
+ * @param {Object} payload {null:null}
+ * @param {Function} callback 
+ * @param {Function} failedCallback 
+ */
+const petFeed = (payload = { goodsId: 1 }, callback, failedCallback) => new CusHttp().Post(`${API_DOMAIN}/pet/feed`, payload, callback, failedCallback);
+
+/**
+ * 购买装饰品并装备&喂食
+ * @param {Object} payload {null:null}
+ * @param {Function} callback 
+ * @param {Function} failedCallback 
+ */
+const petBuyEquip = (payload = { goodsId: 1 }, callback, failedCallback) => new CusHttp().Post(`${API_DOMAIN}/pet/decoration/buy_equip`, payload, callback, failedCallback);
+
+/**
+ * 保存当前装饰物为当前形象&喂食
+ * @param {Object} payload {null:null}
+ * @param {Function} callback 
+ * @param {Function} failedCallback 
+ */
+const petEquip = (payload = { goodsId: 1 }, callback, failedCallback) => new CusHttp().Post(`${API_DOMAIN}/pet/decoration/equip`, payload, callback, failedCallback);
+
+
+
 export default {
     cityDetails,
     missionList,
@@ -56,4 +113,12 @@ export default {
 
     userBalance,
     travel,
+
+    petHome,
+    petHungry,
+    petRemainFood,
+    petDecorations,
+    petFeed,
+    petBuyEquip,
+    petEquip
 }

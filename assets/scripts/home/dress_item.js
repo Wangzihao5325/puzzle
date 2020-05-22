@@ -12,14 +12,25 @@ cc.Class({
     properties: {
         dress_item: cc.Node,
         bg: cc.Sprite,
-        type: {
-            default:0,
-            type:cc.Integer
-        },
+        type: cc.Sprite,
         close:cc.Node,
         toushi:cc.SpriteFrame,
         boshi: cc.SpriteFrame,
         weishi: cc.SpriteFrame,
+        itemDes:cc.Label,
+        current:cc.Node,
+        own:cc.Node,
+        priceWarp:cc.Node,
+        currency:cc.Label,
+        price:cc.Label,
+        iconName:{
+            type:String,
+            default:''
+        },
+        position:{
+            type:Number,
+            default:1
+        }
 
         // ske_anim: {
         //     type: sp.Skeleton, // 
@@ -35,14 +46,33 @@ cc.Class({
     },
 
     init(item){
-        cc.loader.loadRes(item.path, cc.SpriteFrame, (err, spriteFrame) => {
-            this.bg.spriteFrame=spriteFrame
+        const imgUrl='http://att3.citysbs.com/200x200/hangzhou/2020/04/15/11/dd6719bd4287d9efd49434c43563a032_v2_.jpg'
+        // cc.loader.loadRes(imgUrl, cc.SpriteFrame, (err, spriteFrame) => {
+        //     this.bg.spriteFrame=spriteFrame
+        // });
+
+        cc.loader.load(imgUrl, (err, texture)=> {
+            this.bg.spriteFrame=new cc.SpriteFrame(texture)
         });
-        if(item.type){
-            this.type=item.type==1?this.boshi:this.weishi
-        }
-        this.name=(item.path).slice(item.path.indexOf('/')+1)
-        this.type=Math.ceil(item.id/10)-1        
+        this.iconName=item.iconName;
+        this.position=item.position
+        this.goodsId=item.goodsId;
+        this.iconName=item.iconName;
+        this.costGoodsType=item.costGoodsType;
+        this.costNum=item.costNum;
+        this.name=item.name;
+        this.status=item.status;
+        const derreType=['',this.toushi,this.boshi,this.weishi,]
+        this.type.spriteFrame=derreType[item.position]
+        // if(this.status===0){
+        //     this.priceWarp=active;
+        //     this.currency=this.costGoodsType
+        //     this.price.string=this.costNum
+        // }else if(this.status===1){
+        //     this.own=active
+        // }else if(this.status===2){
+        //     this.current=active
+        // }
     },
     
 
@@ -50,12 +80,12 @@ cc.Class({
 
     },
     handleDressItem(){
-        console.log("handleDressItem",)
+        console.log("handleDressItem",this.iconName)
         const cat_post_dress=['C','','Z']
         const currentPost=HOME_CACHE.cat_post
         const dress_per=cat_post_dress[currentPost]
         // HOME_CACHE.cat_post
-        const name=this.name
+        const name=this.iconName
         
         // "boshi00": { "x": -29.51, "y": -21.46, "rotation": -113.23, "width": 231, "height": 167 }
         // spine
@@ -66,14 +96,14 @@ cc.Class({
         this.ske_com = ske_com;
         const skeletonData = this.ske_com.skeletonData.getRuntimeData();
         const skin = skeletonData.findSkin('default');
-        const type = this.type
+        const type = this.position
         console.log("type",name,type)
-        let parts = [`${dress_per}toushi00`, `${dress_per}boshi00`, `${dress_per}weishi00`]//["toushi00", "boshi00", "weishi00"];
+        let parts = ['',`${dress_per}toushi00`, `${dress_per}boshi00`, `${dress_per}weishi00`]//["toushi00", "boshi00", "weishi00"];
         let regSlot = this.ske_com.findSlot(parts[type]);
         let slotIndex = skeletonData.findSlotIndex(name);
         let atta = skin.getAttachment(slotIndex, name);
 
-        let typeparts = ['toushi00','boshi00','weishi00']//["toushi00", "boshi00", "weishi00"];
+        let typeparts = ['','toushi00','boshi00','weishi00']//["toushi00", "boshi00", "weishi00"];
         let slotDefaultIndex = skeletonData.findSlotIndex(`${parts[type]}`);
         let Defaultatta = skin.getAttachment(slotDefaultIndex, typeparts[type]);
         atta.x=Defaultatta.x;

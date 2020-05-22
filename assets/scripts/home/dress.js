@@ -5,6 +5,8 @@
 // Learn life-cycle callbacks:
 //  - https://docs.cocos.com/creator/manual/en/scripting/life-cycle-callbacks.html
 import { CAR_FOOD,SHIPING } from "../global/home_global"
+import Api from '../api/api_index'
+import { HOME_CACHE  } from '../global/home_global';
 
 cc.Class({
     extends: cc.Component,
@@ -23,25 +25,20 @@ cc.Class({
 
     },
     show_dress(){
-        // this.Action_warp.active=false
-        // const feedWarpInstan=  cc.find(`Canvas/feedWarp`)
         cc.tween(dress_warp)
         .to(.2, { position: cc.v2(0, 300) },{ easing: 'sineOutIn'})
-        // .to(.1, { position: cc.v2(0, -408) })
         .start()
-        // feedWarpInstan.setPosition(0, -408);
     },
-    // LIFE-CYCLE CALLBACKS:
     init(){
-
-        const pages=Math.ceil(SHIPING.length/8)
+        // let list =HOME_CACHE.cat_decoration;
+        console.log("HOME_CACHE init",HOME_CACHE.cat_decorations,HOME_CACHE.cat_decorations.length)
+        const pages=Math.ceil((HOME_CACHE.cat_decorations.length)/8)
         console.log("init",pages)
         const contentList=[this.pageItem1,this.pageItem2,this.pageItem3,this.pageItem4]
         for(let m=0;m<pages;m++){
             console.log("pages",m)
-            const currentpages=SHIPING.slice(m*8, (m+1)*8)
+            const currentpages=HOME_CACHE.cat_decorations.slice(m*8, (m+1)*8)
             const currentPageContent= contentList[m]
-            console.log("currentpages",currentpages)
             
             // currentPageContent.parent=this.pageContent
             for(let i=0;i<currentpages.length;i++){
@@ -56,7 +53,6 @@ cc.Class({
                 indexX=i>=4?i-4:i
                 indexY=Math.ceil((i+1)/4)
                 let position = cc.v2((160 * (indexX+1)) - 80-320, (210-(190*(-0.5+indexY)))+30);
-                console.log("position",(160 * indexX) - 80-320, (210-(190*(-0.5+indexY)))+30)
                 newNode.setPosition(position)
             }
 
@@ -67,19 +63,25 @@ cc.Class({
 
     },
     onLoad () {
-        this.init()
+        this.getDecorations()
         this.setTouch()
 
     },
-    initDress(){
-        let dressWarpInstan = cc.instantiate(this.dress_warp)
-        var warp_parent = cc.find(`Canvas`)
-        dressWarpInstan.parent=warp_parent
-        dressWarpInstan.setPosition(0, -868);
-        // let obj = dressWarpInstan.getComponent('dress')
-        // obj.init()
 
+    getDecorations(){
+        console.log("获取饰品")
+        Api.petDecorations((res) => {
+            const data = res.data;
+            console.log("res",res)
+            if(res.code===0){
+                HOME_CACHE.cat_decorations=data;
+                this.init()
+                this.resetUI()
+            }
+        });
     },
+    resetUI(){},
+
 
     start () {
 
