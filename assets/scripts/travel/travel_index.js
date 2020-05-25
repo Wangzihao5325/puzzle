@@ -162,6 +162,9 @@ cc.Class({
     signInfo() {
         Action.Sign.SignInfoUpdate((res) => {
             console.log(CACHE.signData);
+            if (!CACHE.signData.todaySign) {
+                this.signRoot.active = true;
+            }
             CACHE.signData.signList.forEach((item, index) => {
                 let itemNode = cc.instantiate(this.signItem);
                 itemNode.name = `sign_item${index + 1}`;

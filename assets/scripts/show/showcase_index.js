@@ -28,6 +28,7 @@ cc.Class({
         this.header.on(cc.Node.EventType.TOUCH_END, (event) => {
             if (!this.isMove) {
                 console.log(this.data_item);
+                Toast.show('正在开发ing')
             }
             event.stopPropagation();
         })

@@ -104,7 +104,7 @@ cc.Class({
         let payload = {
             startPosition: [0, -400],
             pausePosition: [-200, -400],
-            endPosition: [400, -400],
+            endPosition: [450, -400],
             firstPeriod: 2,
             secondPeriod: 6,
             pausePeriod: 2
