@@ -1,5 +1,5 @@
 import CusHttp from './custom_http';
-const API_DOMAIN = 'http://192.168.3.231:8090';
+const API_DOMAIN = 'http://192.168.3.140:8090';
 
 /**
  * 根据城市id获取城市详情
@@ -60,7 +60,7 @@ const petHome = (callback, failedCallback) => new CusHttp().Get(`${API_DOMAIN}/p
  * @param {Function} callback 
  * @param {Function} failedCallback 
  */
-const petHungry = ( callback, failedCallback) => new CusHttp().Post(`${API_DOMAIN}/pet/hungry_info`, {}, callback, failedCallback);
+const petHungry = (callback, failedCallback) => new CusHttp().Post(`${API_DOMAIN}/pet/hungry_info`, {}, callback, failedCallback);
 
 
 /**
@@ -103,6 +103,13 @@ const petBuyEquip = (payload = { goodsId: 1 }, callback, failedCallback) => new 
 const petEquip = (payload = { goodsId: 1 }, callback, failedCallback) => new CusHttp().Post(`${API_DOMAIN}/pet/decoration/equip`, payload, callback, failedCallback);
 
 
+const showInfo = (callback, failedCallback) => new CusHttp().Get(`${API_DOMAIN}/exhibition/info`, callback, failedCallback);
+
+//放置物品
+const placeGoods = (payload = { goodId: 0, standId: 0 }, callback, failedCallback) => new CusHttp().Post(`${API_DOMAIN}/exhibition/stand/good/place`, payload, callback, failedCallback);
+
+//收取奖励
+const getShowReceive = (payload = { placeId: 0 }, callback, failedCallback) => new CusHttp().Post(`${API_DOMAIN}/exhibition/stand/good/receive`, payload, callback, failedCallback);
 
 export default {
     cityDetails,
@@ -119,5 +126,9 @@ export default {
     petDecorations,
     petFeed,
     petBuyEquip,
-    petEquip
+    petEquip,
+
+    showInfo,
+    placeGoods,
+    getShowReceive
 }

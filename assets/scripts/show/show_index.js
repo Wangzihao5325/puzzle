@@ -1,5 +1,6 @@
 import { CACHE } from '../global/usual_cache';
 import { SCENE, SCENE_KEY } from '../global/app_global_index';
+import Action from '../api/api_action';
 
 cc.Class({
     extends: cc.Component,
@@ -7,9 +8,16 @@ cc.Class({
     properties: {
         root: cc.Node,
         root_bg: cc.Sprite,
+        table: cc.Node,
         footer: cc.Prefab,
         header: cc.Prefab,
         vistor: cc.Prefab,
+
+        festivalName: cc.Label,
+        festivalIcon: cc.Sprite,
+        festivalProgress: cc.Label,
+
+        showcase: cc.Prefab,
     },
 
     stateUpdate() {
@@ -38,6 +46,18 @@ cc.Class({
         header.parent = this.root;
         header.setPosition(0, 528);
         header.zIndex = 10;
+    },
+
+    showcaseInit(standInfoList) {
+        standInfoList.forEach((item, index) => {
+            let showcaseNode = cc.instantiate(this.showcase);
+            showcaseNode.parent = this.table;
+            showcaseNode.setPosition(-210 + (index * 210), 58);
+            let obj = showcaseNode.getComponent('showcase_index');
+            if (obj) {
+                obj.initWithItem(item);
+            }
+        });
     },
 
     /*
@@ -77,10 +97,7 @@ cc.Class({
     },
 
     randomCreateVistor() {
-
     },
-
-
 
     init() {
         let payload = {
@@ -96,6 +113,13 @@ cc.Class({
         this.footerInit();
         this.headerInit();
         this.vistorInit(payload);
+        Action.Show.ShowInfoUpdate((res) => {
+            const showData = CACHE.showData;
+            this.festivalName.string = showData.festivalInfo.name;
+            this.festivalProgress.string = `${showData.festivalInfo.currentNum}/${showData.festivalInfo.reachCount}`;
+            console.log(showData);
+            this.showcaseInit(showData.standInfoList);
+        })
     },
 
     // LIFE-CYCLE CALLBACKS:

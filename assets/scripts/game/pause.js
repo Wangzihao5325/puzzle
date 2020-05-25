@@ -19,31 +19,32 @@ cc.Class({
 
     // LIFE-CYCLE CALLBACKS:
 
-    onLoad () {
+    onLoad() {
         this.setTouch()
     },
 
-    start () {
+    start() {
 
     },
-    goBack(){
+    goBack() {
+        this.dialog.active = false;
+        GLOBAL_VAR.pause = false;
+        cc.director.loadScene("travel");
+    },
+
+    closeDialog() {
+        this.dialog.active = false;
+        GLOBAL_VAR.pause = false
+
+    },
+
+    continueGame() {
         this.dialog.active = false;
         GLOBAL_VAR.pause = false
     },
 
-    closeDialog(){
-        this.dialog.active = false;
-        GLOBAL_VAR.pause = false
-        
-    },
+    toglleSound() {
 
-    continueGame(){
-        this.dialog.active = false;
-        GLOBAL_VAR.pause = false
-    },
-
-    toglleSound(){
-        
     },
 
 
