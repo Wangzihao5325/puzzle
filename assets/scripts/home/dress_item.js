@@ -141,7 +141,7 @@ cc.Class({
         // spine
 
         // var spine = this.ske_anim;
-        var spine = cc.find(`Canvas/rootWarp/my_home/cat`);
+        var spine = cc.find(`Canvas/rootWarp/my_home/cat/catItem`);
         var ske_com = spine.getComponent(sp.Skeleton);
         this.ske_com = ske_com;
         const skeletonData = this.ske_com.skeletonData.getRuntimeData();

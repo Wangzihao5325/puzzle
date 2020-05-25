@@ -3,7 +3,8 @@ import { CACHE } from '../global/usual_cache';
 
 import { initItem } from './initSplice';
 import GLOBAL_VAR from '../global/index'
-
+import Api from '../api/api_index'
+import Action from '../api/api_action'
 
 cc.Class({
     extends: cc.Component,
@@ -11,6 +12,11 @@ cc.Class({
     properties: {
         magnet: cc.Node,
         sort: cc.Node,
+        magnet_time: cc.Node,
+        sort_tiem: cc.Node,
+        magnet_label: cc.Label,
+        sort_label: cc.Label,
+        ad_free: cc.Node,
         pauseBtn: cc.Node,
         game_bg: cc.Node,
         pre_item: cc.Prefab,
@@ -24,11 +30,27 @@ cc.Class({
 
     onLoad() {
         this.setTouch();
+        this.resetUi()
         this.timer(GLOBAL_VAR.time);
     },
 
     start() {
 
+    },
+
+    handleClidkMagnet(){
+        if (this.checkComplate()) {
+            return false
+        }else if(CACHE.userData.strongMagnet>0){
+            this.userProp({strongMagnet:1},
+                ()=>{
+                    this.doMagnet()
+                    this.updateUserInfo()
+                }
+            )
+        }else{
+            Toast.show('余额不足，观看广告')
+        }
     },
 
     doMagnet() {
@@ -80,11 +102,22 @@ cc.Class({
         }
 
     },
-
-    doSort() {
+    
+    handleClickSort(){
         if (this.checkComplate()) {
             return false
+        }else if(CACHE.userData.frame>0){
+            this.userProp({frame:1},
+                ()=>{
+                   this.doSort()
+                    this.updateUserInfo()
+                }
+            )
+        }else{
+            Toast.show('余额不足，观看广告')
         }
+    },
+    doSort() {
         initItem(spliceArr, CACHE.hard_level, 1, this.pre_item, this.game_bg, this.spframe_puzzle, true);
     },
 
@@ -95,13 +128,28 @@ cc.Class({
         pauseWarp.setPosition(0, 0);
     },
 
+    updateUserInfo(){
+        Action.User.BalanceUpdate(this.resetUI())
+    },
+
+    userProp(data,callBack){
+        Api.use_prop(data,(res) => {
+            const data = res.data;
+            console.log("res", res)
+            if (res.code === 0) {
+                HOME_CACHE.pet_info = res.data;
+                this.resetUI()
+            }
+        });
+    },
+
     setTouch() {
         this.magnet.on(cc.Node.EventType.TOUCH_START, (event) => {
-            this.doMagnet()
+            this.handleClidkMagnet()
             event.stopPropagation();
         })
         this.sort.on(cc.Node.EventType.TOUCH_START, (event) => {
-            this.doSort()
+            this.handleClickSort()
             event.stopPropagation();
         })
         this.pauseBtn.on(cc.Node.EventType.TOUCH_START, (event) => {
@@ -132,6 +180,20 @@ cc.Class({
                 Toast.show("倒计时停止", 1000);
             }
         }, 1000)
+    },
+
+    resetUi(){
+        const userData = CACHE.userData
+        this.magnet_label.string=userData.strongMagnet
+        if(userData.frame>0){
+            this.sort_tiem.active=true
+            this.ad_free.active=false
+            this.sort_label.string=userData.frame
+        }else if(userData.frame===0){
+            this.sort_tiem.active=false
+            this.ad_free.active=true
+            this.sort_label.string=userData.frame
+        }
     },
 
     formatTimer(time) {

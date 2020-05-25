@@ -3,11 +3,14 @@ import { CACHE } from '../global/usual_cache';
 
 const BalanceUpdate = (callback, failedCallback) => {
     Api.userBalance((res) => {
+        console.log("BalanceUpdate",res)
         const data = res.data;
         const userData = {
             coin: data.gold,
             gem: data.diamonds,
-            STAM: data.power
+            STAM: data.power,
+            strongMagnet:data.strongMagnet,
+            frame:data.frame,
         };
         CACHE.userData = { ...userData };
         if (callback) {

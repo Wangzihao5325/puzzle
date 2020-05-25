@@ -83,9 +83,9 @@ cc.Class({
     setOUtUi(){
         this.Action_warp.active=false
         let OutSide=cc.instantiate(this.OutSide)
-        var cat = cc.find(`Canvas/rootWarp/my_home/cat`)
+        var catItem = cc.find(`Canvas/rootWarp/my_home/cat/catItem`)
         var my_home = cc.find(`Canvas/rootWarp/my_home`)
-        cat.active=false
+        catItem.active=false
         OutSide.parent=my_home
         OutSide.active=true
     },

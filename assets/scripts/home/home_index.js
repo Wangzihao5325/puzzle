@@ -45,17 +45,18 @@ cc.Class({
         this.headerInit();
         this.initDress()
         this.getBackNotice()
+        this.initCat()
         this.setTouch()
     },
 
     setOUtUi(){
         var outside_item = cc.find(`Canvas/rootWarp/my_home/outside`)
-        // var cat = cc.find(`Canvas/rootWarp/my_home/cat`)
+        var catItem = cc.find(`Canvas/rootWarp/my_home/cat/catItem`)
         let {outward}=HOME_CACHE.pet_info
         if(outside_item){
             console.log("已有实例",outside_item)
             outside_item.active=outward
-            this.cat.active=!outward
+            catItem.active=!outward
             if(outward===false){
                 outside_item.destroy()
             }
@@ -64,7 +65,7 @@ cc.Class({
             let OutSide=cc.instantiate(this.OutSide)
             // var cat = cc.find(`Canvas/rootWarp/my_home/cat`)
             var my_home = cc.find(`Canvas/rootWarp/my_home`)
-            this.cat.active=!outward
+            catItem.active=!outward
             OutSide.parent=my_home
             OutSide.active=outward
         }
@@ -88,19 +89,19 @@ cc.Class({
         header.setPosition(0, 528);
     },
 
-    initCatPost() {
-        var spine = this.ske_anim;
-        var ske_com = spine.getComponent(sp.Skeleton);
-        this.ske_com = ske_com;
-        const catPostList = ['Zou00', 'PA00', 'Zhan00']
-        this.ske_com.clearTrack(0);
-        //随机姿势
-        if (HOME_CACHE.cat_post === undefined) {
-            HOME_CACHE.cat_post = Math.round(Math.random() * 2)
-        }
-        const currentPost = catPostList[HOME_CACHE.cat_post]
-        this.ske_com.setAnimation(0, currentPost, true)
-    },
+    // initCatPost() {
+    //     var spine = this.ske_anim;
+    //     var ske_com = spine.getComponent(sp.Skeleton);
+    //     this.ske_com = ske_com;
+    //     const catPostList = ['Zou00', 'PA00', 'Zhan00']
+    //     this.ske_com.clearTrack(0);
+    //     //随机姿势
+    //     if (HOME_CACHE.cat_post === undefined) {
+    //         HOME_CACHE.cat_post = Math.round(Math.random() * 2)
+    //     }
+    //     const currentPost = catPostList[HOME_CACHE.cat_post]
+    //     this.ske_com.setAnimation(0, currentPost, true)
+    // },
 
     initDress() {
         let dressWarpInstan = cc.instantiate(this.dress_warp)
@@ -212,7 +213,7 @@ cc.Class({
     },
 
     onLoad() {
-        this.initCatPost()
+        // this.initCatPost()
         this.getPetInfo()
         this.getFoodRemain()
         this.getPetHunger()
@@ -253,6 +254,42 @@ cc.Class({
             event.stopPropagation();
 
         })
-    }
+    },
+    initCat(){
+        var spineNode = new cc.Node();
+        spineNode.name = 'catItem';
+        spineNode.setPosition(0, 0);
+        spineNode.setScale(0.6)
+        var skeleton = spineNode.addComponent(sp.Skeleton);
+        this.cat.addChild(spineNode);
+        //TODO : 此处为你的远程资源路径
+        var imageUrl = "https://puzzle.oss-cn-beijing.aliyuncs.com/maopa.png";
+        var skeUrl = "https://puzzle.oss-cn-beijing.aliyuncs.com/maopa.json";
+        var atlasUrl = "https://puzzle.oss-cn-beijing.aliyuncs.com/maopa.atlas";
+        cc.loader.load(imageUrl, (error, texture) => {
+            cc.loader.load({ url: atlasUrl, type: 'txt' }, (error, atlasJson) => {
+                cc.loader.load({ url: skeUrl, type: 'txt' }, (error, spineJson) => {
+
+                    const catPostList = ['Zou00', 'PA00', 'Zhan00']
+                    // this.ske_com.clearTrack(0);
+                    //随机姿势
+                    if (HOME_CACHE.cat_post === undefined) {
+                        HOME_CACHE.cat_post = Math.round(Math.random() * 2)
+                    }
+                    const currentPost = catPostList[HOME_CACHE.cat_post]
+
+                    var asset = new sp.SkeletonData();
+                    asset._uuid = skeUrl;
+                    asset.skeletonJson = spineJson;
+                    asset.atlasText = atlasJson;
+                    asset.textures = [texture];
+                    asset.textureNames = ['maopa.png'];
+                    skeleton.skeletonData = asset;
+                    skeleton.animation = currentPost;
+                    skeleton._updateSkeletonData();
+                });
+            });
+        });
+    },
     // update (dt) {},
 });
