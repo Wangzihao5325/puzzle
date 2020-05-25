@@ -3,6 +3,7 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
+        header: cc.Node,
         iconSprite: cc.Sprite,
         iconSprite2: cc.Sprite,
         title: cc.Label,
@@ -15,8 +16,39 @@ cc.Class({
         showTimeNode: cc.Node,
     },
 
+    setTouch() {
+        this.header.on(cc.Node.EventType.TOUCH_START, (event) => {
+            event.stopPropagation();
+        })
+        this.header.on(cc.Node.EventType.TOUCH_MOVE, (event) => {
+            this.isMove = true;
+            event.stopPropagation();
+
+        })
+        this.header.on(cc.Node.EventType.TOUCH_END, (event) => {
+            if (!this.isMove) {
+                console.log(this.data_item);
+                Toast.show('正在开发ing')
+            }
+            event.stopPropagation();
+        })
+    },
+
     initWithItem(item) {
-        this.needTimes.string = `${item.needTime}分钟`//item.timeUnit
+        this.data_item = item;
+        let unitStr = '';
+        switch (item.timeUnit) {
+            case 'MINUTES':
+                unitStr = '分钟';
+                break;
+            case 'HOURS':
+                unitStr = '小时';
+                break;
+            case 'SECONDS':
+                unitStr = '秒';
+                break;
+        }
+        this.needTimes.string = `${item.needTime}${unitStr}`//item.timeUnit
         this.awardNum.string = item.awardNum;
         this.title.string = item.standName;
         switch (item.standType) {

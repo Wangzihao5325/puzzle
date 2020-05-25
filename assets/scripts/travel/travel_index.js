@@ -2,6 +2,7 @@ import { CITIES } from '../global/travel_global_index';
 import { CACHE } from '../global/usual_cache';
 import { SCENE, SCENE_KEY } from '../global/app_global_index';
 import Action from '../api/api_action';
+import Api from '../api/api_index';
 
 cc.Class({
     extends: cc.Component,
@@ -14,6 +15,12 @@ cc.Class({
         footer: cc.Prefab,
         header: cc.Prefab,
         layout_root: cc.Node,
+
+        signBtn: cc.Sprite,
+        signItem: cc.Prefab,
+        signRoot: cc.Node,
+        signClose: cc.Node,
+        signGetGoods: cc.Node,
     },
 
     drawLine(start, end) {
@@ -90,11 +97,97 @@ cc.Class({
         cc.director.loadScene("mission");
     },
 
+    signSetTouch() {
+        this.signBtn.node.on(cc.Node.EventType.TOUCH_START, (event) => {
+            event.stopPropagation();
+        });
+        this.signBtn.node.on(cc.Node.EventType.TOUCH_MOVE, (event) => {
+            this.isMove = true;
+            event.stopPropagation();
+        });
+        this.signBtn.node.on(cc.Node.EventType.TOUCH_END, (event) => {
+            event.stopPropagation();
+            if (!this.isMove) {
+                this.signRoot.active = true;
+            }
+            this.isMove = false;
+        });
+
+        this.signClose.on(cc.Node.EventType.TOUCH_START, (event) => {
+            event.stopPropagation();
+        });
+        this.signClose.on(cc.Node.EventType.TOUCH_MOVE, (event) => {
+            this.isMove = true;
+            event.stopPropagation();
+        });
+        this.signClose.on(cc.Node.EventType.TOUCH_END, (event) => {
+            event.stopPropagation();
+            if (!this.isMove) {
+                this.signRoot.active = false;
+            }
+            this.isMove = false;
+        });
+
+        this.signGetGoods.on(cc.Node.EventType.TOUCH_START, (event) => {
+            event.stopPropagation();
+        });
+        this.signGetGoods.on(cc.Node.EventType.TOUCH_MOVE, (event) => {
+            this.isMove = true;
+            event.stopPropagation();
+        });
+        this.signGetGoods.on(cc.Node.EventType.TOUCH_END, (event) => {
+            event.stopPropagation();
+            if (!this.isMove) {
+                if (CACHE.signData.todaySign) {
+                    Toast.show('您今天已经签到过!');
+                } else {
+                    Api.doSign({ key: 1 }, (res) => {
+                        console.log('dddd');
+                        console.log(res);
+                        let dayNode = cc.find(`Canvas/layoutRoot/signPop/sign_item${res.data.day}`);
+                        let obj = dayNode.getComponent('sign_item_index');
+                        if (obj) {
+                            obj.todaySign();
+                            // Action.User.BalanceUpdate((res) => {
+
+                            // });
+                        }
+                    });
+                }
+            }
+            this.isMove = false;
+        });
+    },
+
+    signInfo() {
+        Action.Sign.SignInfoUpdate((res) => {
+            console.log(CACHE.signData);
+            if (!CACHE.signData.todaySign) {
+                this.signRoot.active = true;
+            }
+            CACHE.signData.signList.forEach((item, index) => {
+                let itemNode = cc.instantiate(this.signItem);
+                itemNode.name = `sign_item${index + 1}`;
+                let obj = itemNode.getComponent('sign_item_index');
+                if (obj) {
+                    obj.initWithItem(item);
+                }
+                itemNode.parent = this.signRoot;
+                let line = Math.floor(index / 3);
+                let y = 70 - line * 150;
+                let x = -150 + (index % 3) * 150;
+                itemNode.setPosition(x, y);
+            });
+        });
+    },
+
     init() {
         this.stateUpdate();
         this.setBg();
         this.footerInit();
         this.headerInit();
+        this.signInfo();
+        this.signSetTouch();
 
         CITIES.forEach((item, index) => {
             /*画线*/

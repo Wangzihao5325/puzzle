@@ -56,6 +56,7 @@ cc.Class({
             let obj = showcaseNode.getComponent('showcase_index');
             if (obj) {
                 obj.initWithItem(item);
+                obj.setTouch();
             }
         });
     },
@@ -103,7 +104,7 @@ cc.Class({
         let payload = {
             startPosition: [0, -400],
             pausePosition: [-200, -400],
-            endPosition: [400, -400],
+            endPosition: [450, -400],
             firstPeriod: 2,
             secondPeriod: 6,
             pausePeriod: 2
@@ -115,9 +116,10 @@ cc.Class({
         this.vistorInit(payload);
         Action.Show.ShowInfoUpdate((res) => {
             const showData = CACHE.showData;
-            this.festivalName.string = showData.festivalInfo.name;
-            this.festivalProgress.string = `${showData.festivalInfo.currentNum}/${showData.festivalInfo.reachCount}`;
-            console.log(showData);
+            if (showData.festivalInfo) {
+                this.festivalName.string = showData.festivalInfo.name;
+                this.festivalProgress.string = `${showData.festivalInfo.currentNum}/${showData.festivalInfo.reachCount}`;
+            }
             this.showcaseInit(showData.standInfoList);
         })
     },

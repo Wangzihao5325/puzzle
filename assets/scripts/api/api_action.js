@@ -53,11 +53,20 @@ const MissionList = (callback, failedCallback) => {
 
 const ShowInfoUpdate = (callback, failedCallback) => {
     Api.showInfo((res) => {
-        CACHE.showData = { ...res.data }
+        CACHE.showData = { ...res.data };
         if (callback) {
             callback(res)
         }
     }, failedCallback);
+}
+
+const SignInfoUpdate = (callback, failedCallback) => {
+    Api.signInfo((res) => {
+        CACHE.signData = { ...res.data };
+        if (callback) {
+            callback(res)
+        }
+    }, failedCallback)
 }
 
 const User = {
@@ -73,8 +82,13 @@ const Show = {
     ShowInfoUpdate
 }
 
+const Sign = {
+    SignInfoUpdate
+}
+
 export default {
     User,
     Mission,
-    Show
+    Show,
+    Sign
 };
