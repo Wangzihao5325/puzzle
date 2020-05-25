@@ -48,6 +48,15 @@ const MissionList = (callback, failedCallback) => {
     }
 }
 
+const ShowInfoUpdate = (callback, failedCallback) => {
+    Api.showInfo((res) => {
+        CACHE.showData = { ...res.data }
+        if (callback) {
+            callback(res)
+        }
+    }, failedCallback);
+}
+
 const User = {
     BalanceUpdate
 }
@@ -57,7 +66,12 @@ const Mission = {
     MissionList
 }
 
+const Show = {
+    ShowInfoUpdate
+}
+
 export default {
     User,
-    Mission
+    Mission,
+    Show
 };

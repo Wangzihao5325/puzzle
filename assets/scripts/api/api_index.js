@@ -60,7 +60,7 @@ const petHome = (callback, failedCallback) => new CusHttp().Get(`${API_DOMAIN}/p
  * @param {Function} callback 
  * @param {Function} failedCallback 
  */
-const petHungry = ( callback, failedCallback) => new CusHttp().Post(`${API_DOMAIN}/pet/hungry_info`, {}, callback, failedCallback);
+const petHungry = (callback, failedCallback) => new CusHttp().Post(`${API_DOMAIN}/pet/hungry_info`, {}, callback, failedCallback);
 
 
 /**
@@ -131,6 +131,13 @@ const petBackNotice = (callback, failedCallback) => new CusHttp().Get(`${API_DOM
 const backNoticeView = (payload = { }, callback, failedCallback) => new CusHttp().Post(`${API_DOMAIN}/pet/back_notice/viewed`, payload, callback, failedCallback);
 
 
+const showInfo = (callback, failedCallback) => new CusHttp().Get(`${API_DOMAIN}/exhibition/info`, callback, failedCallback);
+
+//放置物品
+const placeGoods = (payload = { goodId: 0, standId: 0 }, callback, failedCallback) => new CusHttp().Post(`${API_DOMAIN}/exhibition/stand/good/place`, payload, callback, failedCallback);
+
+//收取奖励
+const getShowReceive = (payload = { placeId: 0 }, callback, failedCallback) => new CusHttp().Post(`${API_DOMAIN}/exhibition/stand/good/receive`, payload, callback, failedCallback);
 
 export default {
     cityDetails,
@@ -150,5 +157,9 @@ export default {
     petEquip,
     petGoout,
     petBackNotice,
-    backNoticeView
+    backNoticeView,
+
+    showInfo,
+    placeGoods,
+    getShowReceive
 }
