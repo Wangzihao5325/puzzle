@@ -116,9 +116,10 @@ cc.Class({
         this.vistorInit(payload);
         Action.Show.ShowInfoUpdate((res) => {
             const showData = CACHE.showData;
-            this.festivalName.string = showData.festivalInfo.name;
-            this.festivalProgress.string = `${showData.festivalInfo.currentNum}/${showData.festivalInfo.reachCount}`;
-            console.log(showData);
+            if (showData.festivalInfo) {
+                this.festivalName.string = showData.festivalInfo.name;
+                this.festivalProgress.string = `${showData.festivalInfo.currentNum}/${showData.festivalInfo.reachCount}`;
+            }
             this.showcaseInit(showData.standInfoList);
         })
     },

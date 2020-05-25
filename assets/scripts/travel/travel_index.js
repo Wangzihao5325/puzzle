@@ -148,6 +148,9 @@ cc.Class({
                         let obj = dayNode.getComponent('sign_item_index');
                         if (obj) {
                             obj.todaySign();
+                            // Action.User.BalanceUpdate((res) => {
+
+                            // });
                         }
                     });
                 }
