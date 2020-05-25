@@ -1,6 +1,8 @@
 import { CACHE } from '../global/usual_cache';
 import { SCENE, SCENE_KEY } from '../global/app_global_index';
 import Action from '../api/api_action';
+import { setTimeOutWithTimeStamp } from '../utils/utils'
+import Api from '../api/api_index';
 
 cc.Class({
     extends: cc.Component,
@@ -16,6 +18,7 @@ cc.Class({
         festivalName: cc.Label,
         festivalIcon: cc.Sprite,
         festivalProgress: cc.Label,
+        timerLabel: cc.Label,
 
         showcase: cc.Prefab,
     },
@@ -114,11 +117,20 @@ cc.Class({
         this.footerInit();
         this.headerInit();
         this.vistorInit(payload);
+        Api.showGoods(1, (res) => {
+            console.log(res);
+        });
         Action.Show.ShowInfoUpdate((res) => {
             const showData = CACHE.showData;
             if (showData.festivalInfo) {
                 this.festivalName.string = showData.festivalInfo.name;
                 this.festivalProgress.string = `${showData.festivalInfo.currentNum}/${showData.festivalInfo.reachCount}`;
+                let time = showData.festivalInfo.endTime;
+                // setTimeOutWithTimeStamp(time, (timeStr) => {
+                //     console.log(timeStr);
+                // }, () => {
+                //     console.log('ddddd');
+                // });
             }
             this.showcaseInit(showData.standInfoList);
         })
