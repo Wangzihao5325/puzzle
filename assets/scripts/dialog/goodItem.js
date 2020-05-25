@@ -22,7 +22,7 @@ cc.Class({
     },
     init(item){
         this.good_name.getComponent(cc.Label).string=item.name;
-        cc.loader.load(item.url, (err, texture)=> {
+        cc.loader.load(item.icon, (err, texture)=> {
             this.good_pic.spriteFrame=new cc.SpriteFrame(texture)
         });
     },

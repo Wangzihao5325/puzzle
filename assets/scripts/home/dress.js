@@ -40,6 +40,9 @@ cc.Class({
             console.log("pages",m)
             const currentpages=HOME_CACHE.cat_decorations.slice(m*8, (m+1)*8)
             const currentPageContent= contentList[m]
+            currentPageContent.children&&currentPageContent.children.map(item=>{
+                item.destroy()
+            })
             
             // currentPageContent.parent=this.pageContent
             for(let i=0;i<currentpages.length;i++){

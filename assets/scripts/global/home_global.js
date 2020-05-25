@@ -22,8 +22,8 @@ CAR_FOOD=[
 HOME_CACHE ={
     cat_post:undefined,
     pet_info:{
-        currentHungry: 130,
-        currentLucky: 100,
+        currentHungry: 500,
+        currentLucky: 500,
         hungryUpperLimit: 500,
         luckyUpperLimit: 500,
         outward: false 

@@ -81,33 +81,45 @@ cc.Class({
     },
 
     setOUtUi(){
-        // Hunger.show("")
-        Tire.show(50)
         this.Action_warp.active=false
-        // const feedWarpInstan=  cc.find(`Canvas/feedWarp`)
         let OutSide=cc.instantiate(this.OutSide)
         var cat = cc.find(`Canvas/rootWarp/my_home/cat`)
         var my_home = cc.find(`Canvas/rootWarp/my_home`)
         cat.active=false
         OutSide.parent=my_home
         OutSide.active=true
-        // const obj = newNode.getComponent('dress_item')
-
-        // obj.init(currentpages[i])
-
     },
 
     handleGoout(){
-        Api.petGoout((res) => {
-            console.log("res",res)
-            if(res.code===0){
-                Toast.show("宠物已外出")
-                // this.init()
-                // this.resetUI()
-            }else{
-                Toast.show(res.message||'外出失败')
-            }
-        });
+
+        ConfirmOut.show(()=>{
+            Api.petGoout((res) => {
+                console.log("外出res",res)
+                if(res.code===0){
+                    Toast.show("宠物已外出")
+                    this.setOUtUi()
+                }else if(res.code===20008){
+                    //体力不够
+                    Hunger.show("")
+                }
+                else if(res.code===20011){
+                    //太累了
+                    const str=res.message
+                    const time = str.slice(str.indexOf('=')+1)
+                    Tire.show(time)
+                }
+                else{
+                    Toast.show(res.message||'外出失败')
+                }
+            })
+        },
+        ((res)=>{
+            console.log("外出失败res",res)
+            Toast.show(res.message||'外出失败')
+                
+        })
+        )
+
     },
 
     setTouch() {

@@ -171,7 +171,7 @@ Tire.show = function (time,_confirmCallBack,animSpeed ) {
             }else{
                 Toast.show('外出倒计时结束')
             }
-            const str=parseFormat('mm:ss',parseTimeData(time*1000))
+            const str=parseFormat('mm:ss',parseTimeData(time))
             Tire._timer.string=str
         },1000)
     };
