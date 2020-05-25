@@ -108,7 +108,7 @@ const petEquip = (payload = { goodsId: 1 }, callback, failedCallback) => new Cus
  * @param {Function} callback 
  * @param {Function} failedCallback 
  */
-const petGoout = ( callback, failedCallback) => new CusHttp().Post(`${API_DOMAIN}/pet/go_outward`,undefined, callback, failedCallback);
+const petGoout = (callback, failedCallback) => new CusHttp().Post(`${API_DOMAIN}/pet/go_outward`, undefined, callback, failedCallback);
 
 
 
@@ -128,7 +128,7 @@ const petBackNotice = (callback, failedCallback) => new CusHttp().Get(`${API_DOM
  * @param {Function} callback 
  * @param {Function} failedCallback 
  */
-const backNoticeView = (payload = { }, callback, failedCallback) => new CusHttp().Post(`${API_DOMAIN}/pet/back_notice/viewed`, payload, callback, failedCallback);
+const backNoticeView = (payload = {}, callback, failedCallback) => new CusHttp().Post(`${API_DOMAIN}/pet/back_notice/viewed`, payload, callback, failedCallback);
 
 
 const showInfo = (callback, failedCallback) => new CusHttp().Get(`${API_DOMAIN}/exhibition/info`, callback, failedCallback);
@@ -141,6 +141,8 @@ const getShowReceive = (payload = { placeId: 0 }, callback, failedCallback) => n
 
 //签到
 const signInfo = (callback, failedCallback) => new CusHttp().Get(`${API_DOMAIN}/sign/info`, callback, failedCallback);
+
+const doSign = (payload = { placeId: 0 }, callback, failedCallback) => new CusHttp().Post(`${API_DOMAIN}/sign/do_sign`, payload, callback, failedCallback);
 
 export default {
     cityDetails,
@@ -167,4 +169,5 @@ export default {
     getShowReceive,
 
     signInfo,
+    doSign,
 }
