@@ -103,6 +103,34 @@ const petBuyEquip = (payload = { goodsId: 1 }, callback, failedCallback) => new 
 const petEquip = (payload = { goodsId: 1 }, callback, failedCallback) => new CusHttp().Post(`${API_DOMAIN}/pet/decoration/equip`, payload, callback, failedCallback);
 
 
+/**
+ * 外出
+ * @param {Function} callback 
+ * @param {Function} failedCallback 
+ */
+const petGoout = ( callback, failedCallback) => new CusHttp().Post(`${API_DOMAIN}/pet/go_outward`,undefined, callback, failedCallback);
+
+
+
+/**
+ * 外出回家通知
+ * @param {Function} callback 
+ * @param {Function} failedCallback 
+ */
+const petBackNotice = (callback, failedCallback) => new CusHttp().Get(`${API_DOMAIN}/pet/back_notice`, callback, failedCallback);
+
+
+
+
+/**
+ * 设置回家通知已查阅&喂食
+ * @param {Object} payload {null:null}
+ * @param {Function} callback 
+ * @param {Function} failedCallback 
+ */
+const backNoticeView = (payload = { }, callback, failedCallback) => new CusHttp().Post(`${API_DOMAIN}/pet/back_notice/viewed`, payload, callback, failedCallback);
+
+
 const showInfo = (callback, failedCallback) => new CusHttp().Get(`${API_DOMAIN}/exhibition/info`, callback, failedCallback);
 
 //放置物品
@@ -130,6 +158,9 @@ export default {
     petFeed,
     petBuyEquip,
     petEquip,
+    petGoout,
+    petBackNotice,
+    backNoticeView,
 
     showInfo,
     placeGoods,

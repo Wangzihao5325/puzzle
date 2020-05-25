@@ -6,7 +6,7 @@
 //  - https://docs.cocos.com/creator/manual/en/scripting/life-cycle-callbacks.html
 
 
-var ConfirmOut = {
+var ComeBackNull = {
     _alert: null,           // prefab
     _close:null,
     _confirmButton:   null,   // 取消按钮
@@ -23,19 +23,19 @@ var ConfirmOut = {
  * neeCancel:       取消点击事件回调  function 类型.
  * duration:        动画速度 default = 0.3.
 */
-ConfirmOut.show = function (_confirmCallBack,animSpeed ) {
+ComeBackNull.show = function (_confirmCallBack,animSpeed ) {
 
     // 引用
     var self = this;
 
     // 判断
-    if (ConfirmOut._alert != undefined) return;
+    if (ComeBackNull._alert != undefined) return;
 
     // 
-    ConfirmOut._animSpeed = animSpeed ? animSpeed : ConfirmOut._animSpeed;
+    ComeBackNull._animSpeed = animSpeed ? animSpeed : ComeBackNull._animSpeed;
 
     // 加载 prefab 创建
-    cc.loader.loadRes("ConfirmOut", cc.Prefab, function (error, prefab) {
+    cc.loader.loadRes("ComeBackNull", cc.Prefab, function (error, prefab) {
 
 
 
@@ -48,26 +48,26 @@ ConfirmOut.show = function (_confirmCallBack,animSpeed ) {
         var alert = cc.instantiate(prefab);
 
         // Alert 持有
-        ConfirmOut._alert = alert;
+        ComeBackNull._alert = alert;
 
         // 动画 
         var cbFadeOut = cc.callFunc(self.onFadeOutFinish, self);
         var cbFadeIn = cc.callFunc(self.onFadeInFinish, self);
-        self.actionFadeIn = cc.sequence(cc.spawn(cc.fadeTo(ConfirmOut._animSpeed, 255), cc.scaleTo(ConfirmOut._animSpeed, 1.0)), cbFadeIn);
-        self.actionFadeOut = cc.sequence(cc.spawn(cc.fadeTo(ConfirmOut._animSpeed, 0), cc.scaleTo(ConfirmOut._animSpeed, 2.0)), cbFadeOut);
+        self.actionFadeIn = cc.sequence(cc.spawn(cc.fadeTo(ComeBackNull._animSpeed, 255), cc.scaleTo(ComeBackNull._animSpeed, 1.0)), cbFadeIn);
+        self.actionFadeOut = cc.sequence(cc.spawn(cc.fadeTo(ComeBackNull._animSpeed, 0), cc.scaleTo(ComeBackNull._animSpeed, 2.0)), cbFadeOut);
 
 
-        ConfirmOut._confirmButton = cc.find("dialogContainer/confirm", alert);
-        console.log("ConfirmOut._confirmButton",ConfirmOut._confirmButton)
-        ConfirmOut._close = cc.find("dialogContainer/close", alert);
+        ComeBackNull._confirmButton = cc.find("dialogContainer/confirm", alert);
+        console.log("ComeBackNull._confirmButton",ComeBackNull._confirmButton)
+        ComeBackNull._close = cc.find("dialogContainer/close", alert);
 
         // 添加点击事件
-        ConfirmOut._confirmButton.on('click', self.onButtonClicked, self);
-        ConfirmOut._close.on('click', self.close, self);
-        ConfirmOut._confirmCallBack = _confirmCallBack;
+        ComeBackNull._confirmButton.on('click', self.onButtonClicked, self);
+        ComeBackNull._close.on('click', self.close, self);
+        ComeBackNull._confirmCallBack = _confirmCallBack;
 
         // 父视图
-        ConfirmOut._alert.parent = cc.find("Canvas");
+        ComeBackNull._alert.parent = cc.find("Canvas");
 
         // 展现 alert
         self.startFadeIn();
@@ -94,19 +94,19 @@ ConfirmOut.show = function (_confirmCallBack,animSpeed ) {
     self.onButtonClicked = function(event){
         console.log("event",event)
         console.log("确认按钮");
-        ConfirmOut._confirmCallBack()
+        ComeBackNull._confirmCallBack()
         self.startFadeOut();
     };
 
     // 执行弹进动画
     self.startFadeIn = function () {
         // cc.eventManager.pauseTarget(Alert._alert, true);
-        // ConfirmOut._alert.position = cc.Vec2([0, 0]);
-        // ConfirmOut._alert.setScale(2);
-        // ConfirmOut._alert.opacity = 0;
-        // ConfirmOut._alert.runAction(self.actionFadeIn);
+        // ComeBackNull._alert.position = cc.Vec2([0, 0]);
+        // ComeBackNull._alert.setScale(2);
+        // ComeBackNull._alert.opacity = 0;
+        // ComeBackNull._alert.runAction(self.actionFadeIn);
 
-        cc.tween(ConfirmOut._alert)
+        cc.tween(ComeBackNull._alert)
         .to(1, { position: cc.v2(0,0)},{opacity:0})
         .start()
     };
@@ -114,8 +114,8 @@ ConfirmOut.show = function (_confirmCallBack,animSpeed ) {
     // 执行弹出动画
     self.startFadeOut = function () {
         // cc.eventManager.pauseTarget(Alert._alert, true);
-        // ConfirmOut._alert.runAction(self.actionFadeOut);
-        cc.tween(ConfirmOut._alert)
+        // ComeBackNull._alert.runAction(self.actionFadeOut);
+        cc.tween(ComeBackNull._alert)
         .to(1, { position: cc.v2(0,0)},{opacity:1})
         .start()
         self.onDestory();
@@ -136,10 +136,10 @@ ConfirmOut.show = function (_confirmCallBack,animSpeed ) {
 
     // 销毁 alert (内存管理还没搞懂，暂且这样写吧~v~)
     self.onDestory = function () {
-        ConfirmOut._alert.destroy();
-        ConfirmOut._confirmCallBack = null;
-        ConfirmOut._alert = null;
+        ComeBackNull._alert.destroy();
+        ComeBackNull._confirmCallBack = null;
+        ComeBackNull._alert = null;
  
-        ConfirmOut._animSpeed = 0.3;
+        ComeBackNull._animSpeed = 0.3;
     };
 };

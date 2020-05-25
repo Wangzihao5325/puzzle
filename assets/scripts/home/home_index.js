@@ -23,6 +23,7 @@ cc.Class({
         feed_warp: cc.Prefab,
         dress_warp: cc.Prefab,
         currency_warp: cc.Prefab,
+        OutSide:cc.Prefab,
 
 
     },
@@ -43,7 +44,30 @@ cc.Class({
         this.footerInit();
         this.headerInit();
         this.initDress()
+        this.getBackNotice()
         this.setTouch()
+    },
+
+    setOUtUi(){
+        var outside_item = cc.find(`Canvas/rootWarp/my_home/outside`)
+        // var cat = cc.find(`Canvas/rootWarp/my_home/cat`)
+        let {outward}=HOME_CACHE.pet_info
+        if(outside_item){
+            console.log("已有实例",outside_item)
+            outside_item.active=outward
+            this.cat.active=!outward
+            if(outward===false){
+                outside_item.destroy()
+            }
+        }else{
+            // const feedWarpInstan=  cc.find(`Canvas/feedWarp`)
+            let OutSide=cc.instantiate(this.OutSide)
+            // var cat = cc.find(`Canvas/rootWarp/my_home/cat`)
+            var my_home = cc.find(`Canvas/rootWarp/my_home`)
+            this.cat.active=!outward
+            OutSide.parent=my_home
+            OutSide.active=outward
+        }
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -118,6 +142,35 @@ cc.Class({
             }
         });
     },
+    getBackNotice(){
+        Api.petBackNotice(res=>{
+            if(res.code===0&&res.data){
+                if(res.data.noticeId&&res.data.awardJson){
+                    console.log("data",res.data.awardJson)
+                    console.log('json',JSON.parse(res.data.awardJson))
+                    const goods=res.data.awardJson&&JSON.parse(res.data.awardJson)||[]
+                    this.NoticeClear(res.data.noticeId)
+
+                    ComeBack.show(goods)
+                    
+                }else if(res.data.noticeId){
+                    this.NoticeClear(res.data.noticeId)
+
+                    ComeBackNull.show()
+                }
+
+            }
+
+        })
+    },
+
+    NoticeClear(id){
+        //消息已读
+        Api.backNoticeView({noticeId:id},res=>{
+
+        })
+    },
+    
 
     setHungerTimer(refreshTime) {
         const time = refreshTime - (new Date()).getTime()
@@ -152,6 +205,9 @@ cc.Class({
         var lucky_warp = cc.find(`processText`, this.lucky_bar)
         lucky_warp.getComponent(cc.Label).string = `${HOME_CACHE.pet_info.currentLucky} \ ${HOME_CACHE.pet_info.luckyUpperLimit}`
         this.lucky_bar.width = 200 * HOME_CACHE.pet_info.currentLucky / HOME_CACHE.pet_info.luckyUpperLimit
+
+        this.setOUtUi()
+        
 
     },
 
