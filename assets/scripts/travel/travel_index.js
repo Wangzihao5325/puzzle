@@ -14,6 +14,8 @@ cc.Class({
         footer: cc.Prefab,
         header: cc.Prefab,
         layout_root: cc.Node,
+
+        signBtn: cc.Sprite
     },
 
     drawLine(start, end) {
@@ -90,11 +92,18 @@ cc.Class({
         cc.director.loadScene("mission");
     },
 
+    signInfo() {
+        Action.Sign.SignInfoUpdate((res) => {
+            console.log(CACHE.signData);
+        });
+    },
+
     init() {
         this.stateUpdate();
         this.setBg();
         this.footerInit();
         this.headerInit();
+        this.signInfo();
 
         CITIES.forEach((item, index) => {
             /*画线*/

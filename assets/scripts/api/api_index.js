@@ -1,5 +1,5 @@
 import CusHttp from './custom_http';
-const API_DOMAIN = 'http://192.168.3.140:8090';
+const API_DOMAIN = 'http://192.168.3.2:8090';
 
 /**
  * 根据城市id获取城市详情
@@ -111,6 +111,9 @@ const placeGoods = (payload = { goodId: 0, standId: 0 }, callback, failedCallbac
 //收取奖励
 const getShowReceive = (payload = { placeId: 0 }, callback, failedCallback) => new CusHttp().Post(`${API_DOMAIN}/exhibition/stand/good/receive`, payload, callback, failedCallback);
 
+//签到
+const signInfo = (callback, failedCallback) => new CusHttp().Get(`${API_DOMAIN}/sign/info`, callback, failedCallback);
+
 export default {
     cityDetails,
     missionList,
@@ -130,5 +133,7 @@ export default {
 
     showInfo,
     placeGoods,
-    getShowReceive
+    getShowReceive,
+
+    signInfo,
 }

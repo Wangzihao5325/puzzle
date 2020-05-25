@@ -21,7 +21,8 @@ const CACHE = {
     assets: {//用来存放已经加载过的图片资源
         bg: null//场景背景图片资源
     },
-    showData: null
+    showData: null,//展览数据
+    signData: null,//签到数据
 }
 
 export default {

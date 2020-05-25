@@ -56,6 +56,7 @@ cc.Class({
             let obj = showcaseNode.getComponent('showcase_index');
             if (obj) {
                 obj.initWithItem(item);
+                obj.setTouch();
             }
         });
     },
