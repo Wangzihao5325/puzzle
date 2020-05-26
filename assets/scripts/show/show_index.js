@@ -61,6 +61,7 @@ cc.Class({
     },
 
     showcaseInit(standInfoList) {
+        console.log(standInfoList);
         standInfoList.forEach((item, index) => {
             let showcaseNode = cc.instantiate(this.showcase);
             showcaseNode.parent = this.table;
@@ -114,7 +115,6 @@ cc.Class({
 
     bagInit(type = 1) {
         Api.showGoods(type, (res) => {
-            console.log(res);
             let totalHeight = Math.ceil(res.data.length / 3) * 200;
             this.scrollContent.height = totalHeight;
             this.scrollContent.width = 600;
@@ -123,6 +123,10 @@ cc.Class({
                 if (!nodeItem) {
                     nodeItem = cc.instantiate(this.goodsItem);
                     nodeItem.name = `item_goods_${index}`
+                    let obj = nodeItem.getComponent('goodItem');
+                    if (obj) {
+                        obj.setTouch((item) => this.bagGoodsClick(item));
+                    }
                 }
                 nodeItem.parent = this.scrollContent;
                 let line = Math.floor(index / 3);
@@ -133,14 +137,22 @@ cc.Class({
                 nodeItem.setPosition(cc.v2(x, y));
                 let obj = nodeItem.getComponent('goodItem');
                 if (obj) {
-                    if (item.owned) {
-                        obj.init({ name: item.name, icon: item.iconUrl });
+                    if (item.owned) {//to do:区分物品质量
+                        obj.init({ name: item.name, icon: item.iconUrl, goodsId: item.goodsId, goodsQuality: item.goodsQuality });
                     } else {
                         obj.initByNotOwn({ icon: 'show/meishi' });
                     }
                 }
             });
         })
+    },
+
+    bagGoodsClick(item) {
+        if (item.goodsId) {
+            Api.placeGoods({ goodId: item.goodsId, standId: CACHE.show_table_press.standId }, (res) => {
+                //to do:更新数据
+            });
+        }
     },
 
     bagBtnSetTouch() {
@@ -203,7 +215,6 @@ cc.Class({
     openBag(itemData) {
         this.bagRoot.active = true;
         CACHE.show_table_press = itemData;
-        console.log(itemData);
     },
 
     init() {

@@ -23,7 +23,23 @@ cc.Class({
 
     },
 
+    setTouch(callback) {
+        this.good_bg.node.on(cc.Node.EventType.TOUCH_START, (event) => {
+            event.stopPropagation();
+        })
+        this.good_bg.node.on(cc.Node.EventType.TOUCH_MOVE, (event) => {
+            event.stopPropagation();
+        })
+        this.good_bg.node.on(cc.Node.EventType.TOUCH_END, () => {
+            if (callback && this.item) {
+                callback(this.item);
+            }
+            event.stopPropagation();
+        })
+    },
+
     init(item) {
+        this.item = item;
         this.good_name.getComponent(cc.Label).node.active = true;
         this.good_name.getComponent(cc.Label).string = item.name;
         cc.loader.load(item.icon, (err, texture) => {
@@ -34,6 +50,7 @@ cc.Class({
     },
 
     initByNotOwn(item) {
+        this.item = item;
         this.good_name.getComponent(cc.Label).node.active = false;
         cc.loader.loadRes(item.icon, cc.SpriteFrame, (err, asset) => {
             this.good_pic.node.scaleX = 0.5;
