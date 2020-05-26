@@ -16,7 +16,7 @@ cc.Class({
         showTimeNode: cc.Node,
     },
 
-    setTouch() {
+    setTouch(callback) {
         this.header.on(cc.Node.EventType.TOUCH_START, (event) => {
             event.stopPropagation();
         })
@@ -25,7 +25,10 @@ cc.Class({
 
         })
         this.header.on(cc.Node.EventType.TOUCH_END, (event) => {
-            Toast.show('正在开发ing')
+            if (callback) {
+                callback(this.data_item);
+            }
+            // Toast.show('正在开发ing')
             event.stopPropagation();
         })
     },
