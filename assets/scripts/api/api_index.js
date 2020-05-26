@@ -152,6 +152,9 @@ const signInfo = (callback, failedCallback) => new CusHttp().Get(`${API_DOMAIN}/
 
 const doSign = (payload = { placeId: 0 }, callback, failedCallback) => new CusHttp().Post(`${API_DOMAIN}/sign/do_sign`, payload, callback, failedCallback);
 
+//show背包
+const showGoods = (type, callback, failedCallback) => new CusHttp().Get(`${API_DOMAIN}/exhibition/backpack/goods?type=${type}`, callback, failedCallback);
+
 export default {
     cityDetails,
     missionList,
@@ -179,4 +182,5 @@ export default {
 
     signInfo,
     doSign,
+    showGoods
 }
