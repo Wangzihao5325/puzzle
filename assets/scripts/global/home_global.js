@@ -1,4 +1,4 @@
-CAR_FOOD=[
+var CAR_FOOD=[
     {
         type:0,
         name:'普通猫食',
@@ -19,7 +19,7 @@ CAR_FOOD=[
     }
 ]
 
-HOME_CACHE ={
+var HOME_CACHE ={
     cat_post:undefined,
     pet_info:{
         currentHungry: 500,
@@ -43,7 +43,7 @@ HOME_CACHE ={
     
 }
 
-SHIPING=[
+var SHIPING=[
     {
         id:1,
         own:false,

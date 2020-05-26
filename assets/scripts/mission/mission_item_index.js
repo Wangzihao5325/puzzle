@@ -66,6 +66,7 @@ cc.Class({
     },
 
     initWithItem(item, missionItemClickCallback) {
+        CACHE.chapterData=item
         this.render(item);
         this.setTouch(item, missionItemClickCallback);
     },

@@ -203,6 +203,12 @@ var spliceArr = []
 
 var coutnDown = 0
 
+var GAME_CACH={
+  coutnDown:60,
+  isComplate:false,
+  pause:false,
+}
+
 // function rename (){
 //     let size1=''
 //     console.log("SIZE2_3",SIZE2_3)
@@ -231,5 +237,6 @@ export default {
   underwayIndex,
   spliceArr,
   currentLeavel,
-  coutnDown
+  coutnDown,
+  GAME_CACH
 };

@@ -17,6 +17,15 @@ const CACHE = {
         introduceShort: '',
         name: ''
     },
+    chapterData:{//当前关卡信息
+        chapterId: 101,
+        chapterName: "成都",
+        hurdleId: 101001,
+        hurdleName: "IFS",
+        logoUrl: "https://puzzle.oss-cn-beijing.aliyuncs.com/city001.png",
+        picId: "city001",
+        star: 0,
+    },
     list: [],
     assets: {//用来存放已经加载过的图片资源
         bg: null//场景背景图片资源

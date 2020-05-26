@@ -9,8 +9,13 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
+        icon_warp:cc.Node,
+        icon_content:cc.Node,
         good_name:cc.Node,
+        good_new:cc.Node,
+        good_rare:cc.Node,
         good_pic:cc.Sprite,
+        rare_bg:cc.SpriteFrame,
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -21,11 +26,18 @@ cc.Class({
 
     },
     init(item){
-        console.log("item",item)
         this.good_name.getComponent(cc.Label).string=item.name;
-        cc.loader.load(item.url, (err, texture)=> {
+        cc.loader.load(item.iconUrl, (err, texture)=> {
             this.good_pic.spriteFrame=new cc.SpriteFrame(texture)
         });
+        if(item.goodsType===1){
+            this.icon_warp.getComponent(cc.Sprite).spriteFrame=this.rare_bg
+            this.icon_content.getComponent(cc.Sprite).spriteFrame=this.rare_bg
+            this.good_rare.active=true
+        }
+        if(item.exist===false){
+            this.good_new.active=true
+        }
     },
 
     // update (dt) {},

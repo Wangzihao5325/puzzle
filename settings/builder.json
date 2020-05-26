@@ -1,7 +1,7 @@
 {
   "title": "Puzzle",
   "packageName": "org.cocos2d.demo",
-  "startScene": "83f74f46-fd5a-4be6-b7c4-ddfa4ba92f24",
+  "startScene": "bcf66992-6990-4bb2-9a5a-fc2ed0c454a8",
   "excludeScenes": [],
   "includeSDKBox": false,
   "orientation": {
