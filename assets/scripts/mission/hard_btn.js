@@ -71,15 +71,11 @@ cc.Class({
             event.stopPropagation();
         });
         this.mainBg.node.on(cc.Node.EventType.TOUCH_MOVE, (event) => {
-            this.isMove = true;
             event.stopPropagation();
         });
         this.mainBg.node.on(cc.Node.EventType.TOUCH_END, (event) => {
             event.stopPropagation();
-            if (!this.isMove) {
-                this.setClicked(hardLevel, callback);
-            }
-            this.isMove = false;
+            this.setClicked(hardLevel, callback);
         });
     },
 

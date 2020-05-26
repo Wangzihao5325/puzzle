@@ -8,7 +8,6 @@ cc.Class({
         city_name_bg: cc.Sprite,
         mission_progress: cc.Label,
         city_image: cc.Sprite,
-        isMove: cc.boolean,
         itemObj: cc.object,
         recommend: cc.Prefab,
     },
@@ -53,15 +52,11 @@ cc.Class({
 
         this.city_image.node.on(cc.Node.EventType.TOUCH_MOVE, (event) => {
             event.stopPropagation();
-            this.isMove = true;
         })
 
         this.city_image.node.on(cc.Node.EventType.TOUCH_END, (event) => {
+            callback(this.itemObj);
             event.stopPropagation();
-            if (!this.isMove && callback) {
-                callback(this.itemObj);
-            }
-            this.isMove = false;
         })
     },
 

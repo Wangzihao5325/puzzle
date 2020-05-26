@@ -21,14 +21,11 @@ cc.Class({
             event.stopPropagation();
         })
         this.header.on(cc.Node.EventType.TOUCH_MOVE, (event) => {
-            this.isMove = true;
             event.stopPropagation();
 
         })
         this.header.on(cc.Node.EventType.TOUCH_END, (event) => {
-            if (!this.isMove) {
-                Toast.show('正在开发ing')
-            }
+            Toast.show('正在开发ing')
             event.stopPropagation();
         })
     },

@@ -103,58 +103,46 @@ cc.Class({
             event.stopPropagation();
         });
         this.signBtn.node.on(cc.Node.EventType.TOUCH_MOVE, (event) => {
-            this.isMove = true;
             event.stopPropagation();
         });
         this.signBtn.node.on(cc.Node.EventType.TOUCH_END, (event) => {
             event.stopPropagation();
-            if (!this.isMove) {
-                this.signRoot.active = true;
-            }
-            this.isMove = false;
+            this.signRoot.active = true;
         });
 
         this.signClose.on(cc.Node.EventType.TOUCH_START, (event) => {
             event.stopPropagation();
         });
         this.signClose.on(cc.Node.EventType.TOUCH_MOVE, (event) => {
-            this.isMove = true;
             event.stopPropagation();
         });
         this.signClose.on(cc.Node.EventType.TOUCH_END, (event) => {
             event.stopPropagation();
-            if (!this.isMove) {
-                this.signRoot.active = false;
-            }
-            this.isMove = false;
+            this.signRoot.active = false;
         });
 
         this.signGetGoods.on(cc.Node.EventType.TOUCH_START, (event) => {
             event.stopPropagation();
         });
         this.signGetGoods.on(cc.Node.EventType.TOUCH_MOVE, (event) => {
-            this.isMove = true;
             event.stopPropagation();
         });
         this.signGetGoods.on(cc.Node.EventType.TOUCH_END, (event) => {
             event.stopPropagation();
-            if (!this.isMove) {
-                if (CACHE.signData.todaySign) {
-                    Toast.show('您今天已经签到过!');
-                } else {
-                    Api.doSign({ key: 1 }, (res) => {
-                        let dayNode = cc.find(`Canvas/layoutRoot/signPop/sign_item${res.data.day}`);
-                        let obj = dayNode.getComponent('sign_item_index');
-                        if (obj) {
-                            obj.todaySign();
-                            // Action.User.BalanceUpdate((res) => {
+            if (CACHE.signData.todaySign) {
+                Toast.show('您今天已经签到过!');
+            } else {
+                Api.doSign({ key: 1 }, (res) => {
+                    let dayNode = cc.find(`Canvas/layoutRoot/signPop/sign_item${res.data.day}`);
+                    let obj = dayNode.getComponent('sign_item_index');
+                    if (obj) {
+                        obj.todaySign();
+                        // Action.User.BalanceUpdate((res) => {
 
-                            // });
-                        }
-                    });
-                }
+                        // });
+                    }
+                });
             }
-            this.isMove = false;
         });
     },
 

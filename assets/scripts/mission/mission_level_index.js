@@ -23,17 +23,13 @@ cc.Class({
         });
 
         this.backBtn.node.on(cc.Node.EventType.TOUCH_MOVE, (event) => {
-            this.isMove = true;
             event.stopPropagation();
         });
 
         this.backBtn.node.on(cc.Node.EventType.TOUCH_END, (event) => {
-            if (!this.isMove) {
-                if (this.item_node) {
-                    this.item_node.active = false;
-                }
+            if (this.item_node) {
+                this.item_node.active = false;
             }
-            this.isMove = false;
             event.stopPropagation();
         });
     },
@@ -71,17 +67,13 @@ cc.Class({
             event.stopPropagation();
         });
         this.startBtn.node.on(cc.Node.EventType.TOUCH_MOVE, (event) => {
-            this.isMove = true;
             event.stopPropagation();
         });
         this.startBtn.node.on(cc.Node.EventType.TOUCH_END, (event) => {
             event.stopPropagation();
-            if (!this.isMove) {
-                if (!isNaN(CACHE.hard_level)) {
-                    cc.director.loadScene("puzzle");
-                }
+            if (!isNaN(CACHE.hard_level)) {
+                cc.director.loadScene("puzzle");
             }
-            this.isMove = false;
         });
     },
 

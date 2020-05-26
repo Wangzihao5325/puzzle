@@ -50,17 +50,13 @@ cc.Class({
         });
 
         this.missionPic.node.on(cc.Node.EventType.TOUCH_MOVE, (event) => {
-            this.isMove = true;
             event.stopPropagation();
         });
 
         this.missionPic.node.on(cc.Node.EventType.TOUCH_END, (event) => {
-            if (!this.isMove) {
-                if (missionItemClickCallback) {
-                    missionItemClickCallback(item)
-                }
+            if (missionItemClickCallback) {
+                missionItemClickCallback(item)
             }
-            this.isMove = false;
             event.stopPropagation();
         });
     },
