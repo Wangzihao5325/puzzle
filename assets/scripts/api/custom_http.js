@@ -1,3 +1,5 @@
+import { CACHE } from '../global/usual_cache';
+
 /**
  * 新版接口
  * @example 使用 var Http = require('Http')
@@ -12,13 +14,14 @@ class CusHttp {
     }
     /**
      * Get 请求
-     * @param {*} Url 
-     * @param {*} cb 
+     * @param {*} Url
+     * @param {*} cb
      */
     Get(Url, cb, fcb) {
         let http = cc.loader.getXMLHttpRequest();
         http.open("GET", Url, true);
         http.setRequestHeader("Content-Type", "application/json");
+        http.setRequestHeader("X-Auth-Token", CACHE.token);
         this._callback = cb;
         this._failedCallback = fcb;
         http.onreadystatechange = this._result.bind(this);
@@ -31,6 +34,20 @@ class CusHttp {
         let http = cc.loader.getXMLHttpRequest();
         http.open("POST", Url, true);
         http.setRequestHeader("Content-Type", "application/json");
+        http.setRequestHeader("X-Auth-Token", CACHE.token);
+        this._callback = cb;
+        this._failedCallback = fcb;
+        http.onreadystatechange = this._result.bind(this);
+        http.timeout = 10000;
+        http.send(data);
+        this._http = http;
+    }
+    Post_UrlEnCoded(Url, data, cb, fcb) {
+        data = JSON.stringify(data);
+        let http = cc.loader.getXMLHttpRequest();
+        http.open("POST", Url, true);
+        http.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        http.setRequestHeader("X-Auth-Token", CACHE.token);
         this._callback = cb;
         this._failedCallback = fcb;
         http.onreadystatechange = this._result.bind(this);

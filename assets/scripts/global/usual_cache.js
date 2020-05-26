@@ -23,6 +23,8 @@ const CACHE = {
     },
     showData: null,//展览数据
     signData: null,//签到数据
+    token: undefined,
+    userInfo: undefined
 }
 
 export default {
