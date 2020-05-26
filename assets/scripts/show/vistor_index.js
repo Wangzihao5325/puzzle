@@ -1,4 +1,5 @@
-const SEX = { MAN: 'man', WOMAN: 'woman' };
+import { CACHE } from '../global/usual_cache';
+const SEX = { MAN: 'manVistor', WOMAN: 'womenVistor' };
 const VISTOR_ASSETS_PATH = {
     man: ['show/nance.png', 'show/nanzheng.png'],
     woman: ['show/nvce.png', 'show/nvzheng.png'],
@@ -17,32 +18,27 @@ cc.Class({
     randomSexAndAttitude() {
         this.sex = (Math.random() * 2) > 1 ? SEX.MAN : SEX.WOMAN;
         //to do 表情随机
-        let index = Math.floor(Math.random() * ATTITUDE_ASSET_PATH.length);
-        this.attitudeUrl = ATTITUDE_ASSET_PATH[0];
+        // let index = Math.floor(Math.random() * ATTITUDE_ASSET_PATH.length);
+        this.attitudeUrl = new cc.SpriteFrame(CACHE.assets.vistorAttitude[0]);
     },
 
     initMan(direction) {
         if (this.sex && this.attitudeUrl) {
-            cc.loader.loadRes(VISTOR_ASSETS_PATH[this.sex][0], cc.SpriteFrame, (err, asset) => {
-                if (err) cc.error(err);
-                this.man.spriteFrame = asset;
-                this.man.node.scaleX = direction > 0 ? -0.75 : 0.75;
-                this.man.node.scaleY = 0.75;
-                this.attitude.node.active = false;
-            });
+            this.man.spriteFrame = new cc.SpriteFrame(CACHE.assets[this.sex][0]);
+            this.man.node.scaleX = direction > 0 ? -0.75 : 0.75;
+            this.man.node.scaleY = 0.75;
+            this.attitude.node.active = false;
         }
     },
 
     manWait() {
         if (this.sex && this.attitudeUrl) {
-            cc.loader.loadResArray([VISTOR_ASSETS_PATH[this.sex][1], this.attitudeUrl], cc.SpriteFrame, (err, assets) => {
-                if (err) cc.error(err);
-                this.man.spriteFrame = assets[0];
-                this.attitude.node.active = true;
-                this.attitude.spriteFrame = assets[1];
-                this.attitude.node.scaleX = 0.75;
-                this.attitude.node.scaleY = 0.75;
-            });
+
+            this.man.spriteFrame = new cc.SpriteFrame(CACHE.assets[this.sex][1]);;
+            this.attitude.node.active = true;
+            this.attitude.spriteFrame = new cc.SpriteFrame(CACHE.assets.vistorAttitude[1]);;
+            this.attitude.node.scaleX = 0.75;
+            this.attitude.node.scaleY = 0.75;
         }
     },
 

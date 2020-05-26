@@ -1,4 +1,10 @@
-import { BG_ASSET_URL, CITY_ICON_URL } from '../global/app_global_index';
+import {
+    BG_ASSET_URL,
+    CITY_ICON_URL,
+    MAN_VISTER,
+    WOMAN_VISTER,
+    VISTER_ATTITUDE
+} from '../global/app_global_index';
 import { CACHE } from '../global/usual_cache';
 
 cc.Class({
@@ -27,8 +33,34 @@ cc.Class({
                     return results.getContent(item);
                 });
                 CACHE.assets.cityIcon = resArr;
+
+                /*vister资源*/
+                cc.loader.load(MAN_VISTER, (errs, results) => {
+                    if (errs) cc.error(errs);
+                    let resArr = MAN_VISTER.map((item) => {
+                        return results.getContent(item);
+                    });
+                    CACHE.assets.manVistor = resArr;
+
+                    cc.loader.load(WOMAN_VISTER, (errs, results) => {
+                        if (errs) cc.error(errs);
+                        let resArr = WOMAN_VISTER.map((item) => {
+                            return results.getContent(item);
+                        });
+                        CACHE.assets.womenVistor = resArr;
+
+                        cc.loader.load(VISTER_ATTITUDE, (errs, results) => {
+                            if (errs) cc.error(errs);
+                            let resArr = VISTER_ATTITUDE.map((item) => {
+                                return results.getContent(item);
+                            });
+                            CACHE.assets.vistorAttitude = resArr;
+
+                            cc.director.loadScene("travel");
+                        })
+                    })
+                })
             })
-            cc.director.loadScene("travel");
         });
     },
 
