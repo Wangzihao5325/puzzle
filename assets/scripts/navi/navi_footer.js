@@ -40,11 +40,13 @@ cc.Class({
     },
 
     initWithScene(sceneType) {
-        this.initBtnBg(sceneType);
-        if (sceneType == SCENE.TRAVEL) {
-            this.initPin();
-            this.initAnimate();
-        }
+        setTimeout(() => {
+            this.initBtnBg(sceneType);
+            if (sceneType == SCENE.TRAVEL) {
+                this.initPin();
+                this.initAnimate();
+            }
+        }, 10);
     },
 
     goToPlay() {
