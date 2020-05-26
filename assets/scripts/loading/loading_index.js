@@ -73,6 +73,8 @@ cc.Class({
                 })
             })
         });
+
+        WxApi.login(() => {WxApi.loadUserInfo()});
     },
 
     // update (dt) {},
