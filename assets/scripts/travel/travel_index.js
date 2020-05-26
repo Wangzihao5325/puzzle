@@ -93,6 +93,7 @@ cc.Class({
     },
 
     cityPress(itemObj) {
+        console.log('city---Pressing!!');
         CACHE.travel_city_press = itemObj;//在cache中存储点击选项，新场景加载后读取，获得传值
         cc.director.loadScene("mission");
     },
@@ -142,8 +143,6 @@ cc.Class({
                     Toast.show('您今天已经签到过!');
                 } else {
                     Api.doSign({ key: 1 }, (res) => {
-                        console.log('dddd');
-                        console.log(res);
                         let dayNode = cc.find(`Canvas/layoutRoot/signPop/sign_item${res.data.day}`);
                         let obj = dayNode.getComponent('sign_item_index');
                         if (obj) {
@@ -161,7 +160,6 @@ cc.Class({
 
     signInfo() {
         Action.Sign.SignInfoUpdate((res) => {
-            console.log(CACHE.signData);
             if (!CACHE.signData.todaySign) {
                 this.signRoot.active = true;
             }

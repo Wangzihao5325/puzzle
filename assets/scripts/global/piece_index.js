@@ -203,22 +203,6 @@ var spliceArr = []
 
 var coutnDown = 0
 
-// function rename (){
-//     let size1=''
-//     console.log("SIZE2_3",SIZE2_3)
-//     SIZE2_3.map((item,index)=>{ console.log('item',item); item.push(index); size1+=`[${item}],`})
-//     console.log('size1',size1)
-
-//     let size2=''
-//     SIZE4_6.map((item,index)=>{item.push(index); size2+=`[${item}],`})
-//     console.log('size2',size2)
-
-//     let size3=''
-//     SIZE6_8.map((item,index)=>{item.push(index);  size3+=`[${item}],`})
-//     console.log('size3',size3)
-// }
-// rename()
-
 export default {
   SIZES,
   MASK_RESOUSE,

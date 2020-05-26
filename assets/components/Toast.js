@@ -46,7 +46,6 @@ Toast.show = function (detailString, timer=2000, enterCallBack, needCancel, anim
 
       // // 获取子节点
       Toast._detailLabel = cc.find("toastContent/toastText", toast).getComponent(cc.Label);
-      console.log('Toast._detailLabel', Toast._detailLabel)
 
       // 父视图
       Toast._toast.parent = cc.find("Canvas");

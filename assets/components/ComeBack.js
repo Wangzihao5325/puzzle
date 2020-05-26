@@ -61,7 +61,6 @@ ComeBack.show = function (goods,_confirmCallBack,animSpeed ) {
 
 
         ComeBack._confirmButton = cc.find("dialogContainer/confirm", alert);
-        console.log("ComeBack._confirmButton",ComeBack._confirmButton)
         ComeBack._close = cc.find("dialogContainer/close", alert);
 
         // 添加点击事件
@@ -89,7 +88,6 @@ ComeBack.show = function (goods,_confirmCallBack,animSpeed ) {
                 obj.init(item)
                 const indexX=(index+1)%3
                 const indexY=Math.ceil((index+1)/3)
-                console.log("indexX,indexY",indexX,indexY)
                 goodItem.parent=cc.find("dialogContainer/content", alert);
                 let position = cc.v2((170 * (indexX+0.5)) +20-270, 210-(200*(indexY-0.5))-20);
                 goodItem.setPosition(position);
@@ -121,14 +119,11 @@ ComeBack.show = function (goods,_confirmCallBack,animSpeed ) {
     // 按钮点击事件
     self.onButtonClicked = function(event){
         if(event.target.name == "confirm"){
-            console.log("确认按钮");
             if(self._confirmButton){
                 self._confirmButton();
             }
         }else{
-            console.log("取消按钮");
             self.startFadeOut();
-
         }
     };
 

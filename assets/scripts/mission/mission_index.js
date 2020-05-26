@@ -96,7 +96,6 @@ cc.Class({
         });
         Action.Mission.MissionList((res) => {
             /**获取关卡列表  */
-            //console.log(CACHE.list)
             let obj = this.scroll.getComponent('mission_scroll_index');
             if (CACHE.list.length > 0) {
                 obj.initWithArr(CACHE.list, (item) => this.missionItemClickCallback(item));

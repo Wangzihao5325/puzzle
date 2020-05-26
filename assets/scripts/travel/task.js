@@ -33,7 +33,6 @@ cc.Class({
   onLoad () {
       this.coco.node.on(cc.Node.EventType.TOUCH_START, function (event) {
 
-          console.log("TOUCH_START this.coco");
           Alert.show("这是问询框内容",
           {
             title:'这是标题',

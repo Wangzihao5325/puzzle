@@ -117,20 +117,11 @@ cc.Class({
         this.footerInit();
         this.headerInit();
         this.vistorInit(payload);
-        Api.showGoods(1, (res) => {
-            console.log(res);
-        });
         Action.Show.ShowInfoUpdate((res) => {
             const showData = CACHE.showData;
             if (showData.festivalInfo) {
                 this.festivalName.string = showData.festivalInfo.name;
                 this.festivalProgress.string = `${showData.festivalInfo.currentNum}/${showData.festivalInfo.reachCount}`;
-                let time = showData.festivalInfo.endTime;
-                // setTimeOutWithTimeStamp(time, (timeStr) => {
-                //     console.log(timeStr);
-                // }, () => {
-                //     console.log('ddddd');
-                // });
             }
             this.showcaseInit(showData.standInfoList);
         })

@@ -134,8 +134,6 @@ cc.Class({
 
     userProp(data,callBack){
         Api.use_prop(data,(res) => {
-            const data = res.data;
-            console.log("res", res)
             if (res.code === 0) {
                 HOME_CACHE.pet_info = res.data;
                 this.resetUI()

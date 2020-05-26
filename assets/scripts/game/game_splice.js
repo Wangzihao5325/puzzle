@@ -105,7 +105,6 @@ cc.Class({
         this.orderByRandom(arr).map((item, index) => {
             const i = item[6] + 1
             if (i <= x || i % x == 1 || i % x == 0 || i >= x * (y - 1)) {
-                console.log('firstEl', i)
                 item[7] = item[6]
             } else {
                 item[7] = 100

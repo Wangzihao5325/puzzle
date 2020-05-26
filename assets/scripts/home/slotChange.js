@@ -25,7 +25,6 @@ cc.Class({
         this.ske_com = ske_com;
         const skeletonData = this.ske_com.skeletonData.getRuntimeData();
         const skin = skeletonData.findSkin('default');
-        // console.log("ske_com",skeletonData)
         let parts = ["toushi00", "boshi00", "weishi00"]//["toushi00", "boshi00", "weishi00"];
         let randomNum = Math.floor(Math.random() * 8);
         for (let i = 0; i < parts.length; i++) {
@@ -58,15 +57,6 @@ cc.Class({
                     }
             }
         }
-        // this.ske_com.debugSlots = true;
-        // this.ske_com.debugBones = true;
-        // let bone27Obj = this.ske_com.findBone('Cbone21');
-        // bone27Obj.rotateWorld(180);
-        // bone27Obj.updateWorldTransform();
-        // this.ske_com.updateWorldTransform();
-        // console.log('--270')
-        // console.log(bone27Obj);
-
     },
 
     start() {

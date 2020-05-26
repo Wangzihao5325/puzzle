@@ -23,10 +23,7 @@ cc.Class({
     init() {
         const hardLevel = CACHE.hard_level;
         const missionObj = CACHE.mission_press;
-        console.log('dddd');
-        console.log(missionObj);
         Api.missionDetails(missionObj.hurdleId, (res) => {
-            console.log(res);
             const imagePath = missionObj.logoUrl;
             const animatePayload = {
                 animatePath: res.data.texJson,

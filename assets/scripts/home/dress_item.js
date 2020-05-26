@@ -76,7 +76,6 @@ cc.Class({
 
         const derreType=['',this.toushi,this.boshi,this.weishi,]
         this.type.spriteFrame=derreType[item.position]
-        console.log('costGoodsType',CurrencyIdtoName(item.costGoodsType))
         // CurrencyIdtoName(.costGoodsType)
         if(item.status===0){
             this.priceWarp.active=true;
@@ -130,7 +129,6 @@ cc.Class({
 
     },
     handleDressItem(){
-        console.log("handleDressItem",this.iconName)
         const cat_post_dress=['C','','Z']
         const currentPost=HOME_CACHE.cat_post
         const dress_per=cat_post_dress[currentPost]
@@ -147,7 +145,6 @@ cc.Class({
         const skeletonData = this.ske_com.skeletonData.getRuntimeData();
         const skin = skeletonData.findSkin('default');
         const type = this.position
-        console.log("type",name,type)
         let parts = ['',`${dress_per}toushi00`, `${dress_per}boshi00`, `${dress_per}weishi00`]//["toushi00", "boshi00", "weishi00"];
         let regSlot = this.ske_com.findSlot(parts[type]);
         let slotIndex = skeletonData.findSlotIndex(name);
@@ -170,7 +167,6 @@ cc.Class({
         this.ske_com = ske_com;
         const skeletonData = this.ske_com.skeletonData.getRuntimeData();
         const skin = skeletonData.findSkin('default');
-        // console.log("ske_com",skeletonData)
         let parts = ["toushi00", "boshi00", "weishi00"]//["toushi00", "boshi00", "weishi00"];
         let randomNum = Math.floor(Math.random() * 8);
         for (let i = 0; i < parts.length; i++) {
@@ -203,15 +199,6 @@ cc.Class({
                     }
             }
         }
-        // this.ske_com.debugSlots = true;
-        // this.ske_com.debugBones = true;
-        // let bone27Obj = this.ske_com.findBone('Cbone21');
-        // bone27Obj.rotateWorld(180);
-        // bone27Obj.updateWorldTransform();
-        // this.ske_com.updateWorldTransform();
-        // console.log('--270')
-        // console.log(bone27Obj);
-
     },
     setTouch() {
         this.dress_item.on(cc.Node.EventType.TOUCH_START, (event) => {
