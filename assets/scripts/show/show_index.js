@@ -122,6 +122,11 @@ cc.Class({
             if (showData.festivalInfo) {
                 this.festivalName.string = showData.festivalInfo.name;
                 this.festivalProgress.string = `${showData.festivalInfo.currentNum}/${showData.festivalInfo.reachCount}`;
+                this.timer = setTimeOutWithTimeStamp(showData.festivalInfo.endTime, (timeStr) => {
+                    this.timerLabel.string = timeStr;
+                }, () => {
+
+                });
             }
             this.showcaseInit(showData.standInfoList);
         })
@@ -129,11 +134,15 @@ cc.Class({
 
     // LIFE-CYCLE CALLBACKS:
 
-    // onLoad () {},
-
-    start() {
+    onLoad() {
         this.init();
     },
+
+    onDestroy() {
+        if (this.timer) {
+            this.timer();
+        }
+    }
 
     // update (dt) {},
 });
