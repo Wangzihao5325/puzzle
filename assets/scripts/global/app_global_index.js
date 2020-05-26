@@ -59,6 +59,15 @@ const VISTER_ATTITUDE = [
     `${IMAGE_SERVER}/biaoqing10.png`,
 ];
 
+const NAVI_ASSETS = [
+    `${IMAGE_SERVER}/jiaweixuanzhong.png`,
+    `${IMAGE_SERVER}/jiayuan.png`,
+    `${IMAGE_SERVER}/lvxingweixuanzhong.png`,
+    `${IMAGE_SERVER}/lvxing3.png`,
+    `${IMAGE_SERVER}/zhanlanweixianzhong.png`,
+    `${IMAGE_SERVER}/zhanlan.png`,
+];
+
 export default {
     SCENE,
     SCENE_KEY,
@@ -66,5 +75,6 @@ export default {
     CITY_ICON_URL,
     MAN_VISTER,
     WOMAN_VISTER,
-    VISTER_ATTITUDE
+    VISTER_ATTITUDE,
+    NAVI_ASSETS
 }

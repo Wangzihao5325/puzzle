@@ -24,6 +24,7 @@ const CACHE = {
         manVistor: null,
         womenVistor: null,
         vistorAttitude: null,
+        naviAssets: null,
     },
     showData: null,//展览数据
     signData: null,//签到数据

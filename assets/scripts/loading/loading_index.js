@@ -3,7 +3,8 @@ import {
     CITY_ICON_URL,
     MAN_VISTER,
     WOMAN_VISTER,
-    VISTER_ATTITUDE
+    VISTER_ATTITUDE,
+    NAVI_ASSETS,
 } from '../global/app_global_index';
 import { CACHE } from '../global/usual_cache';
 
@@ -56,7 +57,16 @@ cc.Class({
                             });
                             CACHE.assets.vistorAttitude = resArr;
 
-                            cc.director.loadScene("travel");
+                            /*加载导航资源 */
+                            cc.loader.load(NAVI_ASSETS, (errs, results) => {
+                                if (errs) cc.error(errs);
+                                let resArr = NAVI_ASSETS.map((item) => {
+                                    return results.getContent(item);
+                                });
+                                CACHE.assets.naviAssets = resArr;
+
+                                cc.director.loadScene("travel");
+                            })
                         })
                     })
                 })

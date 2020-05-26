@@ -1,5 +1,5 @@
 import CusHttp from './custom_http';
-const API_DOMAIN = 'http://192.168.3.2:8090';
+const API_DOMAIN = 'http://192.168.3.144:8090';
 
 /**
  * 根据城市id获取城市详情
@@ -54,7 +54,7 @@ const travel = (payload = { key: 1 }, callback, failedCallback) => new CusHttp()
  * @param {Function} callback 
  * @param {Function} failedCallback 
  */
-const use_prop = (payload = {  }, callback, failedCallback) => new CusHttp().Post(`${API_DOMAIN}/user/assets/user_prop`, payload, callback, failedCallback);
+const use_prop = (payload = {}, callback, failedCallback) => new CusHttp().Post(`${API_DOMAIN}/user/assets/user_prop`, payload, callback, failedCallback);
 
 /**
  * 宠物家主页
