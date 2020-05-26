@@ -23,8 +23,20 @@ const BG_ASSET_URL = [
     'https://puzzle.oss-cn-beijing.aliyuncs.com/mission.png',
 ];
 
+const CITY_ICON_URL = [
+    'https://puzzle.oss-cn-beijing.aliyuncs.com/chengdu.png',
+    'https://puzzle.oss-cn-beijing.aliyuncs.com/xian.png',
+    'https://puzzle.oss-cn-beijing.aliyuncs.com/beijing.png',
+    'https://puzzle.oss-cn-beijing.aliyuncs.com/shanghai.png',
+    'https://puzzle.oss-cn-beijing.aliyuncs.com/xiamen.png',
+    'https://puzzle.oss-cn-beijing.aliyuncs.com/sanya.png',
+    'https://puzzle.oss-cn-beijing.aliyuncs.com/guangzhou.png',
+    'https://puzzle.oss-cn-beijing.aliyuncs.com/xizang.png',
+];
+
 export default {
     SCENE,
     SCENE_KEY,
-    BG_ASSET_URL
+    BG_ASSET_URL,
+    CITY_ICON_URL
 }
