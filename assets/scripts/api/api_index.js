@@ -1,5 +1,5 @@
 import CusHttp from './custom_http';
-const API_DOMAIN = 'http://192.168.3.2:8090';
+const API_DOMAIN = 'http://192.168.3.144:8090';
 
 /**
  * 根据城市id获取城市详情
@@ -54,7 +54,7 @@ const travel = (payload = { key: 1 }, callback, failedCallback) => new CusHttp()
  * @param {Function} callback
  * @param {Function} failedCallback
  */
-const use_prop = (payload = {  }, callback, failedCallback) => new CusHttp().Post(`${API_DOMAIN}/user/assets/user_prop`, payload, callback, failedCallback);
+const use_prop = (payload = {}, callback, failedCallback) => new CusHttp().Post(`${API_DOMAIN}/user/assets/user_prop`, payload, callback, failedCallback);
 
 /**
  * 宠物家主页
@@ -152,12 +152,14 @@ const signInfo = (callback, failedCallback) => new CusHttp().Get(`${API_DOMAIN}/
 
 const doSign = (payload = { placeId: 0 }, callback, failedCallback) => new CusHttp().Post(`${API_DOMAIN}/sign/do_sign`, payload, callback, failedCallback);
 
+//show背包
+const showGoods = (type, callback, failedCallback) => new CusHttp().Get(`${API_DOMAIN}/exhibition/backpack/goods?type=${type}`, callback, failedCallback);
+
 //微信小程序登录
 const login = (payload = {}, callback, failedCallback) => new CusHttp().Post_UrlEnCoded(`${API_DOMAIN}/auth_wx`, payload, callback, failedCallback);
 
 // 获取微信用户信息
 const userInfo = (payload = {}, callback, failedCallback) => new CusHttp().Post_UrlEnCoded(`${API_DOMAIN}/user/info/decrypt_info`, payload, callback, failedCallback);
-
 
 export default {
     cityDetails,
@@ -186,6 +188,7 @@ export default {
 
     signInfo,
     doSign,
+    showGoods,
 
     login,
     userInfo

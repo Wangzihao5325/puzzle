@@ -1,8 +1,6 @@
 import { SCENE } from '../global/app_global_index';
 import { CACHE } from '../global/usual_cache';
 
-const PATHS = ['navi/jiaweixuanzhong', 'navi/jiayuan', 'navi/lvxingweixuanzhong', 'navi/lvxing3', 'navi/zhanlanweixianzhong', 'navi/zhanlan'];
-
 cc.Class({
     extends: cc.Component,
 
@@ -14,12 +12,13 @@ cc.Class({
     },
 
     initBtnBg(sceneType) {
-        this.home_btn.normalSprite = sceneType == SCENE.HOME ? NAVI_BG_ASSETS[1] : NAVI_BG_ASSETS[0];
-        this.travel_btn.normalSprite = sceneType == SCENE.TRAVEL ? NAVI_BG_ASSETS[3] : NAVI_BG_ASSETS[2];
-        this.show_btn.normalSprite = sceneType == SCENE.SHOW ? NAVI_BG_ASSETS[5] : NAVI_BG_ASSETS[4];
+        const NAVI_BG_ASSETS = CACHE.assets.naviAssets;
+        this.home_btn.normalSprite = sceneType == SCENE.HOME ? new cc.SpriteFrame(NAVI_BG_ASSETS[1]) : new cc.SpriteFrame(NAVI_BG_ASSETS[0]);
+        this.travel_btn.normalSprite = sceneType == SCENE.TRAVEL ? new cc.SpriteFrame(NAVI_BG_ASSETS[3]) : new cc.SpriteFrame(NAVI_BG_ASSETS[2]);
+        this.show_btn.normalSprite = sceneType == SCENE.SHOW ? new cc.SpriteFrame(NAVI_BG_ASSETS[5]) : new cc.SpriteFrame(NAVI_BG_ASSETS[4]);
     },
 
-    initAnimate(sceneType) {
+    initAnimate() {
         let pinNode = this.pin.item_node;
         let obj = pinNode.getComponent('navi_pin');
         if (obj) {
@@ -41,15 +40,13 @@ cc.Class({
     },
 
     initWithScene(sceneType) {
-        cc.loader.loadResArray(PATHS, cc.SpriteFrame, (err, assets) => {
-            if (err) cc.error(err);
-            NAVI_BG_ASSETS = assets;
+        setTimeout(() => {
             this.initBtnBg(sceneType);
             if (sceneType == SCENE.TRAVEL) {
                 this.initPin();
-                this.initAnimate(sceneType);
+                this.initAnimate();
             }
-        });
+        }, 10);
     },
 
     goToPlay() {

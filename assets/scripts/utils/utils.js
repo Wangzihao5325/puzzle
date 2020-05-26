@@ -1,12 +1,12 @@
-import {CURRENCY} from './enumber'
+import { CURRENCY } from './enumber'
 const TimeData = {
-    days: undefined,
-    hours: undefined,
-    minutes: undefined,
-    seconds: undefined,
-    milliseconds: undefined,
-  };
-  
+  days: undefined,
+  hours: undefined,
+  minutes: undefined,
+  seconds: undefined,
+  milliseconds: undefined,
+};
+
 const SECOND = 1000;
 const MINUTE = 60 * SECOND;
 const HOUR = 60 * MINUTE;
@@ -39,8 +39,8 @@ export function padZero(num, targetLength = 2) {
 }
 
 export function parseFormat(format, timeData) {
-  let  days 
-  let  hours, minutes, seconds, milliseconds 
+  let days
+  let hours, minutes, seconds, milliseconds
 
   if (format.indexOf('DD') === -1) {
     hours += days * 24;
@@ -82,13 +82,33 @@ export function parseFormat(format, timeData) {
 }
 
 export function CurrencyIdtoName(id) {
-  let str='-'
-  if(id!==undefined){
-    CURRENCY.map(item=>{
-      if(id===item.id){
-        str=item.label
+  let str = '-'
+  if (id !== undefined) {
+    CURRENCY.map(item => {
+      if (id === item.id) {
+        str = item.label
       }
     })
-  } 
+  }
   return str;
+}
+
+export function setTimeOutWithTimeStamp(stamp, middleCallback, finalCallback) {
+  let now = new Date();
+  let nowTime = now.getTime();
+  let time = Math.floor((stamp - nowTime) / 1000);
+  if (time > 0) {
+    let timer = setInterval(() => {
+      time--;
+      let hour = Math.floor(time / 3600);
+      let min = Math.floor((time % 3600) / 60);
+      let sec = (time % 3600) % 60
+      let timeStr = `${hour >= 10 ? hour : `0${hour}`}:${min >= 10 ? min : `0${min}`}:${sec >= 10 ? sec : `0${sec}`}`
+      middleCallback(timeStr);
+      if (time <= 0) {
+        finalCallback();
+        clearInterval(timer);
+      }
+    }, 1000);
+  }
 }
