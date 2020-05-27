@@ -43,10 +43,6 @@ cc.Class({
         this.resetUI()
         GAME_CACH.isComplate=false
         this.timer(GAME_CACH.coutnDown);
-        setTimeout(()=>{
-            this.gameFail()
-
-        },2000)
     },
 
     start() {
@@ -218,6 +214,12 @@ cc.Class({
         game_award.parent = this.root_warp;
         let obj = game_award.getComponent('gameAward');
         obj.init(item,leavel)
+
+        setTimeout(()=>{
+            game_award.destroy()
+            this.showShare()
+        },1500)
+
     },
 
     //显示分享弹窗
