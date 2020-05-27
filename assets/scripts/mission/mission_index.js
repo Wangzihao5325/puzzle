@@ -58,15 +58,11 @@ cc.Class({
             event.stopPropagation();
         });
         this.back.node.on(cc.Node.EventType.TOUCH_MOVE, (event) => {
-            this.isMove = true;
             event.stopPropagation();
         });
         this.back.node.on(cc.Node.EventType.TOUCH_END, (event) => {
             event.stopPropagation();
-            if (!this.isMove) {
-                this.goBack();
-            }
-            this.isMove = false;
+            this.goBack();
         });
 
         /*详情按钮事件绑定 */
@@ -74,15 +70,11 @@ cc.Class({
             event.stopPropagation();
         });
         this.detail.node.on(cc.Node.EventType.TOUCH_MOVE, (event) => {
-            this.isMove = true;
             event.stopPropagation();
         });
         this.detail.node.on(cc.Node.EventType.TOUCH_END, (event) => {
             event.stopPropagation();
-            if (!this.isMove) {
-                this.seeDetails();
-            }
-            this.isMove = false;
+            this.seeDetails();
         });
     },
 
@@ -96,7 +88,6 @@ cc.Class({
         });
         Action.Mission.MissionList((res) => {
             /**获取关卡列表  */
-            //console.log(CACHE.list)
             let obj = this.scroll.getComponent('mission_scroll_index');
             if (CACHE.list.length > 0) {
                 obj.initWithArr(CACHE.list, (item) => this.missionItemClickCallback(item));

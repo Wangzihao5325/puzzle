@@ -38,12 +38,10 @@ cc.Class({
     onLoad () {
         const self=this;
         this.node.on(cc.Node.EventType.TOUCH_MOVE, function (event) {
-            console.log("touch start")
             // this.opacity = 200;
             let delta = event.touch.getDelta();
             this.x += delta.x;
             this.y += delta.y;
-            console.log("position",this.x,this.y)
             self.node.zIndex=5
         }, this.node);
         

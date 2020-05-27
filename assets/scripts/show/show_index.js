@@ -21,6 +21,15 @@ cc.Class({
         timerLabel: cc.Label,
 
         showcase: cc.Prefab,
+        scroll: cc.ScrollView,
+        scrollContent: cc.Node,
+        goodsItem: cc.Prefab,
+        bagRoot: cc.Node,
+        bagMask: cc.Node,
+        bagBtn0: cc.Sprite,//美食按钮
+        bagBtn1: cc.Sprite,//手工品按钮
+        bagBtn2: cc.Sprite,//纪念品按钮
+        bagBtn3: cc.Sprite,//文物按钮
     },
 
     stateUpdate() {
@@ -52,6 +61,7 @@ cc.Class({
     },
 
     showcaseInit(standInfoList) {
+        console.log(standInfoList);
         standInfoList.forEach((item, index) => {
             let showcaseNode = cc.instantiate(this.showcase);
             showcaseNode.parent = this.table;
@@ -59,7 +69,7 @@ cc.Class({
             let obj = showcaseNode.getComponent('showcase_index');
             if (obj) {
                 obj.initWithItem(item);
-                obj.setTouch();
+                obj.setTouch((itemData) => this.openBag(itemData));
             }
         });
     },
@@ -103,6 +113,114 @@ cc.Class({
     randomCreateVistor() {
     },
 
+    bagInit(type = 1) {
+        Api.showGoods(type, (res) => {
+            let totalHeight = Math.ceil(res.data.length / 3) * 200;
+            this.scrollContent.height = totalHeight;
+            this.scrollContent.width = 600;
+            res.data.forEach((item, index) => {
+                let nodeItem = cc.find(`Canvas/bag/bagTable/scrollView/view/content/item_goods_${index}`);
+                if (!nodeItem) {
+                    nodeItem = cc.instantiate(this.goodsItem);
+                    nodeItem.name = `item_goods_${index}`
+                    let obj = nodeItem.getComponent('goodItem');
+                    if (obj) {
+                        obj.setTouch((item) => this.bagGoodsClick(item));
+                    }
+                }
+                nodeItem.parent = this.scrollContent;
+                let line = Math.floor(index / 3);
+                let cloumn = index % 3;
+                let y = - 100 - line * 200;
+                let x = -200 + cloumn * 200;
+
+                nodeItem.setPosition(cc.v2(x, y));
+                let obj = nodeItem.getComponent('goodItem');
+                if (obj) {
+                    if (item.owned) {//to do:区分物品质量
+                        obj.init({ name: item.name, goodsId: item.goodsId, goodsQuality: item.goodsQuality, url: item.iconUrl });
+                    } else {
+                        obj.initByNotOwn({ icon: 'show/meishi' });
+                    }
+                }
+            });
+        })
+    },
+
+    bagGoodsClick(item) {
+        if (item.goodsId) {
+            Api.placeGoods({ goodId: item.goodsId, standId: CACHE.show_table_press.standId }, (res) => {
+                //to do:更新数据
+            });
+        }
+    },
+
+    bagBtnSetTouch() {
+        this.bagBtn0.node.on(cc.Node.EventType.TOUCH_START, (event) => {
+            event.stopPropagation();
+        })
+        this.bagBtn0.node.on(cc.Node.EventType.TOUCH_MOVE, (event) => {
+            event.stopPropagation();
+        })
+        this.bagBtn0.node.on(cc.Node.EventType.TOUCH_END, () => {
+            this.bagInit(1);
+            event.stopPropagation();
+        })
+
+        this.bagBtn1.node.on(cc.Node.EventType.TOUCH_START, (event) => {
+            event.stopPropagation();
+        })
+        this.bagBtn1.node.on(cc.Node.EventType.TOUCH_MOVE, (event) => {
+            event.stopPropagation();
+        })
+        this.bagBtn1.node.on(cc.Node.EventType.TOUCH_END, () => {
+            this.bagInit(3);
+            event.stopPropagation();
+        })
+
+        this.bagBtn2.node.on(cc.Node.EventType.TOUCH_START, (event) => {
+            event.stopPropagation();
+        })
+        this.bagBtn2.node.on(cc.Node.EventType.TOUCH_MOVE, (event) => {
+            event.stopPropagation();
+        })
+        this.bagBtn2.node.on(cc.Node.EventType.TOUCH_END, () => {
+            this.bagInit(4);
+            event.stopPropagation();
+        })
+
+        this.bagBtn3.node.on(cc.Node.EventType.TOUCH_START, (event) => {
+            event.stopPropagation();
+        })
+        this.bagBtn3.node.on(cc.Node.EventType.TOUCH_MOVE, (event) => {
+            event.stopPropagation();
+        })
+        this.bagBtn3.node.on(cc.Node.EventType.TOUCH_END, () => {
+            this.bagInit(5);
+            event.stopPropagation();
+        })
+
+        this.bagMask.on(cc.Node.EventType.TOUCH_START, (event) => {
+            event.stopPropagation();
+        })
+        this.bagMask.on(cc.Node.EventType.TOUCH_MOVE, (event) => {
+            event.stopPropagation();
+        })
+        this.bagMask.on(cc.Node.EventType.TOUCH_END, () => {
+            this.bagRoot.active = false;
+            event.stopPropagation();
+        })
+    },
+
+    openBag(itemData) {
+        if (itemData.goodId) {
+            Toast.show('请先收取物品')
+        } else {
+            this.bagRoot.active = true;
+            CACHE.show_table_press = itemData;
+        }
+    },
+
     init() {
         let payload = {
             startPosition: [0, -400],
@@ -117,20 +235,18 @@ cc.Class({
         this.footerInit();
         this.headerInit();
         this.vistorInit(payload);
-        Api.showGoods(1, (res) => {
-            console.log(res);
-        });
+        this.bagInit();
+        this.bagBtnSetTouch();
         Action.Show.ShowInfoUpdate((res) => {
             const showData = CACHE.showData;
             if (showData.festivalInfo) {
                 this.festivalName.string = showData.festivalInfo.name;
                 this.festivalProgress.string = `${showData.festivalInfo.currentNum}/${showData.festivalInfo.reachCount}`;
-                let time = showData.festivalInfo.endTime;
-                // setTimeOutWithTimeStamp(time, (timeStr) => {
-                //     console.log(timeStr);
-                // }, () => {
-                //     console.log('ddddd');
-                // });
+                this.timer = setTimeOutWithTimeStamp(showData.festivalInfo.endTime, (timeStr) => {
+                    this.timerLabel.string = timeStr;
+                }, () => {
+
+                });
             }
             this.showcaseInit(showData.standInfoList);
         })
@@ -138,11 +254,15 @@ cc.Class({
 
     // LIFE-CYCLE CALLBACKS:
 
-    // onLoad () {},
-
-    start() {
+    onLoad() {
         this.init();
     },
+
+    onDestroy() {
+        if (this.timer) {
+            this.timer();
+        }
+    }
 
     // update (dt) {},
 });

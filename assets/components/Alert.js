@@ -67,7 +67,6 @@ Alert.show = function (detailString,{title, confirmText, confirmCallBack, showCa
         
         Alert._cancelText = cc.find("cancelButton/Background/cancelText", alert).getComponent(cc.Label);
         Alert._confirmText = cc.find("confirmButton/Background/confirmText", alert).getComponent(cc.Label);
-        console.log("Alert._cancelText",Alert._cancelText, Alert._confirmText)
         // // 添加点击事件
         Alert._confirmButton.on('click', self.onConfirmClick, self);
         Alert._cancelButton.on('click', self.onCancelClicked, self);
@@ -134,7 +133,6 @@ Alert.show = function (detailString,{title, confirmText, confirmCallBack, showCa
 
     // 按钮点击确认事件
     self.onConfirmClick = function(event){
-        console.log("event",event)
         if(self._confirmCallBack){
             self._confirmCallBack();
         }

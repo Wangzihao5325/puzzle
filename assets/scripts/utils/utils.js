@@ -94,11 +94,15 @@ export function CurrencyIdtoName(id) {
 }
 
 export function setTimeOutWithTimeStamp(stamp, middleCallback, finalCallback) {
+  let timer = null;
   let now = new Date();
   let nowTime = now.getTime();
   let time = Math.floor((stamp - nowTime) / 1000);
+  console.log('kkkk')
+  console.log(stamp);
+  console.log(time);
   if (time > 0) {
-    let timer = setInterval(() => {
+    timer = setInterval(() => {
       time--;
       let hour = Math.floor(time / 3600);
       let min = Math.floor((time % 3600) / 60);
@@ -108,7 +112,14 @@ export function setTimeOutWithTimeStamp(stamp, middleCallback, finalCallback) {
       if (time <= 0) {
         finalCallback();
         clearInterval(timer);
+        timer = null;
       }
     }, 1000);
+  }
+  return () => {
+    if (timer) {
+      clearInterval(timer);
+      timer = null;
+    }
   }
 }

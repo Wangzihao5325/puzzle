@@ -45,13 +45,10 @@ function initItem(SIZES,hardLevel,sortType=0,pre_item, game_bg,spframe_puzzle,re
     /*根据难度取对应切片数据*/
     let sizeArr = SIZES[hardLevel];
     const scalLeavel= SCALELEAVEL[hardLevel]
-    console.log("SIZES",SIZES)
-
     /*拼图块排序*/
     // const orderByRandom = orderByRandom(sizeArr)
 
     const reSortSizeArr = sortType? orderByBorder(SIZES[0],hardLevel):orderByRandom(sizeArr)
-    // console.log('reSortSizeArr',reSortSizeArr)
     spliceArr.splice(0,1,reSortSizeArr)
     //遍历size根据size生成item
     if(resort){
@@ -129,7 +126,6 @@ function orderByRandom(arr){
     const hardLeavelSore=[[2,3],[4,6],[6,8]]
     const x=hardLeavelSore[hardLevel][0]
     const y=hardLeavelSore[hardLevel][1]
-    // console.log("hardLeavel",hardLevel,x,y)
     const arryIndex=[]
     orderByRandom(arr).map((item,index)=>{
         const i =item[6]+1

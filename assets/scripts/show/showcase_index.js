@@ -1,3 +1,5 @@
+import { IMAGE_SERVER } from '../global/app_global_index';
+import { setTimeOutWithTimeStamp } from '../utils/utils';
 //standType 0 金币 1 钻石 2 猫粮
 cc.Class({
     extends: cc.Component,
@@ -12,23 +14,41 @@ cc.Class({
         needTimes: cc.Label,
 
         titleNode: cc.Node,
-        goodsNode: cc.Node,
+        goodsNode: cc.Sprite,
         showTimeNode: cc.Node,
+        getNumNode: cc.Node,
+        receiveBtn: cc.Node,
+
+        timerNode: cc.Node,
+        timerIcon: cc.Sprite,
+        timerLabel: cc.Label
     },
 
-    setTouch() {
+    setTouch(callback, receiveCallback) {
         this.header.on(cc.Node.EventType.TOUCH_START, (event) => {
             event.stopPropagation();
         })
         this.header.on(cc.Node.EventType.TOUCH_MOVE, (event) => {
-            this.isMove = true;
             event.stopPropagation();
 
         })
         this.header.on(cc.Node.EventType.TOUCH_END, (event) => {
-            if (!this.isMove) {
-                console.log(this.data_item);
-                Toast.show('正在开发ing')
+            if (callback) {
+                callback(this.data_item);
+            }
+            event.stopPropagation();
+        })
+
+        this.receiveBtn.on(cc.Node.EventType.TOUCH_START, (event) => {
+            event.stopPropagation();
+        })
+        this.receiveBtn.on(cc.Node.EventType.TOUCH_MOVE, (event) => {
+            event.stopPropagation();
+
+        })
+        this.receiveBtn.on(cc.Node.EventType.TOUCH_END, (event) => {
+            if (receiveCallback) {
+                receiveCallback(this.data_item);
             }
             event.stopPropagation();
         })
@@ -56,20 +76,50 @@ cc.Class({
                 cc.loader.loadRes("normal/jinbi", cc.SpriteFrame, (err, spriteFrame) => {
                     this.iconSprite.spriteFrame = spriteFrame;
                     this.iconSprite2.spriteFrame = spriteFrame;
+                    this.timerIcon.spriteFrame = spriteFrame;
                 });
                 break;
             case 1:
                 cc.loader.loadRes("normal/zuanshi", cc.SpriteFrame, (err, spriteFrame) => {
                     this.iconSprite.spriteFrame = spriteFrame;
                     this.iconSprite2.spriteFrame = spriteFrame;
+                    this.timerIcon.spriteFrame = spriteFrame;
                 });
                 break;
             case 2:
                 cc.loader.loadRes("normal/jinbi", cc.SpriteFrame, (err, spriteFrame) => {
                     this.iconSprite.spriteFrame = spriteFrame;
                     this.iconSprite2.spriteFrame = spriteFrame;
+                    this.timerIcon.spriteFrame = spriteFrame;
                 });
                 break;
+        }
+
+        // 绑定数据
+
+
+        if (item.goodId) {
+            let iconPath = `${IMAGE_SERVER}/${item.icon}.png`;
+            cc.loader.load(iconPath, (err, texture) => {
+                this.goodsNode.spriteFrame = new cc.SpriteFrame(texture);
+            });
+
+            this.titleNode.active = false;
+            this.goodsNode.node.active = true;
+            this.showTimeNode.active = false;
+
+            let nowTime = new Date().getTime();
+            if (nowTime >= item.goodExpectReceiveTime) {//收取状态
+                this.getNumNode.active = false;
+                this.receiveBtn.active = true;
+            } else {//定时状态
+                this.timerNode.active = true;
+                let timer = setTimeOutWithTimeStamp(item.goodExpectReceiveTime, (res) => {
+                    this.timerLabel.string = res;
+                }, () => {
+                    console.log('done');
+                })
+            }
         }
     },
 

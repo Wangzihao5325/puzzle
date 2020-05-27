@@ -58,7 +58,6 @@ DebrisLack.show = function (_confirmCallBack,animSpeed ) {
 
 
         DebrisLack._confirmButton = cc.find("dialogContainer/confirm", alert);
-        console.log("DebrisLack._confirmButton",DebrisLack._confirmButton)
         DebrisLack._close = cc.find("dialogContainer/close", alert);
 
         // 添加点击事件
@@ -93,12 +92,10 @@ DebrisLack.show = function (_confirmCallBack,animSpeed ) {
     // 按钮点击事件
     self.onButtonClicked = function(event){
         if(event.target.name == "confirm"){
-            console.log("确认按钮");
             if(self._confirmButton){
                 self._confirmButton();
             }
         }else{
-            console.log("取消按钮");
             self.startFadeOut();
 
         }

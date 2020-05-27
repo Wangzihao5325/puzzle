@@ -1,6 +1,8 @@
 import { SIZES, SCALELEAVEL, complateIndex, underwayIndex, spliceArr } from '../global/piece_index';
 import { CACHE } from '../global/usual_cache';
 
+import { GAME_CACH } from '../global/piece_index';
+
 import { initItem } from './initSplice';
 import GLOBAL_VAR from '../global/index'
 import Api from '../api/api_index'
@@ -10,13 +12,17 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
+        root_warp:cc.Node,
         magnet: cc.Node,
         sort: cc.Node,
+        menuWarp:cc.Node,
         magnet_time: cc.Node,
         sort_tiem: cc.Node,
         magnet_label: cc.Label,
         sort_label: cc.Label,
+        puzzle_name:cc.Node,
         ad_free: cc.Node,
+        flash: cc.Node,
         pauseBtn: cc.Node,
         game_bg: cc.Node,
         pre_item: cc.Prefab,
@@ -24,14 +30,17 @@ cc.Class({
         countDown_label: cc.Label,
         pause: cc.Prefab,
         game_root: cc.Node,
+        game_award: cc.Prefab,
+
     },
 
     // LIFE-CYCLE CALLBACKS:
 
     onLoad() {
         this.setTouch();
-        this.resetUi()
+        this.resetUI()
         this.timer(GLOBAL_VAR.time);
+
     },
 
     start() {
@@ -133,12 +142,12 @@ cc.Class({
     },
 
     userProp(data,callBack){
+        const that=this;
         Api.use_prop(data,(res) => {
-            const data = res.data;
-            console.log("res", res)
             if (res.code === 0) {
                 HOME_CACHE.pet_info = res.data;
-                this.resetUI()
+                that.resetUI()
+                callBack&&callBack()
             }
         });
     },
@@ -158,31 +167,75 @@ cc.Class({
         })
     },
 
+    //判断完成，并调用完成动画
     checkComplate() {
         if (SIZES[CACHE.hard_level].length == complateIndex.length) {
             Toast.show("拼图完成", 1000);
+            this.doComplate()
+            const spliceWarp_node = cc.find(`Canvas/root/spliceWarp`);
+            spliceWarp_node.active=false;
+            this.menuWarp.active=false;
+            this.name.color=cc.color(255,255,255)
+            cc.tween(this.flash)
+            .to(1, { position: cc.v2(485, -550) })
+            .start()
+
+
+            /*动画*/
+
             return true
         } else {
             return false
         }
     },
 
+    //调用完成接口
+    doComplate(){
+        const data={
+            hurdleId:CACHE.chapterData.hurdleId,
+            star:CACHE.hard_level+1
+        }
+        Api.missionComplete(data,(res=>{
+            if(res.code===0){
+                setTimeout(()=>{
+                    this.showAward(res.data.list,CACHE.hard_level+1)
+                },1000)
+            }else{
+                Toast.show(res.meeage)
+            }
+        }))
+    },
+
+    //显示奖励弹窗
+    showAward(item,leavel){
+        let game_award = cc.instantiate(this.game_award);
+        game_award.parent = this.root_warp;
+        let obj = game_award.getComponent('gameAward');
+        obj.init(item,leavel)
+
+    },
+
     timer(time) {
-        setTimeout(() => {
-            if (!GLOBAL_VAR.pause && time > 0) {
+         setTimeout(() => {
+            if (!GAME_CACH.pause && GAME_CACH.time > 0&&!GAME_CACH.isComplate) {
                 time--;
                 this.countDown_label.string = this.formatTimer(time);
+                GAME_CACH.time=time
                 this.timer(time);
-            } else if (!GLOBAL_VAR.pause && time == 0) {
+            } else if (!GAME_CACH.pause && time == 0&&!GAME_CACH.isComplate) {
                 Toast.show("倒计时结束", 1000);
             }
-            else {
-                Toast.show("倒计时停止", 1000);
+            else if(GAME_CACH.isComplate) {
+                GAME_CACH.coutnDown=60;
+                GAME_CACH.isComplate=false;
+                GAME_CACH.pause=false;
+            }else{
+
             }
         }, 1000)
     },
 
-    resetUi(){
+    resetUI(){
         const userData = CACHE.userData
         this.magnet_label.string=userData.strongMagnet
         if(userData.frame>0){

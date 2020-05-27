@@ -1,5 +1,6 @@
 import { LEVEL } from '../global/piece_index';
 import { CACHE } from '../global/usual_cache';
+import Api from '../api/api_index'
 
 cc.Class({
     extends: cc.Component,
@@ -23,17 +24,13 @@ cc.Class({
         });
 
         this.backBtn.node.on(cc.Node.EventType.TOUCH_MOVE, (event) => {
-            this.isMove = true;
             event.stopPropagation();
         });
 
         this.backBtn.node.on(cc.Node.EventType.TOUCH_END, (event) => {
-            if (!this.isMove) {
-                if (this.item_node) {
-                    this.item_node.active = false;
-                }
+            if (this.item_node) {
+                this.item_node.active = false;
             }
-            this.isMove = false;
             event.stopPropagation();
         });
     },
@@ -71,21 +68,29 @@ cc.Class({
             event.stopPropagation();
         });
         this.startBtn.node.on(cc.Node.EventType.TOUCH_MOVE, (event) => {
-            this.isMove = true;
             event.stopPropagation();
         });
         this.startBtn.node.on(cc.Node.EventType.TOUCH_END, (event) => {
             event.stopPropagation();
-            if (!this.isMove) {
-                if (!isNaN(CACHE.hard_level)) {
-                    cc.director.loadScene("puzzle");
-                }
+            if (!isNaN(CACHE.hard_level)) {
+                this.handleTravel()//调用拼图
             }
-            this.isMove = false;
         });
     },
 
+    handleTravel() {
+
+        Api.travel((res) => {
+            if (res.code === 0) {
+                cc.director.loadScene("puzzle");
+            } else {
+                Toast.show(res.message)
+            }
+        })
+    },
+
     initWithItem(item) {
+        console.log("item", item)
         this.title.string = item.hurdleName;
         cc.loader.load({ url: item.logoUrl, type: 'png' }, (err, texture) => {
             if (err) cc.error(err);
@@ -120,6 +125,7 @@ cc.Class({
             this.setStartBtn();
         }
     },
+
 
     // LIFE-CYCLE CALLBACKS:
 

@@ -76,5 +76,6 @@ export default {
     MAN_VISTER,
     WOMAN_VISTER,
     VISTER_ATTITUDE,
-    NAVI_ASSETS
+    NAVI_ASSETS,
+    IMAGE_SERVER
 }

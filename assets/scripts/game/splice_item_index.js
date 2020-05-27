@@ -44,17 +44,6 @@ cc.Class({
             const current_node = this.item_node || this.splice_item;
             current_node.zIndex = 100;//拿起增加z-index
             current_node.setPropagateTouchEvents = false;
-            // console.log(this.item_node.parent,'parents')
-            // const outList = this.item_node.parent.name === 'puzzleBg';
-            // if(!outList){
-            //     var puzzleBg = cc.find(`Canvas/root/puzzleWarp/puzzleBg`);
-            //     this.item_node.parent = puzzleBg;
-            //     this.item_node.setScale(1/SCALELEAVEL[hardLevel]);
-            //     const resetPostion = cc.v2(this.item_node.x+this.item_node.parent.x , this.item_node.y  - 540);
-            //     console.log("resetPostion",resetPostion)
-            //     this.item_node.setPosition(resetPostion);
-            // }
-
             event.stopPropagation();
 
         })
@@ -65,7 +54,6 @@ cc.Class({
             const outList = this.item_node.parent.name === 'puzzleBg';
             let newPositin = cc.v2(this.item_node.x + delta.x, this.item_node.y + delta.y);
 
-            // console.log('this.item_node.parent.x',this.item_node.x + delta.x,this.item_node.parent.x)
             //在拼图盒子内移动
             if (!outList&&this.item_node.y + delta.y < 90 ) {
                 //不移动x坐标
@@ -79,7 +67,6 @@ cc.Class({
 
                 /*移除范围内修改父级节点*/
                 var puzzleBg = cc.find(`Canvas/root/puzzleWarp/puzzleBg`);
-                // console.log("resetPostion his.item_node.parent.x",this.item_node.x,this.item_node.parent)
                 
                 this.item_node.parent = puzzleBg;
                 const resetPostion = cc.v2(0, this.item_node.y + delta.y - 540 +180);
@@ -107,7 +94,6 @@ cc.Class({
         })
 
         this.node.on(cc.Node.EventType.TOUCH_END, (event) => {
-            console.log("underwayIndex",underwayIndex,complateIndex)
 
             if (hardLevel == LEVEL.HARD && !this.isMove) {
                 this.item_node.angle = (this.item_node.angle - 90) % 360;
@@ -147,9 +133,14 @@ cc.Class({
             item_puzzle_splice.active = false;
             complateIndex.push(this.item_node.defaultIndex)
             underwayIndex.remove(this.item_node.defaultIndex)
-
+            this.checkSuccess()
             setTimeout(()=>{item_puzzle_warp.destroy();item_puzzle_splice.destroy()},100)
         }
+    },
+
+    checkSuccess(){
+        const contralObj=cc.find(`Canvas/root/menuWarp`).getComponent('conraol')
+        contralObj.checkComplate()
     },
 
     setRandomRotation(hardLevel) {

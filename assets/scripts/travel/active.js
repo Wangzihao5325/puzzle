@@ -30,34 +30,19 @@ cc.Class({
 
     // LIFE-CYCLE CALLBACKS:
 
-    onLoad () {
+    onLoad() {
         this.coco.node.on(cc.Node.EventType.TOUCH_START, function (event) {
+            Toast.show("难道还有这种操作？", 2000);
+        });
+        this.coco.node.on(cc.Node.EventType.TOUCH_MOVE, function (event) {
 
-            console.log("TOUCH_START this.coco");
-            Toast.show("难道还有这种操作？",2000);
-            });
-            
-             
-            
-            this.coco.node.on(cc.Node.EventType.TOUCH_MOVE, function (event) {
-            
-            console.log("TOUCH_MOVE this.coco", event.type);
-            
-            });
-            
-             
-            
-            this.coco.node.on(cc.Node.EventType.TOUCH_END, function (event) {
-            
-            console.log("TOUCH_END this.coco", event.type);
-            
-            });
+        });
+        this.coco.node.on(cc.Node.EventType.TOUCH_END, function (event) {
+
+        });
     },
-    // console.log('--this.coco--', this.coco)
 
-
-
-    start () {
+    start() {
 
     },
 

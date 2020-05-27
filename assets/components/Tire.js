@@ -132,10 +132,8 @@ Tire.show = function (time,_confirmCallBack,animSpeed ) {
 
 
         Tire._confirmButton = cc.find("dialogContainer/confirm", alert);
-        console.log("Tire._confirmButton",Tire._confirmButton)
         Tire._close = cc.find("dialogContainer/close", alert);
         Tire._timer = cc.find("dialogContainer/content/timerWarp/timer", alert).getComponent(cc.Label);
-        console.log("Tire._timer",Tire._timer)
         // 添加点击事件
         Tire._confirmButton.on('click', self.onButtonClicked, self);
         Tire._close.on('click', self.close, self);
@@ -184,12 +182,10 @@ Tire.show = function (time,_confirmCallBack,animSpeed ) {
     // 按钮点击事件
     self.onButtonClicked = function(event){
         if(event.target.name == "confirm"){
-            console.log("确认按钮");
             if(self._confirmButton){
                 self._confirmButton();
             }
         }else{
-            console.log("取消按钮");
             self.startFadeOut();
 
         }

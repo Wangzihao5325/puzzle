@@ -1,4 +1,4 @@
-import { SIZES, LEVEL } from '../global/piece_index';
+import { SIZES, LEVEL,GAME_CACHE } from '../global/piece_index';
 import { CACHE } from '../global/usual_cache';
 import Api from '../api/api_index';
 
@@ -10,6 +10,7 @@ cc.Class({
         pre_item: cc.Prefab,
         splice_warp: cc.Prefab,
         game_root: cc.Node,
+        puzzle_name:cc.Label,
         dragonBone: {
             default: null,
             type: dragonBones.ArmatureDisplay
@@ -23,10 +24,8 @@ cc.Class({
     init() {
         const hardLevel = CACHE.hard_level;
         const missionObj = CACHE.mission_press;
-        console.log('dddd');
-        console.log(missionObj);
+        this.puzzle_name.string=CACHE.chapterData.chapterName
         Api.missionDetails(missionObj.hurdleId, (res) => {
-            console.log(res);
             const imagePath = missionObj.logoUrl;
             const animatePayload = {
                 animatePath: res.data.texJson,
