@@ -108,9 +108,46 @@ cc.Class({
             })
             .to(payload.secondPeriod, { position: cc.v2(payload.endPosition[0], payload.endPosition[1]) })
             .start()
+            .removeSelf()
+            .call(() => {
+                vistor.destory();
+            });
     },
 
+    /*
+        let payload = {
+            startPosition: [0, -400],
+            pausePosition: [-200, -400],
+            endPosition: [450, -400],
+            firstPeriod: 2,
+            secondPeriod: 6,
+            pausePeriod: 2
+        }
+
+    */
+
+
+
     randomCreateVistor() {
+        let randomY = -350 - Math.floor((50 * Math.random()));
+        let startX = (Math.random() - 0.5) > 0 ? 450 : -450;
+        let pauseX = (Math.floor(Math.random() * 400)) - 200;
+        let payload = {
+            startPosition: [startX, randomY],
+            pausePosition: [pauseX, randomY],
+            endPosition: [-startX, randomY],
+            firstPeriod: Math.abs(startX - pauseX) / 100,
+            secondPeriod: Math.abs(-startX - pauseX) / 100,
+            pausePeriod: 2
+        };
+        this.vistorInit(payload);
+    },
+
+    vistorTimer() {
+        this.randomCreateVistor();
+        this.vistorTimer = setInterval(() => {
+            this.randomCreateVistor();
+        }, 4000)
     },
 
     bagInit(type = 1) {
@@ -239,19 +276,12 @@ cc.Class({
     },
 
     init() {
-        let payload = {
-            startPosition: [0, -400],
-            pausePosition: [-200, -400],
-            endPosition: [450, -400],
-            firstPeriod: 2,
-            secondPeriod: 6,
-            pausePeriod: 2
-        }
+
         this.stateUpdate();
         this.setBg();
         this.footerInit();
         this.headerInit();
-        this.vistorInit(payload);
+        this.vistorTimer();
         this.bagInit();
         this.bagBtnSetTouch();
         Action.Show.ShowInfoUpdate((res) => {
@@ -278,6 +308,9 @@ cc.Class({
     onDestroy() {
         if (this.timer) {
             this.timer();
+        }
+        if (this.vistorTimer) {
+            clearInterval(this.vistorTimer);
         }
     }
 
