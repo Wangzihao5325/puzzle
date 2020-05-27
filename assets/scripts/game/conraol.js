@@ -1,6 +1,5 @@
 import { SIZES, SCALELEAVEL, complateIndex, underwayIndex, spliceArr } from '../global/piece_index';
 import { CACHE } from '../global/usual_cache';
-import {HOME_CACHE} from '../global/home_global';
 import { GAME_CACH } from '../global/piece_index';
 
 import { initItem } from './initSplice';
@@ -31,6 +30,8 @@ cc.Class({
         pause: cc.Prefab,
         game_root: cc.Node,
         game_award: cc.Prefab,
+        game_share: cc.Prefab,
+        game_fail: cc.Prefab,
 
     },
 
@@ -39,8 +40,8 @@ cc.Class({
     onLoad() {
         this.setTouch();
         this.resetUI()
-        this.timer(GLOBAL_VAR.time);
-
+        GAME_CACH.isComplate = false
+        this.timer(GAME_CACH.coutnDown);
     },
 
     start() {
@@ -145,7 +146,6 @@ cc.Class({
         const that = this;
         Api.use_prop(data, (res) => {
             if (res.code === 0) {
-                HOME_CACHE.pet_info = res.data;
                 that.resetUI()
                 callBack && callBack()
             }
@@ -172,12 +172,13 @@ cc.Class({
         if (SIZES[CACHE.hard_level].length == complateIndex.length) {
             Toast.show("拼图完成", 1000);
             this.doComplate()
+            GAME_CACH.isComplate = true
             const spliceWarp_node = cc.find(`Canvas/root/spliceWarp`);
             spliceWarp_node.active = false;
             this.menuWarp.active = false;
             this.name.color = cc.color(255, 255, 255)
             cc.tween(this.flash)
-                .to(1, { position: cc.v2(485, -550) })
+                .to(.8, { position: cc.v2(485, -550) })
                 .start()
 
 
@@ -213,17 +214,37 @@ cc.Class({
         let obj = game_award.getComponent('gameAward');
         obj.init(item, leavel)
 
+        setTimeout(() => {
+            game_award.destroy()
+            this.showShare()
+        }, 1500)
+
+    },
+
+    //显示分享弹窗
+    showShare(item, leavel) {
+        let game_share = cc.instantiate(this.game_share);
+        game_share.parent = this.root_warp;
+        let obj = game_share.getComponent('share');
+        obj.init(item, leavel)
+
+    },
+
+    gameFail() {
+        let game_fail = cc.instantiate(this.game_fail);
+        game_fail.parent = this.root_warp;
     },
 
     timer(time) {
         setTimeout(() => {
-            if (!GAME_CACH.pause && GAME_CACH.time > 0 && !GAME_CACH.isComplate) {
+            if (!GAME_CACH.pause && GAME_CACH.coutnDown > 0 && !GAME_CACH.isComplate) {
                 time--;
                 this.countDown_label.string = this.formatTimer(time);
-                GAME_CACH.time = time
+                GAME_CACH.coutnDown = time
                 this.timer(time);
             } else if (!GAME_CACH.pause && time == 0 && !GAME_CACH.isComplate) {
-                Toast.show("倒计时结束", 1000);
+                // Toast.show("倒计时结束", 1000);
+                this.gameFail()
             }
             else if (GAME_CACH.isComplate) {
                 GAME_CACH.coutnDown = 60;
@@ -233,6 +254,12 @@ cc.Class({
 
             }
         }, 1000)
+    },
+
+    revive() {
+        GAME_CACH.coutnDown = 60,
+            this.timer(60)
+
     },
 
     resetUI() {
@@ -264,4 +291,5 @@ cc.Class({
             return `00:0${time}`;
         }
     },
+
 });

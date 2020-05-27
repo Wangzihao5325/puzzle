@@ -16,6 +16,7 @@ cc.Class({
         start2:cc.Node,
         start3:cc.Node,
         coreStart:cc.SpriteFrame,
+        defaultStart:cc.SpriteFrame,
         goods_item:cc.Prefab,
         twinkleWarp:cc.Node,
         goodsCoinWarp:cc.Node,
@@ -41,7 +42,8 @@ cc.Class({
         //弹窗动画
         this.awardContent.setPosition(cc.v2(0,-800))
         cc.tween(this.awardContent)
-        .to(.2,{position:cc.v2(0,0)})
+        .to(.4,{position:cc.v2(0,40)},{ easing: 'sineIn'})
+        .to(.2,{position:cc.v2(0,0)},{ easing: 'sineIn'})
         .start()
 
         //得分动画
@@ -61,20 +63,25 @@ cc.Class({
             .start()
         }
 
-        //星星动画
-        // const twinkleArr=this.twinkleWarp.children
+        const defaultStartArr=startList.splice(startLeavel)
+        defaultStartArr.map(item=>{
+            item.getComponent(cc.Sprite).spriteFrame=this.defaultStart
+        })
 
-        // twinkleArr.map((item)=>{
-        //     const delay=Math.ceil( Math.random()*10)/10
-        //     console.log("delay",delay)
-        //     cc.tween(item)
-        //     .delay(delay)
-        //     .to(1, { scale: 1 })
-        //     .to(1, { scale: 0 })
-        //     .union()
-        //     .repeatForever()
-        //     .start()
-        // })
+        //星星动画
+        const twinkleArr=this.twinkleWarp.children
+
+        twinkleArr.map((item)=>{
+            const delay=Math.ceil( Math.random()*10)/10
+            console.log("delay",delay)
+            cc.tween(item)
+            .delay(delay)
+            .to(1, { scale: 1 })
+            .to(1, { scale: 0 })
+            .union()
+            .repeatForever()
+            .start()
+        })
     },
 
     init(list,leavel){
@@ -91,7 +98,7 @@ cc.Class({
             var node = cc.instantiate(this.goodsItemWarp);
             node.parent = this.goodsCoinWarp;
             // const name=node.getComponent(cc)
-            const icon=cc.find("goodsItem/item/icon", node).getComponent(cc.Sprite)
+            let icon=cc.find("goodsItem/item/icon", node).getComponent(cc.Sprite)
             const name=cc.find("goodsItem/item/name", node).getComponent(cc.Label)
             const num=cc.find("goodsItem/item/num", node).getComponent(cc.Label)
             cc.loader.load(item.iconUrl, (err, texture)=> {
