@@ -1,4 +1,4 @@
-import { SIZES, LEVEL,GAME_CACHE } from '../global/piece_index';
+import { SIZES, LEVEL, GAME_CACHE } from '../global/piece_index';
 import { CACHE } from '../global/usual_cache';
 import Api from '../api/api_index';
 
@@ -10,7 +10,7 @@ cc.Class({
         pre_item: cc.Prefab,
         splice_warp: cc.Prefab,
         game_root: cc.Node,
-        puzzle_name:cc.Label,
+        puzzle_name: cc.Label,
         dragonBone: {
             default: null,
             type: dragonBones.ArmatureDisplay
@@ -24,7 +24,7 @@ cc.Class({
     init() {
         const hardLevel = CACHE.hard_level;
         const missionObj = CACHE.mission_press;
-        this.puzzle_name.string=CACHE.chapterData.chapterName
+        this.puzzle_name.string = CACHE.chapterData.chapterName
         Api.missionDetails(missionObj.hurdleId, (res) => {
             const imagePath = missionObj.logoUrl;
             const animatePayload = {
@@ -86,23 +86,28 @@ cc.Class({
         }
 
         cc.loader.load(animatePayload.picPath, (error, texture) => {
-            cc.loader.load({ url: animatePayload.animatePath, type: 'txt' }, (error1, atlasJson) => {
-                cc.loader.load({ url: animatePayload.animatePath2, type: 'txt' }, (error2, dragonBonesJson) => {
-                    var atlas = new dragonBones.DragonBonesAtlasAsset();
-                    atlas._uuid = animatePayload.animatePath;
-                    atlas.atlasJson = atlasJson;
-                    atlas.texture = texture;
-                    var asset = new dragonBones.DragonBonesAsset();
-                    asset._uuid = animatePayload.animatePath2;
-                    asset.dragonBonesJson = dragonBonesJson;
-                    let dbJson = JSON.parse(dragonBonesJson);
+            cc.loader.load([animatePayload.animatePath, animatePayload.animatePath2], (errors, results) => {
 
-                    this.dragonBone.dragonAtlasAsset = atlas;
-                    this.dragonBone.dragonAsset = asset;
+                let atlasJson = results.getContent(animatePayload.animatePath);
+                let dragonBonesJson = results.getContent(animatePayload.animatePath2);
+                console.log(animatePayload.animatePath)
+                console.log(animatePayload.animatePath2);
+                console.log(atlasJson);
+                console.log(dragonBonesJson);
 
-                    this.dragonBone.armatureName = dbJson.armature[0].name;
-                    this.dragonBone.playAnimation(dbJson.armature[0].defaultActions[0].gotoAndPlay, 0);
-                });
+                let atlas = new dragonBones.DragonBonesAtlasAsset();
+                atlas._uuid = animatePayload.animatePath;
+                atlas.atlasJson = JSON.stringify(atlasJson);
+                atlas.texture = texture;
+                let asset = new dragonBones.DragonBonesAsset();
+                asset._uuid = animatePayload.animatePath2;
+                asset.dragonBonesJson = JSON.stringify(dragonBonesJson);
+
+                this.dragonBone.dragonAtlasAsset = atlas;
+                this.dragonBone.dragonAsset = asset;
+
+                this.dragonBone.armatureName = dragonBonesJson.armature[0].name;
+                this.dragonBone.playAnimation(dragonBonesJson.armature[0].defaultActions[0].gotoAndPlay, 0);
             });
         });
         /* dragonbone图片加载demo

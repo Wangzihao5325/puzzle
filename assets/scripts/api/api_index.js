@@ -46,7 +46,7 @@ const userBalance = (callback, failedCallback) => new CusHttp().Get(`${API_DOMAI
  * @param {Function} callback
  * @param {Function} failedCallback
  */
-const travel = ( callback, failedCallback) => new CusHttp().Post(`${API_DOMAIN}/user/assets/travel`, undefined, callback, failedCallback);
+const travel = (callback, failedCallback) => new CusHttp().Post(`${API_DOMAIN}/user/assets/travel`, undefined, callback, failedCallback);
 
 /**
  * 使用道具
@@ -54,7 +54,7 @@ const travel = ( callback, failedCallback) => new CusHttp().Post(`${API_DOMAIN}/
  * @param {Function} callback
  * @param {Function} failedCallback
  */
-const use_prop = (payload = {  }, callback, failedCallback) => new CusHttp().Post(`${API_DOMAIN}/user/assets/use_prop`, payload, callback, failedCallback);
+const use_prop = (payload = {}, callback, failedCallback) => new CusHttp().Post(`${API_DOMAIN}/user/assets/use_prop`, payload, callback, failedCallback);
 
 /**
  * 宠物家主页
@@ -161,6 +161,8 @@ const login = (payload = {}, callback, failedCallback) => new CusHttp().Login(`$
 // 获取微信用户信息
 const userInfo = (payload = {}, callback, failedCallback) => new CusHttp().Get_UrlEnCoded(`${API_DOMAIN}/user/info/decrypt_info`, payload, callback, failedCallback);
 
+const loadJson = (jsonUrl, callback, failedCallback) => new CusHttp().Get(jsonUrl, callback, failedCallback);
+
 export default {
     cityDetails,
     missionList,
@@ -191,5 +193,7 @@ export default {
     showGoods,
 
     login,
-    userInfo
+    userInfo,
+
+    loadJson,
 }
