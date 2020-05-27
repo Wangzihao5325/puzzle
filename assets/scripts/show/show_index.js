@@ -8,6 +8,7 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
+        vistorRoot: cc.Node,
         root: cc.Node,
         root_bg: cc.Sprite,
         table: cc.Node,
@@ -88,7 +89,7 @@ cc.Class({
     vistorInit(payload) {
         let vistor = cc.instantiate(this.vistor);
         let obj = vistor.getComponent('vistor_index');
-        vistor.parent = this.root;
+        vistor.parent = this.vistorRoot;//this.root;
         vistor.setPosition(payload.startPosition[0], payload.startPosition[1]);
         let firstDriection = payload.pausePosition[0] - payload.startPosition[0];
         let secondDriection = payload.endPosition[0] - payload.pausePosition[0];

@@ -25,7 +25,7 @@ cc.Class({
             let cloumn = Math.floor(index / 2);
             let row = index % 2;
             let positionX = row * 320 - 160;
-            let positionY = -380 / 2 - (380 * cloumn - 1);
+            let positionY = -380 / 2 - 10 - (380 * cloumn - 1);
             let missionItemNode = cc.instantiate(this.item_prefab);
             let obj = missionItemNode.getComponent('mission_item_index');
             if (obj) {
