@@ -1,5 +1,5 @@
 import CusHttp from './custom_http';
-const API_DOMAIN = 'http://192.168.3.144:8090';
+const API_DOMAIN = 'http://192.168.3.185:8090';
 
 /**
  * 根据城市id获取城市详情
@@ -156,10 +156,10 @@ const doSign = (payload = { placeId: 0 }, callback, failedCallback) => new CusHt
 const showGoods = (type, callback, failedCallback) => new CusHttp().Get(`${API_DOMAIN}/exhibition/backpack/goods?type=${type}`, callback, failedCallback);
 
 //微信小程序登录
-const login = (payload = {}, callback, failedCallback) => new CusHttp().Post_UrlEnCoded(`${API_DOMAIN}/auth_wx`, payload, callback, failedCallback);
+const login = (payload = {}, callback, failedCallback) => new CusHttp().Login(`${API_DOMAIN}/auth_wx`, payload, callback, failedCallback);
 
 // 获取微信用户信息
-const userInfo = (payload = {}, callback, failedCallback) => new CusHttp().Post_UrlEnCoded(`${API_DOMAIN}/user/info/decrypt_info`, payload, callback, failedCallback);
+const userInfo = (payload = {}, callback, failedCallback) => new CusHttp().Get_UrlEnCoded(`${API_DOMAIN}/user/info/decrypt_info`, payload, callback, failedCallback);
 
 export default {
     cityDetails,
