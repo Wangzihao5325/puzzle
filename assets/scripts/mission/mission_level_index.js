@@ -1,5 +1,6 @@
 import { LEVEL } from '../global/piece_index';
 import { CACHE } from '../global/usual_cache';
+import Api from '../api/api_index'
 
 cc.Class({
     extends: cc.Component,
@@ -72,12 +73,24 @@ cc.Class({
         this.startBtn.node.on(cc.Node.EventType.TOUCH_END, (event) => {
             event.stopPropagation();
             if (!isNaN(CACHE.hard_level)) {
-                cc.director.loadScene("puzzle");
+                this.handleTravel()//调用拼图
             }
         });
     },
 
+    handleTravel() {
+
+        Api.travel((res) => {
+            if (res.code === 0) {
+                cc.director.loadScene("puzzle");
+            } else {
+                Toast.show(res.message)
+            }
+        })
+    },
+
     initWithItem(item) {
+        console.log("item", item)
         this.title.string = item.hurdleName;
         cc.loader.load({ url: item.logoUrl, type: 'png' }, (err, texture) => {
             if (err) cc.error(err);
@@ -112,6 +125,7 @@ cc.Class({
             this.setStartBtn();
         }
     },
+
 
     // LIFE-CYCLE CALLBACKS:
 

@@ -203,6 +203,12 @@ var spliceArr = []
 
 var coutnDown = 0
 
+var GAME_CACH={
+  coutnDown:60,
+  isComplate:false,
+  pause:false,
+}
+
 export default {
   SIZES,
   MASK_RESOUSE,
@@ -215,5 +221,6 @@ export default {
   underwayIndex,
   spliceArr,
   currentLeavel,
-  coutnDown
+  coutnDown,
+  GAME_CACH
 };

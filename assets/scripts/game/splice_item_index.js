@@ -133,9 +133,14 @@ cc.Class({
             item_puzzle_splice.active = false;
             complateIndex.push(this.item_node.defaultIndex)
             underwayIndex.remove(this.item_node.defaultIndex)
-
+            this.checkSuccess()
             setTimeout(()=>{item_puzzle_warp.destroy();item_puzzle_splice.destroy()},100)
         }
+    },
+
+    checkSuccess(){
+        const contralObj=cc.find(`Canvas/root/menuWarp`).getComponent('conraol')
+        contralObj.checkComplate()
     },
 
     setRandomRotation(hardLevel) {

@@ -59,7 +59,7 @@ cc.Class({
         //     this.bg.spriteFrame=spriteFrame
         // });
 
-        cc.loader.load(imgUrl, (err, texture)=> {
+        cc.loader.load(item.iconImg, (err, texture)=> {
             this.bg.spriteFrame=new cc.SpriteFrame(texture)
         });
         this.iconName=item.iconName;
