@@ -1,4 +1,5 @@
-import { MASK_RESOUSE, LEVEL,SCALELEAVEL,complateIndex,underwayIndex,spliceArr } from '../global/piece_index';
+import { MASK_RESOUSE, LEVEL,SCALELEAVEL,underwayIndex,spliceArr,GAME_CACH } from '../global/piece_index';
+
 
 cc.Class({
     extends: cc.Component,
@@ -131,7 +132,7 @@ cc.Class({
             item_puzzle_warp.active = false;
             var item_puzzle_splice = cc.find(`Canvas/root/puzzleWarp/puzzleBg/item_puzzle_splice-${this.item_node.defaultIndex}`);
             item_puzzle_splice.active = false;
-            complateIndex.push(this.item_node.defaultIndex)
+            GAME_CACH.complateIndex.push(this.item_node.defaultIndex)
             underwayIndex.remove(this.item_node.defaultIndex)
             this.checkSuccess()
             setTimeout(()=>{item_puzzle_warp.destroy();item_puzzle_splice.destroy()},100)

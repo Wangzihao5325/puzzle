@@ -195,7 +195,7 @@ const SCALELEAVEL = {
 var currentLeavel = 2
 
 
-var complateIndex = []
+
 
 var underwayIndex = []
 
@@ -208,6 +208,7 @@ var GAME_CACH={
   isComplate:false,
   pause:false,
   textRandomTimes:3,
+  complateIndex:[]
 }
 
 export default {
@@ -218,7 +219,6 @@ export default {
   PIC_HEIGHT,
   LEVEL,
   SCALELEAVEL,
-  complateIndex,
   underwayIndex,
   spliceArr,
   currentLeavel,

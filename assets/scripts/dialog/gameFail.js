@@ -9,6 +9,7 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
+        failWarp:cc.Node,
         failContent:cc.Node,
         revive: cc.Node,
         noRevive: cc.Node
@@ -45,7 +46,7 @@ cc.Class({
 
     handleRevive(){
         console.log("点击复活")
-        this.failContent.destroy()
+        this.failWarp.destroy()
         const menu = cc.find('Canvas/root/menuWarp').getComponent('conraol')
         menu.revive()
     },
@@ -53,7 +54,7 @@ cc.Class({
     handleNoRevive(){
         console.log("点击取消复活")
 
-        this.failContent.destroy()
+        this.failWarp.destroy()
         cc.director.loadScene("mission");
 
     },

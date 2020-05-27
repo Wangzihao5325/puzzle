@@ -2024,6 +2024,9 @@
       "__id__": 1
     },
     "_enabled": true,
+    "failWarp": {
+      "__id__": 1
+    },
     "failContent": {
       "__id__": 5
     },
