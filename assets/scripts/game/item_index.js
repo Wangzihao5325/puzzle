@@ -27,7 +27,6 @@ cc.Class({
                 cc.error(err);
                 return;
             }
-            // console.log("assets",assets)
             self.mask_item.spriteFrame = assets[index]
         });
     },
@@ -46,14 +45,11 @@ cc.Class({
             }
         })
         this.node.on(cc.Node.EventType.TOUCH_CANCEL, ()=>{
-            console.log("TOUCH_CANCEL")
-
             //移动结束
             // this.item_node.setScale(0.25)
 
         })
         this.node.on(cc.Node.EventType.TOUCH_END, () => {
-            console.log("touchEnd")
             this.item_node.zIndex= 1//恢复z-index
             // this.item_node.setScale(0.25)
 

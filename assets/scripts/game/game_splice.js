@@ -32,7 +32,7 @@ cc.Class({
         /*动态加载资源*/
         cc.loader.load({ url: imagePath, type: 'png' }, (err, texture) => {
             if (texture) {
-                this.spframe_puzzle = new cc.SpriteFrame(texture);;
+                this.spframe_puzzle = new cc.SpriteFrame(texture);
                 /*初始化所有的块*/
                 initItem(SIZES, hardLevel, 0, this.pre_item, this.game_bg, this.spframe_puzzle)
 
@@ -105,7 +105,6 @@ cc.Class({
         this.orderByRandom(arr).map((item, index) => {
             const i = item[6] + 1
             if (i <= x || i % x == 1 || i % x == 0 || i >= x * (y - 1)) {
-                console.log('firstEl', i)
                 item[7] = item[6]
             } else {
                 item[7] = 100

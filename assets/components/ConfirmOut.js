@@ -58,7 +58,6 @@ ConfirmOut.show = function (_confirmCallBack,animSpeed ) {
 
 
         ConfirmOut._confirmButton = cc.find("dialogContainer/confirm", alert);
-        console.log("ConfirmOut._confirmButton",ConfirmOut._confirmButton)
         ConfirmOut._close = cc.find("dialogContainer/close", alert);
 
         // 添加点击事件
@@ -92,8 +91,6 @@ ConfirmOut.show = function (_confirmCallBack,animSpeed ) {
 
     // 按钮点击事件
     self.onButtonClicked = function(event){
-        console.log("event",event)
-        console.log("确认按钮");
         ConfirmOut._confirmCallBack()
         self.startFadeOut();
     };

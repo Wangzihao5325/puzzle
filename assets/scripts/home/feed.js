@@ -60,7 +60,6 @@ cc.Class({
     getFoodRemain(){
         Api.petRemainFood((res) => {
             const data = res.data;
-            console.log("res",res)
             if(res.code===0){
                 HOME_CACHE.cat_food=res.data;
                 this.resetUI()
@@ -76,7 +75,6 @@ cc.Class({
         const cur=HOME_CACHE.cat_food[index];
         Api.petFeed({goodsId:cur.goodsId},(res) => {
             const data = res.data;
-            console.log("res",res)
             if(res.code===0){
                 const toast=index===2?`幸运值+${cur.lucky}`:index===1?`饱食度+${cur.hungry} 幸运值+${cur.lucky}`:`饱食度+${cur.hungry}`
                 Toast.show(toast)
@@ -92,9 +90,6 @@ cc.Class({
                 Toast.show(res.message)
             }
         });
-        // console.log("feed ",type)
-        // const toast=type===2?`幸运值+${CAR_FOOD[type].lucky}`:`饱食度+${CAR_FOOD[type].energy}`
-        // Toast.show(toast)
     },
     handleClose(){
         var feedWarp = cc.find(`Canvas/feedWarp`)

@@ -146,8 +146,6 @@ cc.Class({
     userProp(data,callBack){
         const that=this;
         Api.use_prop(data,(res) => {
-            const data = res.data;
-            console.log("res", res)
             if (res.code === 0) {
                 that.resetUI()
                 callBack&&callBack()

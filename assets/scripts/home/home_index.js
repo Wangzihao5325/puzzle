@@ -54,7 +54,6 @@ cc.Class({
         var catItem = cc.find(`Canvas/rootWarp/my_home/cat/catItem`)
         let {outward}=HOME_CACHE.pet_info
         if(outside_item){
-            console.log("已有实例",outside_item)
             outside_item.active=outward
             catItem.active=!outward
             if(outward===false){
@@ -117,7 +116,6 @@ cc.Class({
     getPetInfo() {
         Api.petHome((res) => {
             const data = res.data;
-            console.log("res", res)
             if (res.code === 0) {
                 HOME_CACHE.pet_info = res.data;
                 this.resetUI()
@@ -128,7 +126,6 @@ cc.Class({
     getPetHunger(callBack) {
         Api.petHungry((res) => {
             const data = res.data;
-            console.log("getPetHunger", res)
             if (res.code === 0) {
                 HOME_CACHE.pet_info = {
                     ...HOME_CACHE.pet_info,
@@ -147,8 +144,6 @@ cc.Class({
         Api.petBackNotice(res=>{
             if(res.code===0&&res.data){
                 if(res.data.noticeId&&res.data.awardJson){
-                    console.log("data",res.data.awardJson)
-                    console.log('json',JSON.parse(res.data.awardJson))
                     const goods=res.data.awardJson&&JSON.parse(res.data.awardJson)||[]
                     this.NoticeClear(res.data.noticeId)
 
@@ -175,7 +170,6 @@ cc.Class({
 
     setHungerTimer(refreshTime) {
         const time = refreshTime - (new Date()).getTime()
-        console.log("tiem", time)
         if (hunberTimer) {
             clearTimeout(hunberTimer)
         }
@@ -187,7 +181,6 @@ cc.Class({
     getFoodRemain(callBack) {
         Api.petRemainFood((res) => {
             const data = res.data;
-            console.log("res", res)
             if (res.code === 0) {
                 HOME_CACHE.cat_food = res.data;
                 this.resetUI()

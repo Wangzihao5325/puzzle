@@ -1,3 +1,6 @@
+import { CACHE } from '../global/usual_cache';
+import WxApi from '../global/wx_index'
+
 /**
  * 新版接口
  * @example 使用 var Http = require('Http')
@@ -12,31 +15,74 @@ class CusHttp {
     }
     /**
      * Get 请求
-     * @param {*} Url 
-     * @param {*} cb 
+     * @param {*} Url
+     * @param {*} cb
      */
     Get(Url, cb, fcb) {
-        let http = cc.loader.getXMLHttpRequest();
-        http.open("GET", Url, true);
-        http.setRequestHeader("Content-Type", "application/json");
-        this._callback = cb;
-        this._failedCallback = fcb;
-        http.onreadystatechange = this._result.bind(this);
-        http.timeout = 10000;
-        http.send();
-        this._http = http;
+        this.getToken(() => {
+            let http = cc.loader.getXMLHttpRequest();
+            http.open("GET", Url, true);
+            http.setRequestHeader("Content-Type", "application/json");
+            // http.setRequestHeader("X-Auth-Token", CACHE.token);
+            this._callback = cb;
+            this._failedCallback = fcb;
+            http.onreadystatechange = this._result.bind(this);
+            http.timeout = 10000;
+            http.send();
+            this._http = http;
+        })
     }
     Post(Url, data, cb, fcb) {
-        data = JSON.stringify(data);
+        this.getToken(() => {
+            data = JSON.stringify(data);
+            let http = cc.loader.getXMLHttpRequest();
+            http.open("POST", Url, true);
+            http.setRequestHeader("Content-Type", "application/json");
+            // http.setRequestHeader("X-Auth-Token", CACHE.token);
+            this._callback = cb;
+            this._failedCallback = fcb;
+            http.onreadystatechange = this._result.bind(this);
+            http.timeout = 10000;
+            http.send(data);
+            this._http = http;
+        })
+    }
+    Get_UrlEnCoded(Url, data, cb, fcb) {
+        this.getToken(() => {
+            let http = cc.loader.getXMLHttpRequest();
+            http.open("GET", Url, true);
+            http.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            // http.setRequestHeader("X-Auth-Token", CACHE.token);
+            this._callback = cb;
+            this._failedCallback = fcb;
+            http.onreadystatechange = this._result.bind(this);
+            http.timeout = 10000;
+            http.send(data);
+            this._http = http;
+        })
+    }
+    Login(Url, data, cb, fcb) {
         let http = cc.loader.getXMLHttpRequest();
         http.open("POST", Url, true);
-        http.setRequestHeader("Content-Type", "application/json");
+        http.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
         this._callback = cb;
         this._failedCallback = fcb;
-        http.onreadystatechange = this._result.bind(this);
+        http.onreadystatechange = () => {
+            if (http.readyState === 4) {
+                const response = JSON.parse(http.responseText);
+                if (http.status === 200) {
+                    CACHE.token = http.getResponseHeader('X-Auth-Token');
+                    CACHE.userInfo = response.data.principal;
+                    if (cb) {
+                        cb(response);
+                    }
+                } else {
+                    console.log("登录失败，" + response.message)
+                }
+            }
+        };
         http.timeout = 10000;
         http.send(data);
-        this._http = http;
     }
     _result() {
         if (this._http.readyState == 4 && this._http.status != 500) {
@@ -48,6 +94,13 @@ class CusHttp {
             // this._failedCallback();
             // cc.error('请求失败')
         }
+    }
+    getToken(callback) {
+        // if (!CACHE.token) {
+        //     WxApi.login(callback);
+        // } else {
+            callback();
+        // }
     }
 }
 export default CusHttp;
