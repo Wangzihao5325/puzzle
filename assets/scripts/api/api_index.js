@@ -1,5 +1,5 @@
 import CusHttp from './custom_http';
-const API_DOMAIN = 'http://192.168.3.185:8090';
+const API_DOMAIN = 'http://192.168.3.144:8090';
 
 /**
  * 根据城市id获取城市详情
