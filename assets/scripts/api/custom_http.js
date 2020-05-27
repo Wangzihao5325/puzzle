@@ -23,7 +23,7 @@ class CusHttp {
             let http = cc.loader.getXMLHttpRequest();
             http.open("GET", Url, true);
             http.setRequestHeader("Content-Type", "application/json");
-            http.setRequestHeader("X-Auth-Token", CACHE.token);
+            // http.setRequestHeader("X-Auth-Token", CACHE.token);
             this._callback = cb;
             this._failedCallback = fcb;
             http.onreadystatechange = this._result.bind(this);
@@ -38,7 +38,7 @@ class CusHttp {
             let http = cc.loader.getXMLHttpRequest();
             http.open("POST", Url, true);
             http.setRequestHeader("Content-Type", "application/json");
-            http.setRequestHeader("X-Auth-Token", CACHE.token);
+            // http.setRequestHeader("X-Auth-Token", CACHE.token);
             this._callback = cb;
             this._failedCallback = fcb;
             http.onreadystatechange = this._result.bind(this);
@@ -52,7 +52,7 @@ class CusHttp {
             let http = cc.loader.getXMLHttpRequest();
             http.open("GET", Url, true);
             http.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-            http.setRequestHeader("X-Auth-Token", CACHE.token);
+            // http.setRequestHeader("X-Auth-Token", CACHE.token);
             this._callback = cb;
             this._failedCallback = fcb;
             http.onreadystatechange = this._result.bind(this);
@@ -96,11 +96,11 @@ class CusHttp {
         }
     }
     getToken(callback) {
-        if (!CACHE.token) {
-            WxApi.login(callback);
-        } else {
+        // if (!CACHE.token) {
+        //     WxApi.login(callback);
+        // } else {
             callback();
-        }
+        // }
     }
 }
 export default CusHttp;
