@@ -17,13 +17,14 @@ cc.Class({
         goodsNode: cc.Sprite,
         showTimeNode: cc.Node,
         getNumNode: cc.Node,
+        receiveBtn: cc.Node,
 
         timerNode: cc.Node,
         timerIcon: cc.Sprite,
         timerLabel: cc.Label
     },
 
-    setTouch(callback) {
+    setTouch(callback, receiveCallback) {
         this.header.on(cc.Node.EventType.TOUCH_START, (event) => {
             event.stopPropagation();
         })
@@ -35,7 +36,20 @@ cc.Class({
             if (callback) {
                 callback(this.data_item);
             }
-            // Toast.show('正在开发ing')
+            event.stopPropagation();
+        })
+
+        this.receiveBtn.on(cc.Node.EventType.TOUCH_START, (event) => {
+            event.stopPropagation();
+        })
+        this.receiveBtn.on(cc.Node.EventType.TOUCH_MOVE, (event) => {
+            event.stopPropagation();
+
+        })
+        this.receiveBtn.on(cc.Node.EventType.TOUCH_END, (event) => {
+            if (receiveCallback) {
+                receiveCallback(this.data_item);
+            }
             event.stopPropagation();
         })
     },
@@ -81,18 +95,23 @@ cc.Class({
                 break;
         }
 
+        // 绑定数据
+
+
         if (item.goodId) {
-            this.titleNode.active = false;
-            this.goodsNode.node.active = true;
             let iconPath = `${IMAGE_SERVER}/${item.icon}.png`;
             cc.loader.load(iconPath, (err, texture) => {
                 this.goodsNode.spriteFrame = new cc.SpriteFrame(texture);
             });
+
+            this.titleNode.active = false;
+            this.goodsNode.node.active = true;
             this.showTimeNode.active = false;
 
             let nowTime = new Date().getTime();
             if (nowTime >= item.goodExpectReceiveTime) {//收取状态
-
+                this.getNumNode.active = false;
+                this.receiveBtn.active = true;
             } else {//定时状态
                 this.timerNode.active = true;
                 let timer = setTimeOutWithTimeStamp(item.goodExpectReceiveTime, (res) => {

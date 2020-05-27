@@ -213,8 +213,12 @@ cc.Class({
     },
 
     openBag(itemData) {
-        this.bagRoot.active = true;
-        CACHE.show_table_press = itemData;
+        if (itemData.goodId) {
+            Toast.show('请先收取物品')
+        } else {
+            this.bagRoot.active = true;
+            CACHE.show_table_press = itemData;
+        }
     },
 
     init() {
