@@ -42,8 +42,8 @@ cc.Class({
         //弹窗动画
         this.awardContent.setPosition(cc.v2(0,-800))
         cc.tween(this.awardContent)
-        .to(.4,{position:cc.v2(0,40)})
-        .to(.2,{position:cc.v2(0,0)})
+        .to(.4,{position:cc.v2(0,40)},{ easing: 'sineIn'})
+        .to(.2,{position:cc.v2(0,0)},{ easing: 'sineIn'})
         .start()
 
         //得分动画

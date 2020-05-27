@@ -32,6 +32,7 @@ cc.Class({
         game_root: cc.Node,
         game_award: cc.Prefab,
         game_share: cc.Prefab,
+        game_fail: cc.Prefab,
 
     },
 
@@ -42,7 +43,10 @@ cc.Class({
         this.resetUI()
         GAME_CACH.isComplate=false
         this.timer(GAME_CACH.coutnDown);
+        setTimeout(()=>{
+            this.gameFail()
 
+        },2000)
     },
 
     start() {
@@ -214,12 +218,6 @@ cc.Class({
         game_award.parent = this.root_warp;
         let obj = game_award.getComponent('gameAward');
         obj.init(item,leavel)
-
-        setTimeout(()=>{
-            game_award.destroy()
-            this.showShare()
-        },1500)
-
     },
 
     //显示分享弹窗
@@ -231,15 +229,21 @@ cc.Class({
 
     },
 
+    gameFail(){
+        let game_fail = cc.instantiate(this.game_fail);
+        game_fail.parent = this.root_warp;
+    },
+
     timer(time) {
          setTimeout(() => {
-            if (!GAME_CACH.pause && GAME_CACH.time > 0&&!GAME_CACH.isComplate) {
+            if (!GAME_CACH.pause && GAME_CACH.coutnDown > 0&&!GAME_CACH.isComplate) {
                 time--;
                 this.countDown_label.string = this.formatTimer(time);
-                GAME_CACH.time=time
+                GAME_CACH.coutnDown=time
                 this.timer(time);
             } else if (!GAME_CACH.pause && time == 0&&!GAME_CACH.isComplate) {
-                Toast.show("倒计时结束", 1000);
+                // Toast.show("倒计时结束", 1000);
+                this.gameFail()
             }
             else if(GAME_CACH.isComplate) {
                 GAME_CACH.coutnDown=60;
@@ -249,6 +253,12 @@ cc.Class({
 
             }
         }, 1000)
+    },
+
+    revive(){
+        GAME_CACH.coutnDown=60,
+        this.timer(60)
+
     },
 
     resetUI(){
@@ -280,4 +290,5 @@ cc.Class({
             return `00:0${time}`;
         }
     },
+
 });

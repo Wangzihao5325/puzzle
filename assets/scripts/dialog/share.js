@@ -46,8 +46,8 @@ cc.Class({
     init(type){
         this.content.setPosition(cc.v2(0,-700))
         cc.tween(this.content)
-        .to(.4,{position:cc.v2(0,300)})
-        .to(.2,{position:cc.v2(0,0)})
+        .to(.4,{position:cc.v2(0,100)})
+        .to(.2,{position:cc.v2(0,0)},{easing:'expoInOut'})
         .start()
         const text=`解放军和武警部队代表团共有289名全国人大代表，是人数最多的团组。当天，共有8位代表发言。`
 
