@@ -97,7 +97,7 @@ export function setTimeOutWithTimeStamp(stamp, middleCallback, finalCallback) {
   let timer = null;
   let now = new Date();
   let nowTime = now.getTime();
-  let time = Math.floor((stamp - nowTime) / 1000);
+  let time = Math.ceil((stamp - nowTime) / 1000);
   if (time > 0) {
     timer = setInterval(() => {
       time--;

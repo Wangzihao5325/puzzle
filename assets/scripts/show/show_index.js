@@ -61,7 +61,6 @@ cc.Class({
     },
 
     showcaseInit(standInfoList) {
-        console.log(standInfoList);
         standInfoList.forEach((item, index) => {
             let showcaseNode = cc.instantiate(this.showcase);
             showcaseNode.name = `item_showcase_${item.standId}`;
@@ -165,7 +164,6 @@ cc.Class({
         if (item.goodsId) {
             Api.placeGoods({ goodId: item.goodsId, standId: CACHE.show_table_press.standId }, (res) => {
                 //to do:更新数据
-
                 let showcaseNode = cc.find(`Canvas/root/table/item_showcase_${CACHE.show_table_press.standId}`);
                 if (showcaseNode) {
                     let obj = showcaseNode.getComponent('showcase_index');
