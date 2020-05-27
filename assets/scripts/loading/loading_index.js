@@ -6,7 +6,8 @@ import {
     VISTER_ATTITUDE,
     NAVI_ASSETS,
 } from '../global/app_global_index';
-import { CACHE } from '../global/usual_cache';
+import CACHE from '../global/usual_cache';
+import WxApi from '../global/wx_index';
 
 cc.Class({
     extends: cc.Component,
@@ -72,6 +73,8 @@ cc.Class({
                 })
             })
         });
+
+        // WxApi.login(() => {WxApi.loadUserInfo()});
     },
 
     // update (dt) {},
