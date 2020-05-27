@@ -1363,8 +1363,8 @@
       }
     ],
     "_useOriginalSize": false,
-    "_string": "1.5小时",
-    "_N$string": "1.5小时",
+    "_string": "",
+    "_N$string": "",
     "_fontSize": 15,
     "_lineHeight": 15,
     "_enableWrapText": true,
@@ -1604,7 +1604,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 36.7,
+      "width": 0,
       "height": 18.9
     },
     "_anchorPoint": {
@@ -1616,7 +1616,7 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        -28,
+        -10,
         -172,
         0,
         0,
@@ -1655,8 +1655,8 @@
       }
     ],
     "_useOriginalSize": false,
-    "_string": "Label",
-    "_N$string": "Label",
+    "_string": "",
+    "_N$string": "",
     "_fontSize": 15,
     "_lineHeight": 15,
     "_enableWrapText": true,
