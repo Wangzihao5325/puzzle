@@ -1,6 +1,6 @@
 import { SIZES, SCALELEAVEL, complateIndex, underwayIndex, spliceArr } from '../global/piece_index';
 import { CACHE } from '../global/usual_cache';
-
+import {HOME_CACHE} from '../global/home_global';
 import { GAME_CACH } from '../global/piece_index';
 
 import { initItem } from './initSplice';
@@ -12,15 +12,15 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
-        root_warp:cc.Node,
+        root_warp: cc.Node,
         magnet: cc.Node,
         sort: cc.Node,
-        menuWarp:cc.Node,
+        menuWarp: cc.Node,
         magnet_time: cc.Node,
         sort_tiem: cc.Node,
         magnet_label: cc.Label,
         sort_label: cc.Label,
-        puzzle_name:cc.Node,
+        puzzle_name: cc.Node,
         ad_free: cc.Node,
         flash: cc.Node,
         pauseBtn: cc.Node,
@@ -47,17 +47,17 @@ cc.Class({
 
     },
 
-    handleClidkMagnet(){
+    handleClidkMagnet() {
         if (this.checkComplate()) {
             return false
-        }else if(CACHE.userData.strongMagnet>0){
-            this.userProp({strongMagnet:1},
-                ()=>{
+        } else if (CACHE.userData.strongMagnet > 0) {
+            this.userProp({ strongMagnet: 1 },
+                () => {
                     this.doMagnet()
                     this.updateUserInfo()
                 }
             )
-        }else{
+        } else {
             Toast.show('余额不足，观看广告')
         }
     },
@@ -111,18 +111,18 @@ cc.Class({
         }
 
     },
-    
-    handleClickSort(){
+
+    handleClickSort() {
         if (this.checkComplate()) {
             return false
-        }else if(CACHE.userData.frame>0){
-            this.userProp({frame:1},
-                ()=>{
-                   this.doSort()
+        } else if (CACHE.userData.frame > 0) {
+            this.userProp({ frame: 1 },
+                () => {
+                    this.doSort()
                     this.updateUserInfo()
                 }
             )
-        }else{
+        } else {
             Toast.show('余额不足，观看广告')
         }
     },
@@ -137,17 +137,17 @@ cc.Class({
         pauseWarp.setPosition(0, 0);
     },
 
-    updateUserInfo(){
+    updateUserInfo() {
         Action.User.BalanceUpdate(this.resetUI())
     },
 
-    userProp(data,callBack){
-        const that=this;
-        Api.use_prop(data,(res) => {
+    userProp(data, callBack) {
+        const that = this;
+        Api.use_prop(data, (res) => {
             if (res.code === 0) {
                 HOME_CACHE.pet_info = res.data;
                 that.resetUI()
-                callBack&&callBack()
+                callBack && callBack()
             }
         });
     },
@@ -173,12 +173,12 @@ cc.Class({
             Toast.show("拼图完成", 1000);
             this.doComplate()
             const spliceWarp_node = cc.find(`Canvas/root/spliceWarp`);
-            spliceWarp_node.active=false;
-            this.menuWarp.active=false;
-            this.name.color=cc.color(255,255,255)
+            spliceWarp_node.active = false;
+            this.menuWarp.active = false;
+            this.name.color = cc.color(255, 255, 255)
             cc.tween(this.flash)
-            .to(1, { position: cc.v2(485, -550) })
-            .start()
+                .to(1, { position: cc.v2(485, -550) })
+                .start()
 
 
             /*动画*/
@@ -190,62 +190,62 @@ cc.Class({
     },
 
     //调用完成接口
-    doComplate(){
-        const data={
-            hurdleId:CACHE.chapterData.hurdleId,
-            star:CACHE.hard_level+1
+    doComplate() {
+        const data = {
+            hurdleId: CACHE.chapterData.hurdleId,
+            star: CACHE.hard_level + 1
         }
-        Api.missionComplete(data,(res=>{
-            if(res.code===0){
-                setTimeout(()=>{
-                    this.showAward(res.data.list,CACHE.hard_level+1)
-                },1000)
-            }else{
+        Api.missionComplete(data, (res => {
+            if (res.code === 0) {
+                setTimeout(() => {
+                    this.showAward(res.data.list, CACHE.hard_level + 1)
+                }, 1000)
+            } else {
                 Toast.show(res.meeage)
             }
         }))
     },
 
     //显示奖励弹窗
-    showAward(item,leavel){
+    showAward(item, leavel) {
         let game_award = cc.instantiate(this.game_award);
         game_award.parent = this.root_warp;
         let obj = game_award.getComponent('gameAward');
-        obj.init(item,leavel)
+        obj.init(item, leavel)
 
     },
 
     timer(time) {
-         setTimeout(() => {
-            if (!GAME_CACH.pause && GAME_CACH.time > 0&&!GAME_CACH.isComplate) {
+        setTimeout(() => {
+            if (!GAME_CACH.pause && GAME_CACH.time > 0 && !GAME_CACH.isComplate) {
                 time--;
                 this.countDown_label.string = this.formatTimer(time);
-                GAME_CACH.time=time
+                GAME_CACH.time = time
                 this.timer(time);
-            } else if (!GAME_CACH.pause && time == 0&&!GAME_CACH.isComplate) {
+            } else if (!GAME_CACH.pause && time == 0 && !GAME_CACH.isComplate) {
                 Toast.show("倒计时结束", 1000);
             }
-            else if(GAME_CACH.isComplate) {
-                GAME_CACH.coutnDown=60;
-                GAME_CACH.isComplate=false;
-                GAME_CACH.pause=false;
-            }else{
+            else if (GAME_CACH.isComplate) {
+                GAME_CACH.coutnDown = 60;
+                GAME_CACH.isComplate = false;
+                GAME_CACH.pause = false;
+            } else {
 
             }
         }, 1000)
     },
 
-    resetUI(){
+    resetUI() {
         const userData = CACHE.userData
-        this.magnet_label.string=userData.strongMagnet
-        if(userData.frame>0){
-            this.sort_tiem.active=true
-            this.ad_free.active=false
-            this.sort_label.string=userData.frame
-        }else if(userData.frame===0){
-            this.sort_tiem.active=false
-            this.ad_free.active=true
-            this.sort_label.string=userData.frame
+        this.magnet_label.string = userData.strongMagnet
+        if (userData.frame > 0) {
+            this.sort_tiem.active = true
+            this.ad_free.active = false
+            this.sort_label.string = userData.frame
+        } else if (userData.frame === 0) {
+            this.sort_tiem.active = false
+            this.ad_free.active = true
+            this.sort_label.string = userData.frame
         }
     },
 
