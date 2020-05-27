@@ -1,4 +1,4 @@
-import { SIZES, SCALELEAVEL, complateIndex, underwayIndex, spliceArr } from '../global/piece_index';
+import { SIZES, SCALELEAVEL, underwayIndex, spliceArr } from '../global/piece_index';
 import { CACHE } from '../global/usual_cache';
 
 import { GAME_CACH } from '../global/piece_index';
@@ -81,7 +81,7 @@ cc.Class({
             setTimeout(() => {
                 currentNode.destroy()
                 item_puzzle_warp.destroy()
-                complateIndex.push(index)
+                GAME_CACH.complateIndex.push(index)
                 underwayIndex.remove(index)
                 this.checkComplate()
             }, 400)
@@ -103,7 +103,7 @@ cc.Class({
                 .start()
 
             const index = currentNode.defaultIndex;
-            complateIndex.push(index);
+            GAME_CACH.complateIndex.push(index);
             underwayIndex.remove(index);
             setTimeout(() => {
                 currentNode.destroy();
@@ -170,9 +170,10 @@ cc.Class({
 
     //判断完成，并调用完成动画
     checkComplate() {
-        if (SIZES[CACHE.hard_level].length == complateIndex.length) {
+        if (SIZES[CACHE.hard_level].length == GAME_CACH.complateIndex.length) {
             Toast.show("拼图完成", 1000);
             this.doComplate()
+            GAME_CACH.complateIndex=[]
             GAME_CACH.isComplate=true
             const spliceWarp_node = cc.find(`Canvas/root/spliceWarp`);
             spliceWarp_node.active=false;
@@ -237,7 +238,7 @@ cc.Class({
     },
 
     timer(time) {
-         setTimeout(() => {
+          this.countDownTimer=setTimeout(() => {
             if (!GAME_CACH.pause && GAME_CACH.coutnDown > 0&&!GAME_CACH.isComplate) {
                 time--;
                 this.countDown_label.string = this.formatTimer(time);
@@ -262,7 +263,11 @@ cc.Class({
         this.timer(60)
 
     },
-
+    onDestroy() {
+        if (this.countDownTimer) {
+            clearTimeout(this.countDownTimer)
+        }
+    },
     resetUI(){
         const userData = CACHE.userData
         this.magnet_label.string=userData.strongMagnet
