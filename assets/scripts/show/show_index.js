@@ -143,7 +143,7 @@ cc.Class({
         this.vistorInit(payload);
     },
 
-    vistorTimer() {
+    vistorTimerSet() {
         this.randomCreateVistor();
         this.vistorTimer = setInterval(() => {
             this.randomCreateVistor();
@@ -281,7 +281,7 @@ cc.Class({
         this.setBg();
         this.footerInit();
         this.headerInit();
-        this.vistorTimer();
+        this.vistorTimerSet();
         this.bagInit();
         this.bagBtnSetTouch();
         Action.Show.ShowInfoUpdate((res) => {

@@ -15,7 +15,34 @@ cc.Class({
         hardBtnOne: cc.Prefab,
         btnObj: cc.Array,
         root: cc.Node,
-        startBtn: cc.Sprite
+        startBtn: cc.Sprite,
+        mask: cc.Sprite
+    },
+
+    setStartWithHard(hardLevel) {
+        cc.loader.loadResArray(['mission/xingxing', 'mission/xingxingdi'], cc.SpriteFrame, (err, assets) => {
+            if (err) cc.error(err);
+            this.starOne.spriteFrame = assets[1];
+            this.starTwo.spriteFrame = assets[1];
+            this.starThree.spriteFrame = assets[1];
+            switch (hardLevel) {
+                case LEVEL.EASY:
+                    this.starOne.spriteFrame = assets[0];
+                    break;
+                case LEVEL.NORMAL:
+                    this.starOne.spriteFrame = assets[0];
+                    this.starTwo.spriteFrame = assets[0];
+                    break;
+                case LEVEL.HARD:
+                    this.starOne.spriteFrame = assets[0];
+                    this.starTwo.spriteFrame = assets[0];
+                    this.starThree.spriteFrame = assets[0];
+                    break;
+                default:
+                    break;
+            }
+
+        });
     },
 
     setback() {
@@ -56,7 +83,10 @@ cc.Class({
             hardBtn.setPosition(0, 80 - (index * 80));
             let obj = hardBtn.getComponent('hard_btn');
             obj._hardLevel = hard;
-            obj.initWithHard(hard, (hardLevel) => this.hardBtnClickCallback(hardLevel));
+            obj.initWithHard(hard, (hardLevel) => {
+                this.setStartWithHard(hardLevel)
+                this.hardBtnClickCallback(hardLevel);
+            });
             this.btnObj.push(obj)
             index++;
         }
@@ -78,8 +108,20 @@ cc.Class({
         });
     },
 
-    handleTravel() {
+    setMask() {
+        /*屏蔽点击事件 */
+        this.mask.node.on(cc.Node.EventType.TOUCH_START, (event) => {
+            event.stopPropagation();
+        });
+        this.mask.node.on(cc.Node.EventType.TOUCH_MOVE, (event) => {
+            event.stopPropagation();
+        });
+        this.mask.node.on(cc.Node.EventType.TOUCH_END, (event) => {
+            event.stopPropagation();
+        });
+    },
 
+    handleTravel() {
         Api.travel((res) => {
             if (res.code === 0) {
                 cc.director.loadScene("puzzle");
@@ -90,36 +132,14 @@ cc.Class({
     },
 
     initWithItem(item) {
-        console.log("item", item)
         this.title.string = item.hurdleName;
         cc.loader.load({ url: item.logoUrl, type: 'png' }, (err, texture) => {
             if (err) cc.error(err);
             this.pic.spriteFrame = new cc.SpriteFrame(texture);
         });
-        cc.loader.loadResArray(['mission/xingxing', 'mission/xingxingdi'], cc.SpriteFrame, (err, assets) => {
-            if (err) cc.error(err);
-            this.starOne.spriteFrame = assets[1];
-            this.starTwo.spriteFrame = assets[1];
-            this.starThree.spriteFrame = assets[1];
-            switch (item.star) {
-                case 1:
-                    this.starOne.spriteFrame = assets[0];
-                    break;
-                case 2:
-                    this.starOne.spriteFrame = assets[0];
-                    this.starTwo.spriteFrame = assets[0];
-                    break;
-                case 3:
-                    this.starOne.spriteFrame = assets[0];
-                    this.starTwo.spriteFrame = assets[0];
-                    this.starThree.spriteFrame = assets[0];
-                    break;
-                default:
-                    break;
-            }
-
-        });
+        this.setStartWithHard(-1);
         this.setback();
+        this.setMask();
         if (!this.btnObj) {
             this.setBtn();
             this.setStartBtn();
