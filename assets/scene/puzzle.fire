@@ -57,7 +57,7 @@
     "_is3DNode": true,
     "_groupIndex": 0,
     "groupIndex": 0,
-    "autoReleaseAssets": false,
+    "autoReleaseAssets": true,
     "_id": "933ef761-4c88-4329-af1a-be8b6b6f6e28"
   },
   {
@@ -174,7 +174,7 @@
       "array": [
         0,
         0,
-        501.42870879119,
+        416.55821922031504,
         0,
         0,
         0,
@@ -2744,8 +2744,8 @@
       "width": 644,
       "height": 1136
     },
-    "_fitWidth": false,
-    "_fitHeight": true,
+    "_fitWidth": true,
+    "_fitHeight": false,
     "_id": "59Cd0ovbdF4byw5sbjJDx7"
   },
   {
