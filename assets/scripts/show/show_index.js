@@ -64,12 +64,13 @@ cc.Class({
         console.log(standInfoList);
         standInfoList.forEach((item, index) => {
             let showcaseNode = cc.instantiate(this.showcase);
+            showcaseNode.name = `item_showcase_${item.standId}`;
             showcaseNode.parent = this.table;
             showcaseNode.setPosition(-210 + (index * 210), 58);
             let obj = showcaseNode.getComponent('showcase_index');
             if (obj) {
                 obj.initWithItem(item);
-                obj.setTouch((itemData) => this.openBag(itemData));
+                obj.setTouch((itemData) => this.openBag(itemData), (itemData) => this.bagReceive(itemData));
             }
         });
     },
@@ -147,10 +148,32 @@ cc.Class({
         })
     },
 
+    bagReceive(itemDate) {
+        Api.getShowReceive({ placeId: itemDate.placeId }, (res) => {
+            Toast.show(`获得${res.data.name} x${res.data.num}`);
+            let showcaseNode = cc.find(`Canvas/root/table/item_showcase_${itemDate.standId}`);
+            if (showcaseNode) {
+                let obj = showcaseNode.getComponent('showcase_index');
+                if (obj) {
+                    obj.turnToUnplace();
+                }
+            }
+        })
+    },
+
     bagGoodsClick(item) {
         if (item.goodsId) {
             Api.placeGoods({ goodId: item.goodsId, standId: CACHE.show_table_press.standId }, (res) => {
                 //to do:更新数据
+
+                let showcaseNode = cc.find(`Canvas/root/table/item_showcase_${CACHE.show_table_press.standId}`);
+                if (showcaseNode) {
+                    let obj = showcaseNode.getComponent('showcase_index');
+                    if (obj) {
+                        obj.turnToTimer(item.url, res.data.placeId, res.data.expectReceiveTime);
+                    }
+                }
+                this.bagRoot.active = false;
             });
         }
     },
@@ -213,12 +236,8 @@ cc.Class({
     },
 
     openBag(itemData) {
-        if (itemData.goodId) {
-            Toast.show('请先收取物品')
-        } else {
-            this.bagRoot.active = true;
-            CACHE.show_table_press = itemData;
-        }
+        this.bagRoot.active = true;
+        CACHE.show_table_press = itemData;
     },
 
     init() {

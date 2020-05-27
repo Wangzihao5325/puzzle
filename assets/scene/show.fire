@@ -2035,7 +2035,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 160,
+      "width": 240,
       "height": 100.8
     },
     "_anchorPoint": {
@@ -2086,8 +2086,8 @@
       }
     ],
     "_useOriginalSize": false,
-    "_string": "美食",
-    "_N$string": "美食",
+    "_string": "纪念品",
+    "_N$string": "纪念品",
     "_fontSize": 80,
     "_lineHeight": 80,
     "_enableWrapText": true,
@@ -2289,7 +2289,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 240,
+      "width": 160,
       "height": 100.8
     },
     "_anchorPoint": {
@@ -2340,8 +2340,8 @@
       }
     ],
     "_useOriginalSize": false,
-    "_string": "纪念品",
-    "_N$string": "纪念品",
+    "_string": "文物",
+    "_N$string": "文物",
     "_fontSize": 80,
     "_lineHeight": 80,
     "_enableWrapText": true,
