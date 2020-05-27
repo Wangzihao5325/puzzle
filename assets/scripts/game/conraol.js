@@ -31,6 +31,7 @@ cc.Class({
         pause: cc.Prefab,
         game_root: cc.Node,
         game_award: cc.Prefab,
+        game_share: cc.Prefab,
 
     },
 
@@ -39,7 +40,8 @@ cc.Class({
     onLoad() {
         this.setTouch();
         this.resetUI()
-        this.timer(GLOBAL_VAR.time);
+        GAME_CACH.isComplate=false
+        this.timer(GAME_CACH.coutnDown);
 
     },
 
@@ -147,7 +149,6 @@ cc.Class({
             const data = res.data;
             console.log("res", res)
             if (res.code === 0) {
-                HOME_CACHE.pet_info = res.data;
                 that.resetUI()
                 callBack&&callBack()
             }
@@ -174,12 +175,13 @@ cc.Class({
         if (SIZES[CACHE.hard_level].length == complateIndex.length) {
             Toast.show("拼图完成", 1000);
             this.doComplate()
+            GAME_CACH.isComplate=true
             const spliceWarp_node = cc.find(`Canvas/root/spliceWarp`);
             spliceWarp_node.active=false;
             this.menuWarp.active=false;
             this.name.color=cc.color(255,255,255)
             cc.tween(this.flash)
-            .to(1, { position: cc.v2(485, -550) })
+            .to(.8, { position: cc.v2(485, -550) })
             .start()
 
 
@@ -213,6 +215,20 @@ cc.Class({
         let game_award = cc.instantiate(this.game_award);
         game_award.parent = this.root_warp;
         let obj = game_award.getComponent('gameAward');
+        obj.init(item,leavel)
+
+        setTimeout(()=>{
+            game_award.destroy()
+            this.showShare()
+        },1500)
+
+    },
+
+    //显示分享弹窗
+    showShare(item,leavel){
+        let game_share = cc.instantiate(this.game_share);
+        game_share.parent = this.root_warp;
+        let obj = game_share.getComponent('share');
         obj.init(item,leavel)
 
     },

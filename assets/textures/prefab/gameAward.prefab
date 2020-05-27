@@ -782,9 +782,7 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_spriteFrame": {
-      "__uuid__": "b5cb2952-41b9-4f03-8e6b-509207fe8bdc"
-    },
+    "_spriteFrame": null,
     "_type": 0,
     "_sizeMode": 0,
     "_fillType": 0,
@@ -889,9 +887,7 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_spriteFrame": {
-      "__uuid__": "b5cb2952-41b9-4f03-8e6b-509207fe8bdc"
-    },
+    "_spriteFrame": null,
     "_type": 0,
     "_sizeMode": 0,
     "_fillType": 0,
@@ -996,9 +992,7 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_spriteFrame": {
-      "__uuid__": "b5cb2952-41b9-4f03-8e6b-509207fe8bdc"
-    },
+    "_spriteFrame": null,
     "_type": 0,
     "_sizeMode": 0,
     "_fillType": 0,
@@ -3595,9 +3589,7 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_spriteFrame": {
-      "__uuid__": "cd67202c-d50d-4d69-8d19-bd0fa661091d"
-    },
+    "_spriteFrame": null,
     "_type": 0,
     "_sizeMode": 0,
     "_fillType": 0,
@@ -4041,6 +4033,9 @@
     },
     "coreStart": {
       "__uuid__": "437f15ac-8e09-4f46-9aef-8e7ff137776d"
+    },
+    "defaultStart": {
+      "__uuid__": "b5cb2952-41b9-4f03-8e6b-509207fe8bdc"
     },
     "goods_item": {
       "__uuid__": "46fc75e8-d8f8-489a-9c87-e69c21066d9c"

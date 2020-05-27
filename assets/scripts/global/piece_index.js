@@ -207,6 +207,7 @@ var GAME_CACH={
   coutnDown:60,
   isComplate:false,
   pause:false,
+  textRandomTimes:3,
 }
 
 // function rename (){

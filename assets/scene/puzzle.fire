@@ -57,7 +57,7 @@
     "_is3DNode": true,
     "_groupIndex": 0,
     "groupIndex": 0,
-    "autoReleaseAssets": false,
+    "autoReleaseAssets": true,
     "_id": "933ef761-4c88-4329-af1a-be8b6b6f6e28"
   },
   {
@@ -174,7 +174,7 @@
       "array": [
         0,
         0,
-        501.42870879119,
+        497.96460717605225,
         0,
         0,
         0,
@@ -2446,6 +2446,9 @@
     },
     "game_award": {
       "__uuid__": "fe6aaa72-2626-4a48-bf25-2d6747f7829c"
+    },
+    "game_share": {
+      "__uuid__": "c9239cf0-a204-4704-b963-ff5ced5a1bba"
     },
     "_id": "beE/p5mRZFGqqMdsfc94We"
   },
