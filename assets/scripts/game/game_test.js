@@ -1,4 +1,4 @@
-import { SIZES, LEVEL, GAME_CACHE } from '../global/piece_index';
+import { SIZES, LEVEL, PUZZLE_FOOTER } from '../global/piece_index';
 import { CACHE } from '../global/usual_cache';
 import Api from '../api/api_index';
 
@@ -31,8 +31,6 @@ cc.Class({
                 animatePath: res.data.texJson,
                 animatePath2: res.data.skeJson,
                 picPath: res.data.texPng,
-                armature: "chunyuanhaixianguangchang",
-                animate: "newAnimation",
             };
             this.game_bg.zIndex = 1;
             this.initItem(hardLevel);
@@ -68,12 +66,13 @@ cc.Class({
     },
 
     initSpliceWarp(hardLevel = LEVEL.EASY, imagePath) {
+        /*初始化底部栏*/
         let spliceWarp_node = cc.instantiate(this.splice_warp);
         let sizeArr = SIZES[hardLevel];
-        spliceWarp_node.width = sizeArr.length * 140 + 20;
-        spliceWarp_node.height = 120;
+        spliceWarp_node.width = sizeArr.length * PUZZLE_FOOTER.itemWidth + PUZZLE_FOOTER.itemWidthMargin;
+        spliceWarp_node.height = PUZZLE_FOOTER.height;
         spliceWarp_node.parent = this.game_root;
-        spliceWarp_node.setPosition(-344, -500);
+        spliceWarp_node.setPosition(PUZZLE_FOOTER.position[0], PUZZLE_FOOTER.position[1]);
         let obj = spliceWarp_node.getComponent('game_splice');
         if (obj) {
             obj.init(hardLevel, imagePath);
@@ -90,10 +89,6 @@ cc.Class({
 
                 let atlasJson = results.getContent(animatePayload.animatePath);
                 let dragonBonesJson = results.getContent(animatePayload.animatePath2);
-                console.log(animatePayload.animatePath)
-                console.log(animatePayload.animatePath2);
-                console.log(atlasJson);
-                console.log(dragonBonesJson);
 
                 let atlas = new dragonBones.DragonBonesAtlasAsset();
                 atlas._uuid = animatePayload.animatePath;

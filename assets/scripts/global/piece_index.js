@@ -33,6 +33,7 @@ const SIZE4_6 = [
   [274, 708, 243, 152, 73.5, -355.5, 22],
   [469, 707, 174, 149, 234, -353, 23]
 ];
+
 const SIZE6_8 = [
   [0, 0, 111, 116, -266.5, 370.5, 0],
   [77, 0, 141, 135, -174.5, 361, 1],
@@ -83,6 +84,7 @@ const SIZE6_8 = [
   [420, 730, 123, 127, 159.5, -365, 46],
   [509, 724, 135, 132, 254.5, -361.5, 47]
 ];
+
 const MASK_PIECE2_3 = [
   "2x3-1/1",
   "2x3-1/2",
@@ -91,6 +93,7 @@ const MASK_PIECE2_3 = [
   "2x3-1/5",
   "2x3-1/6"
 ];
+
 const MASK_PIECE4_6 = [
   "4x6/01",
   "4x6/02",
@@ -117,6 +120,7 @@ const MASK_PIECE4_6 = [
   "4x6/23",
   "4x6/24"
 ];
+
 const MASK_PIECE6_8 = [
   "6x8/01",
   "6x8/02",
@@ -169,15 +173,20 @@ const MASK_PIECE6_8 = [
 ];
 
 const SIZES = [SIZE2_3, SIZE4_6, SIZE6_8, SIZE6_8];
+
 const MASK_RESOUSE = [MASK_PIECE2_3, MASK_PIECE4_6, MASK_PIECE6_8, MASK_PIECE6_8];
+
 const TYPES = [
   [2, 3],
   [4, 6],
   [6, 8],
   [6, 8]
 ];
+
 const PIC_WIDTH = 644;
+
 const PIC_HEIGHT = 857;
+
 const LEVEL = {
   EASY: 0,
   NORMAL: 1,
@@ -194,21 +203,29 @@ const SCALELEAVEL = {
 
 var currentLeavel = 2
 
-
-
-
 var underwayIndex = []
 
 var spliceArr = []
 
 var coutnDown = 0
 
-var GAME_CACH={
-  coutnDown:60,
-  isComplate:false,
-  pause:false,
-  textRandomTimes:3,
-  complateIndex:[]
+var GAME_CACH = {
+  coutnDown: 60,
+  isComplate: false,
+  pause: false,
+  textRandomTimes: 3,
+  complateIndex: []
+}
+
+const PUZZLE_FOOTER = {
+  position: [-322, -500],//页面width:644
+  height: 122,
+  itemWidth: 140,
+  itemWidthMargin:20,
+}
+
+const PUZZLE_SCENE = {
+  width: 644
 }
 
 export default {
@@ -223,5 +240,7 @@ export default {
   spliceArr,
   currentLeavel,
   coutnDown,
-  GAME_CACH
+  GAME_CACH,
+  PUZZLE_FOOTER,
+  PUZZLE_SCENE
 };

@@ -1,4 +1,4 @@
-import { SIZES, SCALELEAVEL, spliceArr } from '../global/piece_index';
+import { SIZES, SCALELEAVEL, PUZZLE_SCENE, PUZZLE_FOOTER } from '../global/piece_index';
 import { initItem } from './initSplice';
 
 
@@ -22,7 +22,7 @@ cc.Class({
         this.game_bg.on(cc.Node.EventType.TOUCH_MOVE, (event) => {
             if (this.game_bg) {
                 let delta = event.touch.getDelta();
-                if ((this.game_bg.x + delta.x < this.game_bg.width - 322) && (this.game_bg.x + delta.x > 322 - this.game_bg.width)) {
+                if ((this.game_bg.x + delta.x <= PUZZLE_FOOTER.position[0]) && (this.game_bg.x + delta.x >= PUZZLE_SCENE.width / 2 - this.game_bg.width)) {
                     let newPositin = cc.v2(this.game_bg.x + delta.x, this.game_bg.y)
                     this.game_bg.setPosition(newPositin);
                 }
@@ -60,15 +60,14 @@ cc.Class({
             item_node.getChildByName('item_puzzle').width = item[2] * scalLeavel;
             item_node.getChildByName('item_puzzle').height = item[3] * scalLeavel;
             item_node.parent = this.game_bg;
-            let position = cc.v2((140 * index) + 20, 0);
+            let position = cc.v2((PUZZLE_FOOTER.itemWidth * index) + PUZZLE_FOOTER.itemWidthMargin, 0);
             item_node.setPosition(position);
-
             let obj = item_node.getComponent('splice_item_index');
             if (obj) {
                 /*保存引用*/
                 obj.item_node = item_node;
                 //设置切片编号，便于测试
-                obj.init(item[6]);
+                //obj.init(item[6]);
                 /*底图切片*/
                 obj.setSpItem(this.defaultRect(item));
                 /*添加蒙版*/
