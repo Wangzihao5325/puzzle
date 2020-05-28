@@ -220,7 +220,7 @@ var GAME_CACH = {
 const PUZZLE_FOOTER = {
   position: [-322, -500],//起始位置坐标 页面width:644
   truePosition: [-322, -500],//真实位置坐标
-  height: 122,
+  height: 124,
   itemWidth: 140,
   itemWidthMargin: 20,
 }
