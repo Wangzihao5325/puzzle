@@ -85,8 +85,8 @@ cc.Class({
         }
     },
     handleBuy(event){
-        console.log("event",event)
-        const info =event.currentTarget.info;
+        // console.log("event",event)
+        const info =this.buy.info
         const data={
             tyep:info.commodityId,
             uuid:info.uuid
