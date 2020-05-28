@@ -24,6 +24,8 @@ cc.Class({
         dress_warp: cc.Prefab,
         currency_warp: cc.Prefab,
         OutSide:cc.Prefab,
+        store_icon:cc.Node,
+        store:cc.Prefab
 
 
     },
@@ -239,14 +241,22 @@ cc.Class({
         let catActionInstan = cc.instantiate(this.cat_action)
         catActionInstan.parent = this.home_root
         catActionInstan.setPosition(0, 80);
-
+    },
+    showStore(){
+        let store = cc.instantiate(this.store);
+        const canvas=cc.find('Canvas')
+        store.parent=canvas
     },
     setTouch(hardLevel) {
         this.cat.on(cc.Node.EventType.TOUCH_START, (event) => {
             this.showCatAction()
             event.stopPropagation();
-
         })
+        this.store_icon.on(cc.Node.EventType.TOUCH_START, (event) => {
+            this.showStore()
+            event.stopPropagation();
+        })
+        
     },
     initCat(){
         var spineNode = new cc.Node();

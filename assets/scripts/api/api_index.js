@@ -127,9 +127,6 @@ const petGoout = (callback, failedCallback) => new CusHttp().Post(`${API_DOMAIN}
  */
 const petBackNotice = (callback, failedCallback) => new CusHttp().Get(`${API_DOMAIN}/pet/back_notice`, callback, failedCallback);
 
-
-
-
 /**
  * 设置回家通知已查阅&喂食
  * @param {Object} payload {null:null}
@@ -137,6 +134,23 @@ const petBackNotice = (callback, failedCallback) => new CusHttp().Get(`${API_DOM
  * @param {Function} failedCallback
  */
 const backNoticeView = (payload = {}, callback, failedCallback) => new CusHttp().Post(`${API_DOMAIN}/pet/back_notice/viewed`, payload, callback, failedCallback);
+
+/**
+ * 获取商城物品
+ * @param {Function} callback
+ * @param {Function} failedCallback
+ */
+const storeGoods = (callback, failedCallback) => new CusHttp().Get(`${API_DOMAIN}/store/commodity/commodities`, callback, failedCallback);
+
+/**
+ * 购买货品
+ * @param {Object} payload {null:null}
+ * @param {Function} callback
+ * @param {Function} failedCallback
+ */
+const storeGoodsBuy = (payload = {}, callback, failedCallback) => new CusHttp().Post(`${API_DOMAIN}/store/commodity/buy`, payload, callback, failedCallback);
+
+
 
 
 const showInfo = (callback, failedCallback) => new CusHttp().Get(`${API_DOMAIN}/exhibition/info`, callback, failedCallback);
@@ -185,6 +199,8 @@ export default {
     petGoout,
     petBackNotice,
     backNoticeView,
+    storeGoods,
+    storeGoodsBuy,
 
     showInfo,
     placeGoods,
