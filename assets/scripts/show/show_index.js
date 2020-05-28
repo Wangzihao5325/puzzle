@@ -59,6 +59,7 @@ cc.Class({
         header.parent = this.root;
         header.setPosition(0, 528);
         header.zIndex = 10;
+        this.headerObj = obj;
     },
 
     showcaseInit(standInfoList) {
@@ -195,6 +196,9 @@ cc.Class({
                     obj.turnToUnplace();
                 }
             }
+            Action.User.BalanceUpdate(() => {
+                this.headerObj.render();
+            })
         })
     },
 
