@@ -163,6 +163,8 @@ const userInfo = (payload = {}, callback, failedCallback) => new CusHttp().Get_U
 
 const loadJson = (jsonUrl, callback, failedCallback) => new CusHttp().Get(jsonUrl, callback, failedCallback);
 
+const travelRoute = (callback, failedCallback) => new CusHttp().Get(`${API_DOMAIN}/travel/complete/route`, callback, failedCallback);
+
 export default {
     cityDetails,
     missionList,
@@ -196,4 +198,6 @@ export default {
     userInfo,
 
     loadJson,
+
+    travelRoute,
 }

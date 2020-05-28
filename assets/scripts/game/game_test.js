@@ -58,9 +58,9 @@ cc.Class({
             /*获取itembg_index对象*/
             let obj = item_node.getComponent('itembg_index');
             if (obj) {
-                obj.setMarsk(item[6], hardLevel)
                 /*在对象中保存节点引用，便于后续调用*/
                 obj.item_node = item_node;
+                obj.setMarsk(item[6], hardLevel)
             }
         });
     },

@@ -168,6 +168,9 @@ cc.Class({
     },
 
     init() {
+        Api.travelRoute((res) => {
+            console.log(res);
+        })
         this.stateUpdate();
         this.setBg();
         this.footerInit();

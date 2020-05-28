@@ -18,12 +18,15 @@ cc.Class({
     },
 
     init(hardLevel, imagePath) {
+        /*初始化底部栏位置记录*/
+        PUZZLE_FOOTER.truePosition = [...PUZZLE_FOOTER.position];
         /* 设置底部栏的水平滑动*/
         this.game_bg.on(cc.Node.EventType.TOUCH_MOVE, (event) => {
             if (this.game_bg) {
                 let delta = event.touch.getDelta();
                 if ((this.game_bg.x + delta.x <= PUZZLE_FOOTER.position[0]) && (this.game_bg.x + delta.x >= PUZZLE_SCENE.width / 2 - this.game_bg.width)) {
                     let newPositin = cc.v2(this.game_bg.x + delta.x, this.game_bg.y)
+                    PUZZLE_FOOTER.truePosition = [this.game_bg.x + delta.x, this.game_bg.y]
                     this.game_bg.setPosition(newPositin);
                 }
             }
@@ -67,7 +70,7 @@ cc.Class({
                 /*保存引用*/
                 obj.item_node = item_node;
                 //设置切片编号，便于测试
-                //obj.init(item[6]);
+                obj.init(item[6]);
                 /*底图切片*/
                 obj.setSpItem(this.defaultRect(item));
                 /*添加蒙版*/
