@@ -135,7 +135,7 @@ cc.Class({
                 this.item_node.angle = (this.item_node.angle - 90) % 360;
             }
             let delta = event.touch.getDelta();
-            this.calPostion(this.item_node.x + delta.x, this.item_node.y + delta.y, this.item_node.angle);
+            this.calPostion(this.item_node.x + delta.x, this.item_node.y + delta.y, this.item_node.angle, hardLevel);
             this.item_node.zIndex = 100;//恢复z-index
             this.isMove = false;
             /*
@@ -170,23 +170,35 @@ cc.Class({
     },
 
     /*计算中心点距离*/
-    calPostion(x, y, rotation) {
-        const adsorbPosition = 80;
+    calPostion(x, y, rotation, hardLevel) {
         const defaultPostion = this.item_node.defaultPostion;
         const defaultx = defaultPostion[0];
         const defaulty = defaultPostion[1];
-        const distance = (defaultx - x) * (defaultx - x) + (defaulty - y) * (defaulty - y);
-        if (distance <= adsorbPosition * adsorbPosition && rotation == 0) {
-            let newPositin = cc.v2(defaultx, defaulty);
-            this.item_node.setPosition(newPositin);
-            var item_puzzle_warp = cc.find(`Canvas/root/puzzleWarp/puzzleBg/item_puzzle_warp-${this.item_node.defaultIndex}`);
-            item_puzzle_warp.active = false;
-            var item_puzzle_splice = cc.find(`Canvas/root/puzzleWarp/puzzleBg/item_puzzle_splice-${this.item_node.defaultIndex}`);
-            item_puzzle_splice.active = false;
-            GAME_CACH.complateIndex.push(this.item_node.defaultIndex)
-            underwayIndex.remove(this.item_node.defaultIndex)
-            this.checkSuccess()
-            setTimeout(() => { item_puzzle_warp.destroy(); item_puzzle_splice.destroy() }, 100)
+        let reg = SIZES[hardLevel];
+        let minDistance = Number.MAX_VALUE;
+        let minItem = null;
+        reg.forEach((item) => {
+            let distance = Math.pow((item[4] - x), 2) + Math.pow((item[5] - y), 2)
+            if (distance <= minDistance) {
+                minDistance = distance;
+                minItem = item;
+            }
+        });
+        if (minItem) {
+            if (minItem[4] == defaultx && minItem[5] == defaulty && rotation == 0) {
+                let newPositin = cc.v2(defaultx, defaulty);
+                this.item_node.setPosition(newPositin);
+                var item_puzzle_warp = cc.find(`Canvas/root/puzzleWarp/puzzleBg/item_puzzle_warp-${this.item_node.defaultIndex}`);
+                item_puzzle_warp.active = false;
+                var item_puzzle_splice = cc.find(`Canvas/root/puzzleWarp/puzzleBg/item_puzzle_splice-${this.item_node.defaultIndex}`);
+                item_puzzle_splice.active = false;
+                GAME_CACH.complateIndex.push(this.item_node.defaultIndex)
+                underwayIndex.remove(this.item_node.defaultIndex)
+                this.checkSuccess()
+                setTimeout(() => { item_puzzle_warp.destroy(); item_puzzle_splice.destroy() }, 100)
+            } else {
+                this.item_node.setPosition(cc.v2(minItem[4], minItem[5]));
+            }
         }
     },
 

@@ -18,8 +18,8 @@ cc.Class({
         this.sp_item.spriteFrame = spt
     },
 
-    setMarsk(index){
-        var urls = ['2x3-1/1', '2x3-1/2','2x3-1/3', '2x3-1/4','2x3-1/5', '2x3-1/6'];
+    setMarsk(index) {
+        var urls = ['2x3-1/1', '2x3-1/2', '2x3-1/3', '2x3-1/4', '2x3-1/5', '2x3-1/6'];
         const self = this;
         cc.loader.loadResArray(urls, cc.SpriteFrame, function (err, assets) {
             if (err) {
@@ -32,9 +32,9 @@ cc.Class({
 
     setTouch() {
         this.node.on(cc.Node.EventType.TOUCH_START, () => {
-            this.item_node.zIndex= 100000000//拿起增加z-index
+            this.item_node.zIndex = 100000000//拿起增加z-index
             // this.item_node.setScale(1)
-            this.item_node.setPropagateTouchEvents=false
+            this.item_node.setPropagateTouchEvents = false
         })
         this.node.on(cc.Node.EventType.TOUCH_MOVE, (event) => {
             if (this.item_node) {
@@ -43,14 +43,13 @@ cc.Class({
                 this.item_node.setPosition(newPositin);
             }
         })
-        this.node.on(cc.Node.EventType.TOUCH_CANCEL, ()=>{
-
+        this.node.on(cc.Node.EventType.TOUCH_CANCEL, () => {
             //移动结束
             // this.item_node.setScale(0.3)
 
         })
         this.node.on(cc.Node.EventType.TOUCH_END, () => {
-            this.item_node.zIndex= 1//恢复z-index
+            this.item_node.zIndex = 1//恢复z-index
             // this.item_node.setScale(0.3)
 
         })
