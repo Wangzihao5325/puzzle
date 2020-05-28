@@ -45,13 +45,7 @@ cc.Class({
 
     //喂养
     show_feed() {
-        const goodsList = [{ name: '花木他', url: 'http://att3.citysbs.com/200x200/hangzhou/2020/04/15/11/dd6719bd4287d9efd49434c43563a032_v2_.jpg' },
-        { name: '花木他', url: 'http://att3.citysbs.com/200x200/hangzhou/2020/04/15/11/dd6719bd4287d9efd49434c43563a032_v2_.jpg' },
-        { name: '花木他', url: 'http://att3.citysbs.com/200x200/hangzhou/2020/04/15/11/dd6719bd4287d9efd49434c43563a032_v2_.jpg' },
-        { name: '花木他', url: 'http://att3.citysbs.com/200x200/hangzhou/2020/04/15/11/dd6719bd4287d9efd49434c43563a032_v2_.jpg' },
-        { name: '花木他', url: 'http://att3.citysbs.com/200x200/hangzhou/2020/04/15/11/dd6719bd4287d9efd49434c43563a032_v2_.jpg' },
-        { name: '花木他', url: 'http://att3.citysbs.com/200x200/hangzhou/2020/04/15/11/dd6719bd4287d9efd49434c43563a032_v2_.jpg' },
-        ]
+
 
         // ComeBack.show(goodsList)
         this.Action_warp.active = false
@@ -61,6 +55,8 @@ cc.Class({
             // .to(.1, { position: cc.v2(0, -408) })
             .start()
         // feedWarpInstan.setPosition(0, -408);
+        const feed=feedWarpInstan.getComponent('feed')
+        feed.resetUI()
     },
     handleClose() {
         this.Action_warp.active = false
