@@ -21,6 +21,8 @@ cc.Class({
         signRoot: cc.Node,
         signClose: cc.Node,
         signGetGoods: cc.Node,
+
+
     },
 
     drawLine(start, end) {
@@ -203,7 +205,10 @@ cc.Class({
 
     // LIFE-CYCLE CALLBACKS:
 
-    onLoad() { },
+    onLoad() { 
+
+
+    },
 
     start() {
         this.init();

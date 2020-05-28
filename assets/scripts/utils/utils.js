@@ -38,9 +38,9 @@ export function padZero(num, targetLength = 2) {
   return str;
 }
 
-export function parseFormat(format, timeData) {
-  let days
-  let hours, minutes, seconds, milliseconds
+export function parseFormat(timestamp,format) {
+
+  let {days,hours, minutes, seconds, milliseconds}=parseTimeData(timestamp)
 
   if (format.indexOf('DD') === -1) {
     hours += days * 24;
