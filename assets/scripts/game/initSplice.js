@@ -31,8 +31,14 @@ function initItem(SIZES, hardLevel, sortType = 0, pre_item, game_bg, spframe_puz
                     index = i
                 }
             })
-            let position = cc.v2((PUZZLE_FOOTER.itemWidth * index) + PUZZLE_FOOTER.itemWidthMargin, 0)
-            item.setPosition(position);
+            let position = cc.v2((PUZZLE_FOOTER.itemWidth * index) + PUZZLE_FOOTER.itemWidthMargin, 0);
+            if (isAnimate) {
+                cc.tween(item)
+                    .to(0.5, { position: position })
+                    .start();
+            } else {
+                item.setPosition(position);
+            }
         })
     } else {
         var spliceWarp = cc.find(`Canvas/root/spliceWarp`)
@@ -51,13 +57,7 @@ function initItem(SIZES, hardLevel, sortType = 0, pre_item, game_bg, spframe_puz
             item_node.parent = game_bg;
             //应该要根据规格进行优化
             let position = cc.v2((PUZZLE_FOOTER.itemWidth * index) + PUZZLE_FOOTER.itemWidthMargin, 0);
-            if (isAnimate) {
-                cc.tween(item_node)
-                    .to(2, { position: position })
-                    .start();
-            } else {
-                item_node.setPosition(position);
-            }
+            item_node.setPosition(position);
             let obj = item_node.getComponent('splice_item_index');
             if (obj) {
                 /*保存引用*/
