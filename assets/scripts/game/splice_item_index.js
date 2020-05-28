@@ -7,6 +7,7 @@ import {
     GAME_CACH,
     PUZZLE_FOOTER,
     PUZZLE_SCENE,
+    SIZES,
 } from '../global/piece_index';
 import { initItem } from './initSplice';
 import { CACHE } from '../global/usual_cache';
@@ -109,7 +110,13 @@ cc.Class({
                 this.item_node.setScale(1)
                 const resetPostion = cc.v2(this.item_node.x + delta.x, 0)
                 this.item_node.setPosition(resetPostion);
-                underwayIndex.remove(this.item_node.defaultIndex)
+                underwayIndex.remove(this.item_node.defaultIndex);
+                this.pushSpliceNode(this.item_node.defaultIndex, hardLevel);
+                //重新排列底部块的位置
+                let game_bg = cc.find('Canvas/root/puzzleWarp/puzzleBg');
+                if (game_bg) {
+                    initItem(spliceArr, CACHE.hard_level, 2, this.pre_item, game_bg, new cc.SpriteFrame(), true, true);
+                }
             }
             else {
                 this.item_node.setPosition(newPositin);
@@ -145,8 +152,21 @@ cc.Class({
                 currentArr.splice(index, 1)
             }
         })
-        spliceArr[0] = currentArr
+        spliceArr[0] = currentArr;
+    },
 
+    pushSpliceNode(index, hardLevel) {
+        let reg = SIZES[hardLevel];
+        reg.every((item) => {
+            if (item[6] == index) {
+                let spliceNode = [...item];
+                let currentArr = [...spliceArr[0]];
+                currentArr.unshift(spliceNode);
+                spliceArr[0] = currentArr;
+                return false;
+            }
+            return true;
+        })
     },
 
     /*计算中心点距离*/
