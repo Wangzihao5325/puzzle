@@ -133,7 +133,7 @@ window.ComeBackNull.show = function (_confirmCallBack=()=>{},animSpeed ) {
 
     // 销毁 alert (内存管理还没搞懂，暂且这样写吧~v~)
     self.onDestory = function () {
-        window.ComeBackNull._alert.destroy();
+        window.ComeBackNull._alert.active=false;
         window.ComeBackNull._confirmCallBack = null;
         window.ComeBackNull._alert = null;
  

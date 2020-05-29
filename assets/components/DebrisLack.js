@@ -139,7 +139,7 @@ window.DebrisLack.show = function (_confirmCallBack=()=>{},animSpeed ) {
 
     // 销毁 alert (内存管理还没搞懂，暂且这样写吧~v~)
     self.onDestory = function () {
-        window.DebrisLack._alert.destroy();
+        window.DebrisLack._alert.active=false;
         window.DebrisLack._confirmCallBack = null;
         window.DebrisLack._alert = null;
         window.DebrisLack._animSpeed = 0.3;
