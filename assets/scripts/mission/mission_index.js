@@ -1,6 +1,7 @@
 import { CACHE } from '../global/usual_cache';
 import { SCENE, SCENE_KEY } from '../global/app_global_index';
 import Action from '../api/api_action';
+import { LEVEL_STAR } from '../global/piece_index';
 
 cc.Class({
     extends: cc.Component,
@@ -16,6 +17,7 @@ cc.Class({
         bg: cc.Sprite,
         cityBg: cc.Sprite,
         cityBgNode: cc.Node,
+        starProgress: cc.Label
     },
 
     stateUpdate() {
@@ -85,6 +87,18 @@ cc.Class({
         });
     },
 
+    starCal() {
+        if (CACHE.list) {
+            let totalStar = CACHE.list.length * LEVEL_STAR;
+            let star_have = 0;
+            CACHE.list.forEach(item => {
+                star_have = star_have + item.star;
+            });
+            let starProgressStr = `${star_have}/${totalStar}`;
+            this.starProgress.string = starProgressStr;
+        }
+    },
+
     render() {
         let cityItem = CACHE.travel_city_press;
         this.titleLabel.string = cityItem.name;
@@ -95,6 +109,9 @@ cc.Class({
         });
         Action.Mission.MissionList((res) => {
             /**获取关卡列表  */
+            this.starCal();
+            console.log('dddd');
+            console.log(CACHE.list);
             let obj = this.scroll.getComponent('mission_scroll_index');
             if (CACHE.list.length > 0) {
                 obj.initWithArr(CACHE.list, (item) => this.missionItemClickCallback(item));

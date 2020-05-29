@@ -1419,7 +1419,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 38.93,
+      "width": 27.8,
       "height": 25.2
     },
     "_anchorPoint": {
@@ -1470,8 +1470,8 @@
       }
     ],
     "_useOriginalSize": false,
-    "_string": "5/27",
-    "_N$string": "5/27",
+    "_string": "0/0",
+    "_N$string": "0/0",
     "_fontSize": 20,
     "_lineHeight": 20,
     "_enableWrapText": true,
@@ -2502,6 +2502,9 @@
     },
     "cityBgNode": {
       "__id__": 11
+    },
+    "starProgress": {
+      "__id__": 29
     },
     "_id": "bbh7r8Y21LMJvAUYL8rGIi"
   }

@@ -194,6 +194,9 @@ const LEVEL = {
   //VERY_HARD: 3
 };
 
+/*每张拼图最多的星星个数，与难度级别的数目对应*/
+const LEVEL_STAR = 3;
+
 const SCALELEAVEL = {
   0: 0.25,
   1: 0.5,
@@ -243,5 +246,6 @@ export default {
   coutnDown,
   GAME_CACH,
   PUZZLE_FOOTER,
-  PUZZLE_SCENE
+  PUZZLE_SCENE,
+  LEVEL_STAR
 };
