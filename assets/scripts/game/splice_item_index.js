@@ -192,9 +192,14 @@ cc.Class({
                 item_puzzle_warp.active = false;
                 var item_puzzle_splice = cc.find(`Canvas/root/puzzleWarp/puzzleBg/item_puzzle_splice-${this.item_node.defaultIndex}`);
                 item_puzzle_splice.active = false;
-                GAME_CACH.complateIndex.push(this.item_node.defaultIndex)
+                GAME_CACH.complateIndex.push(this.item_node.defaultIndex);
                 underwayIndex.remove(this.item_node.defaultIndex)
-                this.checkSuccess()
+                this.checkSuccess();
+                if (GAME_CACH.complateIndex.length >= reg.length * 0.3) {
+                    let dragonBonesNode = cc.find('Canvas/root/puzzleWarp/puzzleBg');
+                    let animate = dragonBonesNode.getComponent(dragonBones.ArmatureDisplay)
+                    animate.playAnimation(CACHE.dragonBoneAnimateName, 0);
+                }
                 setTimeout(() => { item_puzzle_warp.destroy(); item_puzzle_splice.destroy() }, 100)
             } else {
                 this.item_node.setPosition(cc.v2(minItem[4], minItem[5]));

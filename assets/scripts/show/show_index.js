@@ -196,6 +196,9 @@ cc.Class({
                     obj.turnToUnplace();
                 }
             }
+            if (res.data.festivalInfo) {
+                this.festivalUpdate(res.data.festivalInfo);
+            }
             Action.User.BalanceUpdate(() => {
                 this.headerObj.render();
             })
@@ -280,8 +283,22 @@ cc.Class({
         CACHE.show_table_press = itemData;
     },
 
-    init() {
+    festivalUpdate(item, callback) {
+        this.festivalName.string = item.name;
+        this.festivalProgress.string = `${item.currentNum}/${item.reachCount}`;
+        if (!this.timer) {
+            this.timer = setTimeOutWithTimeStamp(item.endTime, (timeStr) => {
+                this.timerLabel.string = timeStr;
+            }, () => {
+                this.timer = null;
+                if (callback) {
+                    callback();
+                }
+            });
+        }
+    },
 
+    init() {
         this.stateUpdate();
         this.setBg();
         this.footerInit();
@@ -292,13 +309,7 @@ cc.Class({
         Action.Show.ShowInfoUpdate((res) => {
             const showData = CACHE.showData;
             if (showData.festivalInfo) {
-                this.festivalName.string = showData.festivalInfo.name;
-                this.festivalProgress.string = `${showData.festivalInfo.currentNum}/${showData.festivalInfo.reachCount}`;
-                this.timer = setTimeOutWithTimeStamp(showData.festivalInfo.endTime, (timeStr) => {
-                    this.timerLabel.string = timeStr;
-                }, () => {
-
-                });
+                this.festivalUpdate(showData.festivalInfo);
             }
             this.showcaseInit(showData.standInfoList);
         })
@@ -313,6 +324,7 @@ cc.Class({
     onDestroy() {
         if (this.timer) {
             this.timer();
+            this.timer = null;
         }
         if (this.vistorTimer) {
             clearInterval(this.vistorTimer);
