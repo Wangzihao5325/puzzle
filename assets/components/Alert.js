@@ -6,7 +6,7 @@
 //  - https://docs.cocos.com/creator/manual/en/scripting/life-cycle-callbacks.html
 
 
-var Alert = {
+ window.Alert = {
     _alert: null,           // prefab
     _alertTitle: null,       //标题
     _detailLabel:   null,   // 内容
@@ -28,7 +28,7 @@ var Alert = {
  * neeCancel:       取消点击事件回调  function 类型.
  * duration:        动画速度 default = 0.3.
 */
-Alert.show = function (detailString,{title, confirmText, confirmCallBack, showCancel, cancelText, cancelCallBack, animSpeed}) {
+window.Alert.show = function (detailString,{title, confirmText, confirmCallBack, showCancel, cancelText, cancelCallBack, animSpeed}) {
 
     // 引用
     var self = this;

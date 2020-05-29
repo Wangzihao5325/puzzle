@@ -6,7 +6,7 @@
 //  - https://docs.cocos.com/creator/manual/en/scripting/life-cycle-callbacks.html
 
 
-var ConfirmOut = {
+window.ConfirmOut = {
     _alert: null,           // prefab
     _close:null,
     _confirmButton:   null,   // 取消按钮
@@ -23,7 +23,7 @@ var ConfirmOut = {
  * neeCancel:       取消点击事件回调  function 类型.
  * duration:        动画速度 default = 0.3.
 */
-ConfirmOut.show = function (_confirmCallBack,animSpeed ) {
+window.ConfirmOut.show = function (_confirmCallBack=()=>{},animSpeed ) {
 
     // 引用
     var self = this;

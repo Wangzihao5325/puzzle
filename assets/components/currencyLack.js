@@ -6,7 +6,7 @@
 //  - https://docs.cocos.com/creator/manual/en/scripting/life-cycle-callbacks.html
 
 
-var CurrencyLack = {
+window.CurrencyLack = {
     _alert: null,           // prefab
     _close:null,
     _confirmButton:   null,   // 取消按钮
@@ -23,7 +23,7 @@ var CurrencyLack = {
  * neeCancel:       取消点击事件回调  function 类型.
  * duration:        动画速度 default = 0.3.
 */
-CurrencyLack.show = function (_confirmCallBack,animSpeed ) {
+window.CurrencyLack.show = function (_confirmCallBack=()=>{},animSpeed ) {
 
     // 引用
     var self = this;

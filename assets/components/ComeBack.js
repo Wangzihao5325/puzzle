@@ -6,7 +6,7 @@
 //  - https://docs.cocos.com/creator/manual/en/scripting/life-cycle-callbacks.html
 
 
-var ComeBack = {
+window.ComeBack = {
     _alert: null,           // prefab
     _goodItem:null,
     _close:null,
@@ -24,7 +24,7 @@ var ComeBack = {
  * neeCancel:       取消点击事件回调  function 类型.
  * duration:        动画速度 default = 0.3.
 */
-ComeBack.show = function (goods,_confirmCallBack,animSpeed ) {
+window.ComeBack.show = function (goods,_confirmCallBack=()=>{},animSpeed ) {
 
     // 引用
     var self = this;
@@ -60,8 +60,8 @@ ComeBack.show = function (goods,_confirmCallBack,animSpeed ) {
         self.actionFadeOut = cc.sequence(cc.spawn(cc.fadeTo(ComeBack._animSpeed, 0), cc.scaleTo(ComeBack._animSpeed, 2.0)), cbFadeOut);
 
 
-        ComeBack._confirmButton = cc.find("dialogContainer/confirm", alert);
-        ComeBack._close = cc.find("dialogContainer/close", alert);
+        ComeBack._confirmButton = cc.find("dialogContainer/footer/confirm", alert);
+        ComeBack._close = cc.find("dialogContainer/header/close", alert);
 
         // 添加点击事件
         ComeBack._confirmButton.on('click', self.onButtonClicked, self);
@@ -89,8 +89,8 @@ ComeBack.show = function (goods,_confirmCallBack,animSpeed ) {
                 const indexX=(index+1)%3
                 const indexY=Math.ceil((index+1)/3)
                 goodItem.parent=cc.find("dialogContainer/content", alert);
-                let position = cc.v2((170 * (indexX+0.5)) +20-270, 210-(200*(indexY-0.5))-20);
-                goodItem.setPosition(position);
+                // let position = cc.v2((170 * (indexX+0.5)) +20-270, 210-(200*(indexY-0.5))-20);
+                // goodItem.setPosition(position);
 
             });
         })

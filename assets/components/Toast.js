@@ -1,4 +1,4 @@
-var Toast = {
+window.Toast = {
   _toast: null,           // prefab
   _detailLabel:   null,   // 内容
   _animSpeed:     0.3,    // 动画速度
@@ -13,13 +13,18 @@ var Toast = {
 * neeCancel:       是否展示取消按钮 bool 类型 default YES.
 * duration:        动画速度 default = 0.3.
 */
-Toast.show = function (detailString, timer=2000, enterCallBack, needCancel, animSpeed) {
+window.Toast.show = function (detailString, timer=2000, enterCallBack, needCancel, animSpeed) {
 
   // 引用
   var self = this;
 
   // 判断
-  if (Toast._toast != undefined) return;
+  if (Toast._toast != undefined) {
+      console.log("已有")
+    cc.tween(Toast._toast)
+        .to(0.4,{position: cc.v2(0, 200),opacity:0})
+        .start()
+  };
 
   // 
   Toast._animSpeed = animSpeed ? animSpeed : Toast._animSpeed;
@@ -37,12 +42,6 @@ Toast.show = function (detailString, timer=2000, enterCallBack, needCancel, anim
 
       // Toast 持有
       Toast._toast = toast;
-
-      // 动画 
-      var cbFadeOut = cc.callFunc(self.onFadeOutFinish, self);
-      var cbFadeIn = cc.callFunc(self.onFadeInFinish, self);
-      self.actionFadeIn = cc.sequence(cc.spawn(cc.fadeTo(Toast._animSpeed, 255), cc.scaleTo(Toast._animSpeed, 1.0)), cbFadeIn);
-      self.actionFadeOut = cc.sequence(cc.spawn(cc.fadeTo(Toast._animSpeed, 0), cc.scaleTo(Toast._animSpeed, 2.0)), cbFadeOut);
 
       // // 获取子节点
       Toast._detailLabel = cc.find("toastContent/toastText", toast).getComponent(cc.Label);
@@ -74,30 +73,20 @@ Toast.show = function (detailString, timer=2000, enterCallBack, needCancel, anim
   // 执行弹进动画
   self.startFadeIn = function () {
       // cc.eventManager.pauseTarget(Toast._toast, true);
-      Toast._toast.position = cc.Vec2([0, 0]);
-      Toast._toast.setScale(2);
+      Toast._toast.position = cc.v2(0,-300);
+    //   Toast._toast.setScale(2);
       Toast._toast.opacity = 0;
-      Toast._toast.runAction(self.actionFadeIn);
-  };
-
-  // 执行弹出动画
-  self.startFadeOut = function () {
-      // cc.eventManager.pauseTarget(Toast._toast, true);
-      Toast._toast.runAction(self.actionFadeOut);
-  };
-
-  // 弹进动画完成回调
-  self.onFadeInFinish = function () {
+      cc.tween(Toast._toast)
+      .to(0.3,{position: cc.v2(0, 0),opacity:255},{ easing: 'sineIn'})
+      .delay(Toast._timer/1000)
+      .to(0.4,{position: cc.v2(0, 200),opacity:0})
+      .start()
       setTimeout(()=>{
-          self.startFadeOut();
-      },Toast._timer)
-      // cc.eventManager.resumeTarget(Toast._toast, true);
+
+      })
+    //   self.onFadeInFinish()
   };
 
-  // 弹出动画完成回调
-  self.onFadeOutFinish = function () {
-      self.onDestory();
-  };
 
   // 销毁 Toast (内存管理还没搞懂，暂且这样写吧~v~)
   self.onDestory = function () {

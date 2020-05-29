@@ -42,22 +42,11 @@ cc.Class({
         this.item = item;
         this.good_name.getComponent(cc.Label).node.active = true;
         this.good_name.getComponent(cc.Label).string = item.name;
-        cc.loader.load(item.url, (err, texture) => {
-            this.good_pic.node.scaleX = 1;
-            this.good_pic.node.scaleY = 1;
+        cc.loader.load(item.icon, (err, texture) => {
             this.good_pic.spriteFrame = new cc.SpriteFrame(texture)
         });
     },
 
-    initByNotOwn(item) {
-        this.item = item;
-        this.good_name.getComponent(cc.Label).node.active = false;
-        cc.loader.loadRes(item.icon, cc.SpriteFrame, (err, asset) => {
-            this.good_pic.node.scaleX = 0.5;
-            this.good_pic.node.scaleY = 0.5;
-            this.good_pic.spriteFrame = asset;
-        });
-    },
 
     // update (dt) {},
 });
