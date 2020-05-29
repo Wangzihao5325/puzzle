@@ -6,7 +6,7 @@
 //  - https://docs.cocos.com/creator/manual/en/scripting/life-cycle-callbacks.html
 
 
-var ComeBackNull = {
+window.ComeBackNull = {
     _alert: null,           // prefab
     _close:null,
     _confirmButton:   null,   // 取消按钮
@@ -23,7 +23,7 @@ var ComeBackNull = {
  * neeCancel:       取消点击事件回调  function 类型.
  * duration:        动画速度 default = 0.3.
 */
-ComeBackNull.show = function (_confirmCallBack,animSpeed ) {
+window.ComeBackNull.show = function (_confirmCallBack,animSpeed ) {
 
     // 引用
     var self = this;

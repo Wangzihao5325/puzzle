@@ -33,7 +33,7 @@ cc.Class({
   onLoad () {
       this.coco.node.on(cc.Node.EventType.TOUCH_START, function (event) {
 
-          Alert.show("这是问询框内容",
+        window.Alert.show("这是问询框内容",
           {
             title:'这是标题',
             showCancel:true,//默认true

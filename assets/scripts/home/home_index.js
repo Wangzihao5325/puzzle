@@ -40,24 +40,16 @@ cc.Class({
         this.home_bg.spriteFrame = new cc.SpriteFrame(homeBgTex);
     },
 
-    init() {
-        this.stateUpdate();
-        this.setBg();
-        this.footerInit();
-        this.headerInit();
-        this.initDress()
-        this.getBackNotice()
-        this.initCat()
-        this.setTouch()
-    },
+
 
     setOUtUi(){
         var outside_item = cc.find(`Canvas/rootWarp/my_home/outside`)
         var catItem = cc.find(`Canvas/rootWarp/my_home/cat/catItem`)
         let {outward}=HOME_CACHE.pet_info
+        console.log("更新UI外出中",outward,outside_item,catItem)
         if(outside_item){
             outside_item.active=outward
-            catItem.active=!outward
+            catItem?catItem.active=!outward:''
             if(outward===false){
                 outside_item.destroy()
             }
@@ -70,6 +62,12 @@ cc.Class({
             OutSide.parent=my_home
             OutSide.active=outward
         }
+
+        //食物吃完了弹窗
+        if(HOME_CACHE.pet_info.currentHungry===0){
+            FoodLack.show()
+        }
+
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -90,19 +88,6 @@ cc.Class({
         header.setPosition(0, 528);
     },
 
-    // initCatPost() {
-    //     var spine = this.ske_anim;
-    //     var ske_com = spine.getComponent(sp.Skeleton);
-    //     this.ske_com = ske_com;
-    //     const catPostList = ['Zou00', 'PA00', 'Zhan00']
-    //     this.ske_com.clearTrack(0);
-    //     //随机姿势
-    //     if (HOME_CACHE.cat_post === undefined) {
-    //         HOME_CACHE.cat_post = Math.round(Math.random() * 2)
-    //     }
-    //     const currentPost = catPostList[HOME_CACHE.cat_post]
-    //     this.ske_com.setAnimation(0, currentPost, true)
-    // },
 
     initDress() {
         let dressWarpInstan = cc.instantiate(this.dress_warp)
@@ -111,7 +96,7 @@ cc.Class({
         dressWarpInstan.setPosition(0, -868);
         dressWarpInstan.active = false
         let obj = dressWarpInstan.getComponent('dress')
-        obj.init()
+        // obj.init()
 
     },
 
@@ -143,6 +128,8 @@ cc.Class({
         });
     },
     getBackNotice(){
+        ComeBackNull.show(()=>{})
+        
         Api.petBackNotice(res=>{
             if(res.code===0&&res.data){
                 if(res.data.noticeId&&res.data.awardJson){
@@ -154,7 +141,7 @@ cc.Class({
                 }else if(res.data.noticeId){
                     this.NoticeClear(res.data.noticeId)
 
-                    ComeBackNull.show()
+                    ComeBackNull.show(()=>{})
                 }
 
             }
@@ -209,34 +196,26 @@ cc.Class({
 
     onLoad() {
         // this.initCatPost()
-        this.getPetInfo()
-        this.getFoodRemain()
-        this.getPetHunger()
-        this.resetUI()
-
-
-        // var spine = this.ske_anim;
-        // // spine.debugSlots = true;
-        // var ske_com = spine.getComponent(sp.Skeleton);
-        // this.ske_com = ske_com;
-        // /**
-        //  * 随机选择一种动画循环播放（Zou00,PA00,Zhan00）
-        //  */
-        // let randomNum = Math.random();
-        // this.ske_com.clearTrack(0);
-        // // this.ske_com.setAnimation(0, "PA00", true)
-        // if (randomNum < 0.33) {
-        //     this.ske_com.setAnimation(0, "Zou00", true)
-        // } else if (randomNum >= 0.33 && randomNum <= 0.66) {
-        //     this.ske_com.setAnimation(0, "PA00", true)
-        // } else {
-        //     this.ske_com.setAnimation(0, "Zhan00", true)
-        // }
+        this.stateUpdate();
+        this.setBg();
+        this.footerInit();
+        this.headerInit();
+        this.setTouch()
     },
 
     start() {
         this.init();
     },
+
+    init() {
+        this.getPetInfo()
+        this.getFoodRemain()
+        this.getPetHunger()
+        this.initDress()
+        this.getBackNotice()
+        this.initCat()
+    },
+
     showCatAction() {
         let catActionInstan = cc.instantiate(this.cat_action)
         catActionInstan.parent = this.home_root
@@ -259,6 +238,12 @@ cc.Class({
         
     },
     initCat(){
+        const cartInstant= cc.find('Canvas/rootWarp/my_home/cat/catItem');
+        if(cartInstant){
+            console.log("cartInstant",cartInstant)
+            return false
+        }
+
         var spineNode = new cc.Node();
         spineNode.name = 'catItem';
         spineNode.setPosition(0, 0);

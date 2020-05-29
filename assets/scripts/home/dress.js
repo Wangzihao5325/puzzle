@@ -31,6 +31,7 @@ cc.Class({
             .start()
     },
     init() {
+        console.log("dressInit")
         // let list =HOME_CACHE.cat_decoration;
         const pages = Math.ceil((HOME_CACHE.cat_decorations.length) / 8)
         const contentList = [this.pageItem1, this.pageItem2, this.pageItem3, this.pageItem4]
@@ -52,8 +53,8 @@ cc.Class({
 
 
                 newNode.parent = currentPageContent
-                indexX = i >= 4 ? i - 4 : i
-                indexY = Math.ceil((i + 1) / 4)
+                const indexX = i >= 4 ? i - 4 : i
+                const indexY = Math.ceil((i + 1) / 4)
                 let position = cc.v2((160 * (indexX + 1)) - 80 - 320, (210 - (180 * (-0.5 + indexY))) + 10);
                 newNode.setPosition(position)
             }
@@ -65,9 +66,11 @@ cc.Class({
 
     },
     onLoad() {
-        this.getDecorations()
         this.setTouch()
+    },
 
+    start() {
+        this.getDecorations()
     },
 
     getDecorations() {
@@ -83,9 +86,7 @@ cc.Class({
     resetUI() { },
 
 
-    start() {
 
-    },
 
     handleClose() {
         var feedWarp = cc.find(`Canvas/dressWarp`)

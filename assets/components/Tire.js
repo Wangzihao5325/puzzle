@@ -69,7 +69,7 @@ function parseTimeData(time) {
     return format;
   }
 
-var Tire = {
+  window.Tire = {
     _alert: null,           // prefab
     _close:null,
     _time:null,
@@ -98,7 +98,7 @@ function padZero(num, targetLength = 2) {
  * neeCancel:       取消点击事件回调  function 类型.
  * duration:        动画速度 default = 0.3.
 */
-Tire.show = function (time,_confirmCallBack,animSpeed ) {
+window.Tire.show = function (time,_confirmCallBack,animSpeed ) {
     // 引用
     var self = this;
 
@@ -161,7 +161,7 @@ Tire.show = function (time,_confirmCallBack,animSpeed ) {
  
     };
     self.counDown=function(time){
-        setTimeout(()=>{
+        this.tireTimer= setTimeout(()=>{
             Tire._time = time--;
             if(Tire._time>0){
                 self.counDown(time)
@@ -232,7 +232,7 @@ Tire.show = function (time,_confirmCallBack,animSpeed ) {
         Tire._alert.destroy();
         Tire._confirmCallBack = null;
         Tire._alert = null;
- 
         Tire._animSpeed = 0.3;
+        clearTimeout(this.tireTimer)
     };
 };

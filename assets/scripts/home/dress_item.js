@@ -54,11 +54,6 @@ cc.Class({
     },
 
     init(item){
-        const imgUrl='http://att3.citysbs.com/200x200/hangzhou/2020/04/15/11/dd6719bd4287d9efd49434c43563a032_v2_.jpg'
-        // cc.loader.loadRes(imgUrl, cc.SpriteFrame, (err, spriteFrame) => {
-        //     this.bg.spriteFrame=spriteFrame
-        // });
-
         cc.loader.load(item.iconImg, (err, texture)=> {
             this.bg.spriteFrame=new cc.SpriteFrame(texture)
         });
