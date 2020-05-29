@@ -177,7 +177,7 @@ cc.Class({
                 let obj = nodeItem.getComponent('goodItem');
                 if (obj) {
                     if (item.owned) {//to do:区分物品质量
-                        obj.init({ name: item.name, goodsId: item.goodsId, goodsQuality: item.goodsQuality, url: item.iconUrl });
+                        obj.init({ name: item.name, goodsId: item.goodsId, goodsQuality: item.goodsQuality, icon: item.iconUrl, url: item.iconUrl });
                     } else {
                         obj.initByNotOwn({ icon: 'show/meishi' });
                     }

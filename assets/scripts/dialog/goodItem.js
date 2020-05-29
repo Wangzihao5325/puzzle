@@ -47,6 +47,15 @@ cc.Class({
         });
     },
 
+    initByNotOwn(item) {
+        this.item = item;
+        this.good_name.getComponent(cc.Label).node.active = false;
+        cc.loader.loadRes(item.icon, cc.SpriteFrame, (err, asset) => {
+            this.good_pic.node.scaleX = 0.5;
+            this.good_pic.node.scaleY = 0.5;
+            this.good_pic.spriteFrame = asset;
+        });
+    },
 
     // update (dt) {},
 });
