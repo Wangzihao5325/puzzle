@@ -8,10 +8,11 @@ cc.Class({
         goods: cc.Sprite,
         numberLabel: cc.Label,
         signReg: cc.Sprite,
-        lessReg: cc.Sprite
+        lessReg: cc.Sprite,
+        dayLabel: cc.Label
     },
 
-    initWithItem(item) {
+    initWithItem(item, index) {
         this.numberLabel.string = `x${item.amount}`;
         cc.loader.load(item.iconUrl, (err, texture) => {
             this.goods.spriteFrame = new cc.SpriteFrame(texture);
@@ -27,6 +28,7 @@ cc.Class({
             this.goods.node.scaleX = 0.5;
             this.goods.node.scaleY = 0.5;
         }
+        this.dayLabel.string = `第${index + 1}天`;
     },
 
     todaySign() {

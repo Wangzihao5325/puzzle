@@ -150,21 +150,25 @@ cc.Class({
 
     signInfo() {
         Action.Sign.SignInfoUpdate((res) => {
+            console.log('dddd');
+            console.log(res);
             if (!CACHE.signData.todaySign) {
                 this.signRoot.active = true;
             }
             CACHE.signData.signList.forEach((item, index) => {
-                let itemNode = cc.instantiate(this.signItem);
-                itemNode.name = `sign_item${index + 1}`;
-                let obj = itemNode.getComponent('sign_item_index');
-                if (obj) {
-                    obj.initWithItem(item);
+                if (index !== 6) {
+                    let itemNode = cc.instantiate(this.signItem);
+                    itemNode.name = `sign_item${index + 1}`;
+                    let obj = itemNode.getComponent('sign_item_index');
+                    if (obj) {
+                        obj.initWithItem(item, index);
+                    }
+                    itemNode.parent = this.signRoot;
+                    let line = Math.floor(index / 3);
+                    let y = 110 - line * 170;
+                    let x = -150 + (index % 3) * 150;
+                    itemNode.setPosition(x, y);
                 }
-                itemNode.parent = this.signRoot;
-                let line = Math.floor(index / 3);
-                let y = 70 - line * 150;
-                let x = -150 + (index % 3) * 150;
-                itemNode.setPosition(x, y);
             });
         });
     },
