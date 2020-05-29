@@ -25,7 +25,8 @@ cc.Class({
         currency_warp: cc.Prefab,
         OutSide:cc.Prefab,
         store_icon:cc.Node,
-        store:cc.Prefab
+        store:cc.Prefab,
+        food_lack:cc.Prefab,
 
 
     },
@@ -65,7 +66,9 @@ cc.Class({
 
         //食物吃完了弹窗
         if(HOME_CACHE.pet_info.currentHungry===0){
-            FoodLack.show()
+            const canvas=cc.find('Canvas')
+            let food_lack = cc.instantiate(this.food_lack);
+            food_lack.parent = canvas;
         }
 
     },
@@ -208,6 +211,7 @@ cc.Class({
 
     onLoad() {
         // this.initCatPost()
+
         this.stateUpdate();
         this.setBg();
         this.footerInit();
