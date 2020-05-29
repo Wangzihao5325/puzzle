@@ -67,6 +67,10 @@ cc.Class({
         //食物吃完了弹窗
         if(HOME_CACHE.pet_info.currentHungry===0){
             const canvas=cc.find('Canvas')
+            const FoodLackInstant=cc.find('Canvas/FoodLack')
+            if(FoodLackInstant){
+                return false
+            } 
             let food_lack = cc.instantiate(this.food_lack);
             food_lack.parent = canvas;
         }
