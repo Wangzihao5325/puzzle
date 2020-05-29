@@ -14,6 +14,8 @@ cc.Class({
         levelSelect: cc.Prefab,
         root: cc.Node,
         bg: cc.Sprite,
+        cityBg: cc.Sprite,
+        cityBgNode: cc.Node,
     },
 
     stateUpdate() {
@@ -24,6 +26,11 @@ cc.Class({
         const bg_assets = CACHE.assets.bg;
         let missionBgTex = bg_assets[SCENE_KEY.MISSION];
         this.bg.spriteFrame = new cc.SpriteFrame(missionBgTex);
+        cc.loader.loadRes(CACHE.travel_city_press.banner, cc.SpriteFrame, (err, assert) => {
+            this.cityBg.spriteFrame = assert;
+            this.cityBgNode.x = CACHE.travel_city_press.bannerPosition[0];
+            this.cityBgNode.y = CACHE.travel_city_press.bannerPosition[1];
+        })
     },
 
     goBack() {
