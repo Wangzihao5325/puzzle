@@ -70,9 +70,10 @@ cc.Class({
     },
 
     start() {
-        this.getDecorations()
+        // this.getDecorations()
+        this.init()
+        this.resetUI()
     },
-
     getDecorations() {
         Api.petDecorations((res) => {
             const data = res.data;
@@ -83,6 +84,7 @@ cc.Class({
             }
         });
     },
+
     resetUI() { },
 
 

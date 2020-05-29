@@ -100,6 +100,20 @@ cc.Class({
 
     },
 
+    getDecorations() {
+        Api.petDecorations((res) => {
+            const data = res.data;
+            if (res.code === 0) {
+                HOME_CACHE.cat_decorations = data;
+                data.map(item=>{
+                    if(item.status===2){
+                        this.handleDressItem(item)
+                    }
+                })
+            }
+        });
+    },
+
     getPetInfo() {
         Api.petHome((res) => {
             const data = res.data;
@@ -128,8 +142,6 @@ cc.Class({
         });
     },
     getBackNotice(){
-        ComeBackNull.show(()=>{})
-        
         Api.petBackNotice(res=>{
             if(res.code===0&&res.data){
                 if(res.data.noticeId&&res.data.awardJson){
@@ -275,9 +287,47 @@ cc.Class({
                     skeleton.skeletonData = asset;
                     skeleton.animation = currentPost;
                     skeleton._updateSkeletonData();
+                    setTimeout(()=>{
+                        this.getDecorations() 
+                    },0)
                 });
             });
         });
     },
+
+    handleDressItem(item){
+        console.log("item",item,item.iconName)
+        const cat_post_dress=['C','','Z']
+        const currentPost=HOME_CACHE.cat_post
+        const dress_per=cat_post_dress[currentPost]
+        // HOME_CACHE.cat_post
+        const name=item.iconName
+        
+        // "boshi00": { "x": -29.51, "y": -21.46, "rotation": -113.23, "width": 231, "height": 167 }
+        // spine
+
+        // var spine = this.ske_anim;
+        var spine = cc.find(`Canvas/rootWarp/my_home/cat/catItem`);
+        var ske_com = spine.getComponent(sp.Skeleton);
+        this.ske_com = ske_com;
+        const skeletonData = this.ske_com.skeletonData.getRuntimeData();
+        const skin = skeletonData.findSkin('default');
+        const type = item.position
+        let parts = ['',`${dress_per}toushi00`, `${dress_per}boshi00`, `${dress_per}weishi00`]//["toushi00", "boshi00", "weishi00"];
+        let regSlot = this.ske_com.findSlot(parts[type]);
+        let slotIndex = skeletonData.findSlotIndex(name);
+        let atta = skin.getAttachment(slotIndex, name);
+
+        let typeparts = ['','toushi00','boshi00','weishi00']//["toushi00", "boshi00", "weishi00"];
+        let slotDefaultIndex = skeletonData.findSlotIndex(`${parts[type]}`);
+        let Defaultatta = skin.getAttachment(slotDefaultIndex, typeparts[type]);
+        atta.x=Defaultatta.x;
+        atta.y=Defaultatta.y;
+        atta.rotation=Defaultatta.rotation;
+        atta.offset=Defaultatta.offset;
+
+        regSlot.attachment = atta;
+    },
+
     // update (dt) {},
 });
