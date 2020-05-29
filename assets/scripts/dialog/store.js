@@ -33,8 +33,8 @@ cc.Class({
         //主题弹出动画
         this.content.setPosition(cc.v2(0,-800))
         cc.tween(this.content)
-        .to(.4,{position:cc.v2(0,0)},{ easing: 'sineIn'})
-        .to(.2,{position:cc.v2(0,-118)},{ easing: 'sineIn'})
+        .to(.4,{position:cc.v2(0,0)},{ easing: 'fade'})
+        .to(.2,{position:cc.v2(0,-118)},{ easing: 'fade'})
         .start()
 
         //头部滑出动画

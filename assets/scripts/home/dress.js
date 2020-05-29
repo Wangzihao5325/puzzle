@@ -93,7 +93,7 @@ cc.Class({
     handleClose() {
         var feedWarp = cc.find(`Canvas/dressWarp`)
         cc.tween(feedWarp)
-            .to(.2, { position: cc.v2(0, -868) }, { easing: 'sineOutIn' })
+            .to(.2, { position: cc.v2(0, -1000) }, { easing: 'sineOutIn' })
             .start()
 
     },

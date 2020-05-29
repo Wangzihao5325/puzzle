@@ -138,10 +138,9 @@ window.CurrencyLack.show = function (_confirmCallBack=()=>{},animSpeed ) {
 
     // 销毁 alert (内存管理还没搞懂，暂且这样写吧~v~)
     self.onDestory = function () {
-        CurrencyLack._alert.destroy();
-        CurrencyLack._confirmCallBack = null;
-        CurrencyLack._alert = null;
- 
-        CurrencyLack._animSpeed = 0.3;
+        window.CurrencyLack._alert.destroy();
+        window.CurrencyLack._confirmCallBack = null;
+        window.CurrencyLack._alert = null;
+        window.CurrencyLack._animSpeed = 0.3;
     };
 };
