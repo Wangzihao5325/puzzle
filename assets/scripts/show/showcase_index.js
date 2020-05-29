@@ -194,7 +194,6 @@ cc.Class({
 
     onDestory() {
         if (this.timer) {
-            console.log('dddd');
             this.timer();
         }
     }

@@ -43,7 +43,7 @@ cc.Class({
 
     missionItemClickCallback(item) {
         CACHE.mission_press = item;
-
+        CACHE.chapterData = item;
         if (!this._mission_select_obj) {
             let missionSelect = cc.instantiate(this.levelSelect);
             let obj = missionSelect.getComponent('mission_level_index');
@@ -103,15 +103,17 @@ cc.Class({
         let cityItem = CACHE.travel_city_press;
         this.titleLabel.string = cityItem.name;
         Action.Mission.CityDetails((res) => {
+            console.log('details here');
+            console.log(res);
             /**必须设置一个宽度才能自动换行 */
             this.shortIntroduceLabel.node.width = 600;
             this.shortIntroduceLabel.string = CACHE.cityData.introduceShort;
         });
         Action.Mission.MissionList((res) => {
+            console.log('list here');
+            console.log(res);
             /**获取关卡列表  */
             this.starCal();
-            console.log('dddd');
-            console.log(CACHE.list);
             let obj = this.scroll.getComponent('mission_scroll_index');
             if (CACHE.list.length > 0) {
                 obj.initWithArr(CACHE.list, (item) => this.missionItemClickCallback(item));
