@@ -102,7 +102,8 @@ cc.Class({
                 this.dragonBone.dragonAsset = asset;
 
                 this.dragonBone.armatureName = dragonBonesJson.armature[0].name;
-                this.dragonBone.playAnimation(dragonBonesJson.armature[0].defaultActions[0].gotoAndPlay, 0);
+                CACHE.dragonBoneAnimateName = dragonBonesJson.armature[0].defaultActions[0].gotoAndPlay;
+                //this.dragonBone.playAnimation(dragonBonesJson.armature[0].defaultActions[0].gotoAndPlay, 0);
             });
         });
         /* dragonbone图片加载demo

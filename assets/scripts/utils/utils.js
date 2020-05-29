@@ -38,9 +38,9 @@ export function padZero(num, targetLength = 2) {
   return str;
 }
 
-export function parseFormat(timestamp,format) {
+export function parseFormat(timestamp, format) {
 
-  let {days,hours, minutes, seconds, milliseconds}=parseTimeData(timestamp)
+  let { days, hours, minutes, seconds, milliseconds } = parseTimeData(timestamp)
 
   if (format.indexOf('DD') === -1) {
     hours += days * 24;
@@ -99,6 +99,11 @@ export function setTimeOutWithTimeStamp(stamp, middleCallback, finalCallback) {
   let nowTime = now.getTime();
   let time = Math.ceil((stamp - nowTime) / 1000);
   if (time > 0) {
+    let hour = Math.floor(time / 3600);
+    let min = Math.floor((time % 3600) / 60);
+    let sec = (time % 3600) % 60
+    let timeStr = `${hour >= 10 ? hour : `0${hour}`}:${min >= 10 ? min : `0${min}`}:${sec >= 10 ? sec : `0${sec}`}`
+    middleCallback(timeStr);
     timer = setInterval(() => {
       time--;
       let hour = Math.floor(time / 3600);
@@ -122,19 +127,19 @@ export function setTimeOutWithTimeStamp(stamp, middleCallback, finalCallback) {
 }
 
 
-export function dateFormat (timestamp,fmt) { // author: meizz
+export function dateFormat(timestamp, fmt) { // author: meizz
   var o = {
-      "M+": timestamp.getMonth() + 1, // 月份
-      "d+": timestamp.getDate(), // 日
-      "h+": timestamp.getHours(), // 小时
-      "m+": timestamp.getMinutes(), // 分
-      "s+": timestamp.getSeconds(), // 秒
-      "q+": Math.floor((timestamp.getMonth() + 3) / 3), // 季度
-      "S": timestamp.getMilliseconds() // 毫秒
+    "M+": timestamp.getMonth() + 1, // 月份
+    "d+": timestamp.getDate(), // 日
+    "h+": timestamp.getHours(), // 小时
+    "m+": timestamp.getMinutes(), // 分
+    "s+": timestamp.getSeconds(), // 秒
+    "q+": Math.floor((timestamp.getMonth() + 3) / 3), // 季度
+    "S": timestamp.getMilliseconds() // 毫秒
   };
   if (/(y+)/.test(fmt))
-      fmt = fmt.replace(RegExp.$1, (timestamp.getFullYear() + "").substr(4 - RegExp.$1.length));
+    fmt = fmt.replace(RegExp.$1, (timestamp.getFullYear() + "").substr(4 - RegExp.$1.length));
   for (var k in o)
-      if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
-          return fmt;
+    if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+  return fmt;
 }

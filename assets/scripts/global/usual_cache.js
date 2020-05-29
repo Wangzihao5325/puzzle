@@ -18,7 +18,7 @@ const CACHE = {
         introduceShort: '',
         name: ''
     },
-    chapterData:{//当前关卡信息
+    chapterData: {//当前关卡信息
         chapterId: 101,
         chapterName: "成都",
         hurdleId: 101001,
@@ -39,7 +39,8 @@ const CACHE = {
     showData: null,//展览数据
     signData: null,//签到数据
     token: undefined,
-    userInfo: undefined
+    userInfo: undefined,
+    dragonBoneAnimateName: '',
 }
 
 export default {

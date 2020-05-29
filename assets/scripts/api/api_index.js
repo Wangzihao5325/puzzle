@@ -179,6 +179,8 @@ const loadJson = (jsonUrl, callback, failedCallback) => new CusHttp().Get(jsonUr
 
 const travelRoute = (callback, failedCallback) => new CusHttp().Get(`${API_DOMAIN}/travel/complete/route`, callback, failedCallback);
 
+const goodsInfo = (goodsId, callback, failedCallback) => new CusHttp().Get(`${API_DOMAIN}/travel/goodsInfo?goodsId=${goodsId}`, callback, failedCallback);
+
 export default {
     cityDetails,
     missionList,
@@ -216,4 +218,5 @@ export default {
     loadJson,
 
     travelRoute,
+    goodsInfo,
 }

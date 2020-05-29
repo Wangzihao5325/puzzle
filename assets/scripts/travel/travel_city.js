@@ -55,7 +55,12 @@ cc.Class({
         })
 
         this.city_image.node.on(cc.Node.EventType.TOUCH_END, (event) => {
-            callback(this.itemObj);
+            if (this.itemObj.isLocked) {
+                // Toast.show('该城市尚未解锁')
+                callback(this.itemObj);
+            } else {
+                callback(this.itemObj);
+            }
             event.stopPropagation();
         })
     },

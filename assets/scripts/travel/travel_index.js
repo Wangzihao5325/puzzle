@@ -169,46 +169,86 @@ cc.Class({
         });
     },
 
-    init() {
+    cityMissionInit() {
         Api.travelRoute((res) => {
-            console.log(res);
+            let isDone = false;
+            res.data.forEach((item, index) => {
+                CITIES.every((innerItem, innerIndex) => {
+                    if (innerItem.key == item.chapterId) {
+                        innerItem.missionDone = item.completeAmount;
+                        innerItem.missionNum = item.hurdleAmount;
+                        if (index == 0) {
+                            if (item.completeAmount !== item.hurdleAmount) {
+                                innerItem.isLocked = false;
+                                innerItem.isRecommend = true;
+                            } else {
+                                innerItem.isLocked = false;
+                                innerItem.isRecommend = false;
+                            }
+                        } else {
+                            if (isDone) {
+                                innerItem.isLocked = false;
+                                if (item.completeAmount !== item.hurdleAmount) {
+                                    innerItem.isRecommend = true;
+                                } else {
+                                    innerItem.isRecommend = false;
+                                }
+                            } else {
+                                innerItem.isLocked = true;
+                                innerItem.isRecommend = false;
+                            }
+                        }
+                        return false;
+                    }
+                    return true;
+                });
+                if (item.completeAmount == item.hurdleAmount) {
+                    isDone = true;
+                } else {
+                    isDone = false;
+                }
+            });
+
+            CITIES.forEach((item, index) => {
+                /*画线*/
+                if (index !== 0) {
+                    let startPt = CITIES[index - 1];
+                    if (!isNaN(item.middleX)) {
+                        this.drawLine(cc.v2(startPt.positionX, startPt.positionY), cc.v2(item.middleX, item.middleY));
+                        this.drawLine(cc.v2(item.middleX, item.middleY), cc.v2(item.positionX, item.positionY));
+                    } else {
+                        this.drawLine(cc.v2(startPt.positionX, startPt.positionY), cc.v2(item.positionX, item.positionY));
+                    }
+                }
+                /*生成关卡*/
+                let cityItemNode = cc.instantiate(this.city_item);
+                cityItemNode.name = `city_item-${item.name}`;
+                cityItemNode.parent = this.china_map;
+                /*获取itembg_index对象*/
+                let obj = cityItemNode.getComponent('travel_city');
+                if (obj) {
+                    /*在对象中保存节点引用，便于后续调用*/
+                    obj.item_node = cityItemNode;
+                    obj.init(item);
+                    obj.setTouch(this.cityPress);
+                }
+            });
         })
+    },
+
+    init() {
         this.stateUpdate();
         this.setBg();
         this.footerInit();
         this.headerInit();
         this.signInfo();
         this.signSetTouch();
-
-        CITIES.forEach((item, index) => {
-            /*画线*/
-            if (index !== 0) {
-                let startPt = CITIES[index - 1];
-                if (!isNaN(item.middleX)) {
-                    this.drawLine(cc.v2(startPt.positionX, startPt.positionY), cc.v2(item.middleX, item.middleY));
-                    this.drawLine(cc.v2(item.middleX, item.middleY), cc.v2(item.positionX, item.positionY));
-                } else {
-                    this.drawLine(cc.v2(startPt.positionX, startPt.positionY), cc.v2(item.positionX, item.positionY));
-                }
-            }
-            /*生成关卡*/
-            let cityItemNode = cc.instantiate(this.city_item);
-            cityItemNode.name = `city_item-${item.name}`;
-            cityItemNode.parent = this.china_map;
-            /*获取itembg_index对象*/
-            let obj = cityItemNode.getComponent('travel_city');
-            if (obj) {
-                /*在对象中保存节点引用，便于后续调用*/
-                obj.item_node = cityItemNode;
-                obj.init(item);
-                obj.setTouch(this.cityPress);
-            }
-        });
+        this.cityMissionInit();
     },
 
     // LIFE-CYCLE CALLBACKS:
 
-    onLoad() { 
+    onLoad() {
 
 
     },
