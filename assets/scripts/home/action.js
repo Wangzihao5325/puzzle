@@ -40,7 +40,7 @@ cc.Class({
         let feedWarpInstan = cc.instantiate(this.Feed_warp)
         var warp_parent = cc.find(`Canvas`)
         feedWarpInstan.parent = warp_parent
-        feedWarpInstan.setPosition(0, -768);
+        feedWarpInstan.setPosition(0, -1000);
     },
 
     //喂养

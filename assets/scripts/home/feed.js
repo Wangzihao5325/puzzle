@@ -94,7 +94,7 @@ cc.Class({
     handleClose(){
         var feedWarp = cc.find(`Canvas/feedWarp`)
         cc.tween(feedWarp)
-        .to(.2, { position: cc.v2(0, -768) },{ easing: 'sineOutIn'})
+        .to(.2, { position: cc.v2(0, -1000) },{ easing: 'sineOutIn'})
         .start()
 
     },
