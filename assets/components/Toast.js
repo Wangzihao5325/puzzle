@@ -20,7 +20,7 @@ window.Toast.show = function (detailString, timer=2000, enterCallBack, needCance
 
   // 判断
   if (Toast._toast != undefined) {
-      console.log("已有")
+    //   console.log("已有")
     cc.tween(Toast._toast)
         .to(0.4,{position: cc.v2(0, 200),opacity:0})
         .start()
@@ -60,9 +60,6 @@ window.Toast.show = function (detailString, timer=2000, enterCallBack, needCance
   // 参数
   self.configToast = function (detailString, timer, enterCallBack, needCancel, animSpeed) {
 
-      // 回调
-      // Toast._enterCallBack = enterCallBack;
-
       // 内容
       Toast._detailLabel.string = detailString;
       if(timer){
@@ -72,19 +69,13 @@ window.Toast.show = function (detailString, timer=2000, enterCallBack, needCance
 
   // 执行弹进动画
   self.startFadeIn = function () {
-      // cc.eventManager.pauseTarget(Toast._toast, true);
-      Toast._toast.position = cc.v2(0,-300);
-    //   Toast._toast.setScale(2);
-      Toast._toast.opacity = 0;
+      Toast._toast.position = cc.v2(0,0);
+      Toast._toast.setScale(2);
       cc.tween(Toast._toast)
-      .to(0.3,{position: cc.v2(0, 0),opacity:255},{ easing: 'sineIn'})
+      .to(0.3,{position: cc.v2(0, 0),opacity:255,scale:1},{ easing: 'quadOut'})
       .delay(Toast._timer/1000)
       .to(0.4,{position: cc.v2(0, 200),opacity:0})
       .start()
-      setTimeout(()=>{
-
-      })
-    //   self.onFadeInFinish()
   };
 
 
