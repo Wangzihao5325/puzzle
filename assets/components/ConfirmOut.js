@@ -133,10 +133,9 @@ window.ConfirmOut.show = function (_confirmCallBack=()=>{},animSpeed ) {
 
     // 销毁 alert (内存管理还没搞懂，暂且这样写吧~v~)
     self.onDestory = function () {
-        ConfirmOut._alert.destroy();
-        ConfirmOut._confirmCallBack = null;
-        ConfirmOut._alert = null;
- 
-        ConfirmOut._animSpeed = 0.3;
+        window.ConfirmOut._alert.destroy();
+        window.ConfirmOut._confirmCallBack = null;
+        window.ConfirmOut._alert = null;
+        window.ConfirmOut._animSpeed = 0.3;
     };
 };

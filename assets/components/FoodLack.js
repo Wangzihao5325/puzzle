@@ -139,10 +139,9 @@ window.FoodLack.show = function (_confirmCallBack=()=>{},animSpeed ) {
 
     // 销毁 alert (内存管理还没搞懂，暂且这样写吧~v~)
     self.onDestory = function () {
-        FoodLack._alert.destroy();
-        FoodLack._confirmCallBack = null;
-        FoodLack._alert = null;
- 
-        FoodLack._animSpeed = 0.3;
+        window.FoodLack._alert.destroy();
+        window.FoodLack._confirmCallBack = null;
+        window.FoodLack._alert = null;
+        window.FoodLack._animSpeed = 0.3;
     };
 };

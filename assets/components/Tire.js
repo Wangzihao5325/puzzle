@@ -229,10 +229,10 @@ window.Tire.show = function (time,_confirmCallBack,animSpeed ) {
 
     // 销毁 alert (内存管理还没搞懂，暂且这样写吧~v~)
     self.onDestory = function () {
-        Tire._alert.destroy();
-        Tire._confirmCallBack = null;
-        Tire._alert = null;
-        Tire._animSpeed = 0.3;
+      window.Tire._alert.destroy();
+      window.Tire._confirmCallBack = null;
+      window.Tire._alert = null;
+      window.Tire._animSpeed = 0.3;
         clearTimeout(this.tireTimer)
     };
 };

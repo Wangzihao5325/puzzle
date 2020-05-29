@@ -81,9 +81,9 @@ window.Toast.show = function (detailString, timer=2000, enterCallBack, needCance
 
   // 销毁 Toast (内存管理还没搞懂，暂且这样写吧~v~)
   self.onDestory = function () {
-      Toast._toast.destroy();
-      Toast._toast = null;
-      Toast._detailLabel = null;
-      Toast._animSpeed = 0.3;
+    window.Toast._toast.destroy();
+    window.Toast._toast = null;
+    window.Toast._detailLabel = null;
+    window.Toast._animSpeed = 0.3;
   };
 };

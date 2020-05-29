@@ -148,13 +148,13 @@ window.Alert.show = function (detailString,{title, confirmText, confirmCallBack,
 
     // 销毁 alert (内存管理还没搞懂，暂且这样写吧~v~)
     self.onDestory = function () {
-        Alert._alert.destroy();
-        Alert._confirmCallBack = null;
-        Alert._cancelCallBack = null;
-        Alert._alert = null;
-        Alert._detailLabel = null;
-        Alert._cancelButton = null;
-        Alert._confirmButton = null;
-        Alert._animSpeed = 0.3;
+        window.Alert._alert.destroy();
+        window.Alert._confirmCallBack = null;
+        window.Alert._cancelCallBack = null;
+        window.Alert._alert = null;
+        window.Alert._detailLabel = null;
+        window.Alert._cancelButton = null;
+        window.Alert._confirmButton = null;
+        window.Alert._animSpeed = 0.3;
     };
 };
