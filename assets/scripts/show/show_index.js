@@ -351,7 +351,7 @@ cc.Class({
                 }
             });
         }
-        if ((item.currentNum >= this.reachCount)) {//&& !item.isReceive需增加判断条件
+        if (item.currentNum >= item.reachCount) {//&& !item.isReceive需增加判断条件
             this.catLight.node.active = true;
             this.catBtn.node.active = true;
             this.festivalProgress.node.active = false;
@@ -372,9 +372,25 @@ cc.Class({
         this.catBtn.node.on(cc.Node.EventType.TOUCH_END, (event) => {
             const showData = CACHE.showData;
             Api.festivalReceive({ festivalId: showData.festivalInfo.festivalId }, (res) => {
-                Toast.show('收获了节日buffer奖励');
+                if (res.message) {
+                    Toast.show(res.message);
+                } else {
+                    Toast.show(`获得${res.data.extraName}x${res.data.num}`);
+                    Action.User.BalanceUpdate(() => {
+                        this.headerObj.render();
+                    })
+                }
             });
             event.stopPropagation();
+        });
+    },
+
+    _festivalTimerCallback() {
+        Action.Show.ShowInfoUpdate((res) => {
+            const showData = CACHE.showData;
+            if (showData.festivalInfo) {
+                this.festivalUpdate(showData.festivalInfo, () => this._festivalTimerCallback());
+            }
         });
     },
 
@@ -390,7 +406,7 @@ cc.Class({
         Action.Show.ShowInfoUpdate((res) => {
             const showData = CACHE.showData;
             if (showData.festivalInfo) {
-                this.festivalUpdate(showData.festivalInfo);
+                this.festivalUpdate(showData.festivalInfo, () => this._festivalTimerCallback());
             }
             this.showcaseInit(showData.standInfoList);
         })

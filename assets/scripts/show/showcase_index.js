@@ -141,7 +141,7 @@ cc.Class({
                 });
                 break;
             case 2:
-                cc.loader.loadRes("normal/jinbi", cc.SpriteFrame, (err, spriteFrame) => {
+                cc.loader.loadRes("normal/weiyang", cc.SpriteFrame, (err, spriteFrame) => {
                     this.iconSprite.spriteFrame = spriteFrame;
                     this.iconSprite2.spriteFrame = spriteFrame;
                     this.timerIcon.spriteFrame = spriteFrame;
