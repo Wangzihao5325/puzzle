@@ -181,6 +181,9 @@ const travelRoute = (callback, failedCallback) => new CusHttp().Get(`${API_DOMAI
 
 const goodsInfo = (goodsId, callback, failedCallback) => new CusHttp().Get(`${API_DOMAIN}/travel/goodsInfo?goodsId=${goodsId}`, callback, failedCallback);
 
+const festivalReceive = (payload = { festivalId: 0 }, callback, failedCallback) => new CusHttp().Post(`${API_DOMAIN}/exhibition/festival/good/receive`, payload, callback, failedCallback);
+
+
 export default {
     cityDetails,
     missionList,
@@ -219,4 +222,5 @@ export default {
 
     travelRoute,
     goodsInfo,
+    festivalReceive,
 }

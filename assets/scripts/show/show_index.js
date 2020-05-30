@@ -37,6 +37,9 @@ cc.Class({
         label2: cc.Label,
         label3: cc.Label,
 
+        catLight: cc.Sprite,
+        catBtn: cc.Sprite,
+
     },
 
     stateUpdate() {
@@ -160,8 +163,6 @@ cc.Class({
 
     bagInit(type = 1) {
         Api.showGoods(type, (res) => {
-            console.log('ffff');
-            console.log(res);
             let totalHeight = Math.ceil(res.data.length / 3) * 200;
             this.scrollContent.height = totalHeight;
             this.scrollContent.width = 600;
@@ -337,6 +338,7 @@ cc.Class({
     },
 
     festivalUpdate(item, callback) {
+        console.log(item);
         this.festivalName.string = item.name;
         this.festivalProgress.string = `${item.currentNum}/${item.reachCount}`;
         if (!this.timer) {
@@ -349,6 +351,31 @@ cc.Class({
                 }
             });
         }
+        if ((item.currentNum >= this.reachCount)) {//&& !item.isReceive需增加判断条件
+            this.catLight.node.active = true;
+            this.catBtn.node.active = true;
+            this.festivalProgress.node.active = false;
+        } else {
+            this.catLight.node.active = false;
+            this.catBtn.node.active = false;
+            this.festivalProgress.node.active = true;
+        }
+    },
+
+    festivalSetTouch() {
+        this.catBtn.node.on(cc.Node.EventType.TOUCH_START, (event) => {
+            event.stopPropagation();
+        });
+        this.catBtn.node.on(cc.Node.EventType.TOUCH_MOVE, (event) => {
+            event.stopPropagation();
+        });
+        this.catBtn.node.on(cc.Node.EventType.TOUCH_END, (event) => {
+            const showData = CACHE.showData;
+            Api.festivalReceive({ festivalId: showData.festivalInfo.festivalId }, (res) => {
+                Toast.show('收获了节日buffer奖励');
+            });
+            event.stopPropagation();
+        });
     },
 
     init() {
@@ -359,6 +386,7 @@ cc.Class({
         this.vistorTimerSet();
         this.bagInit();
         this.bagBtnSetTouch();
+        this.festivalSetTouch();
         Action.Show.ShowInfoUpdate((res) => {
             const showData = CACHE.showData;
             if (showData.festivalInfo) {
