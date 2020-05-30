@@ -139,7 +139,7 @@ window.Hunger.show = function (_confirmCallBack=()=>{},animSpeed ) {
 
     // 销毁 alert (内存管理还没搞懂，暂且这样写吧~v~)
     self.onDestory = function () {
-        window.Hunger._alert.destroy();
+        window.Hunger._alert.active=false;
         window.Hunger._confirmCallBack = null;
         window.Hunger._alert = null;
         window.Hunger._animSpeed = 0.3;

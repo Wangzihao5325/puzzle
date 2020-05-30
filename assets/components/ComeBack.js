@@ -165,7 +165,7 @@ window.ComeBack.show = function (goods,_confirmCallBack=()=>{},animSpeed ) {
 
     // 销毁 alert (内存管理还没搞懂，暂且这样写吧~v~)
     self.onDestory = function () {
-        ComeBack._alert.destroy();
+        ComeBack._alert.active=false;
         ComeBack._confirmCallBack = null;
         ComeBack._alert = null;
  

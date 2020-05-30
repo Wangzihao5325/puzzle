@@ -229,7 +229,7 @@ window.Tire.show = function (time,_confirmCallBack,animSpeed ) {
 
     // 销毁 alert (内存管理还没搞懂，暂且这样写吧~v~)
     self.onDestory = function () {
-      window.Tire._alert.destroy();
+      window.Tire._alert.active=false;
       window.Tire._confirmCallBack = null;
       window.Tire._alert = null;
       window.Tire._animSpeed = 0.3;
