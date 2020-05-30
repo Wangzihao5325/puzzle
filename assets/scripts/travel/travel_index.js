@@ -18,6 +18,7 @@ cc.Class({
 
         signBtn: cc.Sprite,
         signItem: cc.Prefab,
+        signDaySeven: cc.Prefab,
         signRoot: cc.Node,
         signClose: cc.Node,
         signGetGoods: cc.Node,
@@ -87,6 +88,7 @@ cc.Class({
     headerInit() {
         let header = cc.instantiate(this.header);
         let obj = header.getComponent('header_warp_index');
+        this.header_obj = obj;
         header.parent = this.layout_root;
         header.setPosition(0, 528);
         Action.User.BalanceUpdate((res) => {
@@ -95,7 +97,6 @@ cc.Class({
     },
 
     cityPress(itemObj) {
-        console.log('city---Pressing!!');
         CACHE.travel_city_press = itemObj;//在cache中存储点击选项，新场景加载后读取，获得传值
         cc.director.loadScene("mission");
     },
@@ -136,12 +137,12 @@ cc.Class({
             } else {
                 Api.doSign({ key: 1 }, (res) => {
                     let dayNode = cc.find(`Canvas/layoutRoot/signPop/sign_item${res.data.day}`);
-                    let obj = dayNode.getComponent('sign_item_index');
+                    let obj = dayNode.getComponent('sign_item_index') || dayNode.getComponent('sign_item_seven');
                     if (obj) {
                         obj.todaySign();
-                        // Action.User.BalanceUpdate((res) => {
-
-                        // });
+                        Action.User.BalanceUpdate((res) => {
+                            this.header_obj.render();
+                        });
                     }
                 });
             }
@@ -150,8 +151,6 @@ cc.Class({
 
     signInfo() {
         Action.Sign.SignInfoUpdate((res) => {
-            console.log('dddd');
-            console.log(res);
             if (!CACHE.signData.todaySign) {
                 this.signRoot.active = true;
             }
@@ -159,15 +158,25 @@ cc.Class({
                 if (index !== 6) {
                     let itemNode = cc.instantiate(this.signItem);
                     itemNode.name = `sign_item${index + 1}`;
-                    let obj = itemNode.getComponent('sign_item_index');
-                    if (obj) {
-                        obj.initWithItem(item, index);
-                    }
                     itemNode.parent = this.signRoot;
                     let line = Math.floor(index / 3);
                     let y = 110 - line * 170;
                     let x = -150 + (index % 3) * 150;
                     itemNode.setPosition(x, y);
+                    let obj = itemNode.getComponent('sign_item_index');
+                    if (obj) {
+                        obj.initWithItem(item, index);
+                        obj.setXY(x, y)
+                    }
+                } else {
+                    let itemNode = cc.instantiate(this.signDaySeven);
+                    itemNode.name = `sign_item${index + 1}`;
+                    itemNode.parent = this.signRoot;
+                    itemNode.setPosition(0, -230);
+                    let obj = itemNode.getComponent('sign_item_seven');
+                    if (obj) {
+                        obj.initWithItem(item);
+                    }
                 }
             });
         });
