@@ -41,6 +41,7 @@ const CACHE = {
     token: undefined,
     userInfo: undefined,
     dragonBoneAnimateName: '',
+    lastBagTypeLength: 0
 }
 
 export default {

@@ -31,6 +31,12 @@ cc.Class({
         bagBtn1: cc.Sprite,//手工品按钮
         bagBtn2: cc.Sprite,//纪念品按钮
         bagBtn3: cc.Sprite,//文物按钮
+
+        label0: cc.Label,
+        label1: cc.Label,
+        label2: cc.Label,
+        label3: cc.Label,
+
     },
 
     stateUpdate() {
@@ -154,20 +160,38 @@ cc.Class({
 
     bagInit(type = 1) {
         Api.showGoods(type, (res) => {
+            console.log('ffff');
+            console.log(res);
             let totalHeight = Math.ceil(res.data.length / 3) * 200;
             this.scrollContent.height = totalHeight;
             this.scrollContent.width = 600;
+            let defaultIcon = 'show/meishi';
+            switch (type) {
+                case 1:
+                    defaultIcon = 'show/meishi';
+                    break;
+                case 3:
+                    defaultIcon = 'show/shougognpin';
+                    break;
+                case 4:
+                    defaultIcon = 'show/jininapin';
+                    break;
+                case 5:
+                    defaultIcon = 'show/wenwu';
+                    break;
+            }
             res.data.forEach((item, index) => {
                 let nodeItem = cc.find(`Canvas/bag/bagTable/scrollView/view/content/item_goods_${index}`);
                 if (!nodeItem) {
                     nodeItem = cc.instantiate(this.goodsItem);
-                    nodeItem.name = `item_goods_${index}`
+                    nodeItem.name = `item_goods_${index}`;
+                    nodeItem.parent = this.scrollContent;
                     let obj = nodeItem.getComponent('goodItem');
                     if (obj) {
                         obj.setTouch((item) => this.bagGoodsClick(item));
                     }
                 }
-                nodeItem.parent = this.scrollContent;
+                nodeItem.active = true;
                 let line = Math.floor(index / 3);
                 let cloumn = index % 3;
                 let y = - 100 - line * 200;
@@ -177,12 +201,21 @@ cc.Class({
                 let obj = nodeItem.getComponent('goodItem');
                 if (obj) {
                     if (item.owned) {//to do:区分物品质量
-                        obj.init({ name: item.name, goodsId: item.goodsId, goodsQuality: item.goodsQuality, icon: item.iconUrl, url: item.iconUrl });
+                        obj.initByOwen({ name: item.name, goodsId: item.goodsId, goodsQuality: item.goodsQuality, icon: item.iconUrl, url: item.iconUrl });
                     } else {
-                        obj.initByNotOwn({ icon: 'show/meishi' });
+                        obj.initByNotOwn({ icon: defaultIcon, bg: 'show/xukuang' });
                     }
                 }
             });
+            if (CACHE.lastBagTypeLength > res.data.length) {
+                for (let x = res.data.length; x < CACHE.lastBagTypeLength; x++) {
+                    let nodeItem = cc.find(`Canvas/bag/bagTable/scrollView/view/content/item_goods_${x}`);
+                    if (nodeItem) {
+                        nodeItem.active = false;
+                    }
+                }
+            }
+            CACHE.lastBagTypeLength = res.data.length;
         })
     },
 
@@ -222,6 +255,10 @@ cc.Class({
     },
 
     bagBtnSetTouch() {
+        this.label0.node.color = cc.color(89, 83, 83);
+        this.label1.node.color = cc.color(200, 200, 200);
+        this.label2.node.color = cc.color(200, 200, 200);
+        this.label3.node.color = cc.color(200, 200, 200);
         this.bagBtn0.node.on(cc.Node.EventType.TOUCH_START, (event) => {
             event.stopPropagation();
         })
@@ -229,6 +266,10 @@ cc.Class({
             event.stopPropagation();
         })
         this.bagBtn0.node.on(cc.Node.EventType.TOUCH_END, () => {
+            this.label0.node.color = cc.color(89, 83, 83);
+            this.label1.node.color = cc.color(200, 200, 200);
+            this.label2.node.color = cc.color(200, 200, 200);
+            this.label3.node.color = cc.color(200, 200, 200);
             this.bagInit(1);
             event.stopPropagation();
         })
@@ -240,6 +281,10 @@ cc.Class({
             event.stopPropagation();
         })
         this.bagBtn1.node.on(cc.Node.EventType.TOUCH_END, () => {
+            this.label0.node.color = cc.color(200, 200, 200);
+            this.label1.node.color = cc.color(89, 83, 83);
+            this.label2.node.color = cc.color(200, 200, 200);
+            this.label3.node.color = cc.color(200, 200, 200);
             this.bagInit(3);
             event.stopPropagation();
         })
@@ -251,6 +296,10 @@ cc.Class({
             event.stopPropagation();
         })
         this.bagBtn2.node.on(cc.Node.EventType.TOUCH_END, () => {
+            this.label0.node.color = cc.color(200, 200, 200);
+            this.label1.node.color = cc.color(200, 200, 200);
+            this.label2.node.color = cc.color(89, 83, 83);
+            this.label3.node.color = cc.color(200, 200, 200);
             this.bagInit(4);
             event.stopPropagation();
         })
@@ -262,6 +311,10 @@ cc.Class({
             event.stopPropagation();
         })
         this.bagBtn3.node.on(cc.Node.EventType.TOUCH_END, () => {
+            this.label0.node.color = cc.color(200, 200, 200);
+            this.label1.node.color = cc.color(200, 200, 200);
+            this.label2.node.color = cc.color(200, 200, 200);
+            this.label3.node.color = cc.color(89, 83, 83);
             this.bagInit(5);
             event.stopPropagation();
         })
