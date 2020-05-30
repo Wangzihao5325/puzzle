@@ -24,7 +24,6 @@ cc.Class({
         const reg2 = { goodsId: item.goodsIds[2], amount: item.amounts[2], iconUrl: item.iconsUrl[2], day: 7 };
         const data = [reg0, reg1, reg2];
         data.forEach((item, index) => {
-            console.log('mmmm');
             let itemNode = cc.instantiate(this.item);
             itemNode.parent = this.root;
             let x = -150 + (index % 3) * 150;
