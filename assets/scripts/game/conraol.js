@@ -278,15 +278,15 @@ cc.Class({
     },
     resetUI() {
         const userData = CACHE.userData
-        this.magnet_label.string = userData.strongMagnet
+        this.magnet_label.string = userData.strongMagnet>99?'99+':userData.strongMagnet
         if (userData.frame > 0) {
             this.sort_tiem.active = true
             this.ad_free.active = false
-            this.sort_label.string = userData.frame
+            this.sort_label.string = userData.frame>99?'99+':userData.frame
         } else if (userData.frame === 0) {
             this.sort_tiem.active = false
             this.ad_free.active = true
-            this.sort_label.string = userData.frame
+            this.sort_label.string = userData.frame>99?'99+':userData.frame
         }
     },
 
