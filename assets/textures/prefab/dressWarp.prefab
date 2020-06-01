@@ -1182,7 +1182,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "coin",
+    "_name": "fragment",
     "_objFlags": 0,
     "_parent": {
       "__id__": 2
@@ -2282,6 +2282,9 @@
     },
     "pageContent": {
       "__id__": 8
+    },
+    "fragment": {
+      "__id__": 35
     },
     "pageItem1": {
       "__id__": 9

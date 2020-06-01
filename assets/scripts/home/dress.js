@@ -7,6 +7,7 @@
 import { CAR_FOOD, SHIPING } from "../global/home_global"
 import Api from '../api/api_index'
 import { HOME_CACHE } from '../global/home_global';
+import { CACHE } from '../global/usual_cache';
 
 cc.Class({
     extends: cc.Component,
@@ -15,6 +16,7 @@ cc.Class({
 
         close: cc.Node,
         pageContent: cc.Node,
+        fragment:cc.Label,
         pageItem1: cc.Node,
         pageItem2: cc.Node,
         pageItem3: cc.Node,
@@ -85,7 +87,9 @@ cc.Class({
         });
     },
 
-    resetUI() { },
+    resetUI() {
+        this.fragment.string=`${CACHE.userData.fragment}`
+    },
 
 
 

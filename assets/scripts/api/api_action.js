@@ -9,6 +9,7 @@ const BalanceUpdate = (callback, failedCallback) => {
                 coin: data.gold,
                 gem: data.diamonds,
                 STAM: data.power,
+                fragment:data.patDressFragment,
                 strongMagnet: data.strongMagnet,
                 frame: data.frame,
             };

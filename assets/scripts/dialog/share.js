@@ -7,6 +7,7 @@
 import {dateFormat} from '../utils/utils'
 import {GAME_CACH} from '../global/piece_index'
 import { CACHE } from '../global/usual_cache';
+import Api from '../api/api_index'
 
 cc.Class({
     extends: cc.Component,
@@ -49,10 +50,10 @@ cc.Class({
         .to(.4,{position:cc.v2(0,100)})
         .to(.2,{position:cc.v2(0,0)},{easing:'expoInOut'})
         .start()
-        const text=`解放军和武警部队代表团共有289名全国人大代表，是人数最多的团组。当天，共有8位代表发言。`
 
-        this.initSentence(type,text)
-        this.random.string=GAME_CACH.textRandomTimes
+        GAME_CACH.textRandomTimes=4
+        this.handleChangeText()
+
         const imgUrl= CACHE.mission_press.logoUrl
         cc.loader.load(imgUrl, (err, texture)=> {
             this.bg.spriteFrame=new cc.SpriteFrame(texture)
@@ -75,7 +76,9 @@ cc.Class({
                 lableNum=index*-1+listL.length-1
             }
         })
-        console.log("lableNum",lableNum)
+        lableList.map(item=>{
+            item.string=''
+        })
         for(let i=0;i<lableNum;i++){
             lableList[i].string=newText.slice(listL[i],listL[i+1])
         }
@@ -118,16 +121,27 @@ cc.Class({
     },
     handleChangeText(){
         console.log("点击随机")
+        Api.travelComment(res=>{
+            const text=res.data
+            // const text=`加拿大警方应美国要求在温哥华国际机场逮捕孟晚舟，美方随后提出引渡要求，指控其“隐瞒华为和伊`
+            if(GAME_CACH.textRandomTimes>0){
+                GAME_CACH.textRandomTimes--;
+                this.initSentence(0,text)
+                this.random.string=GAME_CACH.textRandomTimes
+    
+            }else{
+                Toast.show('随机已经使用完')
+            }
+        })
 
-        const text=`加拿大警方应美国要求在温哥华国际机场逮捕孟晚舟，美方随后提出引渡要求，指控其“隐瞒华为和伊`
-        if(GAME_CACH.textRandomTimes>0){
-            GAME_CACH.textRandomTimes--;
-            this.initSentence(0,text)
-            this.random.string=GAME_CACH.textRandomTimes
 
-        }else{
-            Toast.show('随机已经使用完')
-        }
+
     },
+    async updateCommon(){
+        await Api.travelComment(res=>{
+            return res.data
+        })
+
+    }
     // update (dt) {},
 });
