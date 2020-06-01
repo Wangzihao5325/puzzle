@@ -41,6 +41,8 @@ cc.Class({
         });
         if (item.day > CACHE.signData.daySign) {
             this.signReg.node.active = false;
+        } else if ((item.day == CACHE.signData.daySign) && !CACHE.signData.todaySign) {
+            this.signReg.node.active = false;
         }
 
         this.lessReg.node.active = false;
