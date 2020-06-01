@@ -40,7 +40,6 @@ const HOME_CACHE = {
     cat_decorations: [],
     selectDecorations: undefined,
 
-
 }
 
 const SHIPING = [

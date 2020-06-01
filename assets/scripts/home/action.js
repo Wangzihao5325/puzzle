@@ -5,6 +5,7 @@
 // Learn life-cycle callbacks:
 //  - https://docs.cocos.com/creator/manual/en/scripting/life-cycle-callbacks.html
 import Api from '../api/api_index'
+import {HOME_CACHE} from '../global/home_global'
 
 cc.Class({
     extends: cc.Component,
@@ -45,8 +46,6 @@ cc.Class({
 
     //喂养
     show_feed() {
-
-
         // ComeBack.show(goodsList)
         this.Action_warp.active = false
         const feedWarpInstan = cc.find(`Canvas/feedWarp`)
@@ -64,15 +63,13 @@ cc.Class({
     },
 
     show_dress() {
-        // ConfirmOut.show()
         this.Action_warp.active = false
-        const deedWarpInstan = cc.find(`Canvas/dressWarp`)
-        deedWarpInstan.active = true
+        const dressModalInstan = cc.find(`Canvas/dressModal`)
+        dressModalInstan.active = true
+        let obj=dressModalInstan.getComponent('dress')
+        obj.show_dress()
         // let obj=deedWarpInstan.getComponent('dress')
-        cc.tween(deedWarpInstan)
-            .to(.2, { position: cc.v2(0, -300) }, { easing: 'sineOutIn' })
-            // .to(.1, { position: cc.v2(0, -408) })
-            .start()
+
         // obj.show_dress()
     },
 

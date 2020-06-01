@@ -13,7 +13,7 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
-
+        modal:cc.Node,
         close: cc.Node,
         pageContent: cc.Node,
         fragment:cc.Label,
@@ -28,8 +28,14 @@ cc.Class({
 
     },
     show_dress() {
-        cc.tween(dress_warp)
-            .to(.2, { position: cc.v2(0, 300) }, { easing: 'sineOutIn' })
+        this.modal.active=true
+        this.modal.opacity=0
+        cc.tween(this.modal)
+            .to(.2,{opacity:255})
+            .start()
+        this.dress_warp.setPosition=cc.v2(0,-1000)
+        cc.tween(this.dress_warp)
+            .to(.2, { position: cc.v2(0,-318) }, { easing: 'sineOutIn' })
             .start()
     },
     init() {
@@ -94,10 +100,16 @@ cc.Class({
 
 
     handleClose() {
-        var feedWarp = cc.find(`Canvas/dressWarp`)
-        cc.tween(feedWarp)
+        cc.tween(this.modal)
+            .to(.2,{opacity:0})
+            .start()
+        cc.tween(this.dress_warp)
             .to(.2, { position: cc.v2(0, -1000) }, { easing: 'sineOutIn' })
             .start()
+        setTimeout(()=>{
+            this.modal.active=false
+        },200)
+        // this.modal.destroy()
 
     },
     handleSave() {
@@ -117,6 +129,15 @@ cc.Class({
     },
 
     setTouch() {
+        this.modal.on(cc.Node.EventType.TOUCH_START, (event) => {
+            event.stopPropagation();
+        })
+        this.modal.on(cc.Node.EventType.TOUCH_END, (event) => {
+            event.stopPropagation();
+        })
+        this.modal.on(cc.Node.EventType.TOUCH_MOVE, (event) => {
+            event.stopPropagation();
+        })
 
         this.close.on(cc.Node.EventType.TOUCH_START, (event) => {
             this.handleClose(2)
