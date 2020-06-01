@@ -77,6 +77,10 @@ cc.Class({
             event.stopPropagation();
             this.setClicked(hardLevel, callback);
         });
+
+        if (hardLevel == LEVEL.EASY) {//设置easy难度为默认难度
+            this.setClicked(hardLevel, callback);
+        }
     },
 
     // LIFE-CYCLE CALLBACKS:

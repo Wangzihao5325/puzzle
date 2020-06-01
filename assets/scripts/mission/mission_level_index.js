@@ -143,7 +143,7 @@ cc.Class({
             if (err) cc.error(err);
             this.pic.spriteFrame = new cc.SpriteFrame(texture);
         });
-        this.setStartWithHard(-1);
+        this.setStartWithHard(isNaN(CACHE.hard_level) ? -1 : CACHE.hard_level);
         this.setback();
         this.setMask();
         if (!this.btnObj) {
