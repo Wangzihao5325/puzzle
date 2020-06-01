@@ -11,8 +11,6 @@ cc.Class({
     properties: {
         man: cc.Sprite,
         attitude: cc.Sprite,
-        sex: cc.string,
-        attitudeUrl: cc.string
     },
 
     randomSexAndAttitude() {
@@ -21,21 +19,25 @@ cc.Class({
 
         let index = Math.floor(Math.random() * CACHE.assets.vistorAttitude.length);
         console.log('kkkk');
-        console.log(index);
-        this.attitudeUrl = new cc.SpriteFrame(CACHE.assets.vistorAttitude[index]);
+        console.log(index)
+        console.log(CACHE.assets.vistorAttitude);
+        this.attitudeAsset = new cc.SpriteFrame(CACHE.assets.vistorAttitude[index]);
     },
 
     initMan(direction) {
-        if (this.sex && this.attitudeUrl) {
+        if (this.sex && this.attitudeAsset) {
             this.man.spriteFrame = new cc.SpriteFrame(CACHE.assets[this.sex][0]);
             this.man.node.scaleX = direction > 0 ? -0.75 : 0.75;
             this.man.node.scaleY = 0.75;
+            this.attitude.node.scaleX = 0.75;
+            this.attitude.node.scaleY = 0.75;
+            this.attitude.spriteFrame = this.attitudeAsset;
             this.attitude.node.active = false;
         }
     },
 
     manWait() {
-        if (this.sex && this.attitudeUrl) {
+        if (this.sex && this.attitudeAsset) {
 
             this.man.spriteFrame = new cc.SpriteFrame(CACHE.assets[this.sex][1]);;
             this.attitude.node.active = true;
