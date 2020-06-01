@@ -29,8 +29,6 @@ cc.Class({
 
 
     handleClose(){
-        console.log("点击关闭")
-
         this.modal.destroy();
     },
 
@@ -46,7 +44,6 @@ cc.Class({
         
     },
     handleConfirm(){
-        console.log("点击确认")
         this.modal.destroy();
     },
 

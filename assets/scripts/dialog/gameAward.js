@@ -50,9 +50,7 @@ cc.Class({
         const startLeavel=leavel
         const startList=[this.start1,this.start2,this.start3]
         const postionList=[-130,0,130]
-        console.log("startLeavel",startLeavel)
         for(let i=0;i<startLeavel;i++){
-            console.log("setAnimationi",i)
             let startItem=startList[i]
             startItem.getComponent(cc.Sprite).spriteFrame=this.coreStart
             startItem.setPosition(cc.v2(postionList[i],-500))
@@ -73,7 +71,6 @@ cc.Class({
 
         twinkleArr.map((item)=>{
             const delay=Math.ceil( Math.random()*10)/10
-            console.log("delay",delay)
             cc.tween(item)
             .delay(delay)
             .to(1, { scale: 1 })
@@ -104,13 +101,11 @@ cc.Class({
             cc.loader.load(item.iconUrl, (err, texture)=> {
                 icon.spriteFrame=new cc.SpriteFrame(texture)
             });
-            console.log("name",name,item.name)
             num.string=item.amount
             name.string=item.name
             node.parent=this.goodsCoinWarp
             node.setPosition(cc.v2(0,0));
         })
-        console.log("arr2.length",arr2.length)
         if(arr2.length===0){
             this.goodsWarp.active=false
 

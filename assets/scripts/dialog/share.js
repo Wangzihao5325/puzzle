@@ -85,7 +85,6 @@ cc.Class({
     },
 
     handleBack(){
-        console.log("handleClose")
         this.shareWarp.active=false;
         cc.director.loadScene("mission");
 
@@ -115,12 +114,9 @@ cc.Class({
     },
 
     handleContinue(){
-        console.log("点击继续")
-
         cc.director.loadScene("mission");
     },
     handleChangeText(){
-        console.log("点击随机")
         Api.travelComment(res=>{
             const text=res.data
             // const text=`加拿大警方应美国要求在温哥华国际机场逮捕孟晚舟，美方随后提出引渡要求，指控其“隐瞒华为和伊`

@@ -83,7 +83,6 @@ cc.Class({
             setTimeout(() => {
                 currentNode.destroy()
                 item_puzzle_warp.destroy()
-                console.log('dddddd');
                // initItem(spliceArr, CACHE.hard_level, 2, this.pre_item, this.game_bg, new cc.SpriteFrame(), true, true);
                 this.checkComplate()
             }, 400)

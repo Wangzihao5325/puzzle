@@ -18,8 +18,11 @@ cc.Class({
     randomSexAndAttitude() {
         this.sex = (Math.random() * 2) > 1 ? SEX.MAN : SEX.WOMAN;
         //to do 表情随机
-        // let index = Math.floor(Math.random() * ATTITUDE_ASSET_PATH.length);
-        this.attitudeUrl = new cc.SpriteFrame(CACHE.assets.vistorAttitude[0]);
+
+        let index = Math.floor(Math.random() * CACHE.assets.vistorAttitude.length);
+        console.log('kkkk');
+        console.log(index);
+        this.attitudeUrl = new cc.SpriteFrame(CACHE.assets.vistorAttitude[index]);
     },
 
     initMan(direction) {

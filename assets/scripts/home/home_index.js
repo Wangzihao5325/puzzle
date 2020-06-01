@@ -47,7 +47,6 @@ cc.Class({
         var outside_item = cc.find(`Canvas/rootWarp/my_home/outside`)
         var catItem = cc.find(`Canvas/rootWarp/my_home/cat/catItem`)
         let {outward}=HOME_CACHE.pet_info
-        console.log("更新UI外出中",outward,outside_item,catItem)
         if(outside_item){
             outside_item.active=outward
             catItem?catItem.active=!outward:''
@@ -260,7 +259,6 @@ cc.Class({
     initCat(){
         const cartInstant= cc.find('Canvas/rootWarp/my_home/cat/catItem');
         if(cartInstant){
-            console.log("cartInstant",cartInstant)
             return false
         }
 
@@ -304,7 +302,6 @@ cc.Class({
     },
 
     handleDressItem(item){
-        console.log("item",item,item.iconName)
         const cat_post_dress=['C','','Z']
         const currentPost=HOME_CACHE.cat_post
         const dress_per=cat_post_dress[currentPost]

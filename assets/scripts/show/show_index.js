@@ -338,7 +338,6 @@ cc.Class({
     },
 
     festivalUpdate(item, callback) {
-        console.log(item);
         this.festivalName.string = item.name;
         this.festivalProgress.string = `${item.currentNum}/${item.reachCount}`;
         if (!this.timer) {
@@ -352,9 +351,15 @@ cc.Class({
             });
         }
         if (item.currentNum >= item.reachCount) {//&& !item.isReceive需增加判断条件
-            this.catLight.node.active = true;
-            this.catBtn.node.active = true;
-            this.festivalProgress.node.active = false;
+            if (item.received) {
+                this.catBtn.node.active = false;
+                this.catLight.node.active = true;
+                this.festivalProgress.node.active = false;
+            } else {
+                this.catLight.node.active = true;
+                this.catBtn.node.active = true;
+                this.festivalProgress.node.active = false;
+            }
         } else {
             this.catLight.node.active = false;
             this.catBtn.node.active = false;
@@ -379,6 +384,12 @@ cc.Class({
                     Action.User.BalanceUpdate(() => {
                         this.headerObj.render();
                     })
+                    Action.Show.ShowInfoUpdate((res) => {
+                        const showData = CACHE.showData;
+                        if (showData.festivalInfo) {
+                            this.festivalUpdate(showData.festivalInfo);
+                        }
+                    });
                 }
             });
             event.stopPropagation();
