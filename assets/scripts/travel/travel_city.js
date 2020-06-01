@@ -56,8 +56,7 @@ cc.Class({
 
         this.city_image.node.on(cc.Node.EventType.TOUCH_END, (event) => {
             if (this.itemObj.isLocked) {
-                // Toast.show('该城市尚未解锁')
-                callback(this.itemObj);
+                Toast.show('该城市尚未解锁')
             } else {
                 callback(this.itemObj);
             }

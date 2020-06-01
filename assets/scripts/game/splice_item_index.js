@@ -134,8 +134,11 @@ cc.Class({
             if (hardLevel == LEVEL.HARD && !this.isMove) {
                 this.item_node.angle = (this.item_node.angle - 90) % 360;
             }
-            let delta = event.touch.getDelta();
-            this.calPostion(this.item_node.x + delta.x, this.item_node.y + delta.y, this.item_node.angle, hardLevel);
+            const outList = this.item_node.parent.name === 'puzzleBg';
+            if (outList) {
+                let delta = event.touch.getDelta();
+                this.calPostion(this.item_node.x + delta.x, this.item_node.y + delta.y, this.item_node.angle, hardLevel);
+            }
             this.item_node.zIndex = 100;//恢复z-index
             this.isMove = false;
             /*

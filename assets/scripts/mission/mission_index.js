@@ -242,8 +242,6 @@ cc.Class({
         let cityItem = CACHE.travel_city_press;
         this.titleLabel.string = cityItem.name;
         Action.Mission.CityDetails((res) => {
-            console.log('details here');
-            console.log(res);
             this.renderIntroduce();
             /**必须设置一个宽度才能自动换行 */
             this.shortIntroduceLabel.node.width = 600;

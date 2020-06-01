@@ -1720,7 +1720,7 @@
       }
     ],
     "_prefab": null,
-    "_opacity": 250.665,
+    "_opacity": 200,
     "_color": {
       "__type__": "cc.Color",
       "r": 255,
@@ -1783,7 +1783,7 @@
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
     "_spriteFrame": {
-      "__uuid__": "946546c7-b359-49a2-8c7c-5feb7a5c4249"
+      "__uuid__": "da7d6353-2598-4f7c-a5ee-5d8bcf798365"
     },
     "_type": 0,
     "_sizeMode": 0,
