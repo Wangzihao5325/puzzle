@@ -15,7 +15,11 @@ cc.Class({
     properties: {
         shareWarp:cc.Node,
         content:cc.Node,
-        bg: cc.Sprite,
+        // bg: cc.Sprite,
+        dragonBone: {
+            default: null,
+            type: dragonBones.ArmatureDisplay
+        },
         type: {
             type:Number,
             default:1
@@ -38,6 +42,7 @@ cc.Class({
 
     onLoad () {
         this.init()
+        this.initBgAnimate(GAME_CACH.animatePayload)
         this.setTouch()
     },
 
@@ -54,15 +59,14 @@ cc.Class({
         GAME_CACH.textRandomTimes=4
         this.handleChangeText()
 
-        const imgUrl= CACHE.mission_press.logoUrl
-        cc.loader.load(imgUrl, (err, texture)=> {
-            this.bg.spriteFrame=new cc.SpriteFrame(texture)
-        });
+        // const imgUrl= CACHE.mission_press.logoUrl
+        // cc.loader.load(imgUrl, (err, texture)=> {
+        //     this.bg.spriteFrame=new cc.SpriteFrame(texture)
+        // });
     },
 
     initSentence(type,text){
-        const datastr=dateFormat((new Date()),'yyyy-MM-dd')
-        this.text6.string=datastr
+
 
         const list =[0,6,7,8,9,9,9]
         const listL=[0,6,13,21,30,38]
@@ -79,6 +83,8 @@ cc.Class({
         lableList.map(item=>{
             item.string=''
         })
+        const datastr=dateFormat((new Date()),'yyyy-MM-dd')
+        this.text6.string=datastr
         for(let i=0;i<lableNum;i++){
             lableList[i].string=newText.slice(listL[i],listL[i+1])
         }
@@ -86,8 +92,40 @@ cc.Class({
 
     handleBack(){
         this.shareWarp.active=false;
+        this.shareWarp.destroy()
         cc.director.loadScene("mission");
 
+    },
+
+    initBgAnimate(animatePayload) {
+        if (this.dragonBone.dragonAtlasAsset) {
+            return;
+        }
+
+        cc.loader.load(animatePayload.picPath, (error, texture) => {
+            cc.loader.load([animatePayload.animatePath, animatePayload.animatePath2], (errors, results) => {
+
+                let atlasJson = results.getContent(animatePayload.animatePath);
+                let dragonBonesJson = results.getContent(animatePayload.animatePath2);
+
+                let atlas = new dragonBones.DragonBonesAtlasAsset();
+                atlas._uuid = animatePayload.animatePath;
+                atlas.atlasJson = JSON.stringify(atlasJson);
+                atlas.texture = texture;
+                let asset = new dragonBones.DragonBonesAsset();
+                asset._uuid = animatePayload.animatePath2;
+                asset.dragonBonesJson = JSON.stringify(dragonBonesJson);
+
+                this.dragonBone.dragonAtlasAsset = atlas;
+                this.dragonBone.dragonAsset = asset;
+
+                this.dragonBone.armatureName = dragonBonesJson.armature[0].name;
+                // CACHE.dragonBoneAnimateName = dragonBonesJson.armature[0].defaultActions[0].gotoAndPlay;
+                //this.dragonBone.playAnimation(dragonBonesJson.armature[0].defaultActions[0].gotoAndPlay, 0);
+                this.dragonBone.playAnimation(CACHE.dragonBoneAnimateName, 0);
+
+            });
+        });
     },
 
     setTouch() {

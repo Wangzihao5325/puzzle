@@ -230,7 +230,8 @@ var GAME_CACH = {
   isComplate: false,
   pause: false,
   textRandomTimes: 4,
-  complateIndex: []
+  complateIndex: [],
+  animatePayload:undefined
 }
 
 const PUZZLE_FOOTER = {
