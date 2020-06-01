@@ -61,8 +61,7 @@ cc.Class({
     },
 
     initSentence(type,text){
-        const datastr=dateFormat((new Date()),'yyyy-MM-dd')
-        this.text6.string=datastr
+
 
         const list =[0,6,7,8,9,9,9]
         const listL=[0,6,13,21,30,38]
@@ -79,6 +78,8 @@ cc.Class({
         lableList.map(item=>{
             item.string=''
         })
+        const datastr=dateFormat((new Date()),'yyyy-MM-dd')
+        this.text6.string=datastr
         for(let i=0;i<lableNum;i++){
             lableList[i].string=newText.slice(listL[i],listL[i+1])
         }
