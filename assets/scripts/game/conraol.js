@@ -76,12 +76,13 @@ cc.Class({
             cc.tween(currentNode)
                 .to(.4, { position: cc.v2(currentNode.defaultPostion[0], currentNode.defaultPostion[1]) })
                 .start()
-
             setTimeout(() => {
-                currentNode.destroy()
-                item_puzzle_warp.destroy()
                 GAME_CACH.complateIndex.push(index)
                 underwayIndex.remove(index)
+                currentNode.destroy()
+                item_puzzle_warp.destroy()
+                console.log('dddddd');
+               // initItem(spliceArr, CACHE.hard_level, 2, this.pre_item, this.game_bg, new cc.SpriteFrame(), true, true);
                 this.checkComplate()
             }, 400)
 
@@ -104,6 +105,8 @@ cc.Class({
             const index = currentNode.defaultIndex;
             GAME_CACH.complateIndex.push(index);
             underwayIndex.remove(index);
+            console.log('xxxx');
+           // initItem(spliceArr, CACHE.hard_level, 2, this.pre_item, this.game_bg, new cc.SpriteFrame(), true, true);
             setTimeout(() => {
                 currentNode.destroy();
                 item_puzzle_warp.destroy();
@@ -172,8 +175,8 @@ cc.Class({
         if (SIZES[CACHE.hard_level].length == GAME_CACH.complateIndex.length) {
             Toast.show("拼图完成", 1000);
             this.doComplate()
-            GAME_CACH.complateIndex=[]
-            GAME_CACH.isComplate=true
+            GAME_CACH.complateIndex = []
+            GAME_CACH.isComplate = true
             const spliceWarp_node = cc.find(`Canvas/root/spliceWarp`);
             spliceWarp_node.active = false;
             this.menuWarp.active = false;
@@ -237,8 +240,8 @@ cc.Class({
     },
 
     timer(time) {
-          this.countDownTimer=setTimeout(() => {
-            if (!GAME_CACH.pause && GAME_CACH.coutnDown > 0&&!GAME_CACH.isComplate) {
+        this.countDownTimer = setTimeout(() => {
+            if (!GAME_CACH.pause && GAME_CACH.coutnDown > 0 && !GAME_CACH.isComplate) {
                 time--;
                 this.countDown_label.string = this.formatTimer(time);
                 GAME_CACH.coutnDown = time
@@ -267,7 +270,7 @@ cc.Class({
             clearTimeout(this.countDownTimer)
         }
     },
-    resetUI(){
+    resetUI() {
         const userData = CACHE.userData
         this.magnet_label.string = userData.strongMagnet
         if (userData.frame > 0) {
