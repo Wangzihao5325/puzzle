@@ -1,4 +1,4 @@
-import { SIZES, LEVEL, PUZZLE_FOOTER } from '../global/piece_index';
+import { SIZES, LEVEL, PUZZLE_FOOTER,GAME_CACH } from '../global/piece_index';
 import { CACHE } from '../global/usual_cache';
 import Api from '../api/api_index';
 
@@ -36,6 +36,7 @@ cc.Class({
             this.initItem(hardLevel);
             this.initSpliceWarp(hardLevel, imagePath);
             this.initBgAnimate(animatePayload);
+            GAME_CACH.animatePayload=animatePayload
         })
     },
 

@@ -116,6 +116,11 @@ cc.Class({
                 this.checkComplate();
             }, 400)
         }
+        if (GAME_CACH.complateIndex.length >= SIZES[CACHE.hard_level].length * 0.3) {
+            let dragonBonesNode = cc.find('Canvas/root/puzzleWarp/puzzleBg');
+            let animate = dragonBonesNode.getComponent(dragonBones.ArmatureDisplay)
+            animate.playAnimation(CACHE.dragonBoneAnimateName, 0);
+        }
 
     },
 
