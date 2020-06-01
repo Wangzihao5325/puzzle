@@ -124,13 +124,13 @@ cc.Class({
 
     handleTravel() {
         cc.tween(this.energy)
-        .to(0.5,{position: cc.v2(-81.357, 11.623),opacity:255,scale:1},{ easing: 'cubicOut'})
-        .start()
+            .to(0.5, { position: cc.v2(-81.357, 11.623), opacity: 255, scale: 1 }, { easing: 'cubicOut' })
+            .start()
         Api.travel((res) => {
             if (res.code === 0) {
-                setTimeout(()=>{
+                setTimeout(() => {
                     cc.director.loadScene("puzzle");
-                },500)
+                }, 500)
             } else {
                 Toast.show(res.message)
             }
