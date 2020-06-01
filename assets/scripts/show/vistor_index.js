@@ -18,9 +18,6 @@ cc.Class({
         //to do 表情随机
 
         let index = Math.floor(Math.random() * CACHE.assets.vistorAttitude.length);
-        console.log('kkkk');
-        console.log(index)
-        console.log(CACHE.assets.vistorAttitude);
         this.attitudeAsset = new cc.SpriteFrame(CACHE.assets.vistorAttitude[index]);
     },
 
