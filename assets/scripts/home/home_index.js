@@ -21,7 +21,7 @@ cc.Class({
         hungry_bar: cc.Node,
         lucky_bar: cc.Node,
         feed_warp: cc.Prefab,
-        dress_warp: cc.Prefab,
+        dress_modal: cc.Prefab,
         currency_warp: cc.Prefab,
         OutSide:cc.Prefab,
         store_icon:cc.Node,
@@ -92,16 +92,18 @@ cc.Class({
         obj.render();
         header.parent = this.layout_root;
         header.setPosition(0, 528);
+
+        HOME_CACHE.dialog=undefined
     },
 
 
     initDress() {
-        let dressWarpInstan = cc.instantiate(this.dress_warp)
+        let dressModalInstan = cc.instantiate(this.dress_modal)
         var warp_parent = cc.find(`Canvas`)
-        dressWarpInstan.parent = warp_parent
-        dressWarpInstan.setPosition(0, -868);
-        dressWarpInstan.active = false
-        let obj = dressWarpInstan.getComponent('dress')
+        dressModalInstan.parent = warp_parent
+        dressModalInstan.setPosition(0, 0);
+        dressModalInstan.active = false
+        let obj = dressModalInstan.getComponent('dress')
         // obj.init()
 
     },
