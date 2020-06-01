@@ -50,6 +50,8 @@ cc.Class({
         .to(.4,{position:cc.v2(0,100)})
         .to(.2,{position:cc.v2(0,0)},{easing:'expoInOut'})
         .start()
+
+        GAME_CACH.textRandomTimes=4
         this.handleChangeText()
 
         const imgUrl= CACHE.mission_press.logoUrl
@@ -74,7 +76,9 @@ cc.Class({
                 lableNum=index*-1+listL.length-1
             }
         })
-        console.log("lableNum",lableNum)
+        lableList.map(item=>{
+            item.string=''
+        })
         for(let i=0;i<lableNum;i++){
             lableList[i].string=newText.slice(listL[i],listL[i+1])
         }

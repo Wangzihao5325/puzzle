@@ -41,6 +41,7 @@ cc.Class({
         this.setTouch();
         this.resetUI()
         GAME_CACH.isComplate = false
+        GAME_CACH.coutnDown=GAME_CACH.gameTime
         this.timer(GAME_CACH.coutnDown);
     },
 

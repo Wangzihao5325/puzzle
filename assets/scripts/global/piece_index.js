@@ -213,7 +213,8 @@ var spliceArr = []
 var coutnDown = 0
 
 var GAME_CACH = {
-  coutnDown: 60,
+  gameTime:300,
+  coutnDown: 6,
   isComplate: false,
   pause: false,
   textRandomTimes: 4,
