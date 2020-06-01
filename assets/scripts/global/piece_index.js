@@ -216,7 +216,7 @@ var GAME_CACH = {
   coutnDown: 60,
   isComplate: false,
   pause: false,
-  textRandomTimes: 3,
+  textRandomTimes: 4,
   complateIndex: []
 }
 

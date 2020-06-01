@@ -33,6 +33,16 @@ const missionDetails = (hurdleId = 101001, callback, failedCallback) => new CusH
  */
 const missionComplete = (payload = { hurdleId: 101001, star: 1 }, callback, failedCallback) => new CusHttp().Post(`${API_DOMAIN}/travel/complete`, payload, callback, failedCallback);
 
+
+
+
+/**
+ * 获取旅行文案
+ * @param {Function} callback
+ * @param {Function} failedCallback
+ */
+const travelComment = (callback, failedCallback) => new CusHttp().Get(`${API_DOMAIN}/travel/comment`, callback, failedCallback);
+
 /**
  * 获取用户资产
  * @param {Function} callback
@@ -192,6 +202,7 @@ export default {
 
     userBalance,
     travel,
+    travelComment,
     use_prop,
 
     petHome,

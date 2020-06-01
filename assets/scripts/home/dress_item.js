@@ -70,11 +70,16 @@ cc.Class({
         this.dress_item.info=item
 
         const derreType=['',this.toushi,this.boshi,this.weishi,]
+        const costTypeList={
+            12:'钻石',
+            13:'碎片'
+        }
         this.type.spriteFrame=derreType[item.position]
         // CurrencyIdtoName(.costGoodsType)
+
         if(item.status===0){
             this.priceWarp.active=true;
-            this.currency=item.costGoodsType
+            this.currency.string=costTypeList[item.costGoodsType]
             this.price.string=item.costNum
             this.current.active=false
             this.own.active=false
