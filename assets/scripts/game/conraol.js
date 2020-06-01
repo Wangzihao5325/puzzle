@@ -70,6 +70,7 @@ cc.Class({
         }
 
         if (underwayIndex && underwayIndex.length) {
+            //磁铁吸引在拼图中的块
             const index = underwayIndex[0]
             var currentNode = cc.find(`Canvas/root/puzzleWarp/puzzleBg/item_puzzle_splice-${index}`)
             var item_puzzle_warp = cc.find(`Canvas/root/puzzleWarp/puzzleBg/item_puzzle_warp-${index}`);
@@ -77,9 +78,9 @@ cc.Class({
             cc.tween(currentNode)
                 .to(.4, { position: cc.v2(currentNode.defaultPostion[0], currentNode.defaultPostion[1]) })
                 .start()
+            GAME_CACH.complateIndex.push(index)
+            underwayIndex.remove(index)
             setTimeout(() => {
-                GAME_CACH.complateIndex.push(index)
-                underwayIndex.remove(index)
                 currentNode.destroy()
                 item_puzzle_warp.destroy()
                 console.log('dddddd');
@@ -88,6 +89,7 @@ cc.Class({
             }, 400)
 
         } else {
+            //磁铁吸引在底部框内的切块
             var spliceWarp = cc.find(`Canvas/root/spliceWarp`);
             const spliceWarpChildren = spliceWarp.children[0];
             const currentNode = spliceWarpChildren;
@@ -105,9 +107,10 @@ cc.Class({
 
             const index = currentNode.defaultIndex;
             GAME_CACH.complateIndex.push(index);
-            underwayIndex.remove(index);
+            this.removeSpliceNode(index)
+            // underwayIndex.remove(index);
             console.log('xxxx');
-           // initItem(spliceArr, CACHE.hard_level, 2, this.pre_item, this.game_bg, new cc.SpriteFrame(), true, true);
+           initItem(spliceArr, CACHE.hard_level, 2, this.pre_item, this.game_bg, new cc.SpriteFrame(), true, true);
             setTimeout(() => {
                 currentNode.destroy();
                 item_puzzle_warp.destroy();
@@ -240,6 +243,7 @@ cc.Class({
         game_fail.parent = this.root_warp;
     },
 
+    //倒计时
     timer(time) {
         this.countDownTimer = setTimeout(() => {
             if (!GAME_CACH.pause && GAME_CACH.coutnDown > 0 && !GAME_CACH.isComplate) {
@@ -261,9 +265,10 @@ cc.Class({
         }, 1000)
     },
 
+    //复活
     revive() {
-        GAME_CACH.coutnDown = 60,
-            this.timer(60)
+        GAME_CACH.coutnDown=GAME_CACH.gameTime
+        this.timer(GAME_CACH.coutnDown)
 
     },
     onDestroy() {
@@ -283,6 +288,17 @@ cc.Class({
             this.ad_free.active = true
             this.sort_label.string = userData.frame
         }
+    },
+
+    //从底部拼图框中移除拼图块
+    removeSpliceNode(removeIndex) {
+        var currentArr = [...spliceArr[0]]
+        currentArr.map((item, index) => {
+            if (item[6] == removeIndex) {
+                currentArr.splice(index, 1)
+            }
+        })
+        spliceArr[0] = currentArr;
     },
 
     formatTimer(time) {
