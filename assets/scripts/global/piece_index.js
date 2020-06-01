@@ -3,7 +3,7 @@ const SIZE2_3 = [
   [303, 0, 341, 353, 151.5, 252, 1],
   [0, 269, 333, 310, -155.5, 4.5, 2],
   [235, 266, 409, 317, 117.5, 4, 3],
-  [0, 495, 399, 362, -122.5, -247.5, 4],
+  [0, 495, 399, 362 + 1, -122.5, -247.5 + 1, 4],
   [302, 488, 342, 369, 151, -244, 5]
 ];
 
@@ -231,13 +231,13 @@ var GAME_CACH = {
   pause: false,
   textRandomTimes: 4,
   complateIndex: [],
-  animatePayload:undefined
+  animatePayload: undefined
 }
 
 const PUZZLE_FOOTER = {
   position: [-322, -500],//起始位置坐标 页面width:644
   truePosition: [-322, -500],//真实位置坐标
-  height: 124,
+  height: 128,
   itemWidth: 140,
   itemWidthMargin: 20,
 }
