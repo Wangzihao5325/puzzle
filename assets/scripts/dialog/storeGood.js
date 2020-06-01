@@ -112,7 +112,6 @@ cc.Class({
     },
 
     onDestory(){
-        console.log("onDestory")
         clearTimeout(this.timer)
     }
 

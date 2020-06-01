@@ -33,7 +33,6 @@ cc.Class({
             .start()
     },
     init() {
-        console.log("dressInit")
         // let list =HOME_CACHE.cat_decoration;
         const pages = Math.ceil((HOME_CACHE.cat_decorations.length) / 8)
         const contentList = [this.pageItem1, this.pageItem2, this.pageItem3, this.pageItem4]
