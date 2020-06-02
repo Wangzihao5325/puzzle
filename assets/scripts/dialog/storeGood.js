@@ -105,7 +105,7 @@ cc.Class({
     },
 
     setTouch() {
-        this.buy.on(cc.Node.EventType.TOUCH_START, (event) => {
+        this.buy.on(cc.Node.EventType.TOUCH_END, (event) => {
             this.handleBuy(event)
             event.stopPropagation();
         })
