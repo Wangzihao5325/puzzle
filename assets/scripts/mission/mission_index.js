@@ -248,6 +248,7 @@ cc.Class({
             this.shortIntroduceLabel.string = CACHE.cityData.introduceShort;
         });
         Action.Mission.MissionList((res) => {
+            console.log(res);
             /**获取关卡列表  */
             this.starCal();
             let obj = this.scroll.getComponent('mission_scroll_index');

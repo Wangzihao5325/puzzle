@@ -22,6 +22,7 @@ cc.Class({
         let totalHeight = (Math.floor((arr.length - 1) / 2) + 1) * 380;
         this.scroll_content.height = totalHeight;
         arr.forEach((item, index) => {
+            console.log(item);
             let cloumn = Math.floor(index / 2);
             let row = index % 2;
             let positionX = row * 320 - 160;
