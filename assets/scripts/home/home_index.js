@@ -23,12 +23,15 @@ cc.Class({
         feed_warp: cc.Prefab,
         dress_modal: cc.Prefab,
         currency_warp: cc.Prefab,
-        OutSide:cc.Prefab,
-        store_icon:cc.Node,
-        store:cc.Prefab,
-        food_lack:cc.Prefab,
+        OutSide: cc.Prefab,
+        store_icon: cc.Node,
+        store: cc.Prefab,
+        food_lack: cc.Prefab,
 
-
+        audio: {
+            default: null,
+            type: cc.AudioClip
+        }
     },
 
     stateUpdate() {
@@ -43,33 +46,33 @@ cc.Class({
 
 
 
-    setOUtUi(){
+    setOUtUi() {
         var outside_item = cc.find(`Canvas/rootWarp/my_home/outside`)
         var catItem = cc.find(`Canvas/rootWarp/my_home/cat/catItem`)
-        let {outward}=HOME_CACHE.pet_info
-        if(outside_item){
-            outside_item.active=outward
-            catItem?catItem.active=!outward:''
-            if(outward===false){
+        let { outward } = HOME_CACHE.pet_info
+        if (outside_item) {
+            outside_item.active = outward
+            catItem ? catItem.active = !outward : ''
+            if (outward === false) {
                 outside_item.destroy()
             }
-        }else{
+        } else {
             // const feedWarpInstan=  cc.find(`Canvas/feedWarp`)
-            let OutSide=cc.instantiate(this.OutSide)
+            let OutSide = cc.instantiate(this.OutSide)
             // var cat = cc.find(`Canvas/rootWarp/my_home/cat`)
             var my_home = cc.find(`Canvas/rootWarp/my_home`)
-            catItem.active=!outward
-            OutSide.parent=my_home
-            OutSide.active=outward
+            catItem.active = !outward
+            OutSide.parent = my_home
+            OutSide.active = outward
         }
 
         //食物吃完了弹窗
-        if(HOME_CACHE.pet_info.currentHungry===0){
-            const canvas=cc.find('Canvas')
-            const FoodLackInstant=cc.find('Canvas/FoodLack')
-            if(FoodLackInstant){
+        if (HOME_CACHE.pet_info.currentHungry === 0) {
+            const canvas = cc.find('Canvas')
+            const FoodLackInstant = cc.find('Canvas/FoodLack')
+            if (FoodLackInstant) {
                 return false
-            } 
+            }
             let food_lack = cc.instantiate(this.food_lack);
             food_lack.parent = canvas;
         }
@@ -93,7 +96,7 @@ cc.Class({
         header.parent = this.layout_root;
         header.setPosition(0, 528);
 
-        HOME_CACHE.dialog=undefined
+        HOME_CACHE.dialog = undefined
     },
 
 
@@ -113,8 +116,8 @@ cc.Class({
             const data = res.data;
             if (res.code === 0) {
                 HOME_CACHE.cat_decorations = data;
-                data.map(item=>{
-                    if(item.status===2){
+                data.map(item => {
+                    if (item.status === 2) {
                         this.handleDressItem(item)
                     }
                 })
@@ -149,19 +152,19 @@ cc.Class({
             }
         });
     },
-    getBackNotice(){
-        Api.petBackNotice(res=>{
-            if(res.code===0&&res.data){
-                if(res.data.noticeId&&res.data.awardJson){
-                    const goods=res.data.awardJson&&JSON.parse(res.data.awardJson)||[]
+    getBackNotice() {
+        Api.petBackNotice(res => {
+            if (res.code === 0 && res.data) {
+                if (res.data.noticeId && res.data.awardJson) {
+                    const goods = res.data.awardJson && JSON.parse(res.data.awardJson) || []
                     this.NoticeClear(res.data.noticeId)
 
                     ComeBack.show(goods)
-                    
-                }else if(res.data.noticeId){
+
+                } else if (res.data.noticeId) {
                     this.NoticeClear(res.data.noticeId)
 
-                    ComeBackNull.show(()=>{})
+                    ComeBackNull.show(() => { })
                 }
 
             }
@@ -169,13 +172,13 @@ cc.Class({
         })
     },
 
-    NoticeClear(id){
+    NoticeClear(id) {
         //消息已读
-        Api.backNoticeView({noticeId:id},res=>{
+        Api.backNoticeView({ noticeId: id }, res => {
 
         })
     },
-    
+
 
     setHungerTimer(refreshTime) {
         const time = refreshTime - (new Date()).getTime()
@@ -210,18 +213,18 @@ cc.Class({
         this.lucky_bar.width = 200 * HOME_CACHE.pet_info.currentLucky / HOME_CACHE.pet_info.luckyUpperLimit
 
         this.setOUtUi()
-        
+
 
     },
 
     onLoad() {
-        // this.initCatPost()
-
         this.stateUpdate();
         this.setBg();
         this.footerInit();
-        // this.headerInit();
-        this.setTouch()
+        this.setTouch();
+        if (CACHE.isBGM && !this.currentBGM) {
+            this.currentBGM = cc.audioEngine.play(this.audio, true, 1);
+        }
     },
 
     start() {
@@ -242,10 +245,10 @@ cc.Class({
         catActionInstan.parent = this.home_root
         catActionInstan.setPosition(0, 80);
     },
-    showStore(){
+    showStore() {
         let store = cc.instantiate(this.store);
-        const canvas=cc.find('Canvas')
-        store.parent=canvas
+        const canvas = cc.find('Canvas')
+        store.parent = canvas
     },
     setTouch(hardLevel) {
         this.cat.on(cc.Node.EventType.TOUCH_START, (event) => {
@@ -256,11 +259,11 @@ cc.Class({
             this.showStore()
             event.stopPropagation();
         })
-        
+
     },
-    initCat(){
-        const cartInstant= cc.find('Canvas/rootWarp/my_home/cat/catItem');
-        if(cartInstant){
+    initCat() {
+        const cartInstant = cc.find('Canvas/rootWarp/my_home/cat/catItem');
+        if (cartInstant) {
             return false
         }
 
@@ -281,9 +284,9 @@ cc.Class({
                     const catPostList = ['Zou00', 'PA00', 'Zhan00']
                     // this.ske_com.clearTrack(0);
                     //随机姿势
-          
+
                     HOME_CACHE.cat_post = Math.round(Math.random() * 2)
-                    
+
                     const currentPost = catPostList[HOME_CACHE.cat_post]
 
                     var asset = new sp.SkeletonData();
@@ -295,41 +298,47 @@ cc.Class({
                     skeleton.skeletonData = asset;
                     skeleton.animation = currentPost;
                     skeleton._updateSkeletonData();
-                    setTimeout(()=>{
-                        this.getDecorations() 
-                    },0)
+                    setTimeout(() => {
+                        this.getDecorations()
+                    }, 0)
                 });
             });
         });
     },
 
-    handleDressItem(item){
-        const cat_post_dress=['C','','Z']
-        const currentPost=HOME_CACHE.cat_post
-        const dress_per=cat_post_dress[currentPost]
-        const name=item.iconName
-        
+    handleDressItem(item) {
+        const cat_post_dress = ['C', '', 'Z']
+        const currentPost = HOME_CACHE.cat_post
+        const dress_per = cat_post_dress[currentPost]
+        const name = item.iconName
+
         var spine = cc.find(`Canvas/rootWarp/my_home/cat/catItem`);
         var ske_com = spine.getComponent(sp.Skeleton);
         this.ske_com = ske_com;
         const skeletonData = this.ske_com.skeletonData.getRuntimeData();
         const skin = skeletonData.findSkin('default');
         const type = item.position
-        let parts = ['',`${dress_per}toushi00`, `${dress_per}boshi00`, `${dress_per}weishi00`]//["toushi00", "boshi00", "weishi00"];
+        let parts = ['', `${dress_per}toushi00`, `${dress_per}boshi00`, `${dress_per}weishi00`]//["toushi00", "boshi00", "weishi00"];
         let regSlot = this.ske_com.findSlot(parts[type]);
         let slotIndex = skeletonData.findSlotIndex(name);
         let atta = skin.getAttachment(slotIndex, name);
 
-        let typeparts = ['','toushi00','boshi00','weishi00']//["toushi00", "boshi00", "weishi00"];
+        let typeparts = ['', 'toushi00', 'boshi00', 'weishi00']//["toushi00", "boshi00", "weishi00"];
         let slotDefaultIndex = skeletonData.findSlotIndex(`${parts[type]}`);
         let Defaultatta = skin.getAttachment(slotDefaultIndex, typeparts[type]);
-        atta.x=Defaultatta.x;
-        atta.y=Defaultatta.y;
-        atta.rotation=Defaultatta.rotation;
-        atta.offset=Defaultatta.offset;
+        atta.x = Defaultatta.x;
+        atta.y = Defaultatta.y;
+        atta.rotation = Defaultatta.rotation;
+        atta.offset = Defaultatta.offset;
 
         regSlot.attachment = atta;
     },
+
+    onDestroy() {
+        if (this.currentBGM) {
+            cc.audioEngine.stop(this.currentBGM);
+        }
+    }
 
     // update (dt) {},
 });

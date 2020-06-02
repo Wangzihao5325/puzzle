@@ -42,7 +42,12 @@ cc.Class({
         goodDetailMask: cc.Sprite,
         goodDetailClose: cc.Sprite,
         goodDetailBg: cc.Sprite,
-        goodLessReg: cc.Sprite
+        goodLessReg: cc.Sprite,
+
+        audio: {
+            default: null,
+            type: cc.AudioClip
+        }
     },
 
     stateUpdate() {
@@ -281,11 +286,20 @@ cc.Class({
 
     // LIFE-CYCLE CALLBACKS:
 
-    // onLoad () {},
+    onLoad() {
+        if (CACHE.isBGM && !this.currentBGM) {
+            this.currentBGM = cc.audioEngine.play(this.audio, true, 1);
+        }
+    },
 
     start() {
         this.init();
     },
 
+    onDestroy() {
+        if (this.currentBGM) {
+            cc.audioEngine.stop(this.currentBGM);
+        }
+    }
     // update (dt) {},
 });

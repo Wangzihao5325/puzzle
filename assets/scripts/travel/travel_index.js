@@ -23,7 +23,10 @@ cc.Class({
         signClose: cc.Node,
         signGetGoods: cc.Node,
 
-
+        audio: {
+            default: null,
+            type: cc.AudioClip
+        }
     },
 
     drawLine(start, end) {
@@ -262,13 +265,20 @@ cc.Class({
     // LIFE-CYCLE CALLBACKS:
 
     onLoad() {
-
-
+        if (CACHE.isBGM && !this.currentBGM) {
+            this.currentBGM = cc.audioEngine.play(this.audio, true, 1);
+        }
     },
 
     start() {
         this.init();
     },
+
+    onDestroy() {
+        if (this.currentBGM) {
+            cc.audioEngine.stop(this.currentBGM);
+        }
+    }
 
     // update (dt) {},
 });

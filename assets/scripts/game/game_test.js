@@ -1,4 +1,4 @@
-import { SIZES, LEVEL, PUZZLE_FOOTER,GAME_CACH } from '../global/piece_index';
+import { SIZES, LEVEL, PUZZLE_FOOTER, GAME_CACH } from '../global/piece_index';
 import { CACHE } from '../global/usual_cache';
 import Api from '../api/api_index';
 
@@ -15,10 +15,24 @@ cc.Class({
             default: null,
             type: dragonBones.ArmatureDisplay
         },
+        audio: {
+            default: null,
+            type: cc.AudioClip
+        }
     },
 
     onLoad() {
         this.init();
+        if (CACHE.isBGM && !this.currentBGM) {
+            this.currentBGM = cc.audioEngine.play(this.audio, true, 1);
+        }
+    },
+
+
+    onDestroy() {
+        if (this.currentBGM) {
+            cc.audioEngine.stop(this.currentBGM);
+        }
     },
 
     init() {
@@ -41,7 +55,7 @@ cc.Class({
             this.initItem(hardLevel);
             this.initSpliceWarp(hardLevel, imagePath);
             this.initBgAnimate(animatePayload);
-            GAME_CACH.animatePayload=animatePayload
+            GAME_CACH.animatePayload = animatePayload
         })
     },
 
