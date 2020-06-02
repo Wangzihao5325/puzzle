@@ -142,6 +142,9 @@ cc.Class({
         cc.loader.load({ url: item.logoUrl, type: 'png' }, (err, texture) => {
             if (err) cc.error(err);
             this.pic.spriteFrame = new cc.SpriteFrame(texture);
+            this.pic.node.scaleX = 0.35;
+            this.pic.node.scaleY = 0.35;
+
         });
         this.setStartWithHard(isNaN(CACHE.hard_level) ? -1 : CACHE.hard_level);
         this.setback();

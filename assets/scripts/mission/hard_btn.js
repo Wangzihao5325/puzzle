@@ -42,10 +42,10 @@ cc.Class({
             this.arrow.node.scale = 0.5;
             this.arrow.node.active = true;
             cc.tween(this.arrow.node)
-                .to(0.2, { position: cc.v2(115, 0) })
-                .to(0.2, { position: cc.v2(110, 0) })
-                .to(0.2, { position: cc.v2(115, 0) })
-                .to(0.2, { position: cc.v2(110, 0) })
+                .to(0.2, { position: cc.v2(105, 0) })
+                .to(0.2, { position: cc.v2(100, 0) })
+                .to(0.2, { position: cc.v2(105, 0) })
+                .to(0.2, { position: cc.v2(100, 0) })
                 .start();
             if (hardLevel == LEVEL.VERY_HARD) {
                 this.circle.active = true;
