@@ -38,8 +38,11 @@ cc.Class({
         goodDetailType: cc.Sprite,
         goodDetailTypeName: cc.Label,
         goodDetails: cc.Label,
+        goodDetailsContent: cc.Sprite,
         goodDetailMask: cc.Sprite,
         goodDetailClose: cc.Sprite,
+        goodDetailBg: cc.Sprite,
+        goodLessReg: cc.Sprite
     },
 
     stateUpdate() {
@@ -151,6 +154,17 @@ cc.Class({
     },
 
     renderGoodsDetail(item) {
+        if (item.goodsQuality == 0) {//普通物品
+            this.goodDetails.node.color = cc.color(141, 141, 141);
+            this.goodDetailsContent.node.color = cc.color(255, 255, 255);
+            this.goodDetailBg.node.color = cc.color(234, 234, 234);
+            this.goodLessReg.node.active = false;
+        } else {//稀有物品
+            this.goodDetails.node.color = cc.color(255, 255, 255);
+            this.goodDetailsContent.node.color = cc.color(212, 181, 156);
+            this.goodDetailBg.node.color = cc.color(255, 247, 206);
+            this.goodLessReg.node.active = true;
+        }
         this.goodDetailName.string = item.name;
         this.goodSellNum.string = item.sellAmount;
         this.goodDetailIcon.node.scaleX = 0.4;
@@ -199,7 +213,7 @@ cc.Class({
     renderIntroduce() {
         if (CACHE.cityData) {
             /* 设置详情介绍*/
-            this.introduceLabel.node.width = 520;
+            this.introduceLabel.node.width = 500;
             this.introduceLabel.string = CACHE.cityData.introduceInfo;
             /* 生成掉落物品*/
             CACHE.cityData.goodsList.forEach((item, index) => {
@@ -214,11 +228,11 @@ cc.Class({
                 if (item.goodsQuality == 1) {
                     /*稀有物品*/
                     Item.parent = this.rareGoodsBg.node;
-                    let xPosition = -230 + (index % 5) * 112.5;
+                    let xPosition = -200 + (index % 5) * 100;
                     Item.setPosition(cc.v2(xPosition, -20));
                 } else {
                     /*普通物品*/
-                    let xPosition = -230 + (index % 5) * 112.5;
+                    let xPosition = -200 + (index % 5) * 100;
                     Item.parent = this.normalGoodsBg.node;
                     Item.setPosition(cc.v2(xPosition, -20));
                 }

@@ -44,8 +44,10 @@ cc.Class({
 
     initWithItem(item) {
         this.item = item;
-        this.good_name.getComponent(cc.Label).string = item.name;
+        let nameLabel = this.good_name.getComponent(cc.Label);
+        nameLabel.string = item.name;
         if (item.goodsQuality == 0) {//普通
+            nameLabel.node.color = cc.color(94, 94, 94);
             cc.loader.loadRes('mission/putongdi', cc.SpriteFrame, (err, asset) => {
                 this.good_bg.spriteFrame = asset;
                 cc.loader.load(item.iconUrl, (err, texture) => {
@@ -53,6 +55,7 @@ cc.Class({
                 });
             })
         } else {//稀有
+            nameLabel.node.color = cc.color(255, 133, 100);
             cc.loader.loadResArray(['mission/xiyoudi', 'mission/xiyoukuang'], cc.SpriteFrame, (err, assets) => {
                 this.quality_pic.node.active = true;
                 this.good_bg.spriteFrame = assets[0];

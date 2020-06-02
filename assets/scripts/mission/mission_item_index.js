@@ -1,5 +1,8 @@
 import { CACHE } from '../global/usual_cache';
 
+const Animate_pix = 2;//解锁摇摆幅度
+const Animate_pride = 0.1;//解锁动画时间
+
 cc.Class({
     extends: cc.Component,
 
@@ -17,6 +20,28 @@ cc.Class({
         lockBottom: cc.Node
     },
 
+    unlockedAnimate() {
+        cc.tween(this.lockTop)
+            .to(Animate_pride, { position: cc.v2(this.lockTop.x + Animate_pix, this.lockTop.y + Animate_pix) })
+            .to(Animate_pride, { position: cc.v2(this.lockTop.x - Animate_pix, this.lockTop.y - Animate_pix) })
+            .to(Animate_pride, { position: cc.v2(this.lockTop.x + Animate_pix, this.lockTop.y + Animate_pix) })
+            .to(Animate_pride, { position: cc.v2(this.lockTop.x - Animate_pix, this.lockTop.y - Animate_pix) })
+            .call(() => {
+                this.mask.active = false;
+                this.lockTop.active = false;
+                this.lockBottom.active = false;
+            })
+            .start()
+
+        cc.tween(this.lockBottom)
+            .to(Animate_pride, { position: cc.v2(this.lockBottom.x + Animate_pix, this.lockBottom.y + Animate_pix) })
+            .to(Animate_pride, { position: cc.v2(this.lockBottom.x - Animate_pix, this.lockBottom.y - Animate_pix) })
+            .to(Animate_pride, { position: cc.v2(this.lockBottom.x + Animate_pix, this.lockBottom.y + Animate_pix) })
+            .to(Animate_pride, { position: cc.v2(this.lockBottom.x - Animate_pix, this.lockBottom.y - Animate_pix) })
+            .start()
+
+    },
+
     render(item) {
         this.item_data = item;
         if (item.lock) {
@@ -24,12 +49,15 @@ cc.Class({
             this.lockTop.active = true;
             this.lockBottom.active = true;
         } else {
+            this.unlockedAnimate();
+            /* to out:为了展示解锁动画先屏蔽
             this.mask.active = false;
             this.lockTop.active = false;
             this.lockBottom.active = false;
+            */
         }
         this.title.string = item.hurdleName;
-        this.hurdleId = item.hurdleId;///*item.logoUrl*/
+        this.hurdleId = item.hurdleId;
         cc.loader.load({ url: item.logoUrl, type: 'png' }, (err, texture) => {
             if (err) cc.error(err);
             this.missionPic.spriteFrame = new cc.SpriteFrame(texture);
@@ -98,13 +126,8 @@ cc.Class({
         this.setTouch(item, missionItemClickCallback);
     },
 
-    // LIFE-CYCLE CALLBACKS:
-
-    // onLoad () {},
-
     start() {
 
     },
 
-    // update (dt) {},
 });
