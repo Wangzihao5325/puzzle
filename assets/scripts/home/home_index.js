@@ -202,11 +202,11 @@ cc.Class({
 
     resetUI() {
         var hungry_warp = cc.find(`processText`, this.hungry_bar)
-        hungry_warp.getComponent(cc.Label).string = `${HOME_CACHE.pet_info.currentHungry} \ ${HOME_CACHE.pet_info.hungryUpperLimit}`
+        hungry_warp.getComponent(cc.Label).string = `${HOME_CACHE.pet_info.currentHungry} \\ ${HOME_CACHE.pet_info.hungryUpperLimit}`
         this.hungry_bar.width = 200 * HOME_CACHE.pet_info.currentHungry / HOME_CACHE.pet_info.hungryUpperLimit
 
         var lucky_warp = cc.find(`processText`, this.lucky_bar)
-        lucky_warp.getComponent(cc.Label).string = `${HOME_CACHE.pet_info.currentLucky} \ ${HOME_CACHE.pet_info.luckyUpperLimit}`
+        lucky_warp.getComponent(cc.Label).string = `${HOME_CACHE.pet_info.currentLucky} \\ ${HOME_CACHE.pet_info.luckyUpperLimit}`
         this.lucky_bar.width = 200 * HOME_CACHE.pet_info.currentLucky / HOME_CACHE.pet_info.luckyUpperLimit
 
         this.setOUtUi()
@@ -220,7 +220,7 @@ cc.Class({
         this.stateUpdate();
         this.setBg();
         this.footerInit();
-        this.headerInit();
+        // this.headerInit();
         this.setTouch()
     },
 
@@ -281,9 +281,9 @@ cc.Class({
                     const catPostList = ['Zou00', 'PA00', 'Zhan00']
                     // this.ske_com.clearTrack(0);
                     //随机姿势
-                    if (HOME_CACHE.cat_post === undefined) {
-                        HOME_CACHE.cat_post = Math.round(Math.random() * 2)
-                    }
+          
+                    HOME_CACHE.cat_post = Math.round(Math.random() * 2)
+                    
                     const currentPost = catPostList[HOME_CACHE.cat_post]
 
                     var asset = new sp.SkeletonData();
@@ -307,13 +307,8 @@ cc.Class({
         const cat_post_dress=['C','','Z']
         const currentPost=HOME_CACHE.cat_post
         const dress_per=cat_post_dress[currentPost]
-        // HOME_CACHE.cat_post
         const name=item.iconName
         
-        // "boshi00": { "x": -29.51, "y": -21.46, "rotation": -113.23, "width": 231, "height": 167 }
-        // spine
-
-        // var spine = this.ske_anim;
         var spine = cc.find(`Canvas/rootWarp/my_home/cat/catItem`);
         var ske_com = spine.getComponent(sp.Skeleton);
         this.ske_com = ske_com;

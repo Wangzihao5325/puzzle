@@ -28,13 +28,10 @@
       },
       {
         "__id__": 67
-      },
-      {
-        "__id__": 68
       }
     ],
     "_prefab": {
-      "__id__": 69
+      "__id__": 68
     },
     "_opacity": 255,
     "_color": {
@@ -236,7 +233,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "New PageView",
+    "_name": "NewPageView",
     "_objFlags": 0,
     "_parent": {
       "__id__": 3
@@ -287,7 +284,7 @@
       "ctor": "Float64Array",
       "array": [
         0,
-        -40,
+        -30,
         0,
         0,
         0,
@@ -1227,7 +1224,7 @@
     "_left": 0,
     "_right": 0,
     "_top": 0,
-    "_bottom": 0,
+    "_bottom": 10,
     "_verticalCenter": 0,
     "_horizontalCenter": 0,
     "_isAbsLeft": true,
@@ -2350,38 +2347,6 @@
     },
     "fileId": "28Op1WbBhG+orF1ESuULHB",
     "sync": false
-  },
-  {
-    "__type__": "cc.Sprite",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 1
-    },
-    "_enabled": true,
-    "_materials": [
-      {
-        "__uuid__": "eca5d2f2-8ef6-41c2-bbe6-f9c79d09c432"
-      }
-    ],
-    "_srcBlendFactor": 770,
-    "_dstBlendFactor": 771,
-    "_spriteFrame": {
-      "__uuid__": "8358da64-c20f-4a4c-a16b-319ea4462ac7"
-    },
-    "_type": 1,
-    "_sizeMode": 0,
-    "_fillType": 0,
-    "_fillCenter": {
-      "__type__": "cc.Vec2",
-      "x": 0,
-      "y": 0
-    },
-    "_fillStart": 0,
-    "_fillRange": 0,
-    "_isTrimmedMode": true,
-    "_atlas": null,
-    "_id": ""
   },
   {
     "__type__": "cc.Layout",

@@ -20,7 +20,7 @@ const CAR_FOOD = [
 ]
 
 const HOME_CACHE = {
-    cat_post: undefined,
+    cat_post: 0,
     pet_info: {
         currentHungry: 500,
         currentLucky: 500,

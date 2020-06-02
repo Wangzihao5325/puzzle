@@ -7,6 +7,7 @@
 import { HOME_CACHE  } from '../global/home_global';
 import { CurrencyIdtoName } from '../utils/utils'
 
+//
 cc.Class({
     extends: cc.Component,
 
@@ -96,31 +97,36 @@ cc.Class({
     },
     
     setSelect(event){
+        console.log("event",event)
         const node=this.iconWarp.getComponent(cc.Sprite)
         const contentNode=this.iconWarpContent.getComponent(cc.Sprite)
        
             if(HOME_CACHE.selectDecorations){
-                var feedWarp = cc.find(`Canvas/dressWarp`)
+                const setlect=HOME_CACHE.selectDecorations.info
+                //清除其它选中
+                var feedWarpContent = cc.find(`Canvas/dressModal/dressWarp/feedContent/NewPageView/view/content`)
+                const oldSelectNode= feedWarpContent.children[setlect.pagesIndex].children[setlect.itemIndex]
+                this.removeSelect(oldSelectNode)
             }
-
+            //设置选中
             HOME_CACHE.selectDecorations=event.currentTarget
-
             node.spriteFrame=this.selectBorder
             contentNode.spriteFrame=this.selectBorder
             contentNode.color=new cc.color(254, 248, 212)
             this.select=!this.select;
             this.handleDressItem()
-            var feedWarpSave = cc.find(`Canvas/dressWarp/save/saveText`).getComponent(cc.Label)
+            var feedWarpSave = cc.find(`Canvas/dressModal/dressWarp/save/saveText`).getComponent(cc.Label)
             feedWarpSave.string=(HOME_CACHE.selectDecorations.info.status===0?'购买并装扮':'保存装扮')
 
         
 
     },
 
-    removeSelect(){
-        const node=this.iconWarp.getComponent(cc.Sprite)
-        const contentNode=this.iconWarpContent.getComponent(cc.Sprite)
-        node.spriteFrame=this.defaultPanle
+    removeSelect(node){
+        const warpNode=cc.find('iconWarp',node).getComponent(cc.Sprite)
+        const contentNode= cc.find('iconWarp/content',node).getComponent(cc.Sprite)
+        console.log("warpNode",warpNode,contentNode)
+        warpNode.spriteFrame=this.defaultPanle
         contentNode.spriteFrame=this.defaultPanle
         contentNode.color=new cc.color(236,236,236)
     },
@@ -201,7 +207,7 @@ cc.Class({
         }
     },
     setTouch() {
-        this.dress_item.on(cc.Node.EventType.TOUCH_START, (event) => {
+        this.dress_item.on(cc.Node.EventType.TOUCH_END, (event) => {
             // this.handleDressItem()
             this.setSelect(event)
             event.stopPropagation();

@@ -139,7 +139,7 @@ cc.Class({
     },
 
     setTouch() {
-        this.close.on(cc.Node.EventType.TOUCH_START, (event) => {
+        this.close.on(cc.Node.EventType.TOUCH_END, (event) => {
             this.handleClose(event)
             event.stopPropagation();
         })
