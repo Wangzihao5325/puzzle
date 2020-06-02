@@ -12,6 +12,7 @@ cc.Class({
 
     properties: {
         Action_warp: cc.Node,
+        container:cc.Node,
         Goout: cc.Node,
         Dress: cc.Node,
         Feed: cc.Node,
@@ -25,7 +26,80 @@ cc.Class({
     // LIFE-CYCLE CALLBACKS:
 
     onLoad() {
+
+
+        //根据姿势设置弹窗高度
+        const catPostListHeight = [150, 70, 150]
+        this.container.setPosition(cc.v2(0,catPostListHeight[HOME_CACHE.cat_post]))
+
+        //进入动画
+        this.Goout.setPosition(cc.v2(-150,0))
+        this.Goout.opacity=0
+
+        this.Dress.setPosition(cc.v2(45,35))
+        this.Dress.opacity=0
+
+        this.Feed.setPosition(cc.v2(160,-110))
+        this.Feed.opacity=0
+
+        cc.tween(this.Goout)
+        .to(.3, { position: cc.v2(-150, 200), opacity:255}, { easing: 'sineOutIn' })
+        .to(.2, { position: cc.v2(-150, 100)}, { easing: 'sineOutIn' })
+        .start()
+
+        cc.tween(this.Dress)
+        .delay(.1)
+        .to(.3, { position: cc.v2(0, 200), opacity:255}, { easing: 'sineOutIn' })
+        .to(.2, { position: cc.v2(0, 135)}, { easing: 'sineOutIn' })
+        .start()
+
+        cc.tween(this.Feed)
+        .delay(.2)
+        .to(.3, { position: cc.v2(160, 110), opacity:255}, { easing: 'sineOutIn' })
+        .to(.2, { position: cc.v2(160, -10)}, { easing: 'sineOutIn' })
+        .start()
+
+        this.bounceAnimation()
+
     },
+
+    //跳动动画
+    bounceAnimation(){
+        cc.tween(this.Goout)
+        .delay(8)
+        .to(.3, { position: cc.v2(-150, 200)}, { easing: 'sineOutIn' })
+        .to(.2, { position: cc.v2(-150, 100)}, { easing: 'sineOutIn' })
+        .union()
+        .repeatForever()
+        .start()
+
+        setTimeout(()=>{
+            cc.tween(this.Dress)
+            .delay(8)
+            .to(.3, { position: cc.v2(0, 200)}, { easing: 'sineOutIn' })
+            .to(.2, { position: cc.v2(0, 135)}, { easing: 'sineOutIn' })
+            .union()
+            .repeatForever()
+            .start()
+        },100)
+
+        setTimeout(()=>{
+            cc.tween(this.Feed)
+            .delay(8)
+            .to(.3, { position: cc.v2(160, 110)}, { easing: 'sineOutIn' })
+            .to(.2, { position: cc.v2(160, -10)}, { easing: 'sineOutIn' })
+            .union()
+            .repeatForever()
+            .start()
+        },200)
+
+
+
+
+
+
+    },
+
     init() {
         this.init_feed()
         this.setTouch()
@@ -114,23 +188,23 @@ cc.Class({
     },
 
     setTouch() {
-        this.Feed.on(cc.Node.EventType.TOUCH_START, (event) => {
+        this.Feed.on(cc.Node.EventType.TOUCH_END, (event) => {
             this.show_feed()
             event.stopPropagation();
 
         })
-        this.Dress.on(cc.Node.EventType.TOUCH_START, (event) => {
+        this.Dress.on(cc.Node.EventType.TOUCH_END, (event) => {
             this.show_dress()
             event.stopPropagation();
 
         })
-        this.Goout.on(cc.Node.EventType.TOUCH_START, (event) => {
+        this.Goout.on(cc.Node.EventType.TOUCH_END, (event) => {
             this.handleGoout()
             event.stopPropagation();
 
         })
 
-        this.node.on(cc.Node.EventType.TOUCH_MOVE, (event) => {
+        this.Action_warp.on(cc.Node.EventType.TOUCH_END, (event) => {
             this.handleClose()
             event.stopPropagation();
         })

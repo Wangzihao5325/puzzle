@@ -22,6 +22,11 @@ cc.Class({
     },
 
     init() {
+
+        //重置参数
+        GAME_CACH.complateIndex = []
+        GAME_CACH.isComplate = true
+
         const hardLevel = CACHE.hard_level;
         const missionObj = CACHE.mission_press;
         this.puzzle_name.string = CACHE.chapterData.chapterName

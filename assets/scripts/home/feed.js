@@ -12,6 +12,8 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
+        feedWarp:cc.Node,
+        container:cc.Node,
         cat_food:cc.Node,
         hiq_cat_food:cc.Node,
         hiq_cat_food_icon:cc.Node,
@@ -27,6 +29,12 @@ cc.Class({
     // LIFE-CYCLE CALLBACKS:
     init(){
         this.setTouch()
+
+        this.feedWarp.active=true
+        cc.tween(this.container)
+        .to(.2, { position: cc.v2(0, -408) },{ easing: 'sineOutIn'})
+        .start()
+
         this.getFoodRemain()
         cc.tween(this.hiq_cat_food_icon)
         .to(1.5, { scale: 1.1 })
@@ -92,28 +100,41 @@ cc.Class({
         });
     },
     handleClose(){
-        var feedWarp = cc.find(`Canvas/feedWarp`)
-        cc.tween(feedWarp)
+        cc.tween(this.feedWarp)
         .to(.2, { position: cc.v2(0, -1000) },{ easing: 'sineOutIn'})
+        .call(()=>{
+            this.feedWarp.active=false
+            this.feedWarp.destroy()
+        })
         .start()
 
     },
 
     setTouch() {
-        this.cat_food.on(cc.Node.EventType.TOUCH_START, (event) => {
+        this.cat_food.on(cc.Node.EventType.TOUCH_END, (event) => {
             this.feed(0)
             event.stopPropagation();
         })
-        this.hiq_cat_food.on(cc.Node.EventType.TOUCH_START, (event) => {
+        this.hiq_cat_food.on(cc.Node.EventType.TOUCH_END, (event) => {
             this.feed(1)
             event.stopPropagation();
         })
-        this.catnip.on(cc.Node.EventType.TOUCH_START, (event) => {
+        this.catnip.on(cc.Node.EventType.TOUCH_END, (event) => {
             this.feed(2)
             event.stopPropagation();
         })
-        this.close.on(cc.Node.EventType.TOUCH_START, (event) => {
+        this.close.on(cc.Node.EventType.TOUCH_END, (event) => {
             this.handleClose(2)
+            event.stopPropagation();
+        })
+        //遮罩阻止冒泡
+        this.feedWarp.on(cc.Node.EventType.TOUCH_START, (event) => {
+            event.stopPropagation();
+        })
+        this.feedWarp.on(cc.Node.EventType.TOUCH_MOVE, (event) => {
+            event.stopPropagation();
+        })
+        this.feedWarp.on(cc.Node.EventType.TOUCH_END, (event) => {
             event.stopPropagation();
         })
     }
