@@ -73,6 +73,9 @@ cc.Class({
         header.setPosition(0, 528);
         header.zIndex = 10;
         this.headerObj = obj;
+        Action.User.BalanceUpdate(() => {
+            this.headerObj.render();
+        })
     },
 
     showcaseInit(standInfoList) {

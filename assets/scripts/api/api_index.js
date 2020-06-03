@@ -193,6 +193,8 @@ const goodsInfo = (goodsId, callback, failedCallback) => new CusHttp().Get(`${AP
 
 const festivalReceive = (payload = { festivalId: 0 }, callback, failedCallback) => new CusHttp().Post(`${API_DOMAIN}/exhibition/festival/good/receive`, payload, callback, failedCallback);
 
+const powerTime = (payload = { key: 0 }, callback, failedCallback) => new CusHttp().Post(`${API_DOMAIN}/user/assets/get_power_time`, payload, callback, failedCallback);
+
 
 export default {
     cityDetails,
@@ -234,4 +236,5 @@ export default {
     travelRoute,
     goodsInfo,
     festivalReceive,
+    powerTime,
 }
