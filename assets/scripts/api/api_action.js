@@ -4,6 +4,7 @@ import { CACHE } from '../global/usual_cache';
 const BalanceUpdate = (callback, failedCallback) => {
     Api.petRemainFood((petRes) => {//展览界面需要展示剩余的宠物粮
         if (petRes.success) {
+            let catfood = petRes.data[1];
             Api.powerTime({ key: 0 }, (res) => {
                 if (res.success) {
                     Api.userBalance((res) => {
@@ -16,7 +17,7 @@ const BalanceUpdate = (callback, failedCallback) => {
                                 fragment: data.patDressFragment,
                                 strongMagnet: data.strongMagnet,
                                 frame: data.frame,
-                                catFood: 16
+                                catFood: catfood.count
                             };
                             CACHE.userData = { ...userData };
                             if (callback) {
