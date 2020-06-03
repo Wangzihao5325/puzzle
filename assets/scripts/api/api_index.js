@@ -145,6 +145,24 @@ const petBackNotice = (callback, failedCallback) => new CusHttp().Get(`${API_DOM
  */
 const backNoticeView = (payload = {}, callback, failedCallback) => new CusHttp().Post(`${API_DOMAIN}/pet/back_notice/viewed`, payload, callback, failedCallback);
 
+
+
+/**
+ * 获取回忆景点列表
+ * @param {Function} callback
+ * @param {Function} failedCallback
+ */
+const memory_list = (callback, failedCallback) => new CusHttp().Get(`${API_DOMAIN}/travel/memory/travel`, callback, failedCallback);
+
+
+/**
+ * 获取回忆景点详情
+ * @param {Function} callback
+ * @param {Function} failedCallback
+ */
+const memory_travelInfo = (data,callback, failedCallback) => new CusHttp().Get_UrlEnCoded(`${API_DOMAIN}/travel/memory/travelInfo`,data, callback, failedCallback);
+
+
 /**
  * 获取商城物品
  * @param {Function} callback
@@ -217,6 +235,8 @@ export default {
     backNoticeView,
     storeGoods,
     storeGoodsBuy,
+    memory_list,
+    memory_travelInfo,
 
     showInfo,
     placeGoods,
