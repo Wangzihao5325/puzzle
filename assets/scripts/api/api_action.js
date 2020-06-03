@@ -2,25 +2,30 @@ import Api from './api_index';
 import { CACHE } from '../global/usual_cache';
 
 const BalanceUpdate = (callback, failedCallback) => {
-    Api.powerTime({ key=0 }, (res) => {
-        if (res.success) {
-            Api.userBalance((res) => {
-                const data = res.data;
-                if (data) {
-                    const userData = {
-                        coin: data.gold,
-                        gem: data.diamonds,
-                        STAM: data.power,
-                        fragment: data.patDressFragment,
-                        strongMagnet: data.strongMagnet,
-                        frame: data.frame,
-                    };
-                    CACHE.userData = { ...userData };
-                    if (callback) {
-                        callback(res);
-                    }
+    Api.petRemainFood((petRes) => {//展览界面需要展示剩余的宠物粮
+        if (petRes.success) {
+            Api.powerTime({ key: 0 }, (res) => {
+                if (res.success) {
+                    Api.userBalance((res) => {
+                        const data = res.data;
+                        if (data) {
+                            const userData = {
+                                coin: data.gold,
+                                gem: data.diamonds,
+                                STAM: data.power,
+                                fragment: data.patDressFragment,
+                                strongMagnet: data.strongMagnet,
+                                frame: data.frame,
+                                catFood: 16
+                            };
+                            CACHE.userData = { ...userData };
+                            if (callback) {
+                                callback(res);
+                            }
+                        }
+                    }, failedCallback);
                 }
-            }, failedCallback);
+            })
         }
     })
 }

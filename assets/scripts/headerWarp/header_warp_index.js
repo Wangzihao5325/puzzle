@@ -6,16 +6,29 @@ cc.Class({
         coinLabel: cc.Label,
         gemLabel: cc.Label,
         STAMLabel: cc.Label,
-        coinAdd: cc.Node,
-        gemAdd: cc.Node,
-        STAMAdd: cc.Node,
+        STAMNode: cc.Node,
+        catFoodLabel: cc.Label,
+        catFoodNode: cc.Node,
+
+    },
+
+    initShowScene() {
+        this.catFoodNode.active = true;
+        this.STAMNode.active = false;
+    },
+
+    renderShowScene() {
+        let { userData } = CACHE;
+        this.coinLabel.string = `${userData.coin}`;
+        this.gemLabel.string = `${userData.gem}`;
+        this.catFoodLabel.string = `${userData.catFood}`;
     },
 
     render() {
         let { userData } = CACHE;
         this.coinLabel.string = `${userData.coin}`;
         this.gemLabel.string = `${userData.gem}`;
-        this.STAMLabel.string = `${userData.STAM}`;
+        this.STAMLabel.string = `${userData.STAM}/10`;
     },
 
     // LIFE-CYCLE CALLBACKS:

@@ -9,7 +9,8 @@ const CACHE = {
     userData: {//用户资产
         coin: 0,
         gem: 0,
-        STAM: 0
+        STAM: 0,
+        catFood: 0
     },
     cityData: {//当前选择的城市
         chapterId: 0,

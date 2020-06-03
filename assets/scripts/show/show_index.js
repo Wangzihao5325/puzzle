@@ -68,13 +68,13 @@ cc.Class({
     headerInit() {
         let header = cc.instantiate(this.header);
         let obj = header.getComponent('header_warp_index');
-        obj.render();
         header.parent = this.root;
         header.setPosition(0, 528);
         header.zIndex = 10;
         this.headerObj = obj;
+        this.headerObj.initShowScene();
         Action.User.BalanceUpdate(() => {
-            this.headerObj.render();
+            this.headerObj.renderShowScene();
         })
     },
 
@@ -241,7 +241,7 @@ cc.Class({
                 this.festivalUpdate(res.data.festivalInfo);
             }
             Action.User.BalanceUpdate(() => {
-                this.headerObj.render();
+                this.headerObj.renderShowScene();
             })
         })
     },
@@ -389,7 +389,7 @@ cc.Class({
                 } else {
                     Toast.show(`获得${res.data.extraName}x${res.data.num}`);
                     Action.User.BalanceUpdate(() => {
-                        this.headerObj.render();
+                        this.headerObj.renderShowScene();
                     })
                     Action.Show.ShowInfoUpdate((res) => {
                         const showData = CACHE.showData;
