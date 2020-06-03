@@ -43,7 +43,11 @@ const CACHE = {
     userInfo: undefined,
     dragonBoneAnimateName: '',
     lastBagTypeLength: 0,
-    isBGM: true
+    isBGM: true,
+    power: {
+        num: 0,
+        time: 0
+    }
 }
 
 export default {

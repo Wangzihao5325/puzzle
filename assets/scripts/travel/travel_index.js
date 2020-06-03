@@ -1,8 +1,10 @@
 import { CITIES } from '../global/travel_global_index';
 import { CACHE } from '../global/usual_cache';
 import { SCENE, SCENE_KEY } from '../global/app_global_index';
+import GLOBAL_VAR from '../global/index';
 import Action from '../api/api_action';
 import Api from '../api/api_index';
+import { setTimeOutWithTimeout } from '../utils/utils';
 
 cc.Class({
     extends: cc.Component,
@@ -96,6 +98,7 @@ cc.Class({
         header.setPosition(0, 528);
         Action.User.BalanceUpdate((res) => {
             obj.render();
+            this.powerTimer();
         });
     },
 
@@ -252,6 +255,27 @@ cc.Class({
         })
     },
 
+    powerTimer() {
+        //会出现倒计时较快问题
+        const power = CACHE.power;
+        if (power.num >= GLOBAL_VAR.powerMax) {
+            console.log('ppppp');
+        } else {
+            if (!this.powerTimerReg) {
+                this.powerTimerReg = setTimeOutWithTimeout(power.time * 1000, (res) => {
+                    //to do:显示倒计时
+                    console.log(res);
+                }, () => {
+                    this.powerTimerReg = null;
+                    Action.User.BalanceUpdate((res) => {
+                        this.header_obj.render();
+                        this.powerTimer();
+                    });
+                });
+            }
+        }
+    },
+
     init() {
         this.stateUpdate();
         this.setBg();
@@ -277,6 +301,10 @@ cc.Class({
     onDestroy() {
         if (this.currentBGM) {
             cc.audioEngine.stop(this.currentBGM);
+        }
+        if (this.powerTimerReg) {
+            this.powerTimerReg();
+            this.powerTimerReg = null;
         }
     }
 
