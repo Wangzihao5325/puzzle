@@ -293,7 +293,7 @@ cc.Class({
         this.bagBtn0.node.on(cc.Node.EventType.TOUCH_MOVE, (event) => {
             event.stopPropagation();
         })
-        this.bagBtn0.node.on(cc.Node.EventType.TOUCH_END, () => {
+        this.bagBtn0.node.on(cc.Node.EventType.TOUCH_END, (event) => {
             this.label0.node.color = cc.color(89, 83, 83);
             this.label1.node.color = cc.color(200, 200, 200);
             this.label2.node.color = cc.color(200, 200, 200);
@@ -308,7 +308,7 @@ cc.Class({
         this.bagBtn1.node.on(cc.Node.EventType.TOUCH_MOVE, (event) => {
             event.stopPropagation();
         })
-        this.bagBtn1.node.on(cc.Node.EventType.TOUCH_END, () => {
+        this.bagBtn1.node.on(cc.Node.EventType.TOUCH_END, (event) => {
             this.label0.node.color = cc.color(200, 200, 200);
             this.label1.node.color = cc.color(89, 83, 83);
             this.label2.node.color = cc.color(200, 200, 200);
@@ -323,7 +323,7 @@ cc.Class({
         this.bagBtn2.node.on(cc.Node.EventType.TOUCH_MOVE, (event) => {
             event.stopPropagation();
         })
-        this.bagBtn2.node.on(cc.Node.EventType.TOUCH_END, () => {
+        this.bagBtn2.node.on(cc.Node.EventType.TOUCH_END, (event) => {
             this.label0.node.color = cc.color(200, 200, 200);
             this.label1.node.color = cc.color(200, 200, 200);
             this.label2.node.color = cc.color(89, 83, 83);
@@ -338,7 +338,7 @@ cc.Class({
         this.bagBtn3.node.on(cc.Node.EventType.TOUCH_MOVE, (event) => {
             event.stopPropagation();
         })
-        this.bagBtn3.node.on(cc.Node.EventType.TOUCH_END, () => {
+        this.bagBtn3.node.on(cc.Node.EventType.TOUCH_END, (event) => {
             this.label0.node.color = cc.color(200, 200, 200);
             this.label1.node.color = cc.color(200, 200, 200);
             this.label2.node.color = cc.color(200, 200, 200);
@@ -353,7 +353,7 @@ cc.Class({
         this.bagMask.on(cc.Node.EventType.TOUCH_MOVE, (event) => {
             event.stopPropagation();
         })
-        this.bagMask.on(cc.Node.EventType.TOUCH_END, () => {
+        this.bagMask.on(cc.Node.EventType.TOUCH_END, (event) => {
             this.bagRoot.active = false;
             event.stopPropagation();
         })
@@ -462,7 +462,7 @@ cc.Class({
         this.heartMask.node.on(cc.Node.EventType.TOUCH_MOVE, (event) => {
             event.stopPropagation();
         })
-        this.heartMask.node.on(cc.Node.EventType.TOUCH_END, () => {
+        this.heartMask.node.on(cc.Node.EventType.TOUCH_END, (event) => {
             if (CACHE.showData.heartEnergy == 100) {
                 Toast.show('请选择一个正在展览中的展台');
                 CACHE.isShouwSpeedUp = true;

@@ -127,6 +127,7 @@ export function setTimeOutWithTimeStamp(stamp, middleCallback, finalCallback) {
 }
 
 export function setTimeOutWithTimeout(stamp, middleCallback, finalCallback) {
+  let timer = null;
   let time = Math.ceil(stamp / 1000);
   if (time > 0) {
     let hour = Math.floor(time / 3600);

@@ -123,10 +123,9 @@ cc.Class({
 
         })
         this.header.on(cc.Node.EventType.TOUCH_END, (event) => {
-            console.log('ddddd');
-            console.log(this.data_item);
             if (this.timer && CACHE.isShouwSpeedUp) {
                 Api.showSpeedUp({ placeId: this.data_item.placeId }, (res) => {
+                    CACHE.isShouwSpeedUp = false;
                     const data = res.data
                     if (data) {
                         //一套缩减时间动画
