@@ -1,6 +1,7 @@
 import { IMAGE_SERVER } from '../global/app_global_index';
-import { setTimeOutWithTimeStamp } from '../utils/utils';
+import { setTimeOutWithTimeStamp, setTimeOutWithTimeout } from '../utils/utils';
 import { CACHE } from '../global/usual_cache';
+import Api from '../api/api_index';
 //standType 0 金币 1 钻石 2 猫粮
 
 cc.Class({
@@ -49,7 +50,36 @@ cc.Class({
         cc.loader.load(url, (err, texture) => {
             this.goodsNode.spriteFrame = new cc.SpriteFrame(texture);
         });
-        this.timer = setTimeOutWithTimeStamp(receiveTime, (res) => {
+        this.timer = setTimeOutWithTimeStamp(receiveTime, (res, time) => {
+            this.timeLeft = time;
+            if (this.timerLabel) {
+                this.timerLabel.string = res;
+            } else {
+                this.timer();
+                this.timer = null;
+            }
+        }, () => {
+            this.turnToReceive();
+            delete this.data_item.goodId;
+            delete this.data_item.goodExpectReceiveTime;
+            this.timer();
+            this.timer = null;
+        })
+        this.data_item.placeId = placeId;
+        this.goodsNode.node.active = true;
+        this.getNumNode.active = true;
+        this.timerNode.active = true;
+
+        this.showTimeNode.active = false;
+        this.titleNode.active = false;
+        this.receiveBtn.active = false;
+    },
+
+    turnToTimerForSpeedUp(placeId, receiveTime) {
+        this.touchable = false;
+        CACHE.isShowOn[this.data_index] = true;
+        this.timer = setTimeOutWithTimeout(receiveTime, (res, time) => {
+            this.timeLeft = time;
             if (this.timerLabel) {
                 this.timerLabel.string = res;
             } else {
@@ -84,7 +114,7 @@ cc.Class({
         this.titleNode.active = false;
     },
 
-    setTouch(callback, receiveCallback) {
+    setTouch(callback, receiveCallback, speedUpCallback) {
         this.header.on(cc.Node.EventType.TOUCH_START, (event) => {
             event.stopPropagation();
         })
@@ -93,10 +123,37 @@ cc.Class({
 
         })
         this.header.on(cc.Node.EventType.TOUCH_END, (event) => {
-            if (callback && this.touchable) {
-                callback(this.data_item);
+            console.log('ddddd');
+            console.log(this.data_item);
+            if (this.timer && CACHE.isShouwSpeedUp) {
+                Api.showSpeedUp({ placeId: this.data_item.placeId }, (res) => {
+                    const data = res.data
+                    if (data) {
+                        //一套缩减时间动画
+                        if (data.goodReceiveRemainTime > 0) {//大于0缩减时间
+                            if (this.timer) {
+                                this.timer();
+                                this.timer = null;
+                                this.turnToTimerForSpeedUp(data.placeId, data.goodReceiveRemainTime);
+                            }
+                        } else {//小于0
+                            this.turnToReceive();
+                            delete this.data_item.goodId;
+                            delete this.data_item.goodExpectReceiveTime;
+                            if (this.timer) {
+                                this.timer();
+                                this.timer = null;
+                            }
+                        }
+                    }
+                    speedUpCallback(this.data_item)
+                });
             } else {
-                Toast.show('请收取物品后再进行操作');
+                if (callback && this.touchable) {
+                    callback(this.data_item);
+                } else {
+                    Toast.show('请收取物品后再进行操作');
+                }
             }
             event.stopPropagation();
         })
@@ -213,7 +270,8 @@ cc.Class({
                 this.receiveBtn.active = true;
             } else {//定时状态
                 this.timerNode.active = true;
-                this.timer = setTimeOutWithTimeStamp(item.goodExpectReceiveTime, (res) => {
+                this.timer = setTimeOutWithTimeStamp(item.goodExpectReceiveTime, (res, time) => {
+                    this.timeLeft = time;
                     if (this.timerLabel) {
                         this.timerLabel.string = res;
                     } else {

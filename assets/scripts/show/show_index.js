@@ -40,6 +40,10 @@ cc.Class({
         catLight: cc.Sprite,
         catBtn: cc.Sprite,
 
+        heartMask: cc.Sprite,
+        heartProgress: cc.Label,
+        heartLight: cc.Node,
+
         audio: {
             default: null,
             type: cc.AudioClip
@@ -87,7 +91,7 @@ cc.Class({
             let obj = showcaseNode.getComponent('showcase_index');
             if (obj) {
                 obj.initWithItem(item, index);
-                obj.setTouch((itemData) => this.openBag(itemData), (itemData) => this.bagReceive(itemData));
+                obj.setTouch((itemData) => this.openBag(itemData), (itemData) => this.bagReceive(itemData), (itemData) => this.speedUpCallback(itemData));
             }
         });
     },
@@ -119,6 +123,7 @@ cc.Class({
             .to(payload.firstPeriod, { position: cc.v2(payload.pausePosition[0], payload.pausePosition[1]) })
             .call(() => {
                 obj.manWait();
+                this.addHeart();
             })
             .delay(payload.pausePeriod)
             .call(() => {
@@ -427,6 +432,46 @@ cc.Class({
         });
     },
 
+    addHeart() {
+        Api.addHeartEnergy({ key: 0 }, (res) => {
+            CACHE.showData.heartEnergy = res.data
+            this.heartRender();
+        });
+    },
+
+    heartRender() {
+        this.heartProgress.string = `${CACHE.showData.heartEnergy}%`;
+        if (CACHE.showData.heartEnergy == 100) {
+            this.heartLight.active = true;
+            cc.tween(this.heartLight)
+                .to(0, { angle: 0 })
+                .to(10, { angle: 360 })
+                .union()
+                .repeatForever()
+                .start();
+            //增加动画 可点击
+        } else {
+
+        }
+    },
+
+    heartTouchSet() {
+        this.heartMask.node.on(cc.Node.EventType.TOUCH_START, (event) => {
+            event.stopPropagation();
+        })
+        this.heartMask.node.on(cc.Node.EventType.TOUCH_MOVE, (event) => {
+            event.stopPropagation();
+        })
+        this.heartMask.node.on(cc.Node.EventType.TOUCH_END, () => {
+            if (CACHE.showData.heartEnergy == 100) {
+                Toast.show('请选择一个正在展览中的展台');
+                CACHE.isShouwSpeedUp = true;
+            }
+            event.stopPropagation();
+        })
+    },
+    speedUpCallback() { },
+
     init() {
         this.stateUpdate();
         this.setBg();
@@ -443,6 +488,8 @@ cc.Class({
             this.showcaseInit(showData.standInfoList);
             /*位置不可调整，必须放在 showcaseInit后*/
             this.vistorTimerSet();
+            this.heartRender();
+            this.heartTouchSet()
         })
     },
 
@@ -466,6 +513,7 @@ cc.Class({
         if (this.currentBGM) {
             cc.audioEngine.stop(this.currentBGM);
         }
+        CACHE.isShouwSpeedUp = false;
     }
 
     // update (dt) {},
