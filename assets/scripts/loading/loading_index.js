@@ -3,6 +3,8 @@ import {
     CITY_ICON_URL,
     MAN_VISTER,
     WOMAN_VISTER,
+    OLD_MAN_VISTER,
+    YOUNG_WOMAN_VISTER,
     VISTER_ATTITUDE,
     NAVI_ASSETS,
 } from '../global/app_global_index';
@@ -51,24 +53,41 @@ cc.Class({
                         });
                         CACHE.assets.womenVistor = resArr;
 
-                        cc.loader.load(VISTER_ATTITUDE, (errs, results) => {
+                        cc.loader.load(OLD_MAN_VISTER, (errs, results) => {
                             if (errs) cc.error(errs);
-                            let resArr = VISTER_ATTITUDE.map((item) => {
+                            let resArr = OLD_MAN_VISTER.map((item) => {
                                 return results.getContent(item);
                             });
-                            CACHE.assets.vistorAttitude = resArr;
+                            CACHE.assets.oldManVistor = resArr;
 
-                            /*加载导航资源 */
-                            cc.loader.load(NAVI_ASSETS, (errs, results) => {
+                            cc.loader.load(YOUNG_WOMAN_VISTER, (errs, results) => {
                                 if (errs) cc.error(errs);
-                                let resArr = NAVI_ASSETS.map((item) => {
+                                let resArr = YOUNG_WOMAN_VISTER.map((item) => {
                                     return results.getContent(item);
                                 });
-                                CACHE.assets.naviAssets = resArr;
+                                CACHE.assets.youngWomenVistor = resArr;
 
-                                cc.director.loadScene("travel");
-                            })
-                        })
+                                cc.loader.load(VISTER_ATTITUDE, (errs, results) => {
+                                    if (errs) cc.error(errs);
+                                    let resArr = VISTER_ATTITUDE.map((item) => {
+                                        return results.getContent(item);
+                                    });
+                                    CACHE.assets.vistorAttitude = resArr;
+
+                                    /*加载导航资源 */
+                                    cc.loader.load(NAVI_ASSETS, (errs, results) => {
+                                        if (errs) cc.error(errs);
+                                        let resArr = NAVI_ASSETS.map((item) => {
+                                            return results.getContent(item);
+                                        });
+                                        CACHE.assets.naviAssets = resArr;
+
+                                        cc.director.loadScene("travel");
+                                    })
+                                })
+                            });
+                        });
+
                     })
                 })
             })

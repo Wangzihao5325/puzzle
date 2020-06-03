@@ -46,6 +46,16 @@ const WOMAN_VISTER = [
     `${IMAGE_SERVER}/nvzheng.png`,
 ];
 
+const OLD_MAN_VISTER = [
+    `${IMAGE_SERVER}/nance01.png`,
+    `${IMAGE_SERVER}/nanzheng01.png`,
+];
+
+const YOUNG_WOMAN_VISTER = [
+    `${IMAGE_SERVER}/nvce01.png`,
+    `${IMAGE_SERVER}/nvzheng01.png`,
+];
+
 const VISTER_ATTITUDE = [
     `${IMAGE_SERVER}/biaoqing01.png`,
     `${IMAGE_SERVER}/biaoqing02.png`,
@@ -75,6 +85,8 @@ export default {
     CITY_ICON_URL,
     MAN_VISTER,
     WOMAN_VISTER,
+    OLD_MAN_VISTER,
+    YOUNG_WOMAN_VISTER,
     VISTER_ATTITUDE,
     NAVI_ASSETS,
     IMAGE_SERVER

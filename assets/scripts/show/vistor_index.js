@@ -1,5 +1,5 @@
 import { CACHE } from '../global/usual_cache';
-const SEX = { MAN: 'manVistor', WOMAN: 'womenVistor' };
+const SEX = { MAN: 'manVistor', WOMAN: 'womenVistor', OLD_MAN: 'oldManVistor', YOUNG_WOMEN: 'youngWomenVistor' };
 const VISTOR_ASSETS_PATH = {
     man: ['show/nance.png', 'show/nanzheng.png'],
     woman: ['show/nvce.png', 'show/nvzheng.png'],
@@ -11,10 +11,28 @@ cc.Class({
     properties: {
         man: cc.Sprite,
         attitude: cc.Sprite,
+        attitudeBg: cc.Sprite,
+        attitudeLoading: cc.Label
     },
 
     randomSexAndAttitude() {
-        this.sex = (Math.random() * 2) > 1 ? SEX.MAN : SEX.WOMAN;
+        let manNum = Math.floor(Math.random() * 4);
+        console.log('kkkk');
+        console.log(manNum);
+        switch (manNum) {
+            case 0:
+                this.sex = SEX.MAN;
+                break;
+            case 1:
+                this.sex = SEX.WOMAN;
+                break;
+            case 2:
+                this.sex = SEX.OLD_MAN;
+                break;
+            case 3:
+                this.sex = SEX.YOUNG_WOMEN;
+                break;
+        }
         //to do 表情随机
 
         let index = Math.floor(Math.random() * CACHE.assets.vistorAttitude.length);
@@ -24,10 +42,10 @@ cc.Class({
     initMan(direction) {
         if (this.sex && this.attitudeAsset) {
             this.man.spriteFrame = new cc.SpriteFrame(CACHE.assets[this.sex][0]);
-            this.man.node.scaleX = direction > 0 ? -0.75 : 0.75;
-            this.man.node.scaleY = 0.75;
-            this.attitude.node.scaleX = 0.75;
-            this.attitude.node.scaleY = 0.75;
+            this.man.node.scaleX = direction > 0 ? -0.6 : 0.6;
+            this.man.node.scaleY = 0.6;
+            this.attitudeBg.node.scaleX = 0.6;
+            this.attitudeBg.node.scaleY = 0.6;
             this.attitude.spriteFrame = this.attitudeAsset;
             this.attitude.node.active = false;
         }
@@ -39,8 +57,8 @@ cc.Class({
             this.man.spriteFrame = new cc.SpriteFrame(CACHE.assets[this.sex][1]);;
             this.attitude.node.active = true;
             this.attitude.spriteFrame = new cc.SpriteFrame(CACHE.assets.vistorAttitude[1]);;
-            this.attitude.node.scaleX = 0.75;
-            this.attitude.node.scaleY = 0.75;
+            this.attitudeBg.node.scaleX = 0.75;
+            this.attitudeBg.node.scaleY = 0.75;
         }
     },
 

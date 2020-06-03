@@ -34,6 +34,8 @@ const CACHE = {
         cityIcon: null,
         manVistor: null,
         womenVistor: null,
+        oldManVistor: null,
+        youngWomenVistor: null,
         vistorAttitude: null,
         naviAssets: null,
     },
