@@ -1,5 +1,6 @@
 import { IMAGE_SERVER } from '../global/app_global_index';
 import { setTimeOutWithTimeStamp } from '../utils/utils';
+import { CACHE } from '../global/usual_cache';
 //standType 0 金币 1 钻石 2 猫粮
 
 cc.Class({
@@ -39,10 +40,12 @@ cc.Class({
         this.goodsNode.node.active = false;
         this.receiveBtn.active = false;
         this.timerNode.active = false;
+        CACHE.isShowOn[this.data_index] = false;
     },
 
     turnToTimer(url, placeId, receiveTime) {
         this.touchable = false;
+        CACHE.isShowOn[this.data_index] = true;
         cc.loader.load(url, (err, texture) => {
             this.goodsNode.spriteFrame = new cc.SpriteFrame(texture);
         });
@@ -131,9 +134,10 @@ cc.Class({
         })
     },
 
-    initWithItem(item) {
+    initWithItem(item, index) {
         this.touchable = true;
         this.data_item = item;
+        this.data_index = index;
         let unitStr = '';
         switch (item.timeUnit) {
             case 'MINUTES':
@@ -192,6 +196,7 @@ cc.Class({
         }
 
         if (item.goodId) {
+            CACHE.isShowOn[index] = true;
             this.touchable = false;//背包是否可打开
             let iconPath = `${IMAGE_SERVER}/${item.icon}.png`;
             cc.loader.load(iconPath, (err, texture) => {
@@ -219,10 +224,13 @@ cc.Class({
                     this.turnToReceive();
                     delete this.data_item.goodId;
                     delete this.data_item.goodExpectReceiveTime;
+                    CACHE.isShowOn[this.data_index] = false;
                     this.timer();
                     this.timer = null;
                 })
             }
+        } else {
+            CACHE.isShowOn[index] = false;
         }
     },
 

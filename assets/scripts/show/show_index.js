@@ -86,7 +86,7 @@ cc.Class({
             showcaseNode.setPosition(-210 + (index * 210), 58);
             let obj = showcaseNode.getComponent('showcase_index');
             if (obj) {
-                obj.initWithItem(item);
+                obj.initWithItem(item, index);
                 obj.setTouch((itemData) => this.openBag(itemData), (itemData) => this.bagReceive(itemData));
             }
         });
@@ -162,10 +162,23 @@ cc.Class({
     },
 
     vistorTimerSet() {
-        this.randomCreateVistor();
-        this.vistorTimer = setInterval(() => {
-            this.randomCreateVistor();
-        }, 4000)
+        if (CACHE.isShowOn[0] || CACHE.isShowOn[1] || CACHE.isShowOn[2]) {
+            if (!this.vistorTimer) {
+                this.randomCreateVistor();
+                this.vistorTimer = setInterval(() => {
+                    this.randomCreateVistor();
+                }, 4000)
+            }
+        }
+    },
+
+    vistorTimerDestory() {
+        if (!CACHE.isShowOn[0] && !CACHE.isShowOn[1] && !CACHE.isShowOn[2]) {
+            if (this.vistorTimer) {
+                clearInterval(this.vistorTimer);
+                this.vistorTimer = null;
+            }
+        }
     },
 
     bagInit(type = 1) {
@@ -235,6 +248,7 @@ cc.Class({
                 let obj = showcaseNode.getComponent('showcase_index');
                 if (obj) {
                     obj.turnToUnplace();
+                    this.vistorTimerDestory();
                 }
             }
             if (res.data.festivalInfo) {
@@ -249,12 +263,13 @@ cc.Class({
     bagGoodsClick(item) {
         if (item.goodsId) {
             Api.placeGoods({ goodId: item.goodsId, standId: CACHE.show_table_press.standId }, (res) => {
-                //to do:更新数据
                 let showcaseNode = cc.find(`Canvas/root/table/item_showcase_${CACHE.show_table_press.standId}`);
                 if (showcaseNode) {
                     let obj = showcaseNode.getComponent('showcase_index');
                     if (obj) {
                         obj.turnToTimer(item.url, res.data.placeId, res.data.expectReceiveTime);
+                        /*位置不可调整，必须放在 turnToTimer后*/
+                        this.vistorTimerSet();
                     }
                 }
                 this.bagRoot.active = false;
@@ -417,7 +432,6 @@ cc.Class({
         this.setBg();
         this.footerInit();
         this.headerInit();
-        this.vistorTimerSet();
         this.bagInit();
         this.bagBtnSetTouch();
         this.festivalSetTouch();
@@ -427,6 +441,8 @@ cc.Class({
                 this.festivalUpdate(showData.festivalInfo, () => this._festivalTimerCallback());
             }
             this.showcaseInit(showData.standInfoList);
+            /*位置不可调整，必须放在 showcaseInit后*/
+            this.vistorTimerSet();
         })
     },
 

@@ -47,7 +47,8 @@ const CACHE = {
     power: {
         num: 0,
         time: 0
-    }
+    },
+    isShowOn: [false, false, false],//是否有物品在展览 判断是否有vistor
 }
 
 export default {
