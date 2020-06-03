@@ -10,6 +10,11 @@ cc.Class({
         catFoodLabel: cc.Label,
         catFoodNode: cc.Node,
 
+        timeLabelNode: cc.Node,
+        timeLabel2Node: cc.Node,
+
+        timeLabel: cc.Label,
+        timeLabel2: cc.Label
     },
 
     initShowScene() {
@@ -29,6 +34,17 @@ cc.Class({
         this.coinLabel.string = `${userData.coin}`;
         this.gemLabel.string = `${userData.gem}`;
         this.STAMLabel.string = `${userData.STAM}/10`;
+    },
+
+    timeRender(isFull, time) {
+        if (isFull) {
+            this.timeLabelNode.active = false;
+            this.timeLabel2Node.active = false;
+        } else {
+            this.timeLabelNode.active = true;
+            this.timeLabel2Node.active = true;
+            this.timeLabel.string = time
+        }
     },
 
     // LIFE-CYCLE CALLBACKS:

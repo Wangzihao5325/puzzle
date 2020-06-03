@@ -259,12 +259,11 @@ cc.Class({
         //会出现倒计时较快问题
         const power = CACHE.power;
         if (power.num >= GLOBAL_VAR.powerMax) {
-            console.log('ppppp');
+            this.header_obj.timeRender(true, '00:00');
         } else {
             if (!this.powerTimerReg) {
                 this.powerTimerReg = setTimeOutWithTimeout(power.time * 1000, (res) => {
-                    //to do:显示倒计时
-                    console.log(res);
+                    this.header_obj.timeRender(false, res);
                 }, () => {
                     this.powerTimerReg = null;
                     Action.User.BalanceUpdate((res) => {

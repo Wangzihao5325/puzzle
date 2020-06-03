@@ -131,7 +131,7 @@ export function setTimeOutWithTimeout(stamp, middleCallback, finalCallback) {
   if (time > 0) {
     let hour = Math.floor(time / 3600);
     let min = Math.floor((time % 3600) / 60);
-    let sec = (time % 3600) % 60
+    let sec = (time % 3600) % 60;
     let timeStr = `${hour >= 10 ? hour : `0${hour}`}:${min >= 10 ? min : `0${min}`}:${sec >= 10 ? sec : `0${sec}`}`
     middleCallback(timeStr);
     timer = setInterval(() => {
