@@ -1,6 +1,7 @@
 import { IMAGE_SERVER } from '../global/app_global_index';
 import { setTimeOutWithTimeStamp } from '../utils/utils';
 //standType 0 金币 1 钻石 2 猫粮
+
 cc.Class({
     extends: cc.Component,
 
@@ -21,7 +22,12 @@ cc.Class({
 
         timerNode: cc.Node,
         timerIcon: cc.Sprite,
-        timerLabel: cc.Label
+        timerLabel: cc.Label,
+
+        lockNode: cc.Node,
+        lockTitle: cc.Label,
+        lockMission: cc.Label,
+        loackMask: cc.Sprite
     },
 
     turnToUnplace() {
@@ -107,6 +113,24 @@ cc.Class({
         })
     },
 
+    maskSetTouch() {
+        this.lockNode.on(cc.Node.EventType.TOUCH_START, (event) => {
+            event.stopPropagation();
+        })
+        this.lockNode.on(cc.Node.EventType.TOUCH_MOVE, (event) => {
+            event.stopPropagation();
+
+        })
+        this.lockNode.on(cc.Node.EventType.TOUCH_END, (event) => {
+            if (this.data_item.standId == 1) {
+                Toast.show('到达北京解锁');
+            } else if (this.data_item.standId == 2) {
+                Toast.show('花费钻石解锁哦');
+            }
+            event.stopPropagation();
+        })
+    },
+
     initWithItem(item) {
         this.touchable = true;
         this.data_item = item;
@@ -147,6 +171,24 @@ cc.Class({
                     this.timerIcon.spriteFrame = spriteFrame;
                 });
                 break;
+        }
+
+        if (!item.unlocked) {//是否解锁
+            this.lockTitle.string = item.standName;
+            let lockMissionStr = '';
+            switch (item.standId) {
+                case 1:
+                    lockMissionStr = '到达北京解锁';
+                    break;
+                case 2:
+                    lockMissionStr = '消耗200钻石';
+                    break;
+            }
+            this.lockMission.string = lockMissionStr;
+            this.lockNode.active = true;
+            this.maskSetTouch();
+        } else {
+            this.lockNode.active = false;
         }
 
         if (item.goodId) {
