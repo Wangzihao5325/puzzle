@@ -40,6 +40,10 @@ cc.Class({
         catLight: cc.Sprite,
         catBtn: cc.Sprite,
 
+        heartMask: cc.Sprite,
+        heartProgress: cc.Label,
+        heartLight: cc.Node,
+
         audio: {
             default: null,
             type: cc.AudioClip
@@ -68,11 +72,14 @@ cc.Class({
     headerInit() {
         let header = cc.instantiate(this.header);
         let obj = header.getComponent('header_warp_index');
-        obj.render();
         header.parent = this.root;
         header.setPosition(0, 528);
         header.zIndex = 10;
         this.headerObj = obj;
+        this.headerObj.initShowScene();
+        Action.User.BalanceUpdate(() => {
+            this.headerObj.renderShowScene();
+        })
     },
 
     showcaseInit(standInfoList) {
@@ -83,8 +90,8 @@ cc.Class({
             showcaseNode.setPosition(-210 + (index * 210), 58);
             let obj = showcaseNode.getComponent('showcase_index');
             if (obj) {
-                obj.initWithItem(item);
-                obj.setTouch((itemData) => this.openBag(itemData), (itemData) => this.bagReceive(itemData));
+                obj.initWithItem(item, index);
+                obj.setTouch((itemData) => this.openBag(itemData), (itemData) => this.bagReceive(itemData), (itemData) => this.speedUpCallback(itemData));
             }
         });
     },
@@ -116,6 +123,7 @@ cc.Class({
             .to(payload.firstPeriod, { position: cc.v2(payload.pausePosition[0], payload.pausePosition[1]) })
             .call(() => {
                 obj.manWait();
+                this.addHeart();
             })
             .delay(payload.pausePeriod)
             .call(() => {
@@ -159,10 +167,23 @@ cc.Class({
     },
 
     vistorTimerSet() {
-        this.randomCreateVistor();
-        this.vistorTimer = setInterval(() => {
-            this.randomCreateVistor();
-        }, 4000)
+        if (CACHE.isShowOn[0] || CACHE.isShowOn[1] || CACHE.isShowOn[2]) {
+            if (!this.vistorTimer) {
+                this.randomCreateVistor();
+                this.vistorTimer = setInterval(() => {
+                    this.randomCreateVistor();
+                }, 4000)
+            }
+        }
+    },
+
+    vistorTimerDestory() {
+        if (!CACHE.isShowOn[0] && !CACHE.isShowOn[1] && !CACHE.isShowOn[2]) {
+            if (this.vistorTimer) {
+                clearInterval(this.vistorTimer);
+                this.vistorTimer = null;
+            }
+        }
     },
 
     bagInit(type = 1) {
@@ -232,13 +253,14 @@ cc.Class({
                 let obj = showcaseNode.getComponent('showcase_index');
                 if (obj) {
                     obj.turnToUnplace();
+                    this.vistorTimerDestory();
                 }
             }
             if (res.data.festivalInfo) {
                 this.festivalUpdate(res.data.festivalInfo);
             }
             Action.User.BalanceUpdate(() => {
-                this.headerObj.render();
+                this.headerObj.renderShowScene();
             })
         })
     },
@@ -246,12 +268,13 @@ cc.Class({
     bagGoodsClick(item) {
         if (item.goodsId) {
             Api.placeGoods({ goodId: item.goodsId, standId: CACHE.show_table_press.standId }, (res) => {
-                //to do:更新数据
                 let showcaseNode = cc.find(`Canvas/root/table/item_showcase_${CACHE.show_table_press.standId}`);
                 if (showcaseNode) {
                     let obj = showcaseNode.getComponent('showcase_index');
                     if (obj) {
                         obj.turnToTimer(item.url, res.data.placeId, res.data.expectReceiveTime);
+                        /*位置不可调整，必须放在 turnToTimer后*/
+                        this.vistorTimerSet();
                     }
                 }
                 this.bagRoot.active = false;
@@ -386,7 +409,7 @@ cc.Class({
                 } else {
                     Toast.show(`获得${res.data.extraName}x${res.data.num}`);
                     Action.User.BalanceUpdate(() => {
-                        this.headerObj.render();
+                        this.headerObj.renderShowScene();
                     })
                     Action.Show.ShowInfoUpdate((res) => {
                         const showData = CACHE.showData;
@@ -409,12 +432,51 @@ cc.Class({
         });
     },
 
+    addHeart() {
+        Api.addHeartEnergy({ key: 0 }, (res) => {
+            CACHE.showData.heartEnergy = res.data
+            this.heartRender();
+        });
+    },
+
+    heartRender() {
+        this.heartProgress.string = `${CACHE.showData.heartEnergy}%`;
+        if (CACHE.showData.heartEnergy == 100) {
+            this.heartLight.active = true;
+            cc.tween(this.heartLight)
+                .to(0, { angle: 0 })
+                .to(10, { angle: 360 })
+                .union()
+                .repeatForever()
+                .start();
+            //增加动画 可点击
+        } else {
+
+        }
+    },
+
+    heartTouchSet() {
+        this.heartMask.node.on(cc.Node.EventType.TOUCH_START, (event) => {
+            event.stopPropagation();
+        })
+        this.heartMask.node.on(cc.Node.EventType.TOUCH_MOVE, (event) => {
+            event.stopPropagation();
+        })
+        this.heartMask.node.on(cc.Node.EventType.TOUCH_END, () => {
+            if (CACHE.showData.heartEnergy == 100) {
+                Toast.show('请选择一个正在展览中的展台');
+                CACHE.isShouwSpeedUp = true;
+            }
+            event.stopPropagation();
+        })
+    },
+    speedUpCallback() { },
+
     init() {
         this.stateUpdate();
         this.setBg();
         this.footerInit();
         this.headerInit();
-        this.vistorTimerSet();
         this.bagInit();
         this.bagBtnSetTouch();
         this.festivalSetTouch();
@@ -424,6 +486,10 @@ cc.Class({
                 this.festivalUpdate(showData.festivalInfo, () => this._festivalTimerCallback());
             }
             this.showcaseInit(showData.standInfoList);
+            /*位置不可调整，必须放在 showcaseInit后*/
+            this.vistorTimerSet();
+            this.heartRender();
+            this.heartTouchSet()
         })
     },
 
@@ -447,6 +513,7 @@ cc.Class({
         if (this.currentBGM) {
             cc.audioEngine.stop(this.currentBGM);
         }
+        CACHE.isShouwSpeedUp = false;
     }
 
     // update (dt) {},

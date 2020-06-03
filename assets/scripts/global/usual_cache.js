@@ -9,7 +9,8 @@ const CACHE = {
     userData: {//用户资产
         coin: 0,
         gem: 0,
-        STAM: 0
+        STAM: 0,
+        catFood: 0
     },
     cityData: {//当前选择的城市
         chapterId: 0,
@@ -42,7 +43,13 @@ const CACHE = {
     userInfo: undefined,
     dragonBoneAnimateName: '',
     lastBagTypeLength: 0,
-    isBGM: true
+    isBGM: true,
+    power: {
+        num: 0,
+        time: 0
+    },
+    isShowOn: [false, false, false],//是否有物品在展览 判断是否有vistor
+    isShouwSpeedUp: false,
 }
 
 export default {

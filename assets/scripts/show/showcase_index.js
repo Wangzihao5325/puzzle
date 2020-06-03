@@ -1,6 +1,9 @@
 import { IMAGE_SERVER } from '../global/app_global_index';
-import { setTimeOutWithTimeStamp } from '../utils/utils';
+import { setTimeOutWithTimeStamp, setTimeOutWithTimeout } from '../utils/utils';
+import { CACHE } from '../global/usual_cache';
+import Api from '../api/api_index';
 //standType 0 金币 1 钻石 2 猫粮
+
 cc.Class({
     extends: cc.Component,
 
@@ -21,7 +24,12 @@ cc.Class({
 
         timerNode: cc.Node,
         timerIcon: cc.Sprite,
-        timerLabel: cc.Label
+        timerLabel: cc.Label,
+
+        lockNode: cc.Node,
+        lockTitle: cc.Label,
+        lockMission: cc.Label,
+        loackMask: cc.Sprite
     },
 
     turnToUnplace() {
@@ -33,14 +41,45 @@ cc.Class({
         this.goodsNode.node.active = false;
         this.receiveBtn.active = false;
         this.timerNode.active = false;
+        CACHE.isShowOn[this.data_index] = false;
     },
 
     turnToTimer(url, placeId, receiveTime) {
         this.touchable = false;
+        CACHE.isShowOn[this.data_index] = true;
         cc.loader.load(url, (err, texture) => {
             this.goodsNode.spriteFrame = new cc.SpriteFrame(texture);
         });
-        this.timer = setTimeOutWithTimeStamp(receiveTime, (res) => {
+        this.timer = setTimeOutWithTimeStamp(receiveTime, (res, time) => {
+            this.timeLeft = time;
+            if (this.timerLabel) {
+                this.timerLabel.string = res;
+            } else {
+                this.timer();
+                this.timer = null;
+            }
+        }, () => {
+            this.turnToReceive();
+            delete this.data_item.goodId;
+            delete this.data_item.goodExpectReceiveTime;
+            this.timer();
+            this.timer = null;
+        })
+        this.data_item.placeId = placeId;
+        this.goodsNode.node.active = true;
+        this.getNumNode.active = true;
+        this.timerNode.active = true;
+
+        this.showTimeNode.active = false;
+        this.titleNode.active = false;
+        this.receiveBtn.active = false;
+    },
+
+    turnToTimerForSpeedUp(placeId, receiveTime) {
+        this.touchable = false;
+        CACHE.isShowOn[this.data_index] = true;
+        this.timer = setTimeOutWithTimeout(receiveTime, (res, time) => {
+            this.timeLeft = time;
             if (this.timerLabel) {
                 this.timerLabel.string = res;
             } else {
@@ -75,7 +114,7 @@ cc.Class({
         this.titleNode.active = false;
     },
 
-    setTouch(callback, receiveCallback) {
+    setTouch(callback, receiveCallback, speedUpCallback) {
         this.header.on(cc.Node.EventType.TOUCH_START, (event) => {
             event.stopPropagation();
         })
@@ -84,10 +123,37 @@ cc.Class({
 
         })
         this.header.on(cc.Node.EventType.TOUCH_END, (event) => {
-            if (callback && this.touchable) {
-                callback(this.data_item);
+            console.log('ddddd');
+            console.log(this.data_item);
+            if (this.timer && CACHE.isShouwSpeedUp) {
+                Api.showSpeedUp({ placeId: this.data_item.placeId }, (res) => {
+                    const data = res.data
+                    if (data) {
+                        //一套缩减时间动画
+                        if (data.goodReceiveRemainTime > 0) {//大于0缩减时间
+                            if (this.timer) {
+                                this.timer();
+                                this.timer = null;
+                                this.turnToTimerForSpeedUp(data.placeId, data.goodReceiveRemainTime);
+                            }
+                        } else {//小于0
+                            this.turnToReceive();
+                            delete this.data_item.goodId;
+                            delete this.data_item.goodExpectReceiveTime;
+                            if (this.timer) {
+                                this.timer();
+                                this.timer = null;
+                            }
+                        }
+                    }
+                    speedUpCallback(this.data_item)
+                });
             } else {
-                Toast.show('请收取物品后再进行操作');
+                if (callback && this.touchable) {
+                    callback(this.data_item);
+                } else {
+                    Toast.show('请收取物品后再进行操作');
+                }
             }
             event.stopPropagation();
         })
@@ -107,9 +173,28 @@ cc.Class({
         })
     },
 
-    initWithItem(item) {
+    maskSetTouch() {
+        this.lockNode.on(cc.Node.EventType.TOUCH_START, (event) => {
+            event.stopPropagation();
+        })
+        this.lockNode.on(cc.Node.EventType.TOUCH_MOVE, (event) => {
+            event.stopPropagation();
+
+        })
+        this.lockNode.on(cc.Node.EventType.TOUCH_END, (event) => {
+            if (this.data_item.standId == 1) {
+                Toast.show('到达北京解锁');
+            } else if (this.data_item.standId == 2) {
+                Toast.show('花费钻石解锁哦');
+            }
+            event.stopPropagation();
+        })
+    },
+
+    initWithItem(item, index) {
         this.touchable = true;
         this.data_item = item;
+        this.data_index = index;
         let unitStr = '';
         switch (item.timeUnit) {
             case 'MINUTES':
@@ -149,7 +234,26 @@ cc.Class({
                 break;
         }
 
+        if (!item.unlocked) {//是否解锁
+            this.lockTitle.string = item.standName;
+            let lockMissionStr = '';
+            switch (item.standId) {
+                case 1:
+                    lockMissionStr = '到达北京解锁';
+                    break;
+                case 2:
+                    lockMissionStr = '消耗200钻石';
+                    break;
+            }
+            this.lockMission.string = lockMissionStr;
+            this.lockNode.active = true;
+            this.maskSetTouch();
+        } else {
+            this.lockNode.active = false;
+        }
+
         if (item.goodId) {
+            CACHE.isShowOn[index] = true;
             this.touchable = false;//背包是否可打开
             let iconPath = `${IMAGE_SERVER}/${item.icon}.png`;
             cc.loader.load(iconPath, (err, texture) => {
@@ -166,7 +270,8 @@ cc.Class({
                 this.receiveBtn.active = true;
             } else {//定时状态
                 this.timerNode.active = true;
-                this.timer = setTimeOutWithTimeStamp(item.goodExpectReceiveTime, (res) => {
+                this.timer = setTimeOutWithTimeStamp(item.goodExpectReceiveTime, (res, time) => {
+                    this.timeLeft = time;
                     if (this.timerLabel) {
                         this.timerLabel.string = res;
                     } else {
@@ -177,10 +282,13 @@ cc.Class({
                     this.turnToReceive();
                     delete this.data_item.goodId;
                     delete this.data_item.goodExpectReceiveTime;
+                    CACHE.isShowOn[this.data_index] = false;
                     this.timer();
                     this.timer = null;
                 })
             }
+        } else {
+            CACHE.isShowOn[index] = false;
         }
     },
 

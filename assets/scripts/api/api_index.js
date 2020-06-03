@@ -211,6 +211,12 @@ const goodsInfo = (goodsId, callback, failedCallback) => new CusHttp().Get(`${AP
 
 const festivalReceive = (payload = { festivalId: 0 }, callback, failedCallback) => new CusHttp().Post(`${API_DOMAIN}/exhibition/festival/good/receive`, payload, callback, failedCallback);
 
+const powerTime = (payload = { key: 0 }, callback, failedCallback) => new CusHttp().Post(`${API_DOMAIN}/user/assets/get_power_time`, payload, callback, failedCallback);
+
+const addHeartEnergy = (payload = { key: 0 }, callback, failedCallback) => new CusHttp().Post(`${API_DOMAIN}/exhibition/heart_energy/add`, payload, callback, failedCallback);
+
+const showSpeedUp = (payload = { placeId: 0 }, callback, failedCallback) => new CusHttp().Post(`${API_DOMAIN}/exhibition/heart_energy/speed_up`, payload, callback, failedCallback);
+
 
 export default {
     cityDetails,
@@ -254,4 +260,7 @@ export default {
     travelRoute,
     goodsInfo,
     festivalReceive,
+    powerTime,
+    addHeartEnergy,
+    showSpeedUp
 }
