@@ -44,9 +44,7 @@ const CACHE = {
     token: null,
     logining: false,
     loginCallback: [],
-    userInfo: {
-
-    },
+    userInfo: null,
     dragonBoneAnimateName: '',
     lastBagTypeLength: 0,
     isBGM: true,
