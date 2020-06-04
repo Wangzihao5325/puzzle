@@ -25,10 +25,24 @@ cc.Class({
         signClose: cc.Node,
         signGetGoods: cc.Node,
 
+        map: cc.ScrollView,
+
         audio: {
             default: null,
             type: cc.AudioClip
         }
+    },
+
+    locationCity() {
+        let cityStateArr = CITIES;
+        cityStateArr.every((item) => {
+            if (item.isRecommend) {
+                this.map.scrollToOffset(cc.v2(item.positionX + 640 - 320, item.positionY - 568), 2);
+                return false;
+            } else {
+                return true;
+            }
+        });
     },
 
     drawLine(start, end) {
@@ -252,6 +266,8 @@ cc.Class({
                     obj.setTouch(this.cityPress);
                 }
             });
+
+            this.locationCity();
         })
     },
 
