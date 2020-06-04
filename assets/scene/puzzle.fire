@@ -174,7 +174,7 @@
       "array": [
         0,
         0,
-        531.7395979236453,
+        529.141521712292,
         0,
         0,
         0,
@@ -2447,11 +2447,14 @@
     "game_award": {
       "__uuid__": "c9f55433-2b66-40df-a41c-3a7c3e3f0476"
     },
-    "game_share": {
+    "game_shar3": {
       "__uuid__": "c9239cf0-a204-4704-b963-ff5ced5a1bba"
     },
     "game_share1": {
       "__uuid__": "18e9a7b4-7279-44c1-9bc6-a83bb2c8221b"
+    },
+    "game_share2": {
+      "__uuid__": "7fb146df-e835-4f63-a29c-519e09cf2b73"
     },
     "game_fail": {
       "__uuid__": "fe6aaa72-2626-4a48-bf25-2d6747f7829c"
