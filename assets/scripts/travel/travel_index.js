@@ -255,7 +255,7 @@ cc.Class({
                 }
                 /*生成关卡*/
                 let cityItemNode = cc.instantiate(this.city_item);
-                cityItemNode.name = `city_item-${item.name}`;
+                cityItemNode.name = `city_item-${item.key}`;
                 cityItemNode.parent = this.china_map;
                 /*获取itembg_index对象*/
                 let obj = cityItemNode.getComponent('travel_city');
