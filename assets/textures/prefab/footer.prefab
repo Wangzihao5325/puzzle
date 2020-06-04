@@ -85,7 +85,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "button",
+    "_name": "button_home",
     "_objFlags": 0,
     "_parent": {
       "__id__": 1
@@ -542,7 +542,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "button",
+    "_name": "button_travel",
     "_objFlags": 0,
     "_parent": {
       "__id__": 1
@@ -999,7 +999,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "button",
+    "_name": "button_show",
     "_objFlags": 0,
     "_parent": {
       "__id__": 1

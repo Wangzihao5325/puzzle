@@ -4,26 +4,59 @@ cc.Class({
 
     properties: {
         hand: cc.Prefab,
+        excal: cc.Prefab,
     },
 
     // LIFE-CYCLE CALLBACKS:
+    stepTwoAddExcal() {
+        this.excalNode = cc.instantiate(this.excal);
+        this.excalNode.scaleX = 0.7;
+        this.excalNode.scaleY = 0.7;
+        this.excalNode.parent = this.node;
+        this.excalNode.setPosition(cc.v2(200, -450));
+        let obj = this.excalNode.getComponent('guideExcal');
+        if (obj) {
+            obj.animate();
+        }
+    },
 
     onLoad() {
-        if (CACHE.userInfo && CACHE.userInfo.stage === 1) {
+        if (CACHE.userInfo) {
+            let handPosition;
+            switch (CACHE.userInfo.stage) {
+                case 1:
+                    handPosition = cc.v2(0, 0);
+                    break;
+                case 2:
+                    handPosition = cc.v2(200, -500);
+                    this.stepTwoAddExcal();
+                    break;
+                case 3:
+                    break;
+                case 4:
+                    break;
+                case 5:
+                    break;
+                case 6:
+                    break;
+                case 7:
+                    break;
+            }
             this.isSetTouch = true;
             this.node.zIndex = 1000;
             this.guideStep = 1;
+
             this.handNode = cc.instantiate(this.hand);
             this.handNode.scaleX = 0.7;
             this.handNode.scaleY = 0.7;
             this.handNode.parent = this.node;
-            this.handNode.setPosition(cc.v2(0, 0));
+            this.handNode.setPosition(handPosition);
             let obj = this.handNode.getComponent('guideHand');
             if (obj) {
                 obj.handAnimate();
             }
-            // 触摸监听
             this.node.on(cc.Node.EventType.TOUCH_START, this.onTouchStart, this);
+
         }
     },
 
@@ -35,13 +68,20 @@ cc.Class({
     },
 
     onTouchStart(event) {
-        // 获取触摸点，转为Canvas画布上的坐标
-        let pos = this.node.parent.parent.convertToNodeSpaceAR(event.getLocation());
-        // 获取相应按钮的大小范围
+        let originNode;
+        let pos;
         let btn;
-        if (this.guideStep == 1) {
+        if (CACHE.userInfo.stage == 1) {
+            // 获取触摸点，转为Canvas画布上的坐标
+            originNode = this.node.parent.parent;
+            pos = originNode.convertToNodeSpaceAR(event.getLocation());
             btn = cc.find('Canvas/map/view/content/bg/city_item-101/city_image');
+        } else if (CACHE.userInfo.stage == 2) {
+            originNode = cc.find('Canvas/layoutRoot/footer_navi');;
+            pos = originNode.convertToNodeSpaceAR(event.getLocation());
+            btn = cc.find('Canvas/layoutRoot/footer_navi/button_show');
         }
+        // 获取相应按钮的大小范围
         let rect = btn.getBoundingBox();
         // 判断触摸点是否在按钮上
         if (rect.contains(pos)) {
