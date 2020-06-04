@@ -42,6 +42,8 @@ const CACHE = {
     showData: null,//展览数据
     signData: null,//签到数据
     token: null,
+    logining: false,
+    loginCallback: [],
     userInfo: null,
     dragonBoneAnimateName: '',
     lastBagTypeLength: 0,
