@@ -14,6 +14,7 @@ cc.Class({
         pic: cc.Sprite,
         new:cc.Node,
         time:cc.Label,
+        weatherIcon:cc.Sprite,
         item:{
             type:Object,
             default:{}
@@ -32,6 +33,12 @@ cc.Class({
     showRecallInfo(){
         const recallDialog=cc.find('Canvas/recallDialog').getComponent('recall')
         recallDialog.showInfo(this.item)
+        
+        // let recallInfoIns = cc.instantiate(this.racallInfo);
+        // let obj = recallInfo.getComponent('recallInfo');
+
+        // obj.init(item)
+        // recallInfoIns.parent = this.cc.find('Canvas');
     },
 
     setTouch(callback) {
@@ -49,14 +56,18 @@ cc.Class({
 
     init(item,index) {
         this.item = item;
-        this.time.string = dateFormat((new Date()),'yyyy-MM-dd');
-        if(index===0){
-            this.new.active=true
-        }
+        this.time.string = dateFormat((new Date(item.createTime)),'yyyy-MM-dd');
+
+    
         cc.loader.load(item.picUrl, (err, texture) => {
             this.pic.spriteFrame = new cc.SpriteFrame(texture)
         });
-        this.setTouch()
+
+        const weatherIcon=this.weatherIcon
+        cc.loader.load(item.weatherUrl, (err, texture)=> {
+            weatherIcon.spriteFrame=new cc.SpriteFrame(texture)
+        });
+
 
     },
 

@@ -15,6 +15,7 @@ cc.Class({
     properties: {
         warp:cc.Node,
         content:cc.Node,
+        title:cc.Label,
         // bg: cc.Sprite,
         dragonBone: {
             default: null,
@@ -33,6 +34,11 @@ cc.Class({
 
     onLoad () {
         // this.initBgAnimate()
+        this.content.setScale(0.2)
+        cc.tween(this.content)
+        .to(.3,{scale:1.2})
+        .to(0.15,{scale:1})
+        .start()
         this.setTouch()
     },
 
@@ -43,10 +49,26 @@ cc.Class({
 
 
     handleBack(){
-        this.shareWarp.active=false;
-        this.shareWarp.destroy()
-        cc.director.loadScene("mission");
+        // this.content.setScale(0.2)
+        cc.tween(this.content)
+        .to(.1,{scale:1.2})
+        .to(0.3,{scale:.2,opacity:0})
+        .call(()=>{
+            this.warp.active=false;
+            this.warp.destroy()
+        })
+        .start()
 
+    },
+
+    init(data){
+        const animatePayload = {
+            animatePath: data.texJson,
+            animatePath2: data.skeJson,
+            picPath: data.texPng,
+        };
+        this.title.string=data.hurdleName
+        this.initBgAnimate(animatePayload)
     },
 
     initBgAnimate(animatePayload) {
@@ -81,14 +103,25 @@ cc.Class({
     },
 
     setTouch() {
-        this.back.on(cc.Node.EventType.TOUCH_END, (event) => {
-            this.handleBack()
-            event.stopPropagation();
-        })
+        // this.download.on(cc.Node.EventType.TOUCH_END, (event) => {
+        //     this.handleDownload()
+        //     event.stopPropagation();
+        // })
         this.download.on(cc.Node.EventType.TOUCH_END, (event) => {
             this.handleDownload()
             event.stopPropagation();
         })
+        this.warp.on(cc.Node.EventType.TOUCH_END, (event) => {
+            this.handleBack()
+            event.stopPropagation();
+        })
+        this.warp.on(cc.Node.EventType.TOUCH_START, (event) => {
+            event.stopPropagation();
+        })
+        this.warp.on(cc.Node.EventType.TOUCH_MOVE, (event) => {
+            event.stopPropagation();
+        })
+        
 
         
     },

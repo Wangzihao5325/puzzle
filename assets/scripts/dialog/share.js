@@ -22,7 +22,7 @@ cc.Class({
         },
         type: {
             type:Number,
-            default:1
+            default:0
         },
         back:cc.Node,
         download:cc.Node,
@@ -65,13 +65,22 @@ cc.Class({
         // });
     },
 
-    initSentence(type,text){
+    initSentence(types,text){
+        let list,listL;
+        if(types===0){
+             list =[0,15,15,15,15,15]
+             listL=[0,15,30,45,60,75]
+        }else if(types===1){
+            list =[0,15,15,15,15,15]
+            listL=[0,15,30,45,60,75]
+        }else{
+            list =[0,6,7,8,9,9,9]
+            listL=[0,6,13,21,30,38]
+        }
 
 
-        const list =[0,6,7,8,9,9,9]
-        const listL=[0,6,13,21,30,38]
         let newText=text.length>listL[listL.length-1]?text.slice(0,listL[listL.length-1]-2)+'...':text
-        const lableList=[this.text1,this.text2,this.text3,this.text4,this.text5,this.text6,]
+        const lableList=[this.text1,this.text2,this.text3,this.text4,this.text5]
         let lableNum=5;
         const listLRevrse=listL.slice().reverse()
         listLRevrse.map((item,index)=>{

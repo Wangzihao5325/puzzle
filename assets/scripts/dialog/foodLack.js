@@ -11,6 +11,7 @@ cc.Class({
 
     properties: {
         modal:cc.Node,
+        content:cc.Node,
         confirmBtn:cc.Node,
         closeBtn:cc.Node,
 
@@ -19,6 +20,11 @@ cc.Class({
     // LIFE-CYCLE CALLBACKS:
 
     onLoad () {
+        this.content.setScale(0.2)
+        cc.tween(this.content)
+        .to(.3,{scale:1.2})
+        .to(0.15,{scale:1})
+        .start()
         this.setTouch()
     },
 
@@ -29,7 +35,15 @@ cc.Class({
 
 
     handleClose(){
-        this.modal.destroy();
+
+        cc.tween(this.content)
+        .to(.1,{scale:1.2})
+        .to(0.3,{scale:.2,opacity:0})
+        .call(()=>{
+            this.modal.active=false;
+            this.modal.destroy()
+        })
+        .start()
     },
 
     setTouch() {
@@ -44,7 +58,8 @@ cc.Class({
         
     },
     handleConfirm(){
-        this.modal.destroy();
+        // this.modal.destroy();
+        this.handleClose()
     },
 
    
