@@ -41,8 +41,8 @@ const CACHE = {
     },
     showData: null,//展览数据
     signData: null,//签到数据
-    token: undefined,
-    userInfo: undefined,
+    token: null,
+    userInfo: null,
     dragonBoneAnimateName: '',
     lastBagTypeLength: 0,
     isBGM: true,
