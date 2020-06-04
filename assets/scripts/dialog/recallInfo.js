@@ -90,7 +90,7 @@ cc.Class({
                 const data=res.data
                 const momentNodeList=[this.commentText1,this.commentText2,this.commentText3]
                 data.map((item,index)=>{
-                    momentNodeList[index].string=item
+                    momentNodeList[index].string=`[${item.name}]: ${item.comment}`
                 })
             }
         })

@@ -31,6 +31,7 @@ cc.Class({
         game_root: cc.Node,
         game_award: cc.Prefab,
         game_share: cc.Prefab,
+        game_share1:cc.Prefab,
         game_fail: cc.Prefab,
 
     },
@@ -228,17 +229,18 @@ cc.Class({
 
         setTimeout(() => {
             game_award.destroy()
-            this.showShare()
-        }, 1500)
+            this.showShare(item,leavel-1)
+        }, 2000)
 
     },
 
     //显示分享弹窗
     showShare(item, leavel) {
-        let game_share = cc.instantiate(this.game_share);
+        const shareList=[this.game_share1,this.game_share,this.game_share]
+        let game_share = cc.instantiate(shareList[leavel]);
         game_share.parent = this.root_warp;
         let obj = game_share.getComponent('share');
-        obj.init(item, leavel)
+        obj.init(item, leavel+1)
 
     },
 
