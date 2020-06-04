@@ -49,15 +49,21 @@ cc.Class({
         //得分动画
         const startLeavel=leavel
         const startList=[this.start1,this.start2,this.start3]
-        const postionList=[-130,0,130]
+
         for(let i=0;i<startLeavel;i++){
             let startItem=startList[i]
             startItem.getComponent(cc.Sprite).spriteFrame=this.coreStart
-            startItem.setPosition(cc.v2(postionList[i],-500))
+
+            startItem.setScale(0.2)
+            startItem.opacity=0
             cc.tween(startItem)
-            .to(.5,{position:cc.v2(postionList[i],0),rotation: 360})
-            .to(.5, { scale: 1.3 })
-            .to(.5, { scale: 1 })
+            .to(.5,{scale: 1.3,rotation: 72,opacity:255})
+            .to(.2,{scale: .8})
+            .to(.2, { scale: 1.2 })
+            .to(.2, { scale: 1 })
+            .to(.2,{scale: .8})
+            .to(.2, { scale: 1.2 })
+            .to(.2, { scale: 1 })
             .start()
         }
 

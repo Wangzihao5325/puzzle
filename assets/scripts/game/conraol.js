@@ -48,6 +48,7 @@ cc.Class({
     },
 
     start() {
+        // this.showAward([], CACHE.hard_level + 1)
 
     },
 
@@ -63,7 +64,7 @@ cc.Class({
             )
         } else {
             //测试用
-            this.doComplate()
+            // this.doComplate()
             Toast.show('余额不足，观看广告')
         }
     },
