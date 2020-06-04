@@ -1,5 +1,5 @@
 import { IMAGE_SERVER } from '../global/app_global_index';
-import { setTimeOutWithTimeStamp, setTimeOutWithTimeout } from '../utils/utils';
+import { setTimeOutWithTimeStamp, setTimeOutWithTimeout, setTimeOutWithStartEnd } from '../utils/utils';
 import { CACHE } from '../global/usual_cache';
 import Api from '../api/api_index';
 //standType 0 金币 1 钻石 2 猫粮
@@ -133,16 +133,38 @@ cc.Class({
                             if (this.timer) {
                                 this.timer();
                                 this.timer = null;
-                                this.turnToTimerForSpeedUp(data.placeId, data.goodReceiveRemainTime);
                             }
+                            this.timerLabel.node.color = cc.color(255, 0, 0);
+                            this.shortTimer = setTimeOutWithStartEnd(this.timeLeft, Math.floor(data.goodReceiveRemainTime / 1000), (res) => {
+                                if (this.timerLabel) {
+                                    this.timerLabel.string = res;
+                                } else {
+                                    this.shortTimer();
+                                    this.shortTimer = null;
+                                }
+                            }, () => {
+                                this.timerLabel.node.color = cc.color(255, 255, 255);
+                                this.turnToTimerForSpeedUp(data.placeId, data.goodReceiveRemainTime);
+                            })
                         } else {//小于0
-                            this.turnToReceive();
-                            delete this.data_item.goodId;
-                            delete this.data_item.goodExpectReceiveTime;
                             if (this.timer) {
                                 this.timer();
                                 this.timer = null;
                             }
+                            this.timerLabel.color = cc.color(255, 0, 0);
+                            this.shortTimer = setTimeOutWithStartEnd(this.timeLeft, Math.floor(data.goodReceiveRemainTime / 1000), (res) => {
+                                if (this.timerLabel) {
+                                    this.timerLabel.string = res;
+                                } else {
+                                    this.shortTimer();
+                                    this.shortTimer = null;
+                                }
+                            }, () => {
+                                this.timerLabel.color = cc.color(255, 255, 255);
+                                this.turnToReceive();
+                                delete this.data_item.goodId;
+                                delete this.data_item.goodExpectReceiveTime;
+                            })
                         }
                     }
                     speedUpCallback(this.data_item)
