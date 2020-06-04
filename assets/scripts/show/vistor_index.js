@@ -75,6 +75,7 @@ cc.Class({
     },
 
     attitudeShow() {
+        this.attitudeLoading.node.active = false;
         this.attitude.node.active = true;
         let isAddHeart = false;
         switch (this.attitudeIndex) {

@@ -459,6 +459,7 @@ cc.Class({
 
     heartRender() {
         this.heartProgress.string = `${CACHE.showData.heartEnergy}%`;
+        this.heartMask.fillRange = CACHE.showData.heartEnergy / 100;
         if (CACHE.showData.heartEnergy == 100) {
             this.heartLight.active = true;
             cc.tween(this.heartLight)
