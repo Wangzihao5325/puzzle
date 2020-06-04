@@ -25,9 +25,10 @@ cc.Class({
         currency_warp: cc.Prefab,
         OutSide: cc.Prefab,
         store_icon: cc.Node,
+        recall_icon:cc.Node,
         store: cc.Prefab,
+        recall: cc.Prefab,
         food_lack: cc.Prefab,
-
         audio: {
             default: null,
             type: cc.AudioClip
@@ -250,15 +251,25 @@ cc.Class({
         const canvas = cc.find('Canvas')
         store.parent = canvas
     },
+    showRecall() {
+        let recall = cc.instantiate(this.recall);
+        const canvas = cc.find('Canvas')
+        recall.parent = canvas
+    },
     setTouch(hardLevel) {
-        this.cat.on(cc.Node.EventType.TOUCH_START, (event) => {
+        this.cat.on(cc.Node.EventType.TOUCH_END, (event) => {
             this.showCatAction()
             event.stopPropagation();
         })
-        this.store_icon.on(cc.Node.EventType.TOUCH_START, (event) => {
+        this.store_icon.on(cc.Node.EventType.TOUCH_END, (event) => {
             this.showStore()
             event.stopPropagation();
         })
+        this.recall_icon.on(cc.Node.EventType.TOUCH_END, (event) => {
+            this.showRecall()
+            event.stopPropagation();
+        })
+        
 
     },
     initCat() {
