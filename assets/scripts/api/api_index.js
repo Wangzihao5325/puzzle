@@ -160,7 +160,7 @@ const memory_list = (callback, failedCallback) => new CusHttp().Get(`${API_DOMAI
  * @param {Function} callback
  * @param {Function} failedCallback
  */
-const memory_travelInfo = (data,callback, failedCallback) => new CusHttp().Get_UrlEnCoded(`${API_DOMAIN}/travel/memory/travelInfo`,data, callback, failedCallback);
+const memory_travelInfo = (data, callback, failedCallback) => new CusHttp().Get_UrlEnCoded(`${API_DOMAIN}/travel/memory/travelInfo`, data, callback, failedCallback);
 
 
 /**
@@ -217,6 +217,8 @@ const addHeartEnergy = (payload = { key: 0 }, callback, failedCallback) => new C
 
 const showSpeedUp = (payload = { placeId: 0 }, callback, failedCallback) => new CusHttp().Post(`${API_DOMAIN}/exhibition/heart_energy/speed_up`, payload, callback, failedCallback);
 
+const missionLockShow = (payload = { hurdleId: 0 }, callback, failedCallback) => new CusHttp().Post(`${API_DOMAIN}/travel/showLock`, payload, callback, failedCallback);
+
 
 export default {
     cityDetails,
@@ -262,5 +264,6 @@ export default {
     festivalReceive,
     powerTime,
     addHeartEnergy,
-    showSpeedUp
+    showSpeedUp,
+    missionLockShow
 }
