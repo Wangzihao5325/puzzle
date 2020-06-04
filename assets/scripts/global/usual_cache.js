@@ -43,7 +43,7 @@ const CACHE = {
     signData: null,//签到数据
     token: undefined,
     userInfo: {
-        stage: 2
+        stage: 1
     },
     dragonBoneAnimateName: '',
     lastBagTypeLength: 0,
