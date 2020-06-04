@@ -48,6 +48,7 @@ class CusHttp {
         })
     }
     Get_UrlEnCoded(Url, data, cb, fcb) {
+        console.log("Get_UrlEnCoded",data)
         this.getToken(() => {
             let http = cc.loader.getXMLHttpRequest();
             http.open("GET", Url, true);

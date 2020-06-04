@@ -242,6 +242,10 @@ cc.Class({
     },
 
     showCatAction() {
+        let { outward } = HOME_CACHE.pet_info
+        if(outward){
+            return false
+        }
         let catActionInstan = cc.instantiate(this.cat_action)
         catActionInstan.parent = this.home_root
         catActionInstan.setPosition(0, 80);

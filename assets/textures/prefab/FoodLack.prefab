@@ -1796,6 +1796,9 @@
     "modal": {
       "__id__": 1
     },
+    "content": {
+      "__id__": 2
+    },
     "confirmBtn": {
       "__id__": 20
     },

@@ -160,8 +160,25 @@ const memory_list = (callback, failedCallback) => new CusHttp().Get(`${API_DOMAI
  * @param {Function} callback
  * @param {Function} failedCallback
  */
-const memory_travelInfo = (data,callback, failedCallback) => new CusHttp().Get_UrlEnCoded(`${API_DOMAIN}/travel/memory/travelInfo`,data, callback, failedCallback);
+const memory_travelInfo = (data,callback, failedCallback) => new CusHttp().Get(`${API_DOMAIN}/travel/memory/travelInfo?hurdleId=${data.hurdleId}`,data, callback, failedCallback);
 
+
+/**
+ * 获取景点回忆评论
+ * @param {Function} callback
+ * @param {Function} failedCallback
+ */
+const memory_comment = (callback, failedCallback) => new CusHttp().Get(`${API_DOMAIN}/travel/memory/comment`, callback, failedCallback);
+
+
+
+/**
+ * 回忆景点点赞&喂食
+ * @param {Object} payload {null:null}
+ * @param {Function} callback
+ * @param {Function} failedCallback
+ */
+const memory_praise = (payload = {}, callback, failedCallback) => new CusHttp().Post(`${API_DOMAIN}/travel/memory/praise`, payload, callback, failedCallback);
 
 /**
  * 获取商城物品
@@ -243,6 +260,8 @@ export default {
     storeGoodsBuy,
     memory_list,
     memory_travelInfo,
+    memory_comment,
+    memory_praise,
 
     showInfo,
     placeGoods,
