@@ -123,9 +123,27 @@ cc.Class({
             .to(payload.firstPeriod, { position: cc.v2(payload.pausePosition[0], payload.pausePosition[1]) })
             .call(() => {
                 obj.manWait();
-                this.addHeart();
             })
-            .delay(payload.pausePeriod)
+            .delay(0.7)
+            .call(() => {
+                obj.labelSetting('。');
+            })
+            .delay(0.7)
+            .call(() => {
+                obj.labelSetting('。。');
+            })
+            .delay(0.7)
+            .call(() => {
+                obj.labelSetting('。。。');
+            })
+            .delay(0.7)
+            .call(() => {
+                let isAdd = obj.attitudeShow();
+                if (isAdd) {
+                    this.addHeart();
+                }
+            })
+            .delay(payload.pausePeriod - 2.8)
             .call(() => {
                 obj.initMan(secondDriection);
             })
@@ -152,7 +170,7 @@ cc.Class({
 
 
     randomCreateVistor() {
-        let randomY = -350 - Math.floor((50 * Math.random()));
+        let randomY = -370 - Math.floor((50 * Math.random()));
         let startX = (Math.random() - 0.5) > 0 ? 450 : -450;
         let pauseX = (Math.floor(Math.random() * 400)) - 200;
         let payload = {
@@ -161,7 +179,7 @@ cc.Class({
             endPosition: [-startX, randomY],
             firstPeriod: Math.abs(startX - pauseX) / 100,
             secondPeriod: Math.abs(-startX - pauseX) / 100,
-            pausePeriod: 2
+            pausePeriod: 10
         };
         this.vistorInit(payload);
     },
@@ -172,7 +190,7 @@ cc.Class({
                 this.randomCreateVistor();
                 this.vistorTimer = setInterval(() => {
                     this.randomCreateVistor();
-                }, 4000)
+                }, 10000)
             }
         }
     },
@@ -441,6 +459,7 @@ cc.Class({
 
     heartRender() {
         this.heartProgress.string = `${CACHE.showData.heartEnergy}%`;
+        this.heartMask.fillRange = CACHE.showData.heartEnergy / 100;
         if (CACHE.showData.heartEnergy == 100) {
             this.heartLight.active = true;
             cc.tween(this.heartLight)

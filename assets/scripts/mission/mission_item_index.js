@@ -1,4 +1,5 @@
 import { CACHE } from '../global/usual_cache';
+import Api from '../api/api_index';
 
 const Animate_pix = 2;//解锁摇摆幅度
 const Animate_pride = 0.1;//解锁动画时间
@@ -49,12 +50,15 @@ cc.Class({
             this.lockTop.active = true;
             this.lockBottom.active = true;
         } else {
-            this.unlockedAnimate();
-            /* to out:为了展示解锁动画先屏蔽
-            this.mask.active = false;
-            this.lockTop.active = false;
-            this.lockBottom.active = false;
-            */
+            if (item.showLock) {
+                this.mask.active = false;
+                this.lockTop.active = false;
+                this.lockBottom.active = false;
+            } else {
+                this.unlockedAnimate();
+                /*将已经触发解锁动画的信息传递给后台*/
+                Api.missionLockShow({ hurdleId: item.hurdleId })
+            }
         }
         this.title.string = item.hurdleName;
         this.hurdleId = item.hurdleId;

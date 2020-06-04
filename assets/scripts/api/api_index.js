@@ -234,6 +234,8 @@ const addHeartEnergy = (payload = { key: 0 }, callback, failedCallback) => new C
 
 const showSpeedUp = (payload = { placeId: 0 }, callback, failedCallback) => new CusHttp().Post(`${API_DOMAIN}/exhibition/heart_energy/speed_up`, payload, callback, failedCallback);
 
+const missionLockShow = (payload = { hurdleId: 0 }, callback, failedCallback) => new CusHttp().Post(`${API_DOMAIN}/travel/showLock`, payload, callback, failedCallback);
+
 
 export default {
     cityDetails,
@@ -281,5 +283,6 @@ export default {
     festivalReceive,
     powerTime,
     addHeartEnergy,
-    showSpeedUp
+    showSpeedUp,
+    missionLockShow
 }
