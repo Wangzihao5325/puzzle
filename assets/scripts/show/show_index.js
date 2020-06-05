@@ -82,6 +82,11 @@ cc.Class({
         })
     },
 
+    heartClear() {
+        CACHE.showData.heartEnergy = 0;
+        this.heartRender();
+    },
+
     showcaseInit(standInfoList) {
         standInfoList.forEach((item, index) => {
             let showcaseNode = cc.instantiate(this.showcase);
@@ -91,7 +96,11 @@ cc.Class({
             let obj = showcaseNode.getComponent('showcase_index');
             if (obj) {
                 obj.initWithItem(item, index);
-                obj.setTouch((itemData) => this.openBag(itemData), (itemData) => this.bagReceive(itemData), (itemData) => this.speedUpCallback(itemData));
+                obj.setTouch((itemData) => this.openBag(itemData),
+                    (itemData) => this.bagReceive(itemData),
+                    (itemData) => this.speedUpCallback(itemData),
+                    () => this.heartClear()
+                );
             }
         });
     },
@@ -460,6 +469,7 @@ cc.Class({
     heartRender() {
         this.heartProgress.string = `${CACHE.showData.heartEnergy}%`;
         this.heartMask.fillRange = CACHE.showData.heartEnergy / 100;
+        this.heartLight.active = false;
         if (CACHE.showData.heartEnergy == 100) {
             this.heartLight.active = true;
             cc.tween(this.heartLight)

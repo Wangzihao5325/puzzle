@@ -115,7 +115,7 @@ cc.Class({
         this.titleNode.active = false;
     },
 
-    setTouch(callback, receiveCallback, speedUpCallback) {
+    setTouch(callback, receiveCallback, speedUpCallback, heartClearCallback) {
         this.header.on(cc.Node.EventType.TOUCH_START, (event) => {
             event.stopPropagation();
         })
@@ -150,6 +150,9 @@ cc.Class({
                                 this.timerBg.node.color = cc.color(0, 0, 0);
                                 this.timerBg.node.opacity = 100;
                                 this.turnToTimerForSpeedUp(data.placeId, data.goodReceiveRemainTime);
+                                if (heartClearCallback) {
+                                    heartClearCallback();
+                                }
                             })
                         } else {//小于0
                             if (this.timer) {
@@ -173,6 +176,9 @@ cc.Class({
                                 this.turnToReceive();
                                 delete this.data_item.goodId;
                                 delete this.data_item.goodExpectReceiveTime;
+                                if (heartClearCallback) {
+                                    heartClearCallback();
+                                }
                             })
                         }
                     }
