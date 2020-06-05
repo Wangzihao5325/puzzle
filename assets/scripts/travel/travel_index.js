@@ -25,10 +25,24 @@ cc.Class({
         signClose: cc.Node,
         signGetGoods: cc.Node,
 
+        map: cc.ScrollView,
+
         audio: {
             default: null,
             type: cc.AudioClip
         }
+    },
+
+    locationCity() {
+        let cityStateArr = CITIES;
+        cityStateArr.every((item) => {
+            if (item.isRecommend) {
+                this.map.scrollToOffset(cc.v2(item.positionX + 640 - 320, item.positionY - 568), 2);
+                return false;
+            } else {
+                return true;
+            }
+        });
     },
 
     drawLine(start, end) {
@@ -84,6 +98,7 @@ cc.Class({
 
     footerInit() {
         let footer = cc.instantiate(this.footer);
+        footer.name = 'footer_navi';
         let obj = footer.getComponent('navi_footer');
         obj.initWithScene(CACHE.scene);
         footer.parent = this.layout_root;
@@ -241,7 +256,7 @@ cc.Class({
                 }
                 /*生成关卡*/
                 let cityItemNode = cc.instantiate(this.city_item);
-                cityItemNode.name = `city_item-${item.name}`;
+                cityItemNode.name = `city_item-${item.key}`;
                 cityItemNode.parent = this.china_map;
                 /*获取itembg_index对象*/
                 let obj = cityItemNode.getComponent('travel_city');
@@ -252,6 +267,8 @@ cc.Class({
                     obj.setTouch(this.cityPress);
                 }
             });
+
+            this.locationCity();
         })
     },
 

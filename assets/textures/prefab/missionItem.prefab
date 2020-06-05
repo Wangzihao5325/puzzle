@@ -55,8 +55,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 0,
-      "height": 0
+      "width": 238,
+      "height": 332
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -67,8 +67,8 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        -153.962,
-        75.472,
+        0,
+        0,
         0,
         0,
         0,
@@ -1084,6 +1084,9 @@
       "__id__": 27
     },
     "hurdleId": 0,
+    "missionBg": {
+      "__id__": 2
+    },
     "mask": {
       "__id__": 6
     },

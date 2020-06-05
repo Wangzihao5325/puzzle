@@ -28,7 +28,6 @@ cc.Class({
 
     },
     show_dress() {
-        this.modal.active=true
         this.modal.opacity=0
         cc.tween(this.modal)
             .to(.2,{opacity:255})
@@ -38,8 +37,13 @@ cc.Class({
             .to(.2, { position: cc.v2(0,-318) }, { easing: 'sineOutIn' })
             .start()
     },
+
+
+
     init() {
         // let list =HOME_CACHE.cat_decoration;
+
+
         const pages = Math.ceil((HOME_CACHE.cat_decorations.length) / 8)
         const contentList = [this.pageItem1, this.pageItem2, this.pageItem3, this.pageItem4]
         for (let m = 0; m < pages; m++) {
@@ -103,15 +107,16 @@ cc.Class({
 
 
     handleClose() {
+        console.log('dress warp')
         cc.tween(this.modal)
             .to(.2,{opacity:0})
+            .call(()=>{
+                this.modal.destroy()
+            })
             .start()
         cc.tween(this.dress_warp)
             .to(.2, { position: cc.v2(0, -1000) }, { easing: 'sineOutIn' })
             .start()
-        setTimeout(()=>{
-            this.modal.active=false
-        },200)
         this.resetDress()
         // this.modal.destroy()
 

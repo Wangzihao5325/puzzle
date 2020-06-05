@@ -30,7 +30,9 @@ cc.Class({
         pause: cc.Prefab,
         game_root: cc.Node,
         game_award: cc.Prefab,
-        game_share: cc.Prefab,
+        game_shar3: cc.Prefab,
+        game_share1:cc.Prefab,
+        game_share2:cc.Prefab,
         game_fail: cc.Prefab,
 
     },
@@ -46,6 +48,7 @@ cc.Class({
     },
 
     start() {
+        // this.showAward([], CACHE.hard_level + 1)
 
     },
 
@@ -60,6 +63,8 @@ cc.Class({
                 }
             )
         } else {
+            //测试用
+            // this.doComplate()
             Toast.show('余额不足，观看广告')
         }
     },
@@ -228,17 +233,19 @@ cc.Class({
 
         setTimeout(() => {
             game_award.destroy()
-            this.showShare()
-        }, 1500)
+            this.showShare(item,leavel-1)
+        }, 2000)
 
     },
 
     //显示分享弹窗
     showShare(item, leavel) {
-        let game_share = cc.instantiate(this.game_share);
+        console.log("leavel",leavel)
+        const shareList=[this.game_share1,this.game_share2,this.game_share3]
+        let game_share = cc.instantiate(shareList[leavel]);
         game_share.parent = this.root_warp;
         let obj = game_share.getComponent('share');
-        obj.init(item, leavel)
+        obj.init(item, leavel+1)
 
     },
 

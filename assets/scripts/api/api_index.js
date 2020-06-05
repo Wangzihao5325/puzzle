@@ -160,8 +160,25 @@ const memory_list = (callback, failedCallback) => new CusHttp().Get(`${API_DOMAI
  * @param {Function} callback
  * @param {Function} failedCallback
  */
-const memory_travelInfo = (data, callback, failedCallback) => new CusHttp().Get_UrlEnCoded(`${API_DOMAIN}/travel/memory/travelInfo`, data, callback, failedCallback);
+const memory_travelInfo = (data, callback, failedCallback) => new CusHttp().Get(`${API_DOMAIN}/travel/memory/travelInfo?hurdleId=${data.hurdleId}`, callback, failedCallback);
 
+
+/**
+ * 获取景点回忆评论
+ * @param {Function} callback
+ * @param {Function} failedCallback
+ */
+const memory_comment = (callback, failedCallback) => new CusHttp().Get(`${API_DOMAIN}/travel/memory/comment`, callback, failedCallback);
+
+
+
+/**
+ * 回忆景点点赞&喂食
+ * @param {Object} payload {null:null}
+ * @param {Function} callback
+ * @param {Function} failedCallback
+ */
+const memory_praise = (payload = {}, callback, failedCallback) => new CusHttp().Post(`${API_DOMAIN}/travel/memory/praise`, payload, callback, failedCallback);
 
 /**
  * 获取商城物品
@@ -219,6 +236,12 @@ const showSpeedUp = (payload = { placeId: 0 }, callback, failedCallback) => new 
 
 const missionLockShow = (payload = { hurdleId: 0 }, callback, failedCallback) => new CusHttp().Post(`${API_DOMAIN}/travel/showLock`, payload, callback, failedCallback);
 
+const guideState = (callback, failedCallback) => new CusHttp().Get(`${API_DOMAIN}/user/guide/current`, callback, failedCallback);
+
+const guideStageComplete = (payload = { stage: 1 }, callback, failedCallback) => new CusHttp().Post(`${API_DOMAIN}/user/guide/complete`, payload, callback, failedCallback);
+
+const openGemShowcase = (payload = { key: 1 }, callback, failedCallback) => new CusHttp().Post(`${API_DOMAIN}/exhibition/stand/stand_diamond/unlock`, payload, callback, failedCallback);
+
 
 export default {
     cityDetails,
@@ -245,6 +268,8 @@ export default {
     storeGoodsBuy,
     memory_list,
     memory_travelInfo,
+    memory_comment,
+    memory_praise,
 
     showInfo,
     placeGoods,
@@ -265,5 +290,9 @@ export default {
     powerTime,
     addHeartEnergy,
     showSpeedUp,
-    missionLockShow
+    missionLockShow,
+
+    guideState,
+    guideStageComplete,
+    openGemShowcase
 }

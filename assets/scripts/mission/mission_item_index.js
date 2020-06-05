@@ -15,6 +15,7 @@ cc.Class({
         starTwo: cc.Sprite,
         starThree: cc.Sprite,
         hurdleId: cc.Number,
+        missionBg: cc.Node,
 
         mask: cc.Node,
         lockTop: cc.Node,
@@ -92,25 +93,25 @@ cc.Class({
     },
 
     setTouch(item, missionItemClickCallback) {
-        this.missionPic.node.on(cc.Node.EventType.TOUCH_START, (event) => {
+        this.missionBg.on(cc.Node.EventType.TOUCH_START, (event) => {
             cc.tween(this.root)
                 .to(0.1, { scale: 0.9 })
                 .start();
             event.stopPropagation();
         });
 
-        this.missionPic.node.on(cc.Node.EventType.TOUCH_MOVE, (event) => {
+        this.missionBg.on(cc.Node.EventType.TOUCH_MOVE, (event) => {
             event.stopPropagation();
         });
 
-        this.missionPic.node.on(cc.Node.EventType.TOUCH_CANCEL, (event) => {
+        this.missionBg.on(cc.Node.EventType.TOUCH_CANCEL, (event) => {
             cc.tween(this.root)
                 .to(0.1, { scale: 1 })
                 .start();
             event.stopPropagation();
         });
 
-        this.missionPic.node.on(cc.Node.EventType.TOUCH_END, (event) => {
+        this.missionBg.on(cc.Node.EventType.TOUCH_END, (event) => {
             cc.tween(this.root)
                 .to(0.1, { scale: 1 })
                 .start();

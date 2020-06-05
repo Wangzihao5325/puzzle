@@ -81,13 +81,13 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 60
-      },
-      {
-        "__id__": 61
-      },
-      {
         "__id__": 62
+      },
+      {
+        "__id__": 63
+      },
+      {
+        "__id__": 64
       }
     ],
     "_prefab": null,
@@ -177,7 +177,7 @@
       "array": [
         0,
         0,
-        387.1133554916441,
+        387.97938089542856,
         0,
         0,
         0,
@@ -973,6 +973,9 @@
       },
       {
         "__id__": 43
+      },
+      {
+        "__id__": 60
       }
     ],
     "_active": true,
@@ -2763,6 +2766,84 @@
     "_id": "98RUWNwaVDeq6Yk617Zt/9"
   },
   {
+    "__type__": "cc.Node",
+    "_name": "guideNode",
+    "_objFlags": 0,
+    "_parent": {
+      "__id__": 21
+    },
+    "_children": [],
+    "_active": true,
+    "_components": [
+      {
+        "__id__": 61
+      }
+    ],
+    "_prefab": null,
+    "_opacity": 255,
+    "_color": {
+      "__type__": "cc.Color",
+      "r": 255,
+      "g": 255,
+      "b": 255,
+      "a": 255
+    },
+    "_contentSize": {
+      "__type__": "cc.Size",
+      "width": 640,
+      "height": 1136
+    },
+    "_anchorPoint": {
+      "__type__": "cc.Vec2",
+      "x": 0.5,
+      "y": 0.5
+    },
+    "_trs": {
+      "__type__": "TypedArray",
+      "ctor": "Float64Array",
+      "array": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    "_eulerAngles": {
+      "__type__": "cc.Vec3",
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "_skewX": 0,
+    "_skewY": 0,
+    "_is3DNode": false,
+    "_groupIndex": 0,
+    "groupIndex": 0,
+    "_id": "2dgUYYyNBI44wjLVfzG34g"
+  },
+  {
+    "__type__": "ed18ak3RZJIQ4gAFDu07wp7",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 60
+    },
+    "_enabled": true,
+    "hand": {
+      "__uuid__": "510835c8-6025-4d6e-ac56-bbb934822ef5"
+    },
+    "excal": {
+      "__uuid__": "e1e615f7-386b-4cf3-b527-b1bf4b84729e"
+    },
+    "_id": "1d6N5LhaBDiYIUbF+jvQOF"
+  },
+  {
     "__type__": "cc.Canvas",
     "_name": "",
     "_objFlags": 0,
@@ -2852,6 +2933,9 @@
     },
     "signGetGoods": {
       "__id__": 56
+    },
+    "map": {
+      "__id__": 10
     },
     "audio": {
       "__uuid__": "f4166aea-554b-4068-aa9c-448afed40be1"

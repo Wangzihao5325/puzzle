@@ -17,7 +17,8 @@ cc.Class({
         content:cc.Node,
         scrollContent:cc.Node,
         racallItem:cc.Prefab,
-        racallInfo:cc.Prefab
+        racallInfo:cc.Prefab,
+        close:cc.Node,
 
     },
 
@@ -33,22 +34,31 @@ cc.Class({
 
     },
     init(type){
-        this.content.setPosition(cc.v2(0,-1000))
-        cc.tween(this.content)
-        .to(.4,{position:cc.v2(0,100)})
-        .to(.2,{position:cc.v2(0,0)},{easing:'expoInOut'})
-        .start()
+        // this.content.setPosition(cc.v2(0,-1000))
+        // cc.tween(this.content)
+        // .to(.4,{position:cc.v2(0,100)})
+        // .to(.2,{position:cc.v2(0,0)},{easing:'expoInOut'})
+        // .start()
 
+        this.content.setScale(0.2)
+        cc.tween(this.content)
+        .to(.3,{scale:1.2})
+        .to(0.15,{scale:1})
+        .start()
         this.getRecallList()
 
     },
 
 
     handleBack(){
-        this.shareWarp.active=false;
-        this.shareWarp.destroy()
-        cc.director.loadScene("mission");
-
+        cc.tween(this.content)
+        .to(.1,{scale:1.2})
+        .to(0.3,{scale:.2,opacity:0})
+        .call(()=>{
+            this.warp.active=false;
+            this.warp.destroy()
+        })
+        .start()
     },
 
     getRecallList(){
@@ -64,20 +74,16 @@ cc.Class({
     },
 
     showInfo(item){
-        console.log("info",item)
-        const list= this.scrollContent.children
-        list.map(item=>{
-            item.destroy()
-        })
 
-        let recallInfo = cc.instantiate(this.racallInfo);
-        let obj = recallInfo.getComponent('recallInfo');
+        // this.handleBack()
+
+        let recallInfoIns = cc.instantiate(this.racallInfo);
+        let obj = recallInfoIns.getComponent('recallInfo');
 
         obj.init(item)
-        recallInfo.parent = this.scrollContent;
-        this.scrollContent.height=870
+        recallInfoIns.parent = cc.find('Canvas')
 
-        recallInfo.setPosition(cc.v2(0,0))
+
 
         
     },
@@ -89,12 +95,22 @@ cc.Class({
         obj.init(item,index)
         recall.parent = this.scrollContent;
         this.scrollContent.height=210*(index+1)
-        recall.setPosition(cc.v2(0,-(.5+index)*210))
+        recall.setPosition(cc.v2(0,-(.5+index)*210-20))
     },
 
 
     setTouch() {
-        this.back.on(cc.Node.EventType.TOUCH_START, (event) => {
+        this.warp.on(cc.Node.EventType.TOUCH_START, (event) => {
+            event.stopPropagation();
+        })
+        this.warp.on(cc.Node.EventType.TOUCH_MOVE, (event) => {
+            event.stopPropagation();
+        })
+        this.warp.on(cc.Node.EventType.TOUCH_END, (event) => {
+            event.stopPropagation();
+        })
+
+        this.close.on(cc.Node.EventType.TOUCH_END, (event) => {
             this.handleBack()
             event.stopPropagation();
         })

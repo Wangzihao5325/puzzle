@@ -93,7 +93,7 @@ export function CurrencyIdtoName(id) {
   return str;
 }
 
-export function setTimeOutWithTimeStamp(stamp, middleCallback, finalCallback) {
+export function setTimeOutWithTimeStamp(stamp, middleCallback, finalCallback) {//结束时间戳
   let timer = null;
   let now = new Date();
   let nowTime = now.getTime();
@@ -126,7 +126,7 @@ export function setTimeOutWithTimeStamp(stamp, middleCallback, finalCallback) {
   }
 }
 
-export function setTimeOutWithTimeout(stamp, middleCallback, finalCallback) {
+export function setTimeOutWithTimeout(stamp, middleCallback, finalCallback) {//剩余时间
   let timer = null;
   let time = Math.ceil(stamp / 1000);
   if (time > 0) {
@@ -148,6 +148,37 @@ export function setTimeOutWithTimeout(stamp, middleCallback, finalCallback) {
         timer = null;
       }
     }, 1000);
+  }
+  return () => {
+    if (timer) {
+      clearInterval(timer);
+      timer = null;
+    }
+  }
+}
+
+export function setTimeOutWithStartEnd(startTime, endTime, middleCallback, finalCallback) {//起止时间 结束时间
+  let timer = null;
+  let time = startTime;
+  if (time > endTime) {
+    let hour = Math.floor(time / 3600);
+    let min = Math.floor((time % 3600) / 60);
+    let sec = (time % 3600) % 60;
+    let timeStr = `${hour >= 10 ? hour : `0${hour}`}:${min >= 10 ? min : `0${min}`}:${sec >= 10 ? sec : `0${sec}`}`
+    middleCallback(timeStr, time);
+    timer = setInterval(() => {
+      time--;
+      let hour = Math.floor(time / 3600);
+      let min = Math.floor((time % 3600) / 60);
+      let sec = (time % 3600) % 60
+      let timeStr = `${hour >= 10 ? hour : `0${hour}`}:${min >= 10 ? min : `0${min}`}:${sec >= 10 ? sec : `0${sec}`}`
+      middleCallback(timeStr, time);
+      if (time <= endTime) {
+        finalCallback();
+        clearInterval(timer);
+        timer = null;
+      }
+    }, 10);
   }
   return () => {
     if (timer) {
