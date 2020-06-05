@@ -239,7 +239,7 @@ cc.Class({
                     nodeItem = cc.instantiate(this.goodsItem);
                     nodeItem.name = `item_goods_${index}`;
                     nodeItem.parent = this.scrollContent;
-                    let obj = nodeItem.getComponent('goodItem');
+                    let obj = nodeItem.getComponent('goodItemPro');
                     if (obj) {
                         obj.setTouch((item) => this.bagGoodsClick(item));
                     }
@@ -251,10 +251,10 @@ cc.Class({
                 let x = -200 + cloumn * 200;
 
                 nodeItem.setPosition(cc.v2(x, y));
-                let obj = nodeItem.getComponent('goodItem');
+                let obj = nodeItem.getComponent('goodItemPro');
                 if (obj) {
                     if (item.owned) {//to do:区分物品质量
-                        obj.initByOwen({ name: item.name, goodsId: item.goodsId, goodsQuality: item.goodsQuality, icon: item.iconUrl, url: item.iconUrl });
+                        obj.initByOwen({ name: item.name, goodsId: item.goodsId, goodsQuality: item.goodsQuality, icon: item.iconUrl, url: item.iconUrl, city: item.city });
                     } else {
                         obj.initByNotOwn({ icon: defaultIcon, bg: 'show/xukuang' });
                     }
