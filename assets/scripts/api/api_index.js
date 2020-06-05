@@ -160,7 +160,7 @@ const memory_list = (callback, failedCallback) => new CusHttp().Get(`${API_DOMAI
  * @param {Function} callback
  * @param {Function} failedCallback
  */
-const memory_travelInfo = (data,callback, failedCallback) => new CusHttp().Get(`${API_DOMAIN}/travel/memory/travelInfo?hurdleId=${data.hurdleId}`, callback, failedCallback);
+const memory_travelInfo = (data, callback, failedCallback) => new CusHttp().Get(`${API_DOMAIN}/travel/memory/travelInfo?hurdleId=${data.hurdleId}`, callback, failedCallback);
 
 
 /**
@@ -236,6 +236,12 @@ const showSpeedUp = (payload = { placeId: 0 }, callback, failedCallback) => new 
 
 const missionLockShow = (payload = { hurdleId: 0 }, callback, failedCallback) => new CusHttp().Post(`${API_DOMAIN}/travel/showLock`, payload, callback, failedCallback);
 
+const guideState = (callback, failedCallback) => new CusHttp().Get(`${API_DOMAIN}/user/guide/current`, callback, failedCallback);
+
+const guideStageComplete = (payload = { stage: 1 }, callback, failedCallback) => new CusHttp().Post(`${API_DOMAIN}/user/guide/complete`, payload, callback, failedCallback);
+
+const openGemShowcase = (payload = { key: 1 }, callback, failedCallback) => new CusHttp().Post(`${API_DOMAIN}/exhibition/stand/stand_diamond/unlock`, payload, callback, failedCallback);
+
 
 export default {
     cityDetails,
@@ -284,5 +290,9 @@ export default {
     powerTime,
     addHeartEnergy,
     showSpeedUp,
-    missionLockShow
+    missionLockShow,
+
+    guideState,
+    guideStageComplete,
+    openGemShowcase
 }

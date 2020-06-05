@@ -485,6 +485,8 @@ cc.Class({
             if (CACHE.showData.heartEnergy == 100) {
                 Toast.show('请选择一个正在展览中的展台');
                 CACHE.isShouwSpeedUp = true;
+            } else {
+                Toast.show('请耐心等待能量收集完毕');
             }
             event.stopPropagation();
         })

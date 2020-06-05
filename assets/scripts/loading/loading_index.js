@@ -9,6 +9,7 @@ import {
     NAVI_ASSETS,
 } from '../global/app_global_index';
 import { CACHE } from '../global/usual_cache';
+import Api from '../api/api_index';
 // import WxApi from '../global/wx_index';
 
 cc.Class({
@@ -81,8 +82,16 @@ cc.Class({
                                             return results.getContent(item);
                                         });
                                         CACHE.assets.naviAssets = resArr;
+                                        /**获取新手引导进度 */
+                                         cc.director.loadScene("travel");
 
-                                        cc.director.loadScene("travel");
+                                        // Api.guideState((res) => {
+                                        //     if (res.data) {
+                                        //         CACHE.userInfo.stage = res.data.stage;
+                                        //         cc.director.loadScene("travel");
+                                        //     }
+                                        // });
+
                                     })
                                 })
                             });
