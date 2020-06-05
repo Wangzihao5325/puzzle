@@ -25,7 +25,7 @@ cc.Class({
         this.good_bg.node.on(cc.Node.EventType.TOUCH_MOVE, (event) => {
             event.stopPropagation();
         })
-        this.good_bg.node.on(cc.Node.EventType.TOUCH_END, () => {
+        this.good_bg.node.on(cc.Node.EventType.TOUCH_END, (event) => {
             if (callback && this.item) {
                 callback(this.item);
             }

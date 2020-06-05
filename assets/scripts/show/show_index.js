@@ -44,10 +44,46 @@ cc.Class({
         heartProgress: cc.Label,
         heartLight: cc.Node,
 
+        speedUpPopRoot: cc.Node,
+        speedUpPopMask: cc.Sprite,
+        speedUpPopClose: cc.Sprite,
+        speedUpPopNoVideo: cc.Label,
+        speedUpPopVideo: cc.Sprite,
+
         audio: {
             default: null,
             type: cc.AudioClip
         }
+    },
+
+    speedUpPopInit() {
+        /**蒙版 */
+        this.speedUpPopMask.node.on(cc.Node.EventType.TOUCH_START, (event) => {
+            event.stopPropagation();
+        })
+        this.speedUpPopMask.node.on(cc.Node.EventType.TOUCH_MOVE, (event) => {
+            event.stopPropagation();
+        })
+        this.speedUpPopMask.node.on(cc.Node.EventType.TOUCH_END, (event) => {
+            event.stopPropagation();
+        })
+        /**关闭btn */
+        this.speedUpPopClose.node.on(cc.Node.EventType.TOUCH_END, (event) => {
+            this.speedUpPopRoot.active = false;
+            event.stopPropagation();
+        })
+        /**看视频 */
+        this.speedUpPopVideo.node.on(cc.Node.EventType.TOUCH_END, (event) => {
+            //to do:增加观看视频全部减速的处理
+            event.stopPropagation();
+        })
+        /**不看视频 */
+        this.speedUpPopNoVideo.node.on(cc.Node.EventType.TOUCH_END, (event) => {
+            CACHE.isShouwSpeedUp = true;
+            this.speedUpPopRoot.active = false;
+            Toast.show('请选择一个正在展览中的展台');
+            event.stopPropagation();
+        })
     },
 
     stateUpdate() {
@@ -516,8 +552,7 @@ cc.Class({
         })
         this.heartMask.node.on(cc.Node.EventType.TOUCH_END, (event) => {
             if (CACHE.showData.heartEnergy == 100) {
-                Toast.show('请选择一个正在展览中的展台');
-                CACHE.isShouwSpeedUp = true;
+                this.speedUpPopRoot.active = true;
             } else {
                 Toast.show('请耐心等待能量收集完毕');
             }
@@ -534,6 +569,7 @@ cc.Class({
         this.bagInit();
         this.bagBtnSetTouch();
         this.festivalSetTouch();
+        this.speedUpPopInit();
         Action.Show.ShowInfoUpdate((res) => {
             const showData = CACHE.showData;
             if (showData.festivalInfo) {
