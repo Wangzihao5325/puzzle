@@ -75,7 +75,7 @@ cc.Class({
 
     showInfo(item){
 
-        this.handleBack()
+        // this.handleBack()
 
         let recallInfoIns = cc.instantiate(this.racallInfo);
         let obj = recallInfoIns.getComponent('recallInfo');
@@ -95,7 +95,7 @@ cc.Class({
         obj.init(item,index)
         recall.parent = this.scrollContent;
         this.scrollContent.height=210*(index+1)
-        recall.setPosition(cc.v2(0,-(.5+index)*210))
+        recall.setPosition(cc.v2(0,-(.5+index)*210-20))
     },
 
 

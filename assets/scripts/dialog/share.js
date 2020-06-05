@@ -29,6 +29,11 @@ cc.Class({
         changeText:cc.Node,
         shareBtn:cc.Node,
         travelBtn:cc.Node,
+        text1Node:cc.Node,
+        text2Node:cc.Node,
+        text3Node:cc.Node,
+        text4Node:cc.Node,
+        text5Node:cc.Node,
         text1:cc.Label,
         text2:cc.Label,
         text3:cc.Label,
@@ -66,37 +71,51 @@ cc.Class({
     },
 
     initSentence(types,text){
+
+        console.log("types",types)
+
         let list,listL;
         if(types===0){
-             list =[0,15,15,15,15,15]
-             listL=[0,15,30,45,60,75]
+             list =[0,20,20,20,20]
+             listL=[0,20,40,60,80]
         }else if(types===1){
-            list =[0,15,15,15,15,15]
-            listL=[0,15,30,45,60,75]
+            list =[0,20,20,20,20]
+             listL=[0,20,40,60,80]
         }else{
-            list =[0,6,7,8,9,9,9]
-            listL=[0,6,13,21,30,38]
+            list =[0,7,12,14,15,15,15]
+            listL=[0,7,19,33,48,63]
         }
 
 
         let newText=text.length>listL[listL.length-1]?text.slice(0,listL[listL.length-1]-2)+'...':text
         const lableList=[this.text1,this.text2,this.text3,this.text4,this.text5]
+        const textNodeList=[this.text1Node,this.text2Node,this.text3Node,this.text4Node,this.text5Node,]
         let lableNum=5;
-        const listLRevrse=listL.slice().reverse()
-        listLRevrse.map((item,index)=>{
+        // const listLRevrse=listL.slice().reverse()
+        // listLRevrse.map((item,index)=>{
 
-            if(newText.length<=item){
-                lableNum=index*-1+listL.length-1
-            }
+        //     if(newText.length<=item){
+        //         lableNum=index*-1+listL.length-1
+        //         console.log("lableNum",lableNum)
+        //     }
+        // })
+        lableList.map((item,index)=>{
+            cc.tween(textNodeList[index])
+            .to(.4,{opacity:0})
+            .call(()=>{
+                item.string=''
+                const datastr=dateFormat((new Date()),'yyyy-MM-dd')
+                this.text6.string=datastr
+                for(let i=0;i<lableNum;i++){
+                    lableList[i].string=newText.slice(listL[i],listL[i+1])
+          
+                }
+            })
+            .to(.4,{opacity:255})
+            .start()
+
         })
-        lableList.map(item=>{
-            item.string=''
-        })
-        const datastr=dateFormat((new Date()),'yyyy-MM-dd')
-        this.text6.string=datastr
-        for(let i=0;i<lableNum;i++){
-            lableList[i].string=newText.slice(listL[i],listL[i+1])
-        }
+
     },
 
     handleBack(){
@@ -169,7 +188,7 @@ cc.Class({
             // const text=`加拿大警方应美国要求在温哥华国际机场逮捕孟晚舟，美方随后提出引渡要求，指控其“隐瞒华为和伊`
             if(GAME_CACH.textRandomTimes>0){
                 GAME_CACH.textRandomTimes--;
-                this.initSentence(0,text)
+                this.initSentence(CACHE.hard_level,text)
                 this.random.string=GAME_CACH.textRandomTimes
     
             }else{
