@@ -86,7 +86,7 @@ cc.Class({
         let footer = cc.instantiate(this.footer);
         let obj = footer.getComponent('navi_footer');
         obj.initWithScene(CACHE.scene);
-        footer.parent = this.layout_root;
+        footer.parent = cc.find('Canvas');
         footer.setPosition(0, -500);
     },
 
@@ -101,16 +101,7 @@ cc.Class({
     },
 
 
-    initDress() {
-        let dressModalInstan = cc.instantiate(this.dress_modal)
-        var warp_parent = cc.find(`Canvas`)
-        dressModalInstan.parent = warp_parent
-        dressModalInstan.setPosition(0, 0);
-        dressModalInstan.active = false
-        let obj = dressModalInstan.getComponent('dress')
-        // obj.init()
 
-    },
 
     getDecorations() {
         Api.petDecorations((res) => {
@@ -236,7 +227,7 @@ cc.Class({
         this.getPetInfo()
         this.getFoodRemain()
         this.getPetHunger()
-        this.initDress()
+        // this.initDress()
         this.getBackNotice()
         this.initCat()
     },
