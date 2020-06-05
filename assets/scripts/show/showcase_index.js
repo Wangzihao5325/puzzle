@@ -25,6 +25,7 @@ cc.Class({
         timerNode: cc.Node,
         timerIcon: cc.Sprite,
         timerLabel: cc.Label,
+        timerBg: cc.Sprite,
 
         lockNode: cc.Node,
         lockTitle: cc.Label,
@@ -135,6 +136,8 @@ cc.Class({
                                 this.timer = null;
                             }
                             this.timerLabel.node.color = cc.color(255, 0, 0);
+                            this.timerBg.node.color = cc.color(252, 241, 181);
+                            this.timerBg.node.opacity = 255;
                             this.shortTimer = setTimeOutWithStartEnd(this.timeLeft, Math.floor(data.goodReceiveRemainTime / 1000), (res) => {
                                 if (this.timerLabel) {
                                     this.timerLabel.string = res;
@@ -144,6 +147,8 @@ cc.Class({
                                 }
                             }, () => {
                                 this.timerLabel.node.color = cc.color(255, 255, 255);
+                                this.timerBg.node.color = cc.color(0, 0, 0);
+                                this.timerBg.node.opacity = 100;
                                 this.turnToTimerForSpeedUp(data.placeId, data.goodReceiveRemainTime);
                             })
                         } else {//小于0
@@ -152,6 +157,8 @@ cc.Class({
                                 this.timer = null;
                             }
                             this.timerLabel.color = cc.color(255, 0, 0);
+                            this.timerBg.node.color = cc.color(252, 241, 181);
+                            this.timerBg.node.opacity = 255;
                             this.shortTimer = setTimeOutWithStartEnd(this.timeLeft, Math.floor(data.goodReceiveRemainTime / 1000), (res) => {
                                 if (this.timerLabel) {
                                     this.timerLabel.string = res;
@@ -161,6 +168,8 @@ cc.Class({
                                 }
                             }, () => {
                                 this.timerLabel.color = cc.color(255, 255, 255);
+                                this.timerBg.node.color = cc.color(0, 0, 0);
+                                this.timerBg.node.opacity = 100;
                                 this.turnToReceive();
                                 delete this.data_item.goodId;
                                 delete this.data_item.goodExpectReceiveTime;
@@ -206,7 +215,19 @@ cc.Class({
             if (this.data_item.standId == 1) {
                 Toast.show('到达北京解锁');
             } else if (this.data_item.standId == 2) {
-                Toast.show('花费钻石解锁哦');
+                // Toast.show('花费钻石解锁哦');
+                if (CACHE.userData.gem >= 200) {
+                    Api.openGemShowcase({ key: 1 }, (res) => {
+                        if (res.success) {
+                            //开放展台
+                            Toast.show('已花费200钻石解锁钻石展台!');
+                            this.data_item.unlocked = true;
+                            this.lockNode.active = false;
+                        }
+                    })
+                } else {
+                    Toast.show('需要200钻石才能解锁哦!');
+                }
             }
             event.stopPropagation();
         })
