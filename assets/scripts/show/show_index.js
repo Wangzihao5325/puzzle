@@ -310,10 +310,15 @@ cc.Class({
     },
 
     bagBtnSetTouch() {
-        this.label0.node.color = cc.color(89, 83, 83);
-        this.label1.node.color = cc.color(200, 200, 200);
-        this.label2.node.color = cc.color(200, 200, 200);
-        this.label3.node.color = cc.color(200, 200, 200);
+        this.label0.node.opacity = 255;
+        this.label1.node.opacity = 100;
+        this.label2.node.opacity = 100;
+        this.label3.node.opacity = 100;
+        this.bagBtn0.node.color = cc.color(255, 255, 255);
+        this.bagBtn1.node.color = cc.color(251, 229, 149);
+        this.bagBtn2.node.color = cc.color(251, 229, 149);
+        this.bagBtn3.node.color = cc.color(251, 229, 149);
+
         this.bagBtn0.node.on(cc.Node.EventType.TOUCH_START, (event) => {
             event.stopPropagation();
         })
@@ -321,10 +326,14 @@ cc.Class({
             event.stopPropagation();
         })
         this.bagBtn0.node.on(cc.Node.EventType.TOUCH_END, (event) => {
-            this.label0.node.color = cc.color(89, 83, 83);
-            this.label1.node.color = cc.color(200, 200, 200);
-            this.label2.node.color = cc.color(200, 200, 200);
-            this.label3.node.color = cc.color(200, 200, 200);
+            this.label0.node.opacity = 255;
+            this.label1.node.opacity = 100;
+            this.label2.node.opacity = 100;
+            this.label3.node.opacity = 100;
+            this.bagBtn0.node.color = cc.color(255, 255, 255);
+            this.bagBtn1.node.color = cc.color(251, 229, 149);
+            this.bagBtn2.node.color = cc.color(251, 229, 149);
+            this.bagBtn3.node.color = cc.color(251, 229, 149);
             this.bagInit(1);
             event.stopPropagation();
         })
@@ -336,10 +345,14 @@ cc.Class({
             event.stopPropagation();
         })
         this.bagBtn1.node.on(cc.Node.EventType.TOUCH_END, (event) => {
-            this.label0.node.color = cc.color(200, 200, 200);
-            this.label1.node.color = cc.color(89, 83, 83);
-            this.label2.node.color = cc.color(200, 200, 200);
-            this.label3.node.color = cc.color(200, 200, 200);
+            this.label0.node.opacity = 100;
+            this.label1.node.opacity = 255;
+            this.label2.node.opacity = 100;
+            this.label3.node.opacity = 100;
+            this.bagBtn0.node.color = cc.color(251, 229, 149);
+            this.bagBtn1.node.color = cc.color(255, 255, 255);
+            this.bagBtn2.node.color = cc.color(251, 229, 149);
+            this.bagBtn3.node.color = cc.color(251, 229, 149);
             this.bagInit(3);
             event.stopPropagation();
         })
@@ -351,10 +364,14 @@ cc.Class({
             event.stopPropagation();
         })
         this.bagBtn2.node.on(cc.Node.EventType.TOUCH_END, (event) => {
-            this.label0.node.color = cc.color(200, 200, 200);
-            this.label1.node.color = cc.color(200, 200, 200);
-            this.label2.node.color = cc.color(89, 83, 83);
-            this.label3.node.color = cc.color(200, 200, 200);
+            this.label0.node.opacity = 100;
+            this.label1.node.opacity = 100;
+            this.label2.node.opacity = 255;
+            this.label3.node.opacity = 100;
+            this.bagBtn0.node.color = cc.color(251, 229, 149);
+            this.bagBtn1.node.color = cc.color(251, 229, 149);
+            this.bagBtn2.node.color = cc.color(255, 255, 255);
+            this.bagBtn3.node.color = cc.color(251, 229, 149);
             this.bagInit(4);
             event.stopPropagation();
         })
@@ -366,10 +383,14 @@ cc.Class({
             event.stopPropagation();
         })
         this.bagBtn3.node.on(cc.Node.EventType.TOUCH_END, (event) => {
-            this.label0.node.color = cc.color(200, 200, 200);
-            this.label1.node.color = cc.color(200, 200, 200);
-            this.label2.node.color = cc.color(200, 200, 200);
-            this.label3.node.color = cc.color(89, 83, 83);
+            this.label0.node.opacity = 100;
+            this.label1.node.opacity = 100;
+            this.label2.node.opacity = 100;
+            this.label3.node.opacity = 255;
+            this.bagBtn0.node.color = cc.color(251, 229, 149);
+            this.bagBtn1.node.color = cc.color(251, 229, 149);
+            this.bagBtn2.node.color = cc.color(251, 229, 149);
+            this.bagBtn3.node.color = cc.color(255, 255, 255);
             this.bagInit(5);
             event.stopPropagation();
         })
@@ -392,6 +413,8 @@ cc.Class({
     },
 
     festivalUpdate(item, callback) {
+        console.log('dddddd');
+        console.log(item);
         this.festivalName.string = item.name;
         this.festivalProgress.string = `${item.currentNum}/${item.reachCount}`;
         if (!this.timer) {
