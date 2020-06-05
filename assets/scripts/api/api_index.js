@@ -160,7 +160,7 @@ const memory_list = (callback, failedCallback) => new CusHttp().Get(`${API_DOMAI
  * @param {Function} callback
  * @param {Function} failedCallback
  */
-const memory_travelInfo = (data,callback, failedCallback) => new CusHttp().Get(`${API_DOMAIN}/travel/memory/travelInfo?hurdleId=${data.hurdleId}`,data, callback, failedCallback);
+const memory_travelInfo = (data,callback, failedCallback) => new CusHttp().Get(`${API_DOMAIN}/travel/memory/travelInfo?hurdleId=${data.hurdleId}`, callback, failedCallback);
 
 
 /**
