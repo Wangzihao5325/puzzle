@@ -101,7 +101,6 @@ cc.Class({
     },
 
     init() {
-        this.init_feed()
         this.setTouch()
 
     },
@@ -121,34 +120,49 @@ cc.Class({
     //喂养
     show_feed() {
         // ComeBack.show(goodsList)
-        this.Action_warp.active = false
-        const feedWarpInstan = cc.find(`Canvas/feedWarp`)
+        this.handleClose()
+
+        let feedWarpInstan = cc.instantiate(this.Feed_warp)
+        var warp_parent = cc.find(`Canvas`)
+        feedWarpInstan.parent = warp_parent
+        feedWarpInstan.setPosition(0, -1000);
+
         cc.tween(feedWarpInstan)
             .to(.2, { position: cc.v2(0, -408) }, { easing: 'sineOutIn' })
             // .to(.1, { position: cc.v2(0, -408) })
             .start()
-        // feedWarpInstan.setPosition(0, -408);
         const feed=feedWarpInstan.getComponent('feed')
         feed.resetUI()
     },
     handleClose() {
-        this.Action_warp.active = false
-
+        console.log("actionWarp")
+        this.Action_warp.destroy()
     },
 
+    // initDress() {
+    //     let dressModalInstan = cc.instantiate(this.dress_modal)
+    //     var warp_parent = cc.find(`Canvas`)
+    //     dressModalInstan.parent = warp_parent
+    //     dressModalInstan.setPosition(0, 0);
+    //     // obj.init()
+
+    // },
+
     show_dress() {
-        this.Action_warp.active = false
-        const dressModalInstan = cc.find(`Canvas/dressModal`)
-        dressModalInstan.active = true
+        this.handleClose()
+
+        let dressModalInstan = cc.instantiate(this.Dress_warp)
+        var warp_parent = cc.find(`Canvas`)
+        dressModalInstan.parent = warp_parent
+        dressModalInstan.setPosition(0, 0);
+
         let obj=dressModalInstan.getComponent('dress')
         obj.show_dress()
-        // let obj=deedWarpInstan.getComponent('dress')
 
-        // obj.show_dress()
     },
 
     setOUtUi() {
-        this.Action_warp.active = false
+        this.handleClose()
         let OutSide = cc.instantiate(this.OutSide)
         var catItem = cc.find(`Canvas/rootWarp/my_home/cat/catItem`)
         var my_home = cc.find(`Canvas/rootWarp/my_home`)

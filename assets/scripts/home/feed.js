@@ -103,7 +103,7 @@ cc.Class({
         cc.tween(this.feedWarp)
         .to(.2, { position: cc.v2(0, -1000) },{ easing: 'sineOutIn'})
         .call(()=>{
-            this.feedWarp.active=false
+            // this.feedWarp.active=false
             this.feedWarp.destroy()
         })
         .start()
