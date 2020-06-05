@@ -50,10 +50,44 @@ cc.Class({
         speedUpPopNoVideo: cc.Label,
         speedUpPopVideo: cc.Sprite,
 
+        speedUpSelectMaskRoot: cc.Node,
+
         audio: {
             default: null,
             type: cc.AudioClip
         }
+    },
+
+    speedUpSelectMaskInit() {
+        this.speedUpSelectMaskRoot.on(cc.Node.EventType.TOUCH_START, (event) => {
+            let originNode1 = cc.find('Canvas/root/table/item_showcase_1');
+            let originNode2 = cc.find('Canvas/root/table/item_showcase_2');
+            let originNode3 = cc.find('Canvas/root/table/item_showcase_3');
+
+            let pos1 = originNode1.convertToNodeSpaceAR(event.getLocation());
+            let pos2 = originNode2.convertToNodeSpaceAR(event.getLocation());
+            let pos3 = originNode3.convertToNodeSpaceAR(event.getLocation());
+
+            let btn1 = cc.find('Canvas/root/table/item_showcase_1/putongzhan');
+            let btn2 = cc.find('Canvas/root/table/item_showcase_2/putongzhan');
+            let btn3 = cc.find('Canvas/root/table/item_showcase_3/putongzhan');
+
+            let rect1 = btn1.getBoundingBox();
+            let rect2 = btn2.getBoundingBox();
+            let rect3 = btn3.getBoundingBox();
+
+            let isOne = rect1.contains(pos1);
+            let isTwo = rect2.contains(pos2);
+            let isThree = rect3.contains(pos3);
+
+            if ((isOne && originNode1.getComponent('showcase_index').timer) || (isTwo && originNode2.getComponent('showcase_index').timer) || (isThree && originNode3.getComponent('showcase_index').timer)) {
+                this.speedUpSelectMaskRoot._touchListener.setSwallowTouches(false);
+                this.speedUpSelectMaskRoot.active = false;
+            } else {
+                Toast.show('请选择可以进行加速的展台');
+                this.speedUpSelectMaskRoot._touchListener.setSwallowTouches(true);
+            }
+        })
     },
 
     speedUpPopInit() {
@@ -82,6 +116,7 @@ cc.Class({
             CACHE.isShouwSpeedUp = true;
             this.speedUpPopRoot.active = false;
             Toast.show('请选择一个正在展览中的展台');
+            this.speedUpSelectMaskRoot.active = true;
             event.stopPropagation();
         })
     },
@@ -552,7 +587,11 @@ cc.Class({
         })
         this.heartMask.node.on(cc.Node.EventType.TOUCH_END, (event) => {
             if (CACHE.showData.heartEnergy == 100) {
-                this.speedUpPopRoot.active = true;
+                if (CACHE.isShowOn[0] || CACHE.isShowOn[1] || CACHE.isShowOn[2]) {
+                    this.speedUpPopRoot.active = true;
+                } else {
+                    Toast.show('您没有需要加速的物品');
+                }
             } else {
                 Toast.show('请耐心等待能量收集完毕');
             }
@@ -570,6 +609,7 @@ cc.Class({
         this.bagBtnSetTouch();
         this.festivalSetTouch();
         this.speedUpPopInit();
+        this.speedUpSelectMaskInit();
         Action.Show.ShowInfoUpdate((res) => {
             const showData = CACHE.showData;
             if (showData.festivalInfo) {
