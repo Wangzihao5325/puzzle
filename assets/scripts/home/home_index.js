@@ -34,7 +34,13 @@ cc.Class({
             default: null,
             type: cc.AudioClip
         },
-        backpack: cc.Prefab
+        backpack: cc.Prefab,
+        bowlWarp:cc.Node,
+        bowl0:cc.Node,
+        bowl1:cc.Node,
+        bowl2:cc.Node,
+        bowl3:cc.Node,
+        bowl4:cc.Node,
     },
 
     stateUpdate() {
@@ -57,8 +63,8 @@ cc.Class({
         feedWarpInstan.setPosition(0, -1000);
 
         cc.tween(feedWarpInstan)
-            .to(.2, { position: cc.v2(0, -408) }, { easing: 'sineOutIn' })
-            // .to(.1, { position: cc.v2(0, -408) })
+        .to(.2, { position: cc.v2(0, -268) } )
+        .to(.1, { position: cc.v2(0, -388) })
             .start()
         const feed=feedWarpInstan.getComponent('feed')
         feed.resetUI()
@@ -222,6 +228,24 @@ cc.Class({
         lucky_warp.getComponent(cc.Label).string = `${HOME_CACHE.pet_info.currentLucky} \\ ${HOME_CACHE.pet_info.luckyUpperLimit}`
         this.lucky_bar.width = 200 * HOME_CACHE.pet_info.currentLucky / HOME_CACHE.pet_info.luckyUpperLimit
 
+        //更新猫盆状态
+        const hungryPercent= Math.ceil(HOME_CACHE.pet_info.currentHungry/HOME_CACHE.pet_info.hungryUpperLimit*100)
+        this.bowlWarp.children.map(item=>{
+            console.log("item",item)
+            item.active=false
+        })
+        if(hungryPercent>=90){
+            this.bowl4.active=true
+        }else if(hungryPercent>=70){
+            this.bowl3.active=true
+        }else if(hungryPercent>=30){
+            this.bowl2.active=true
+        }else if(hungryPercent>=1){
+            this.bowl1.active=true
+        }else{
+            this.bowl0.active=true
+        }
+
         this.setOUtUi()
 
 
@@ -239,7 +263,6 @@ cc.Class({
 
     start() {
         this.init();
-        this.showBackpack()
     },
 
     showBackpack(){
@@ -291,6 +314,10 @@ cc.Class({
         })
         this.backpack_icon.on(cc.Node.EventType.TOUCH_END, (event) => {
             this.showBackpack()
+            event.stopPropagation();
+        })
+        this.bowlWarp.on(cc.Node.EventType.TOUCH_END, (event) => {
+            this.show_feed()
             event.stopPropagation();
         })
 
