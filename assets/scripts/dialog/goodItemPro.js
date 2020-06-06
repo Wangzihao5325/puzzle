@@ -6,7 +6,8 @@ cc.Class({
         good_pic: cc.Sprite,
         good_bg: cc.Sprite,
         good_mask: cc.Sprite,
-        quality_pic: cc.Sprite
+        quality_pic: cc.Sprite,
+        cityLabel: cc.Label,
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -65,6 +66,62 @@ cc.Class({
                 });
             })
         }
+    },
+
+    initByOwen(item) {
+        this.item = item;
+        let nameLabel = this.good_name.getComponent(cc.Label);
+        nameLabel.node.active = true;
+        nameLabel.string = item.name;
+        nameLabel.fontSize = 22.5;
+        nameLabel.node.color = cc.color(134, 96, 67);
+        this.cityLabel.node.active = true;
+        this.cityLabel.string = `[${item.city}]`;
+        if (item.goodsQuality == 0) {
+            cc.loader.loadRes('normal/white_bg', cc.SpriteFrame, (err, asset) => {
+                this.quality_pic.node.active = false;
+                this.good_bg.spriteFrame = asset;
+                this.good_bg.node.color = cc.color(233, 234, 235);
+                cc.loader.load(item.icon, (err, texture) => {
+                    this.good_pic.node.scaleX = 0.9;
+                    this.good_pic.node.scaleY = 0.9;
+                    this.good_pic.node.opacity = 255;
+                    this.good_pic.spriteFrame = new cc.SpriteFrame(texture)
+                });
+            })
+
+        } else {
+            cc.loader.loadRes('mission/xiyoudi', cc.SpriteFrame, (err, asset) => {
+                this.quality_pic.node.active = true;
+                this.good_bg.spriteFrame = asset;
+                this.good_bg.node.color = cc.color(255, 255, 255);
+                // this.good_mask.spriteFrame = assets[1];
+                cc.loader.load(item.icon, (err, texture) => {
+                    this.good_pic.node.scaleX = 0.9;
+                    this.good_pic.node.scaleY = 0.9;
+                    this.good_pic.node.opacity = 255;
+                    this.good_pic.spriteFrame = new cc.SpriteFrame(texture);
+                });
+            })
+
+        }
+    },
+
+    initByNotOwn(item) {
+        this.item = item;
+        this.quality_pic.node.active = false;
+        let nameLabel = this.good_name.getComponent(cc.Label);
+        nameLabel.node.active = false;
+        this.cityLabel.node.active = false;
+        cc.loader.loadRes(item.icon, cc.SpriteFrame, (err, asset) => {
+            this.good_pic.node.scaleX = 0.5;
+            this.good_pic.node.scaleY = 0.5;
+            this.good_pic.node.opacity = 100;
+            this.good_pic.spriteFrame = asset;
+        });
+        cc.loader.loadRes(item.bg, cc.SpriteFrame, (err, asset) => {
+            this.good_bg.spriteFrame = asset;
+        });
     },
 
     // update (dt) {},
