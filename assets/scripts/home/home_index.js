@@ -26,13 +26,15 @@ cc.Class({
         OutSide: cc.Prefab,
         store_icon: cc.Node,
         recall_icon:cc.Node,
+        backpack_icon:cc.Node,
         store: cc.Prefab,
         recall: cc.Prefab,
         food_lack: cc.Prefab,
         audio: {
             default: null,
             type: cc.AudioClip
-        }
+        },
+        backpack: cc.Prefab
     },
 
     stateUpdate() {
@@ -45,6 +47,22 @@ cc.Class({
         this.home_bg.spriteFrame = new cc.SpriteFrame(homeBgTex);
     },
 
+    //喂养
+    show_feed() {
+        // ComeBack.show(goodsList)
+
+        let feedWarpInstan = cc.instantiate(this.feed_warp)
+        var warp_parent = cc.find(`Canvas`)
+        feedWarpInstan.parent = warp_parent
+        feedWarpInstan.setPosition(0, -1000);
+
+        cc.tween(feedWarpInstan)
+            .to(.2, { position: cc.v2(0, -408) }, { easing: 'sineOutIn' })
+            // .to(.1, { position: cc.v2(0, -408) })
+            .start()
+        const feed=feedWarpInstan.getComponent('feed')
+        feed.resetUI()
+    },
 
 
     setOUtUi() {
@@ -221,6 +239,13 @@ cc.Class({
 
     start() {
         this.init();
+        this.showBackpack()
+    },
+
+    showBackpack(){
+        let backpackIns = cc.instantiate(this.backpack)
+        backpackIns.parent =  cc.find('Canvas')
+        backpackIns.setPosition(0, 0);
     },
 
     init() {
@@ -264,7 +289,10 @@ cc.Class({
             this.showRecall()
             event.stopPropagation();
         })
-        
+        this.backpack_icon.on(cc.Node.EventType.TOUCH_END, (event) => {
+            this.showBackpack()
+            event.stopPropagation();
+        })
 
     },
     initCat() {

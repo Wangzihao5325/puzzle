@@ -195,8 +195,21 @@ const storeGoods = (callback, failedCallback) => new CusHttp().Get(`${API_DOMAIN
  */
 const storeGoodsBuy = (payload = {}, callback, failedCallback) => new CusHttp().Post(`${API_DOMAIN}/store/commodity/buy`, payload, callback, failedCallback);
 
+/**
+ * 出售商品
+ * @param {Object} payload {null:null}
+ * @param {Function} callback
+ * @param {Function} failedCallback
+ */
+const sellGOods = (payload = {}, callback, failedCallback) => new CusHttp().Post(`${API_DOMAIN}/user/assets/sell_goods`, payload, callback, failedCallback);
 
 
+/**
+ * 获取用户背包
+ * @param {Function} callback
+ * @param {Function} failedCallback
+ */
+const backpack = (type,callback, failedCallback) => new CusHttp().Get(`${API_DOMAIN}/user/assets/backpack?type=${type}`, callback, failedCallback);
 
 const showInfo = (callback, failedCallback) => new CusHttp().Get(`${API_DOMAIN}/exhibition/info`, callback, failedCallback);
 
@@ -253,6 +266,7 @@ export default {
     travel,
     travelComment,
     use_prop,
+    backpack,
 
     petHome,
     petHungry,
@@ -266,6 +280,7 @@ export default {
     backNoticeView,
     storeGoods,
     storeGoodsBuy,
+    sellGOods,
     memory_list,
     memory_travelInfo,
     memory_comment,
