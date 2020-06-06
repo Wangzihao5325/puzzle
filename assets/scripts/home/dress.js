@@ -120,7 +120,9 @@ cc.Class({
             .start()
         this.resetDress()
         // this.modal.destroy()
-
+        //显示猫盆
+        let homeIndeObj = cc.find('Canvas').getComponent('home_index')
+        homeIndeObj.showBowl(true)
     },
     handleSave() {
         const data = {

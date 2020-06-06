@@ -70,6 +70,10 @@ cc.Class({
         feed.resetUI()
     },
 
+    showBowl(show=true){
+        this.bowlWarp.active=show
+    },
+
 
     setOUtUi() {
         var outside_item = cc.find(`Canvas/rootWarp/my_home/outside`)
@@ -80,6 +84,7 @@ cc.Class({
             catItem ? catItem.active = !outward : ''
             if (outward === false) {
                 outside_item.destroy()
+                this.showBowl(!outward)
             }
         } else {
             // const feedWarpInstan=  cc.find(`Canvas/feedWarp`)
@@ -89,6 +94,7 @@ cc.Class({
             catItem.active = !outward
             OutSide.parent = my_home
             OutSide.active = outward
+            this.showBowl(!outward)
         }
 
         //食物吃完了弹窗

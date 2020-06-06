@@ -152,6 +152,10 @@ cc.Class({
     show_dress() {
         this.handleClose()
 
+        //隐藏猫盆
+        let homeIndeObj = cc.find('Canvas').getComponent('home_index')
+        homeIndeObj.showBowl(false)
+
         let dressModalInstan = cc.instantiate(this.Dress_warp)
         var warp_parent = cc.find(`Canvas`)
         dressModalInstan.parent = warp_parent
