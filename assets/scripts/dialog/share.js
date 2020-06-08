@@ -128,6 +128,15 @@ cc.Class({
                 this.shareWarp.destroy()
                 cc.director.loadScene("travel");
             })
+        } else if (CACHE.userInfo && typeof CACHE.userInfo.stage == 'number' && CACHE.userInfo.stage == 3) {
+            Api.guideStageComplete({ stage: 3 }, (res) => {
+                if (res.code == 0) {
+                    CACHE.userInfo.stage++;
+                }
+                this.shareWarp.active = false;
+                this.shareWarp.destroy()
+                cc.director.loadScene("travel");
+            })
         } else {
             this.shareWarp.active = false;
             this.shareWarp.destroy()

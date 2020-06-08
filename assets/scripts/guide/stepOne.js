@@ -32,8 +32,11 @@ cc.Class({
                     this.stepTwoAddExcal();
                     break;
                 case 3:
+                    handPosition = cc.v2(0, 0);
                     break;
                 case 4:
+                    handPosition = cc.v2(200, -500);
+                    this.stepTwoAddExcal();
                     break;
                 case 5:
                     break;
@@ -71,12 +74,12 @@ cc.Class({
         let originNode;
         let pos;
         let btn;
-        if (CACHE.userInfo.stage == 1) {
+        if (CACHE.userInfo.stage == 1 || CACHE.userInfo.stage == 3) {
             // 获取触摸点，转为Canvas画布上的坐标
             originNode = this.node.parent.parent;
             pos = originNode.convertToNodeSpaceAR(event.getLocation());
             btn = cc.find('Canvas/map/view/content/bg/city_item-101/city_image');
-        } else if (CACHE.userInfo.stage == 2) {
+        } else if (CACHE.userInfo.stage == 2 || CACHE.userInfo.stage == 4) {
             originNode = cc.find('Canvas/layoutRoot/footer_navi');;
             pos = originNode.convertToNodeSpaceAR(event.getLocation());
             btn = cc.find('Canvas/layoutRoot/footer_navi/button_show');
