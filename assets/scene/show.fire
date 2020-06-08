@@ -183,7 +183,7 @@
       "array": [
         0,
         0,
-        386.23097476392303,
+        387.31633019565606,
         0,
         0,
         0,
@@ -1068,8 +1068,8 @@
       }
     ],
     "_useOriginalSize": false,
-    "_string": "02:01:23",
-    "_N$string": "02:01:23",
+    "_string": "00:00:00",
+    "_N$string": "00:00:00",
     "_fontSize": 20,
     "_lineHeight": 20,
     "_enableWrapText": true,
@@ -1259,8 +1259,8 @@
       }
     ],
     "_useOriginalSize": false,
-    "_string": "0/5",
-    "_N$string": "0/5",
+    "_string": "0/4",
+    "_N$string": "0/4",
     "_fontSize": 40,
     "_lineHeight": 40,
     "_enableWrapText": true,
