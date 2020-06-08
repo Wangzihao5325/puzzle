@@ -59,25 +59,25 @@ cc.Class({
     },
 
     onLoad() {
-        if (CACHE.userInfo && typeof CACHE.userInfo.stage == 'number' && CACHE.userInfo.stage !== 99) {
-            if (CACHE.userInfo.stage == 2) {
-                this.isSetTouch = true;
-                this.node.zIndex = 1000;
-                this.guideStep = 1;
-                let handPosition = cc.v2(0, 100);
+        // if (CACHE.userInfo && typeof CACHE.userInfo.stage == 'number' && CACHE.userInfo.stage !== 99) {
+        //     if (CACHE.userInfo.stage == 2) {
+        //         this.isSetTouch = true;
+        //         this.node.zIndex = 1000;
+        //         this.guideStep = 1;
+        //         let handPosition = cc.v2(0, 100);
 
-                this.handNode = cc.instantiate(this.hand);
-                this.handNode.scaleX = 0.7;
-                this.handNode.scaleY = 0.7;
-                this.handNode.parent = this.node;
-                this.handNode.setPosition(handPosition);
-                let obj = this.handNode.getComponent('guideHand');
-                if (obj) {
-                    obj.handAnimate();
-                }
-                this.node.on(cc.Node.EventType.TOUCH_START, this.onTouchStart, this);
-            }
-        }
+        //         this.handNode = cc.instantiate(this.hand);
+        //         this.handNode.scaleX = 0.7;
+        //         this.handNode.scaleY = 0.7;
+        //         this.handNode.parent = this.node;
+        //         this.handNode.setPosition(handPosition);
+        //         let obj = this.handNode.getComponent('guideHand');
+        //         if (obj) {
+        //             obj.handAnimate();
+        //         }
+        //         this.node.on(cc.Node.EventType.TOUCH_START, this.onTouchStart, this);
+        //     }
+        // }
     },
 
     start() {

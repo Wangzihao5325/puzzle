@@ -71,59 +71,59 @@ cc.Class({
     },
 
     onLoad() {
-        if (CACHE.userInfo && typeof CACHE.userInfo.stage == 'number' && CACHE.userInfo.stage !== 99) {
-            if (CACHE.userInfo.stage == 1) {
-                this.isSetTouch = true;
-                this.node.zIndex = 10000;
-                this.guideStep = 1;
+        // if (CACHE.userInfo && typeof CACHE.userInfo.stage == 'number' && CACHE.userInfo.stage !== 99) {
+        //     if (CACHE.userInfo.stage == 1) {
+        //         this.isSetTouch = true;
+        //         this.node.zIndex = 10000;
+        //         this.guideStep = 1;
 
-                this.handNode = cc.instantiate(this.handSlip);
-                this.handNode.scaleX = 0.7;
-                this.handNode.scaleY = 0.7;
-                this.handNode.parent = this.node;
-                this.handNode.setPosition(cc.v2(-250, -500));
-                let obj = this.handNode.getComponent('pluzzeGuide');
-                if (obj) {
-                    obj.handAnimate();
-                }
+        //         this.handNode = cc.instantiate(this.handSlip);
+        //         this.handNode.scaleX = 0.7;
+        //         this.handNode.scaleY = 0.7;
+        //         this.handNode.parent = this.node;
+        //         this.handNode.setPosition(cc.v2(-250, -500));
+        //         let obj = this.handNode.getComponent('pluzzeGuide');
+        //         if (obj) {
+        //             obj.handAnimate();
+        //         }
 
-                //设置callback
-                let conraol = cc.find('Canvas/root/menuWarp');
-                if (conraol) {
-                    let conraolComponent = conraol.getComponent('conraol');
-                    if (conraolComponent) {
-                        conraolComponent._guideCallbackSetting(() => this.awardDone(), () => this.showDone(), () => this.failedDone(), () => this.rebornDone());
-                    }
-                }
-                // 触摸监听
-                this.node.on(cc.Node.EventType.TOUCH_START, this.onTouchStart, this);
-            } else if (CACHE.userInfo.stage == 3) {
-                this.isSetTouch = true;
-                this.node.zIndex = 10000;
-                this.guideStep = 1;
+        //         //设置callback
+        //         let conraol = cc.find('Canvas/root/menuWarp');
+        //         if (conraol) {
+        //             let conraolComponent = conraol.getComponent('conraol');
+        //             if (conraolComponent) {
+        //                 conraolComponent._guideCallbackSetting(() => this.awardDone(), () => this.showDone(), () => this.failedDone(), () => this.rebornDone());
+        //             }
+        //         }
+        //         // 触摸监听
+        //         this.node.on(cc.Node.EventType.TOUCH_START, this.onTouchStart, this);
+        //     } else if (CACHE.userInfo.stage == 3) {
+        //         this.isSetTouch = true;
+        //         this.node.zIndex = 10000;
+        //         this.guideStep = 1;
 
-                this.handNode = cc.instantiate(this.handSlip);
-                this.handNode.scaleX = 0.7;
-                this.handNode.scaleY = 0.7;
-                this.handNode.parent = this.node;
-                this.handNode.setPosition(cc.v2(-250, -500));
-                let obj = this.handNode.getComponent('pluzzeGuide');
-                if (obj) {
-                    obj.handAnimate();
-                }
+        //         this.handNode = cc.instantiate(this.handSlip);
+        //         this.handNode.scaleX = 0.7;
+        //         this.handNode.scaleY = 0.7;
+        //         this.handNode.parent = this.node;
+        //         this.handNode.setPosition(cc.v2(-250, -500));
+        //         let obj = this.handNode.getComponent('pluzzeGuide');
+        //         if (obj) {
+        //             obj.handAnimate();
+        //         }
 
-                //设置callback
-                let conraol = cc.find('Canvas/root/menuWarp');
-                if (conraol) {
-                    let conraolComponent = conraol.getComponent('conraol');
-                    if (conraolComponent) {
-                        conraolComponent._guideCallbackSetting(() => this.awardDone(), () => this.showDone(), () => this.failedDone(), () => this.rebornDone());
-                    }
-                }
-                // 触摸监听
-                this.node.on(cc.Node.EventType.TOUCH_START, this.onTouchStart, this);
-            }
-        }
+        //         //设置callback
+        //         let conraol = cc.find('Canvas/root/menuWarp');
+        //         if (conraol) {
+        //             let conraolComponent = conraol.getComponent('conraol');
+        //             if (conraolComponent) {
+        //                 conraolComponent._guideCallbackSetting(() => this.awardDone(), () => this.showDone(), () => this.failedDone(), () => this.rebornDone());
+        //             }
+        //         }
+        //         // 触摸监听
+        //         this.node.on(cc.Node.EventType.TOUCH_START, this.onTouchStart, this);
+        //     }
+        // }
     },
 
     start() {
