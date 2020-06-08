@@ -18,6 +18,7 @@ cc.Class({
 
         festivalName: cc.Label,
         festivalIcon: cc.Sprite,
+        festivalTable: cc.Sprite,
         festivalProgress: cc.Label,
         timerLabel: cc.Label,
 
@@ -484,8 +485,25 @@ cc.Class({
     },
 
     festivalUpdate(item, callback) {
-        console.log('dddddd');
-        console.log(item);
+        let defaultFestivalPath = ['show/meishitai', 'show/meishi'];
+        switch (item.buffId) {
+            case 70001://美食节
+                defaultFestivalPath = ['show/meishitai', 'show/meishi'];
+                break;
+            case 70002://手工达人
+                defaultFestivalPath = ['show/shougongtai', 'show/shougognpin'];
+                break;
+            case 70004://艺术品
+                defaultFestivalPath = ['show/jiniantai', 'show/jininapin'];
+                break;
+            case 70005://博物展
+                defaultFestivalPath = ['show/bowutai', 'show/wenwu'];
+                break;
+        }
+        cc.loader.loadResArray(defaultFestivalPath, cc.SpriteFrame, (err, assets) => {
+            this.festivalTable.spriteFrame = assets[0];
+            this.festivalIcon.spriteFrame = assets[1];
+        })
         this.festivalName.string = item.name;
         this.festivalProgress.string = `${item.currentNum}/${item.reachCount}`;
         if (!this.timer) {

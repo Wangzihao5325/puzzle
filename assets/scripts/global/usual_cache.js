@@ -44,7 +44,9 @@ const CACHE = {
     token: null,
     logining: false,
     loginCallback: [],
-    userInfo: null,
+    userInfo: {
+        stage: 1
+    },
     dragonBoneAnimateName: '',
     lastBagTypeLength: 0,
     isBGM: true,
@@ -54,8 +56,8 @@ const CACHE = {
     },
     isShowOn: [false, false, false],//是否有物品在展览 判断是否有vistor
     isShouwSpeedUp: false,
-    didAlert:{
-        sell:true
+    didAlert: {
+        sell: true
     }
 }
 

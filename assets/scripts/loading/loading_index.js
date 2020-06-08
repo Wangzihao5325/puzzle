@@ -83,14 +83,14 @@ cc.Class({
                                         });
                                         CACHE.assets.naviAssets = resArr;
                                         /**获取新手引导进度 */
-                                         cc.director.loadScene("travel");
+                                        // cc.director.loadScene("travel");
 
-                                        // Api.guideState((res) => {
-                                        //     if (res.data) {
-                                        //         CACHE.userInfo.stage = res.data.stage;
-                                        //         cc.director.loadScene("travel");
-                                        //     }
-                                        // });
+                                        Api.guideState((res) => {
+                                            if (res.data) {
+                                                CACHE.userInfo.stage = res.data.stage;
+                                                cc.director.loadScene("travel");
+                                            }
+                                        });
 
                                     })
                                 })
