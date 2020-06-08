@@ -81,13 +81,13 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 61
-      },
-      {
-        "__id__": 62
-      },
-      {
         "__id__": 63
+      },
+      {
+        "__id__": 64
+      },
+      {
+        "__id__": 65
       }
     ],
     "_prefab": null,
@@ -177,7 +177,7 @@
       "array": [
         0,
         0,
-        218.2384,
+        387.1133554916441,
         0,
         0,
         0,
@@ -275,7 +275,7 @@
       "array": [
         0,
         0,
-        218.23840175367854,
+        387.1133554916441,
         0,
         0,
         0,
@@ -356,12 +356,15 @@
       },
       {
         "__id__": 57
+      },
+      {
+        "__id__": 60
       }
     ],
     "_active": true,
     "_components": [
       {
-        "__id__": 60
+        "__id__": 62
       }
     ],
     "_prefab": null,
@@ -2811,6 +2814,84 @@
     "_N$horizontalDirection": 0,
     "_N$affectedByScale": false,
     "_id": "602jmRMxdH+I0/9/pW/785"
+  },
+  {
+    "__type__": "cc.Node",
+    "_name": "guide",
+    "_objFlags": 0,
+    "_parent": {
+      "__id__": 7
+    },
+    "_children": [],
+    "_active": true,
+    "_components": [
+      {
+        "__id__": 61
+      }
+    ],
+    "_prefab": null,
+    "_opacity": 255,
+    "_color": {
+      "__type__": "cc.Color",
+      "r": 255,
+      "g": 255,
+      "b": 255,
+      "a": 255
+    },
+    "_contentSize": {
+      "__type__": "cc.Size",
+      "width": 644,
+      "height": 1136
+    },
+    "_anchorPoint": {
+      "__type__": "cc.Vec2",
+      "x": 0.5,
+      "y": 0.5
+    },
+    "_trs": {
+      "__type__": "TypedArray",
+      "ctor": "Float64Array",
+      "array": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    "_eulerAngles": {
+      "__type__": "cc.Vec3",
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "_skewX": 0,
+    "_skewY": 0,
+    "_is3DNode": false,
+    "_groupIndex": 0,
+    "groupIndex": 0,
+    "_id": "8cwGVpGihGGJZ7nGHQqxMv"
+  },
+  {
+    "__type__": "9cf8f5jKp5I7LON/N0+fMiX",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 60
+    },
+    "_enabled": true,
+    "handSlip": {
+      "__uuid__": "410dfcba-ddc7-45a3-b72e-372cd71f85c2"
+    },
+    "hand": {
+      "__uuid__": "510835c8-6025-4d6e-ac56-bbb934822ef5"
+    },
+    "_id": "3a62PsCaZMYqChSGwMQ/C4"
   },
   {
     "__type__": "cc.Mask",

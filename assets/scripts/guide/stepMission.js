@@ -14,24 +14,24 @@ cc.Class({
     // LIFE-CYCLE CALLBACKS:
 
     onLoad() {
-        // if (CACHE.userInfo && CACHE.userInfo.stage !== 99) {
-        //     if (CACHE.userInfo && CACHE.userInfo.stage === 1) {
-        //         this.isSetTouch = true;
-        //         this.node.zIndex = 10000;
-        //         this.guideStep = 1;
-        //         this.handNode = cc.instantiate(this.hand);
-        //         this.handNode.scaleX = 0.7;
-        //         this.handNode.scaleY = 0.7;
-        //         this.handNode.parent = this.node;
-        //         this.handNode.setPosition(cc.v2(-160, 60));
-        //         let obj = this.handNode.getComponent('guideHand');
-        //         if (obj) {
-        //             obj.handAnimate();
-        //         }
-        //         // 触摸监听
-        //         this.node.on(cc.Node.EventType.TOUCH_START, this.onTouchStart, this);
-        //     }
-        // }
+        if (CACHE.userInfo && CACHE.userInfo.stage !== 99) {
+            if (CACHE.userInfo && CACHE.userInfo.stage === 1) {
+                this.isSetTouch = true;
+                this.node.zIndex = 10000;
+                this.guideStep = 1;
+                this.handNode = cc.instantiate(this.hand);
+                this.handNode.scaleX = 0.7;
+                this.handNode.scaleY = 0.7;
+                this.handNode.parent = this.node;
+                this.handNode.setPosition(cc.v2(-160, 60));
+                let obj = this.handNode.getComponent('guideHand');
+                if (obj) {
+                    obj.handAnimate();
+                }
+                // 触摸监听
+                this.node.on(cc.Node.EventType.TOUCH_START, this.onTouchStart, this);
+            }
+        }
     },
 
     onDestroy() {

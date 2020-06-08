@@ -31,10 +31,29 @@ cc.Class({
         game_root: cc.Node,
         game_award: cc.Prefab,
         game_shar3: cc.Prefab,
-        game_share1:cc.Prefab,
-        game_share2:cc.Prefab,
+        game_share1: cc.Prefab,
+        game_share2: cc.Prefab,
         game_fail: cc.Prefab,
 
+    },
+
+    /**
+     * 为了完成新手引导插入的回调，用来判断掉落框，分享框出现的时机
+     */
+
+    _guideCallbackSetting(showAwardCallback, showShareCallback, gameFailedCallback, gameRebornCallback) {
+        if (showAwardCallback) {
+            this._guideShowAwardCallback = showAwardCallback;
+        }
+        if (showShareCallback) {
+            this._guideShowShareCallback = showShareCallback;
+        }
+        if (gameFailedCallback) {
+            this._guideGameFailedCallback = gameFailedCallback;
+        }
+        if (gameRebornCallback) {
+            this._guideGameRebornCallback = gameRebornCallback;
+        }
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -43,7 +62,7 @@ cc.Class({
         this.setTouch();
         this.resetUI()
         GAME_CACH.isComplate = false
-        GAME_CACH.coutnDown=GAME_CACH.gameTime
+        GAME_CACH.coutnDown = GAME_CACH.gameTime
         this.timer(GAME_CACH.coutnDown);
     },
 
@@ -88,7 +107,7 @@ cc.Class({
             setTimeout(() => {
                 currentNode.destroy()
                 item_puzzle_warp.destroy()
-               // initItem(spliceArr, CACHE.hard_level, 2, this.pre_item, this.game_bg, new cc.SpriteFrame(), true, true);
+                // initItem(spliceArr, CACHE.hard_level, 2, this.pre_item, this.game_bg, new cc.SpriteFrame(), true, true);
                 this.checkComplate()
             }, 400)
 
@@ -114,7 +133,7 @@ cc.Class({
             this.removeSpliceNode(index)
             // underwayIndex.remove(index);
             console.log('xxxx');
-           initItem(spliceArr, CACHE.hard_level, 2, this.pre_item, this.game_bg, new cc.SpriteFrame(), true, true);
+            initItem(spliceArr, CACHE.hard_level, 2, this.pre_item, this.game_bg, new cc.SpriteFrame(), true, true);
             setTimeout(() => {
                 currentNode.destroy();
                 item_puzzle_warp.destroy();
@@ -216,7 +235,10 @@ cc.Class({
         Api.missionComplete(data, (res => {
             if (res.code === 0) {
                 setTimeout(() => {
-                    this.showAward(res.data.list, CACHE.hard_level + 1)
+                    this.showAward(res.data.list, CACHE.hard_level + 1);
+                    if (this._guideShowAwardCallback) {
+                        this._guideShowAwardCallback();
+                    }
                 }, 1000)
             } else {
                 Toast.show(res.meeage)
@@ -232,24 +254,30 @@ cc.Class({
         obj.init(item, leavel)
 
         setTimeout(() => {
-            game_award.destroy()
-            this.showShare(item,leavel-1)
+            game_award.destroy();
+            this.showShare(item, leavel - 1);
+            if (this._guideShowShareCallback) {
+                this._guideShowShareCallback();
+            }
         }, 2000)
 
     },
 
     //显示分享弹窗
     showShare(item, leavel) {
-        console.log("leavel",leavel)
-        const shareList=[this.game_share1,this.game_share2,this.game_share3]
+        console.log("leavel", leavel)
+        const shareList = [this.game_share1, this.game_share2, this.game_share3]
         let game_share = cc.instantiate(shareList[leavel]);
         game_share.parent = this.root_warp;
         let obj = game_share.getComponent('share');
-        obj.init(item, leavel+1)
+        obj.init(item, leavel + 1)
 
     },
 
     gameFail() {
+        if (this._guideGameRebornCallback) {
+            this._guideGameRebornCallback();
+        }
         let game_fail = cc.instantiate(this.game_fail);
         game_fail.parent = this.root_warp;
     },
@@ -278,7 +306,10 @@ cc.Class({
 
     //复活
     revive() {
-        GAME_CACH.coutnDown=GAME_CACH.gameTime
+        if (this._guideGameRebornCallback) {
+            this._guideGameRebornCallback()
+        }
+        GAME_CACH.coutnDown = GAME_CACH.gameTime
         this.timer(GAME_CACH.coutnDown)
 
     },
@@ -289,15 +320,15 @@ cc.Class({
     },
     resetUI() {
         const userData = CACHE.userData
-        this.magnet_label.string = userData.strongMagnet>99?'99+':userData.strongMagnet
+        this.magnet_label.string = userData.strongMagnet > 99 ? '99+' : userData.strongMagnet
         if (userData.frame > 0) {
             this.sort_tiem.active = true
             this.ad_free.active = false
-            this.sort_label.string = userData.frame>99?'99+':userData.frame
+            this.sort_label.string = userData.frame > 99 ? '99+' : userData.frame
         } else if (userData.frame === 0) {
             this.sort_tiem.active = false
             this.ad_free.active = true
-            this.sort_label.string = userData.frame>99?'99+':userData.frame
+            this.sort_label.string = userData.frame > 99 ? '99+' : userData.frame
         }
     },
 
