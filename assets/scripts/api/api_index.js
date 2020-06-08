@@ -209,14 +209,14 @@ const sellGOods = (payload = {}, callback, failedCallback) => new CusHttp().Post
  * @param {Function} callback
  * @param {Function} failedCallback
  */
-const goodsCollect = (goodsQuality,callback, failedCallback) => new CusHttp().Get(`${API_DOMAIN}/travel/collect/goods?goodsQuality=${goodsQuality}`, callback, failedCallback);
+const goodsCollect = (goodsQuality, callback, failedCallback) => new CusHttp().Get(`${API_DOMAIN}/travel/collect/goods?goodsQuality=${goodsQuality}`, callback, failedCallback);
 
 /**
  * 收集景点
  * @param {Function} callback
  * @param {Function} failedCallback
  */
-const hurdleCollect = (goodsQuality,callback, failedCallback) => new CusHttp().Get(`${API_DOMAIN}/travel/collect/hurdle?goodsQuality=${goodsQuality}`, callback, failedCallback);
+const hurdleCollect = (goodsQuality, callback, failedCallback) => new CusHttp().Get(`${API_DOMAIN}/travel/collect/hurdle?goodsQuality=${goodsQuality}`, callback, failedCallback);
 
 
 
@@ -225,9 +225,9 @@ const hurdleCollect = (goodsQuality,callback, failedCallback) => new CusHttp().G
  * @param {Function} callback
  * @param {Function} failedCallback
  */
-const backpack = (type,callback, failedCallback) => new CusHttp().Get(`${API_DOMAIN}/user/assets/backpack?type=${type}`, callback, failedCallback);
+const backpack = (type, callback, failedCallback) => new CusHttp().Get(`${API_DOMAIN}/user/assets/backpack?type=${type}`, callback, failedCallback);
 
-const showInfo = (callback, failedCallback) => new CusHttp().Get(`${API_DOMAIN}/exhibition/info`, callback, failedCallback);
+const showInfo = (stage, callback, failedCallback) => new CusHttp().Get(stage ? `${API_DOMAIN}/exhibition/info?stage=${stage}` : `${API_DOMAIN}/exhibition/info`, callback, failedCallback);
 
 //放置物品
 const placeGoods = (payload = { goodId: 0, standId: 0 }, callback, failedCallback) => new CusHttp().Post(`${API_DOMAIN}/exhibition/stand/good/place`, payload, callback, failedCallback);

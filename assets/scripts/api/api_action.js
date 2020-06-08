@@ -69,7 +69,8 @@ const MissionList = (callback, failedCallback) => {
 }
 
 const ShowInfoUpdate = (callback, failedCallback) => {
-    Api.showInfo((res) => {
+    let stage = (CACHE.userInfo && typeof CACHE.userInfo.stage == 'number' && CACHE.userInfo.stage !== 99) ? CACHE.userInfo.stage : null;
+    Api.showInfo(stage, (res) => {
         CACHE.showData = { ...res.data };
         if (callback) {
             callback(res)

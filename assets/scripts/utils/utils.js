@@ -167,7 +167,7 @@ export function setTimeOutWithStartEnd(startTime, endTime, middleCallback, final
     let timeStr = `${hour >= 10 ? hour : `0${hour}`}:${min >= 10 ? min : `0${min}`}:${sec >= 10 ? sec : `0${sec}`}`
     middleCallback(timeStr, time);
     timer = setInterval(() => {
-      time--;
+      time = time - 60;
       let hour = Math.floor(time / 3600);
       let min = Math.floor((time % 3600) / 60);
       let sec = (time % 3600) % 60
@@ -178,7 +178,7 @@ export function setTimeOutWithStartEnd(startTime, endTime, middleCallback, final
         clearInterval(timer);
         timer = null;
       }
-    }, 10);
+    }, 20);
   }
   return () => {
     if (timer) {
