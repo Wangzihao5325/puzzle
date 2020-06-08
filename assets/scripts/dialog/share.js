@@ -10,7 +10,7 @@ import { CACHE } from '../global/usual_cache';
 import Api from '../api/api_index'
 
 cc.Class({
-    extends: cc.Component,
+    extends: require('../global/textureRenderUtils'),
 
     properties: {
         shareWarp: cc.Node,
@@ -214,6 +214,41 @@ cc.Class({
     },
     handleDownload(){
         //点击下载
+        this.initTextRender();
+        this.scheduleOnce(() => {
+            let canvas = this.createCanvas();
+            this.createImg();
+            this.saveFile(canvas);
+        }, 1);
+    },
+
+    saveFile (tempCanvas) {
+        // This is one of the ways that could save the img to your local.
+        if (cc.sys.platform === cc.sys.WECHAT_GAME) {
+            const data = {
+                x: 0,
+                y: (this.texture.height - 1136)/2,
+                width: this.texture.width,
+                height: 1136,
+                destWidth: this.texture.width,
+                destHeight: 1136
+            }
+            let _tempFilePath = tempCanvas.toTempFilePathSync(data);
+            cc.log(`Capture file success!${_tempFilePath}`);
+            wx.saveImageToPhotosAlbum({
+                filePath: _tempFilePath,
+                success: function(res) {
+                    Toast.show(`保存成功`)
+                },
+                fail (err) {
+                    console.log(err)
+                }
+            })
+        }
+        else {
+            let self = this;
+            Toast.show(`只支持微信小游戏平台`)
+        }
     },
 
     handleContinue() {
