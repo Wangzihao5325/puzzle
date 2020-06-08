@@ -134,6 +134,7 @@ cc.Class({
 
     footerInit() {
         let footer = cc.instantiate(this.footer);
+        footer.name = 'footer_navi';
         let obj = footer.getComponent('navi_footer');
         obj.initWithScene(CACHE.scene);
         footer.parent = this.root;

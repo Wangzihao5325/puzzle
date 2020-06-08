@@ -301,6 +301,7 @@ cc.Class({
         }
 
         if (item.goodId) {
+            console.log('dddddcccc');
             CACHE.isShowOn[index] = true;
             this.touchable = false;//背包是否可打开
             let iconPath = `${IMAGE_SERVER}/${item.icon}.png`;
