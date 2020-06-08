@@ -10,6 +10,10 @@ cc.Class({
 
     properties: {
         warp:cc.Node,
+        show:{
+            type:Boolean,
+            default:false
+        }
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -31,8 +35,9 @@ cc.Class({
             .start()
         })
         .start()
+        this.show=true
 
-        setTimeout(()=>{
+        this.timer= setTimeout(()=>{
             cc.tween(this.warp)
             .to(1, { opacity: 0})
             .call(()=>{

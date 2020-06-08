@@ -34,7 +34,8 @@ cc.Class({
             .start()
         this.dress_warp.setPosition=cc.v2(0,-1000)
         cc.tween(this.dress_warp)
-            .to(.2, { position: cc.v2(0,-318) }, { easing: 'sineOutIn' })
+            .to(.2, { position: cc.v2(0,-248) })
+            .to(.1, { position: cc.v2(0,-318) }, { easing: 'sineOutIn' })
             .start()
     },
 
@@ -119,7 +120,9 @@ cc.Class({
             .start()
         this.resetDress()
         // this.modal.destroy()
-
+        //显示猫盆
+        let homeIndeObj = cc.find('Canvas').getComponent('home_index')
+        homeIndeObj.showBowl(true)
     },
     handleSave() {
         const data = {

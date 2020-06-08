@@ -26,13 +26,21 @@ cc.Class({
         OutSide: cc.Prefab,
         store_icon: cc.Node,
         recall_icon:cc.Node,
+        backpack_icon:cc.Node,
         store: cc.Prefab,
         recall: cc.Prefab,
         food_lack: cc.Prefab,
         audio: {
             default: null,
             type: cc.AudioClip
-        }
+        },
+        backpack: cc.Prefab,
+        bowlWarp:cc.Node,
+        bowl0:cc.Node,
+        bowl1:cc.Node,
+        bowl2:cc.Node,
+        bowl3:cc.Node,
+        bowl4:cc.Node,
     },
 
     stateUpdate() {
@@ -45,6 +53,26 @@ cc.Class({
         this.home_bg.spriteFrame = new cc.SpriteFrame(homeBgTex);
     },
 
+    //喂养
+    show_feed() {
+        // ComeBack.show(goodsList)
+
+        let feedWarpInstan = cc.instantiate(this.feed_warp)
+        var warp_parent = cc.find(`Canvas`)
+        feedWarpInstan.parent = warp_parent
+        feedWarpInstan.setPosition(0, -1000);
+
+        cc.tween(feedWarpInstan)
+        .to(.2, { position: cc.v2(0, -268) } )
+        .to(.1, { position: cc.v2(0, -388) })
+            .start()
+        const feed=feedWarpInstan.getComponent('feed')
+        feed.resetUI()
+    },
+
+    showBowl(show=true){
+        this.bowlWarp.active=show
+    },
 
 
     setOUtUi() {
@@ -56,6 +84,7 @@ cc.Class({
             catItem ? catItem.active = !outward : ''
             if (outward === false) {
                 outside_item.destroy()
+                this.showBowl(!outward)
             }
         } else {
             // const feedWarpInstan=  cc.find(`Canvas/feedWarp`)
@@ -65,6 +94,7 @@ cc.Class({
             catItem.active = !outward
             OutSide.parent = my_home
             OutSide.active = outward
+            this.showBowl(!outward)
         }
 
         //食物吃完了弹窗
@@ -204,6 +234,24 @@ cc.Class({
         lucky_warp.getComponent(cc.Label).string = `${HOME_CACHE.pet_info.currentLucky} \\ ${HOME_CACHE.pet_info.luckyUpperLimit}`
         this.lucky_bar.width = 200 * HOME_CACHE.pet_info.currentLucky / HOME_CACHE.pet_info.luckyUpperLimit
 
+        //更新猫盆状态
+        const hungryPercent= Math.ceil(HOME_CACHE.pet_info.currentHungry/HOME_CACHE.pet_info.hungryUpperLimit*100)
+        this.bowlWarp.children.map(item=>{
+            console.log("item",item)
+            item.active=false
+        })
+        if(hungryPercent>=90){
+            this.bowl4.active=true
+        }else if(hungryPercent>=70){
+            this.bowl3.active=true
+        }else if(hungryPercent>=30){
+            this.bowl2.active=true
+        }else if(hungryPercent>=1){
+            this.bowl1.active=true
+        }else{
+            this.bowl0.active=true
+        }
+
         this.setOUtUi()
 
 
@@ -221,6 +269,12 @@ cc.Class({
 
     start() {
         this.init();
+    },
+
+    showBackpack(){
+        let backpackIns = cc.instantiate(this.backpack)
+        backpackIns.parent =  cc.find('Canvas')
+        backpackIns.setPosition(0, 0);
     },
 
     init() {
@@ -264,7 +318,14 @@ cc.Class({
             this.showRecall()
             event.stopPropagation();
         })
-        
+        this.backpack_icon.on(cc.Node.EventType.TOUCH_END, (event) => {
+            this.showBackpack()
+            event.stopPropagation();
+        })
+        this.bowlWarp.on(cc.Node.EventType.TOUCH_END, (event) => {
+            this.show_feed()
+            event.stopPropagation();
+        })
 
     },
     initCat() {

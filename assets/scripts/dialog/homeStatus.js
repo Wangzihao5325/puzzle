@@ -20,6 +20,17 @@ cc.Class({
 
     // onLoad () {},
     showTip(type){
+        console.log("this.headerWarp.children",this.headerWarp.children)
+        if(this.headerWarp.children.length>2){
+            const current =this.headerWarp.children[2]
+            cc.tween(current)
+            .to(.4, { opacity: 0})
+            .call(()=>{
+                current.destroy()
+            })
+            .start()
+            return false
+        }
         const prefabList=[this.energeTip,this.luckyTip]
         const parentsList=[this.energeItem,this.luckyItem]
         let newNode = cc.instantiate(prefabList[type])

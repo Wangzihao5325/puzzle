@@ -128,7 +128,8 @@ cc.Class({
         feedWarpInstan.setPosition(0, -1000);
 
         cc.tween(feedWarpInstan)
-            .to(.2, { position: cc.v2(0, -408) }, { easing: 'sineOutIn' })
+            .to(.2, { position: cc.v2(0, -288) } )
+            .to(.1, { position: cc.v2(0, -388) })
             // .to(.1, { position: cc.v2(0, -408) })
             .start()
         const feed=feedWarpInstan.getComponent('feed')
@@ -150,6 +151,10 @@ cc.Class({
 
     show_dress() {
         this.handleClose()
+
+        //隐藏猫盆
+        let homeIndeObj = cc.find('Canvas').getComponent('home_index')
+        homeIndeObj.showBowl(false)
 
         let dressModalInstan = cc.instantiate(this.Dress_warp)
         var warp_parent = cc.find(`Canvas`)

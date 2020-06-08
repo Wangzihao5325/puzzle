@@ -54,6 +54,9 @@ const CACHE = {
     },
     isShowOn: [false, false, false],//是否有物品在展览 判断是否有vistor
     isShouwSpeedUp: false,
+    didAlert:{
+        sell:true
+    }
 }
 
 export default {
