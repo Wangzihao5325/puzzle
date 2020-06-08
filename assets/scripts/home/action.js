@@ -33,31 +33,24 @@ cc.Class({
         this.container.setPosition(cc.v2(0,catPostListHeight[HOME_CACHE.cat_post]))
 
         //进入动画
-        this.Goout.setPosition(cc.v2(-150,0))
+        this.Goout.setPosition(cc.v2(-60,0))
         this.Goout.opacity=0
 
-        this.Dress.setPosition(cc.v2(45,35))
+        this.Dress.setPosition(cc.v2(140,0))
         this.Dress.opacity=0
 
-        this.Feed.setPosition(cc.v2(160,-110))
-        this.Feed.opacity=0
 
         cc.tween(this.Goout)
-        .to(.3, { position: cc.v2(-150, 200), opacity:255}, { easing: 'sineOutIn' })
-        .to(.2, { position: cc.v2(-150, 100)}, { easing: 'sineOutIn' })
+        .to(.3, { position: cc.v2(-60, 110), opacity:255}, { easing: 'sineOutIn' })
+        .to(.2, { position: cc.v2(-60, 90)}, { easing: 'sineOutIn' })
         .start()
 
         cc.tween(this.Dress)
         .delay(.1)
-        .to(.3, { position: cc.v2(0, 200), opacity:255}, { easing: 'sineOutIn' })
-        .to(.2, { position: cc.v2(0, 135)}, { easing: 'sineOutIn' })
+        .to(.3, { position: cc.v2(140, 110), opacity:255}, { easing: 'sineOutIn' })
+        .to(.2, { position: cc.v2(140, 90)}, { easing: 'sineOutIn' })
         .start()
 
-        cc.tween(this.Feed)
-        .delay(.2)
-        .to(.3, { position: cc.v2(160, 110), opacity:255}, { easing: 'sineOutIn' })
-        .to(.2, { position: cc.v2(160, -10)}, { easing: 'sineOutIn' })
-        .start()
 
         this.bounceAnimation()
 
@@ -67,8 +60,8 @@ cc.Class({
     bounceAnimation(){
         cc.tween(this.Goout)
         .delay(8)
-        .to(.3, { position: cc.v2(-150, 200)}, { easing: 'sineOutIn' })
-        .to(.2, { position: cc.v2(-150, 100)}, { easing: 'sineOutIn' })
+        .to(.3, { position: cc.v2(-60, 110)}, { easing: 'sineOutIn' })
+        .to(.2, { position: cc.v2(-60, 90)}, { easing: 'sineOutIn' })
         .union()
         .repeatForever()
         .start()
@@ -76,22 +69,22 @@ cc.Class({
         setTimeout(()=>{
             cc.tween(this.Dress)
             .delay(8)
-            .to(.3, { position: cc.v2(0, 200)}, { easing: 'sineOutIn' })
-            .to(.2, { position: cc.v2(0, 135)}, { easing: 'sineOutIn' })
+            .to(.3, { position: cc.v2(140, 110)}, { easing: 'sineOutIn' })
+            .to(.2, { position: cc.v2(140, 90)}, { easing: 'sineOutIn' })
             .union()
             .repeatForever()
             .start()
         },100)
 
-        setTimeout(()=>{
-            cc.tween(this.Feed)
-            .delay(8)
-            .to(.3, { position: cc.v2(160, 110)}, { easing: 'sineOutIn' })
-            .to(.2, { position: cc.v2(160, -10)}, { easing: 'sineOutIn' })
-            .union()
-            .repeatForever()
-            .start()
-        },200)
+        // setTimeout(()=>{
+        //     cc.tween(this.Feed)
+        //     .delay(8)
+        //     .to(.3, { position: cc.v2(160, 110)}, { easing: 'sineOutIn' })
+        //     .to(.2, { position: cc.v2(160, -10)}, { easing: 'sineOutIn' })
+        //     .union()
+        //     .repeatForever()
+        //     .start()
+        // },200)
 
 
 

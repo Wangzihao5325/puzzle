@@ -163,6 +163,16 @@ cc.Class({
             this.handleClose()
             event.stopPropagation();
         })
+        //蒙版禁止冒泡
+        this.warp.on(cc.Node.EventType.TOUCH_START, () => {
+            event.stopPropagation();
+        })
+        this.warp.on(cc.Node.EventType.TOUCH_MOVE, () => {
+            event.stopPropagation();
+        })
+        this.warp.on(cc.Node.EventType.TOUCH_END, () => {
+            event.stopPropagation();
+        })
     },
 
     init(item,index) {

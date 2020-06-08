@@ -79,6 +79,9 @@ cc.Class({
 
     initBackpack(data){
         // currentPageContent.parent=this.pageContent
+        this.scrollContent.children&&this.scrollContent.children.map(item=>{
+            item.destroy()
+        })
         for (let i = 0; i < data.length; i++) {
             let newNode = cc.instantiate(this.travelItem)
 
