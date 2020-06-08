@@ -20,6 +20,18 @@ cc.Class({
         }
     },
 
+    stepFiveAddExcal() {
+        this.excalNode = cc.instantiate(this.excal);
+        this.excalNode.scaleX = 0.7;
+        this.excalNode.scaleY = 0.7;
+        this.excalNode.parent = this.node;
+        this.excalNode.setPosition(cc.v2(-200, -450));
+        let obj = this.excalNode.getComponent('guideExcal');
+        if (obj) {
+            obj.animate();
+        }
+    },
+
     onLoad() {
         if (CACHE.userInfo.stage !== 99) {
             let handPosition;
@@ -39,6 +51,8 @@ cc.Class({
                     this.stepTwoAddExcal();
                     break;
                 case 5:
+                    handPosition = cc.v2(-200, -500);
+                    this.stepFiveAddExcal();
                     break;
                 case 6:
                     break;
@@ -83,6 +97,10 @@ cc.Class({
             originNode = cc.find('Canvas/layoutRoot/footer_navi');;
             pos = originNode.convertToNodeSpaceAR(event.getLocation());
             btn = cc.find('Canvas/layoutRoot/footer_navi/button_show');
+        } else if (CACHE.userInfo.stage == 5) {
+            originNode = cc.find('Canvas/layoutRoot/footer_navi');;
+            pos = originNode.convertToNodeSpaceAR(event.getLocation());
+            btn = cc.find('Canvas/layoutRoot/footer_navi/button_home');
         }
         // 获取相应按钮的大小范围
         let rect = btn.getBoundingBox();
