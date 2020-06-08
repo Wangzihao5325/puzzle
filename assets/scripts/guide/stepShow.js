@@ -95,13 +95,15 @@ cc.Class({
                 this.handNode.x = 0;
                 this.handNode.y = -50;
                 this.handNode.active = true;
-            }
-            else if (CACHE.userInfo.stage == 4 && this.guideStep == 4) {
+            } else if (CACHE.userInfo.stage == 4 && this.guideStep == 4) {
                 this.guideStep++;
                 this.handNode.x = -200;
                 this.handNode.y = -500;
                 this.handNode.active = true;
                 this.stepFiveAddExcal();
+            } else if (CACHE.userInfo.stage == 4 && this.guideStep == 5) {
+                this.guideStep++;
+                CACHE.userInfo.stage++
             }
             // 允许触摸事件传递给按钮(允许冒泡)
             this.node._touchListener.setSwallowTouches(false);
