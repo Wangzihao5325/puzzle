@@ -205,6 +205,22 @@ const sellGOods = (payload = {}, callback, failedCallback) => new CusHttp().Post
 
 
 /**
+ * 收集的纪念品
+ * @param {Function} callback
+ * @param {Function} failedCallback
+ */
+const goodsCollect = (goodsQuality,callback, failedCallback) => new CusHttp().Get(`${API_DOMAIN}/travel/collect/goods?goodsQuality=${goodsQuality}`, callback, failedCallback);
+
+/**
+ * 收集景点
+ * @param {Function} callback
+ * @param {Function} failedCallback
+ */
+const hurdleCollect = (goodsQuality,callback, failedCallback) => new CusHttp().Get(`${API_DOMAIN}/travel/collect/hurdle?goodsQuality=${goodsQuality}`, callback, failedCallback);
+
+
+
+/**
  * 获取用户背包
  * @param {Function} callback
  * @param {Function} failedCallback
@@ -285,6 +301,8 @@ export default {
     memory_travelInfo,
     memory_comment,
     memory_praise,
+    goodsCollect,
+    hurdleCollect,
 
     showInfo,
     placeGoods,
