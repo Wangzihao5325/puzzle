@@ -41,6 +41,10 @@ cc.Class({
         bowl2:cc.Node,
         bowl3:cc.Node,
         bowl4:cc.Node,
+
+        collectIcon:cc.Node,
+        collect: cc.Prefab,
+
     },
 
     stateUpdate() {
@@ -237,7 +241,6 @@ cc.Class({
         //更新猫盆状态
         const hungryPercent= Math.ceil(HOME_CACHE.pet_info.currentHungry/HOME_CACHE.pet_info.hungryUpperLimit*100)
         this.bowlWarp.children.map(item=>{
-            console.log("item",item)
             item.active=false
         })
         if(hungryPercent>=90){
@@ -269,6 +272,8 @@ cc.Class({
 
     start() {
         this.init();
+        //测试用
+        // this.showCollect()
     },
 
     showBackpack(){
@@ -305,6 +310,12 @@ cc.Class({
         const canvas = cc.find('Canvas')
         recall.parent = canvas
     },
+    showCollect() {
+        let collect = cc.instantiate(this.collect);
+        const canvas = cc.find('Canvas')
+        collect.parent = canvas
+    },
+
     setTouch(hardLevel) {
         this.cat.on(cc.Node.EventType.TOUCH_END, (event) => {
             this.showCatAction()
@@ -319,10 +330,17 @@ cc.Class({
             event.stopPropagation();
         })
         this.backpack_icon.on(cc.Node.EventType.TOUCH_END, (event) => {
+            console.log("点击背包")
+
             this.showBackpack()
             event.stopPropagation();
         })
+        this.collectIcon.on(cc.Node.EventType.TOUCH_END, (event) => {
+            this.showCollect()
+            event.stopPropagation();
+        })
         this.bowlWarp.on(cc.Node.EventType.TOUCH_END, (event) => {
+            console.log("点击猫盆")
             this.show_feed()
             event.stopPropagation();
         })

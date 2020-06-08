@@ -33,6 +33,10 @@ cc.Class({
         info:{
             type:Object,
             default:{}
+        },
+        canSell:{
+            type:Boolean,
+            default:true
         }
     },  
 
@@ -125,13 +129,11 @@ cc.Class({
 
     setTouch() {
         this.close.on(cc.Node.EventType.TOUCH_END, (event) => {
-            console.log("点击关闭")
             this.handleClose()
             event.stopPropagation();
         })
         this.actionBtn.on(cc.Node.EventType.TOUCH_END, (event) => {
             this.handleAction()
-            console.log("点击关闭")
             event.stopPropagation();
         })
         this.warp.on(cc.Node.EventType.TOUCH_START, (event) => {
@@ -159,18 +161,22 @@ cc.Class({
             this.goodDetailsContent.node.color = cc.color(255,255,255);
             this.goodDetailBg.node.color = cc.color(234,234,234);
             this.goodLessReg.node.active = false;
+            this.actionWarp.active=true&&this.canSell
         }
         else if (type == 1) {//稀有物品
             this.goodDetails.node.color = cc.color(255, 255, 255);
             this.goodDetailsContent.node.color = cc.color(212, 181, 156);
             this.goodDetailBg.node.color = cc.color(255, 247, 206);
             this.goodLessReg.node.active = true;
+            this.actionWarp.active=true&&this.canSell
         } else if(type===3){
             //普通 宠物
             this.goodDetails.node.color = cc.color(141, 141, 141);
             this.goodDetailsContent.node.color = cc.color(255, 255, 255);
             this.goodDetailBg.node.color = cc.color(244,235,218);
             this.goodLessReg.node.active = false;
+            this.actionWarp.active=true&&this.canSell
+
             // console.log("setPost",this.goodDetailsContent)
             // this.goodDetailsContent.getComponent(cc.Node).setPosition(cc.v2(this.goodDetailsContent.node.x,this.goodDetailsContent.node.y+30))
             this.actionText.string='使 用'
@@ -179,7 +185,7 @@ cc.Class({
             this.goodDetailsContent.node.color = cc.color(255, 255, 255);
             this.goodDetailBg.node.color = cc.color(234, 234, 234);
             this.goodLessReg.node.active = false;
-            this.actionWarp.active=false
+            this.actionWarp.active=false&&this.canSell
 
         }
         this.goodDetailName.string = item.name;
@@ -231,7 +237,8 @@ cc.Class({
         // this.goodDetailRoot.active = true;
     },
 
-    goodsItemClick(item) {
+    goodsItemClick(item,canSell=true) {
+        this.canSell=canSell
         if(item.goodsQuality>1){
             this.renderGoodsDetail(item,true);
         }else{
