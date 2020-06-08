@@ -176,26 +176,44 @@ cc.Class({
     },
 
     setTouch() {
-        this.back.on(cc.Node.EventType.TOUCH_START, (event) => {
+        this.back.on(cc.Node.EventType.TOUCH_END, (event) => {
             this.handleBack()
             event.stopPropagation();
         })
-        this.shareBtn.on(cc.Node.EventType.TOUCH_START, (event) => {
+        this.shareBtn.on(cc.Node.EventType.TOUCH_END, (event) => {
             this.handleShare()
             event.stopPropagation();
         })
-        this.travelBtn.on(cc.Node.EventType.TOUCH_START, (event) => {
+        this.download.on(cc.Node.EventType.TOUCH_END, (event) => {
+            this.handleDownload()
+            event.stopPropagation();
+        })
+        this.travelBtn.on(cc.Node.EventType.TOUCH_END, (event) => {
             this.handleContinue()
             event.stopPropagation();
         })
-        this.changeText.on(cc.Node.EventType.TOUCH_START, (event) => {
+        this.changeText.on(cc.Node.EventType.TOUCH_END, (event) => {
             this.handleChangeText()
+            event.stopPropagation();
+        })
+
+        //蒙版点击禁止冒泡
+        this.shareWarpon.on(cc.Node.EventType.TOUCH_START, (event) => {
+            event.stopPropagation();
+        })
+        this.shareWarpon.on(cc.Node.EventType.TOUCH_MOVE, (event) => {
+            event.stopPropagation();
+        })
+        this.shareWarpon.on(cc.Node.EventType.TOUCH_START, (event) => {
             event.stopPropagation();
         })
 
     },
     handleShare() {
         console.log("点击分享")
+    },
+    handleDownload(){
+        //点击下载
     },
 
     handleContinue() {

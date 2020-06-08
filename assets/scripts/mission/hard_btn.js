@@ -7,7 +7,7 @@ const TYPE = [
     ['mission/48xuanzhong2', 'mission/48xuanzhong1'],
 ];
 
-const TITLE = ['6 块', '24 块', '48 块', '48块 旋转'];
+const TITLE = ['12 块', '24 块', '48 块', '48块 旋转'];
 
 const COLORS = [cc.color(37, 57, 110), cc.color(239, 68, 77), cc.color(154, 111, 49), cc.color(154, 111, 49)];
 const DEFAULT_COLOR = cc.color(255, 255, 255);
