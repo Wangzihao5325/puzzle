@@ -37,6 +37,10 @@ cc.Class({
         gift1Open:cc.SpriteFrame,
         gift2Close:cc.SpriteFrame,
         gift2Open:cc.SpriteFrame,
+        info:{
+            type:Object,
+            default:{}
+        }
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -159,15 +163,15 @@ cc.Class({
             event.stopPropagation();
         })
         this.git1.on(cc.Node.EventType.TOUCH_END, (event) => {
-            this.receiveActive(0)
-            event.stopPropagation();
-        })
-        this.git2.on(cc.Node.EventType.TOUCH_END, (event) => {
             this.receiveActive(1)
             event.stopPropagation();
         })
-        this.git3.on(cc.Node.EventType.TOUCH_END, (event) => {
+        this.git2.on(cc.Node.EventType.TOUCH_END, (event) => {
             this.receiveActive(2)
+            event.stopPropagation();
+        })
+        this.git3.on(cc.Node.EventType.TOUCH_END, (event) => {
+            this.receiveActive(3)
             event.stopPropagation();
         })
         
@@ -178,10 +182,69 @@ cc.Class({
     },
   
     receiveActive(leavel){
+
+        //判断是否可以领取
+        const data=this.info
+        const type=leavel
+        if(data.activity<data.levelOne){
+            return false
+        }
+        else if(data.activity>=data.levelOne&&type===1){
+            if(!data.levelOneReceive){
+                console.log("可以领取")
+                this.doTaskActivyRecevie(leavel)
+                return true
+            }else{
+                return false
+            }
+        }
+        else if(data.activity>=data.levelTwo&&type===2){
+            if(!data.levelTwoReceive){
+                return true
+                this.doTaskActivyRecevie(leavel)
+            }else{
+                return false
+            }
+        }else if(data.activity>=data.levelThree&&type===3){
+            if(!data.levelThreeReceive){
+                return true
+                this.doTaskActivyRecevie(leavel)
+            }else{
+                return false
+            }
+        }
+
+     
+    },
+
+    doTaskActivyRecevie(leavel){
+        //领取动画
+        const nodelist=[this.git1,this.git2,this.git3]
+        const newNode=cc.instantiate(nodelist[leavel-1])
+        // const newNode=nodelist[leavel-1]
+        newNode.parent=cc.find('Canvas')
+        newNode.setPosition(cc.v2(0,-400))
+        newNode.opacity=0
+        cc.tween(newNode)
+            .to(1,{position:cc.v2(0,0),scale:2,opacity:255})
+            .delay(1)
+            .to(.5,{opacity:0})
+            .call(()=>{newNode.destroy()})
+            .start()
+        let halo= cc.find('halo',newNode )
+        halo.active=true
+        cc.tween(halo)
+            .to(2,{angle:190})
+            .start()
+
+        //领取接口
         Api.task_activity_receive({level:leavel},res=>{
             if(res.code===0){
                 const data=res.data
-                Toast.show(`${data.name} +${data.rewordAmount}`)
+                data.map(item=>{
+                    Toast.show(`${item.name} +${item.amount}`)
+                })
+
                 this.getActive()
             }
         })
@@ -189,6 +252,7 @@ cc.Class({
 
     getActive(){
         Api.task_activity(res=>{
+            this.info=res.data
             if(res.code===0){
                 const data=res.data;
                 const processlist=[160,260,400,500]
@@ -199,7 +263,7 @@ cc.Class({
                     cc.find('giftIcon',this.git2).getComponent(cc.Sprite).spriteFrame=this.gift1Close
                     cc.find('giftIcon',this.git3).getComponent(cc.Sprite).spriteFrame=this.gift2Close
                 }
-                else if(data.activity>=data.levelOne){
+                if(data.activity>=data.levelOne){
                     if(!data.levelOneReceive){
                         cc.find('giftIcon',this.git1).getComponent(cc.Sprite).spriteFrame=this.gift1Close
                         cc.find('giftIcon',this.git2).getComponent(cc.Sprite).spriteFrame=this.gift1Close
@@ -215,7 +279,7 @@ cc.Class({
 
                     }
                 }
-                else if(data.activity>=data.levelTwo){
+                if(data.activity>=data.levelTwo){
                     if(!data.levelTwoReceive){
                         cc.find('giftIcon',this.git2).getComponent(cc.Sprite).spriteFrame=this.gift1Close
                         cc.find('giftIcon',this.git3).getComponent(cc.Sprite).spriteFrame=this.gift2Close
@@ -229,7 +293,7 @@ cc.Class({
                         cc.find('giftIcon',this.git2).getComponent(cc.Sprite).spriteFrame=this.gift1Open
 
                     }
-                }else if(data.activity>=data.levelThree){
+                }if(data.activity>=data.levelThree){
                     if(!data.levelThreeReceive){
                         cc.find('giftIcon',this.git3).getComponent(cc.Sprite).spriteFrame=this.gift2Close
                         let halo= cc.find('halo',this.git3)
