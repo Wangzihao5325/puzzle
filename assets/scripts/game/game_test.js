@@ -43,7 +43,7 @@ cc.Class({
 
         const hardLevel = CACHE.hard_level;
         const missionObj = CACHE.mission_press;
-        this.puzzle_name.string = CACHE.chapterData.chapterName
+        this.puzzle_name.string = `${CACHE.chapterData.hurdleName} `
         Api.missionDetails(missionObj.hurdleId, (res) => {
             const imagePath = missionObj.logoUrl;
             const animatePayload = {

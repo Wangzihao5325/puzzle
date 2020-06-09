@@ -545,9 +545,7 @@
     ],
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_spriteFrame": {
-      "__uuid__": "441f6042-0b32-4fcb-b267-f6255f334982"
-    },
+    "_spriteFrame": null,
     "_type": 0,
     "_sizeMode": 1,
     "_fillType": 0,
@@ -1112,8 +1110,8 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        -2.225,
-        259.288,
+        0,
+        327.765,
         0,
         0,
         0,
@@ -3932,8 +3930,8 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        -28.951,
-        -103.071,
+        -39.102,
+        -30.452,
         0,
         0,
         0,
