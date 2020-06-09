@@ -293,6 +293,7 @@ cc.Class({
     },
 
     init() {
+        debugger
         this.stateUpdate();
         this.setBg();
         this.footerInit();
