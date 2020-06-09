@@ -55,8 +55,11 @@ cc.Class({
                     this.stepFiveAddExcal();
                     break;
                 case 6:
+                    handPosition = cc.v2(0, 0);
                     break;
                 case 7:
+                    handPosition = cc.v2(-200, -500);
+                    this.stepFiveAddExcal();
                     break;
             }
             this.isSetTouch = true;
@@ -88,7 +91,7 @@ cc.Class({
         let originNode;
         let pos;
         let btn;
-        if (CACHE.userInfo.stage == 1 || CACHE.userInfo.stage == 3) {
+        if (CACHE.userInfo.stage == 1 || CACHE.userInfo.stage == 3 || CACHE.userInfo.stage == 6) {
             // 获取触摸点，转为Canvas画布上的坐标
             originNode = this.node.parent.parent;
             pos = originNode.convertToNodeSpaceAR(event.getLocation());
@@ -97,7 +100,7 @@ cc.Class({
             originNode = cc.find('Canvas/layoutRoot/footer_navi');;
             pos = originNode.convertToNodeSpaceAR(event.getLocation());
             btn = cc.find('Canvas/layoutRoot/footer_navi/button_show');
-        } else if (CACHE.userInfo.stage == 5) {
+        } else if (CACHE.userInfo.stage == 5 || CACHE.userInfo.stage == 7) {
             originNode = cc.find('Canvas/layoutRoot/footer_navi');;
             pos = originNode.convertToNodeSpaceAR(event.getLocation());
             btn = cc.find('Canvas/layoutRoot/footer_navi/button_home');

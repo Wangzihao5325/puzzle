@@ -30,6 +30,19 @@ cc.Class({
         }
     },
 
+    showDoneForStep6() {
+        this.guideStep++;
+        this.handPressNode = cc.instantiate(this.hand);
+        this.handPressNode.scaleX = 0.7;
+        this.handPressNode.scaleY = 0.7;
+        this.handPressNode.parent = this.node;
+        this.handPressNode.setPosition(-230, 480);
+        let obj = this.handPressNode.getComponent('guideHand');
+        if (obj) {
+            obj.handAnimate();
+        }
+    },
+
     failedDone() {
         if (this.timer) {
             clearTimeout(this.timer);
@@ -72,7 +85,7 @@ cc.Class({
 
     onLoad() {
         if (CACHE.userInfo && typeof CACHE.userInfo.stage == 'number' && CACHE.userInfo.stage !== 99) {
-            if (CACHE.userInfo.stage == 1) {
+            if (CACHE.userInfo.stage == 1 || CACHE.userInfo.stage == 3) {
                 this.isSetTouch = true;
                 this.node.zIndex = 10000;
                 this.guideStep = 1;
@@ -97,7 +110,7 @@ cc.Class({
                 }
                 // 触摸监听
                 this.node.on(cc.Node.EventType.TOUCH_START, this.onTouchStart, this);
-            } else if (CACHE.userInfo.stage == 3) {
+            } else if (CACHE.userInfo.stage == 6) {
                 this.isSetTouch = true;
                 this.node.zIndex = 10000;
                 this.guideStep = 1;

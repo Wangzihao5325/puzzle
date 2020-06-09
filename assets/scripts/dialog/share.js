@@ -137,6 +137,15 @@ cc.Class({
                 this.shareWarp.destroy()
                 cc.director.loadScene("travel");
             })
+        } else if (CACHE.userInfo && typeof CACHE.userInfo.stage == 'number' && CACHE.userInfo.stage == 6) {
+            Api.guideStageComplete({ stage: 6 }, (res) => {
+                if (res.code == 0) {
+                    CACHE.userInfo.stage++;
+                }
+                this.shareWarp.active = false;
+                this.shareWarp.destroy()
+                cc.director.loadScene("travel");
+            })
         } else {
             this.shareWarp.active = false;
             this.shareWarp.destroy()
@@ -212,7 +221,7 @@ cc.Class({
     handleShare() {
         console.log("点击分享")
     },
-    handleDownload(){
+    handleDownload() {
         //点击下载
         this.initTextRender();
         this.scheduleOnce(() => {
@@ -222,12 +231,12 @@ cc.Class({
         }, 1);
     },
 
-    saveFile (tempCanvas) {
+    saveFile(tempCanvas) {
         // This is one of the ways that could save the img to your local.
         if (cc.sys.platform === cc.sys.WECHAT_GAME) {
             const data = {
                 x: 0,
-                y: (this.texture.height - 1136)/2,
+                y: (this.texture.height - 1136) / 2,
                 width: this.texture.width,
                 height: 1136,
                 destWidth: this.texture.width,
@@ -237,10 +246,10 @@ cc.Class({
             cc.log(`Capture file success!${_tempFilePath}`);
             wx.saveImageToPhotosAlbum({
                 filePath: _tempFilePath,
-                success: function(res) {
+                success: function (res) {
                     Toast.show(`保存成功`)
                 },
-                fail (err) {
+                fail(err) {
                     console.log(err)
                 }
             })
