@@ -25,8 +25,8 @@ cc.Class({
         currency_warp: cc.Prefab,
         OutSide: cc.Prefab,
         store_icon: cc.Node,
-        recall_icon:cc.Node,
-        backpack_icon:cc.Node,
+        recall_icon: cc.Node,
+        backpack_icon: cc.Node,
         store: cc.Prefab,
         recall: cc.Prefab,
         food_lack: cc.Prefab,
@@ -35,14 +35,14 @@ cc.Class({
             type: cc.AudioClip
         },
         backpack: cc.Prefab,
-        bowlWarp:cc.Node,
-        bowl0:cc.Node,
-        bowl1:cc.Node,
-        bowl2:cc.Node,
-        bowl3:cc.Node,
-        bowl4:cc.Node,
+        bowlWarp: cc.Node,
+        bowl0: cc.Node,
+        bowl1: cc.Node,
+        bowl2: cc.Node,
+        bowl3: cc.Node,
+        bowl4: cc.Node,
 
-        collectIcon:cc.Node,
+        collectIcon: cc.Node,
         collect: cc.Prefab,
 
     },
@@ -61,21 +61,22 @@ cc.Class({
     show_feed() {
         // ComeBack.show(goodsList)
 
-        let feedWarpInstan = cc.instantiate(this.feed_warp)
+        let feedWarpInstan = cc.instantiate(this.feed_warp);
+        feedWarpInstan.name = 'feedWarp';
         var warp_parent = cc.find(`Canvas`)
         feedWarpInstan.parent = warp_parent
         feedWarpInstan.setPosition(0, -1000);
 
         cc.tween(feedWarpInstan)
-        .to(.2, { position: cc.v2(0, -268) } )
-        .to(.1, { position: cc.v2(0, -388) })
+            .to(.2, { position: cc.v2(0, -268) })
+            .to(.1, { position: cc.v2(0, -388) })
             .start()
-        const feed=feedWarpInstan.getComponent('feed')
+        const feed = feedWarpInstan.getComponent('feed')
         feed.resetUI()
     },
 
-    showBowl(show=true){
-        this.bowlWarp.active=show
+    showBowl(show = true) {
+        this.bowlWarp.active = show
     },
 
 
@@ -102,7 +103,7 @@ cc.Class({
         }
 
         //食物吃完了弹窗
-        if (HOME_CACHE.pet_info.currentHungry === 0) {
+        if (HOME_CACHE.pet_info.currentHungry === 0 && CACHE.userInfo && typeof CACHE.userInfo.stage == 'number' && CACHE.userInfo.stage === 99) {
             const canvas = cc.find('Canvas')
             const FoodLackInstant = cc.find('Canvas/FoodLack')
             if (FoodLackInstant) {
@@ -239,20 +240,20 @@ cc.Class({
         this.lucky_bar.width = 200 * HOME_CACHE.pet_info.currentLucky / HOME_CACHE.pet_info.luckyUpperLimit
 
         //更新猫盆状态
-        const hungryPercent= Math.ceil(HOME_CACHE.pet_info.currentHungry/HOME_CACHE.pet_info.hungryUpperLimit*100)
-        this.bowlWarp.children.map(item=>{
-            item.active=false
+        const hungryPercent = Math.ceil(HOME_CACHE.pet_info.currentHungry / HOME_CACHE.pet_info.hungryUpperLimit * 100)
+        this.bowlWarp.children.map(item => {
+            item.active = false
         })
-        if(hungryPercent>=90){
-            this.bowl4.active=true
-        }else if(hungryPercent>=70){
-            this.bowl3.active=true
-        }else if(hungryPercent>=30){
-            this.bowl2.active=true
-        }else if(hungryPercent>=1){
-            this.bowl1.active=true
-        }else{
-            this.bowl0.active=true
+        if (hungryPercent >= 90) {
+            this.bowl4.active = true
+        } else if (hungryPercent >= 70) {
+            this.bowl3.active = true
+        } else if (hungryPercent >= 30) {
+            this.bowl2.active = true
+        } else if (hungryPercent >= 1) {
+            this.bowl1.active = true
+        } else {
+            this.bowl0.active = true
         }
 
         this.setOUtUi()
@@ -276,9 +277,9 @@ cc.Class({
         // this.showCollect()
     },
 
-    showBackpack(){
+    showBackpack() {
         let backpackIns = cc.instantiate(this.backpack)
-        backpackIns.parent =  cc.find('Canvas')
+        backpackIns.parent = cc.find('Canvas')
         backpackIns.setPosition(0, 0);
     },
 
@@ -293,10 +294,11 @@ cc.Class({
 
     showCatAction() {
         let { outward } = HOME_CACHE.pet_info
-        if(outward){
+        if (outward) {
             return false
         }
-        let catActionInstan = cc.instantiate(this.cat_action)
+        let catActionInstan = cc.instantiate(this.cat_action);
+        catActionInstan.name = 'cat_action';
         catActionInstan.parent = this.home_root
         catActionInstan.setPosition(0, 80);
     },

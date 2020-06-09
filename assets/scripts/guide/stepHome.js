@@ -9,62 +9,66 @@ cc.Class({
         hand: cc.Prefab,
     },
 
-    // LIFE-CYCLE CALLBACKS:
     onTouchStart(event) {
         let originNode;
         let pos;
         let btn;
-        if (CACHE.userInfo.stage == 2 && this.guideStep == 1) {//引导放置物品
-            // 获取触摸点，转为Canvas画布上的坐标
-            originNode = cc.find('Canvas/root/table');;
+        if (CACHE.userInfo.stage == 5 && this.guideStep == 1) {
+            originNode = cc.find('Canvas/rootWarp/my_home');
             pos = originNode.convertToNodeSpaceAR(event.getLocation());
-            btn = cc.find('Canvas/root/table/item_showcase_3/putongzhan');;
-        } else if (CACHE.userInfo.stage == 2 && this.guideStep == 2) {
-            originNode = cc.find(`Canvas/bag/bagTable/scrollView/view/content`);
+            btn = cc.find('Canvas/rootWarp/my_home/bowlWarp');
+        } else if (CACHE.userInfo.stage == 5 && (this.guideStep == 2 || this.guideStep == 3 || this.guideStep == 4 || this.guideStep == 5)) {
+            originNode = cc.find('Canvas/feedWarp/container/feedContent');
             pos = originNode.convertToNodeSpaceAR(event.getLocation());
-            btn = cc.find(`Canvas/bag/bagTable/scrollView/view/content/item_goods_0`);
-        } else if (CACHE.userInfo.stage == 2 && this.guideStep == 3) {
-            originNode = cc.find(`Canvas/root/footer_navi`);
+            btn = cc.find('Canvas/feedWarp/container/feedContent/feedItem_2');
+        } else if (CACHE.userInfo.stage == 5 && this.guideStep == 6) {
+            originNode = cc.find('Canvas/feedWarp/container');
             pos = originNode.convertToNodeSpaceAR(event.getLocation());
-            btn = cc.find(`Canvas/root/footer_navi/button_travel`);
+            btn = cc.find('Canvas/feedWarp/container/close');
+        } else if (CACHE.userInfo.stage == 5 && this.guideStep == 7) {
+            originNode = cc.find('Canvas/rootWarp/my_home');
+            pos = originNode.convertToNodeSpaceAR(event.getLocation());
+            btn = cc.find('Canvas/rootWarp/my_home/cat');
+        } else if (CACHE.userInfo.stage == 5 && this.guideStep == 8) {
+            originNode = cc.find('Canvas/rootWarp/my_home/cat_action/container');
+            pos = originNode.convertToNodeSpaceAR(event.getLocation());
+            btn = cc.find('Canvas/rootWarp/my_home/cat_action/container/actionOut');
         }
-        // 获取相应按钮的大小范围
         let rect = btn.getBoundingBox();
-        // 判断触摸点是否在按钮上
         if (rect.contains(pos)) {
-            if (CACHE.userInfo.stage == 2 && this.guideStep == 1) {
+            if (CACHE.userInfo.stage == 5 && this.guideStep == 1) {
+                this.guideStep++;
+                this.handNode.setPosition(cc.v2(0, -400));
+                //增加提示
+            } else if (CACHE.userInfo.stage == 5 && (this.guideStep == 2 || this.guideStep == 3 || this.guideStep == 4)) {
+                this.guideStep++;
+            } else if (CACHE.userInfo.stage == 5 && this.guideStep == 5) {
+                this.guideStep++;
+                this.handNode.setPosition(cc.v2(270, -230));
+            } else if (CACHE.userInfo.stage == 5 && this.guideStep == 6) {
+                this.guideStep++;
+                this.handNode.setPosition(cc.v2(0, 100));
+            } else if (CACHE.userInfo.stage == 5 && this.guideStep == 7) {
+                this.guideStep++;
                 setTimeout(() => {
-                    this.handNode.setPosition(cc.v2(-200, 300));
-                    this.guideStep++;
+                    let positionNode = cc.find('Canvas/rootWarp/my_home/cat_action/container/actionOut');
+                    this.handNode.setPosition(cc.v2(positionNode.x, positionNode.y));
                 }, 200);
-            } else if (CACHE.userInfo.stage == 2 && this.guideStep == 2) {
-                setTimeout(() => {
-                    this.handNode.setPosition(cc.v2(0, -500));
-                    this.guideStep++;
-                }, 200);
-            } else if (CACHE.userInfo.stage == 2 && this.guideStep == 3) {
-                Api.guideStageComplete({ stage: 2 }, (res) => {
-                    if (res.code == 0) {
-                        CACHE.userInfo.stage++;
-                    }
-                });
             }
-            // 允许触摸事件传递给按钮(允许冒泡)
             this.node._touchListener.setSwallowTouches(false);
         }
         else {
-            // 吞噬触摸，禁止触摸事件传递给按钮(禁止冒泡)
             this.node._touchListener.setSwallowTouches(true);
         }
     },
 
     onLoad() {
         if (CACHE.userInfo && typeof CACHE.userInfo.stage == 'number' && CACHE.userInfo.stage !== 99) {
-            if (CACHE.userInfo.stage == 2) {
+            if (CACHE.userInfo.stage == 5) {
                 this.isSetTouch = true;
                 this.node.zIndex = 1000;
                 this.guideStep = 1;
-                let handPosition = cc.v2(0, 100);
+                let handPosition = cc.v2(8, -230);
 
                 this.handNode = cc.instantiate(this.hand);
                 this.handNode.scaleX = 0.7;
@@ -84,5 +88,4 @@ cc.Class({
 
     },
 
-    // update (dt) {},
 });
