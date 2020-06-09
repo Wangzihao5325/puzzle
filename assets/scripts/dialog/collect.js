@@ -136,8 +136,6 @@ cc.Class({
             this.scrollContent.height=400*indexY+20
             let position = cc.v2(( 250* (indexX + .5)), (-(370 * (-0.5 + indexY))) - 10);
             newNode.setPosition(position)
-            cc.tween(newNode)
-                .to(.3,)
         }
     },
 

@@ -24,6 +24,8 @@ cc.Class({
         signRoot: cc.Node,
         signClose: cc.Node,
         signGetGoods: cc.Node,
+        taskIcon: cc.Node,
+        taskDialog: cc.Prefab,
 
         map: cc.ScrollView,
 
@@ -121,6 +123,11 @@ cc.Class({
         CACHE.travel_city_press = itemObj;//在cache中存储点击选项，新场景加载后读取，获得传值
         cc.director.loadScene("mission");
     },
+    showTask(){
+        let task = cc.instantiate(this.taskDialog);
+        // let obj = header.getComponent('task');
+        task.parent = cc.find('Canvas');
+    },
 
     signSetTouch() {
         this.signBtn.node.on(cc.Node.EventType.TOUCH_START, (event) => {
@@ -144,6 +151,12 @@ cc.Class({
             event.stopPropagation();
             this.signRoot.active = false;
         });
+        this.taskIcon.on(cc.Node.EventType.TOUCH_END, (event) => {
+            this.showTask()
+            event.stopPropagation();
+        });
+
+        
 
         this.signGetGoods.on(cc.Node.EventType.TOUCH_START, (event) => {
             event.stopPropagation();
