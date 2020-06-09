@@ -41,6 +41,22 @@ cc.Class({
             originNode = cc.find('Canvas/navi_footer');
             pos = originNode.convertToNodeSpaceAR(event.getLocation());
             btn = cc.find('Canvas/navi_footer/button_travel');
+        } else if (CACHE.userInfo.stage == 7 && this.guideStep == 1) {
+            originNode = cc.find('Canvas/rootWarp/my_home');
+            pos = originNode.convertToNodeSpaceAR(event.getLocation());
+            btn = cc.find('Canvas/rootWarp/my_home/collact');
+        } else if (CACHE.userInfo.stage == 7 && this.guideStep == 2) {
+            originNode = cc.find('Canvas/collect_root/warp/content/tabContent');
+            pos = originNode.convertToNodeSpaceAR(event.getLocation());
+            btn = cc.find('Canvas/collect_root/warp/content/tabContent/tabItem_1');
+        } else if (CACHE.userInfo.stage == 7 && this.guideStep == 3) {
+            originNode = cc.find('Canvas/collect_root/warp/header');
+            pos = originNode.convertToNodeSpaceAR(event.getLocation());
+            btn = cc.find('Canvas/collect_root/warp/header/close');
+        } else if (CACHE.userInfo.stage == 7 && this.guideStep == 4) {
+            originNode = cc.find('Canvas/navi_footer');
+            pos = originNode.convertToNodeSpaceAR(event.getLocation());
+            btn = cc.find('Canvas/navi_footer/button_travel');
         }
         let rect = btn.getBoundingBox();
         if (rect.contains(pos)) {
@@ -88,6 +104,27 @@ cc.Class({
                     this.guideStep++;
                     this.node._touchListener.setSwallowTouches(false);
                 })
+            } else if (CACHE.userInfo.stage == 7 && this.guideStep == 1) {
+                //弹出一个页面再消失
+                this.guideStep++;
+                this.handNode.setPosition(cc.v2(150, 350));
+                this.node._touchListener.setSwallowTouches(false);
+            } else if (CACHE.userInfo.stage == 7 && this.guideStep == 2) {
+                this.guideStep++;
+                this.handNode.setPosition(cc.v2(260, 460));
+                this.node._touchListener.setSwallowTouches(false);
+            } else if (CACHE.userInfo.stage == 7 && this.guideStep == 3) {
+                this.guideStep++;
+                this.handNode.setPosition(cc.v2(0, -500));
+                this.node._touchListener.setSwallowTouches(false);
+            } else if (CACHE.userInfo.stage == 7 && this.guideStep == 4) {
+                Api.guideStageComplete({ stage: 7 }, (res) => {
+                    if (res.code == 0) {
+                        CACHE.userInfo.stage++;
+                    }
+                    this.guideStep++;
+                    this.node._touchListener.setSwallowTouches(false);
+                })
             }
         }
         else {
@@ -102,6 +139,22 @@ cc.Class({
                 this.node.zIndex = 1000;
                 this.guideStep = 1;
                 let handPosition = cc.v2(8, -230);
+
+                this.handNode = cc.instantiate(this.hand);
+                this.handNode.scaleX = 0.7;
+                this.handNode.scaleY = 0.7;
+                this.handNode.parent = this.node;
+                this.handNode.setPosition(handPosition);
+                let obj = this.handNode.getComponent('guideHand');
+                if (obj) {
+                    obj.handAnimate();
+                }
+                this.node.on(cc.Node.EventType.TOUCH_START, this.onTouchStart, this);
+            } else if (CACHE.userInfo.stage == 7) {
+                this.isSetTouch = true;
+                this.node.zIndex = 1000;
+                this.guideStep = 1;
+                let handPosition = cc.v2(-240, 100);
 
                 this.handNode = cc.instantiate(this.hand);
                 this.handNode.scaleX = 0.7;

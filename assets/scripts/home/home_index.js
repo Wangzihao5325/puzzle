@@ -315,6 +315,7 @@ cc.Class({
     },
     showCollect() {
         let collect = cc.instantiate(this.collect);
+        collect.name = 'collect_root';
         const canvas = cc.find('Canvas')
         collect.parent = canvas
     },

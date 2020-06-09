@@ -104,6 +104,11 @@ cc.Class({
             originNode = cc.find('Canvas/layoutRoot/footer_navi');;
             pos = originNode.convertToNodeSpaceAR(event.getLocation());
             btn = cc.find('Canvas/layoutRoot/footer_navi/button_home');
+        } else if (CACHE.userInfo.stage == 8) {
+            //需要放一个动画
+            originNode = cc.find('Canvas/layoutRoot/footer_navi');;
+            pos = originNode.convertToNodeSpaceAR(event.getLocation());
+            btn = cc.find('Canvas/layoutRoot/footer_navi/button_home');
         }
         // 获取相应按钮的大小范围
         let rect = btn.getBoundingBox();
