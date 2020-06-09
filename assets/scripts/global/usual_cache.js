@@ -45,7 +45,10 @@ const CACHE = {
     logining: false,
     loginCallback: [],
     userInfo: {
-        stage: 1
+        stage: 1,
+        firstPetBackHomeEnded: false,
+        firstRecallEnded: false,
+        firstRewardTaskEnded: false
     },
     dragonBoneAnimateName: '',
     lastBagTypeLength: 0,

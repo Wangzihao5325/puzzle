@@ -203,7 +203,8 @@ cc.Class({
     NoticeClear(id) {
         //消息已读
         Api.backNoticeView({ noticeId: id }, res => {
-
+            console.log('kkkkkkk');
+            console.log(res);
         })
     },
 

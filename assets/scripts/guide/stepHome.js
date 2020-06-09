@@ -57,6 +57,30 @@ cc.Class({
             originNode = cc.find('Canvas/navi_footer');
             pos = originNode.convertToNodeSpaceAR(event.getLocation());
             btn = cc.find('Canvas/navi_footer/button_travel');
+        } else if (CACHE.userInfo.stage == 99 && !CACHE.userInfo.firstRecallEnded && this.guideStep == 1) {
+            originNode = cc.find('Canvas/rootWarp/my_home');
+            pos = originNode.convertToNodeSpaceAR(event.getLocation());
+            btn = cc.find('Canvas/rootWarp/my_home/recall');
+        } else if (CACHE.userInfo.stage == 99 && !CACHE.userInfo.firstRecallEnded && this.guideStep == 2) {
+            originNode = cc.find('Canvas/recallDialog/warp/content/New ScrollView/view/content');
+            pos = originNode.convertToNodeSpaceAR(event.getLocation());
+            btn = cc.find('Canvas/recallDialog/warp/content/New ScrollView/view/content/recall_item_0');
+        } else if (CACHE.userInfo.stage == 99 && !CACHE.userInfo.firstRecallEnded && this.guideStep == 3) {
+            originNode = cc.find('Canvas/recallInfo/recallInfoContent/commentIcon');
+            pos = originNode.convertToNodeSpaceAR(event.getLocation());
+            btn = cc.find('Canvas/recallInfo/recallInfoContent/commentIcon/icon-like');
+        } else if (CACHE.userInfo.stage == 99 && !CACHE.userInfo.firstRecallEnded && this.guideStep == 4) {
+            originNode = cc.find('Canvas/recallInfo/recallInfoContent/header');
+            pos = originNode.convertToNodeSpaceAR(event.getLocation());
+            btn = cc.find('Canvas/recallInfo/recallInfoContent/header/close');
+        } else if (CACHE.userInfo.stage == 99 && !CACHE.userInfo.firstRecallEnded && this.guideStep == 5) {
+            originNode = cc.find('Canvas/recallDialog/warp/header');
+            pos = originNode.convertToNodeSpaceAR(event.getLocation());
+            btn = cc.find('Canvas/recallDialog/warp/header/close');
+        } else if (CACHE.userInfo.stage == 99 && !CACHE.userInfo.firstRecallEnded && this.guideStep == 6) {
+            originNode = cc.find('Canvas/navi_footer');
+            pos = originNode.convertToNodeSpaceAR(event.getLocation());
+            btn = cc.find('Canvas/navi_footer/button_travel');
         }
         let rect = btn.getBoundingBox();
         if (rect.contains(pos)) {
@@ -120,11 +144,38 @@ cc.Class({
             } else if (CACHE.userInfo.stage == 7 && this.guideStep == 4) {
                 Api.guideStageComplete({ stage: 7 }, (res) => {
                     if (res.code == 0) {
-                        CACHE.userInfo.stage++;
+                        CACHE.userInfo.stage = 99;
                     }
                     this.guideStep++;
                     this.node._touchListener.setSwallowTouches(false);
                 })
+            } else if (CACHE.userInfo.stage == 99 && !CACHE.userInfo.firstRecallEnded && this.guideStep == 1) {
+                this.guideStep++;
+                this.handNode.setPosition(cc.v2(0, 200));
+                this.node._touchListener.setSwallowTouches(false);
+            } else if (CACHE.userInfo.stage == 99 && !CACHE.userInfo.firstRecallEnded && this.guideStep == 2) {
+                this.guideStep++;
+                this.handNode.setPosition(cc.v2(-260, -450));
+                this.node._touchListener.setSwallowTouches(false);
+            } else if (CACHE.userInfo.stage == 99 && !CACHE.userInfo.firstRecallEnded && this.guideStep == 3) {
+                this.guideStep++;
+                this.handNode.setPosition(cc.v2(280, 460));
+                this.node._touchListener.setSwallowTouches(false);
+            } else if (CACHE.userInfo.stage == 99 && !CACHE.userInfo.firstRecallEnded && this.guideStep == 4) {
+                this.guideStep++;
+                this.handNode.setPosition(cc.v2(250, 430));
+                this.node._touchListener.setSwallowTouches(false);
+            } else if (CACHE.userInfo.stage == 99 && !CACHE.userInfo.firstRecallEnded && this.guideStep == 5) {
+                this.guideStep++;
+                this.handNode.setPosition(cc.v2(0, -500));
+                this.node._touchListener.setSwallowTouches(false);
+            } else if (CACHE.userInfo.stage == 99 && !CACHE.userInfo.firstRecallEnded && this.guideStep == 6) {
+                Api.guideStageSpecialComplete({ event: 1 }, (res) => {
+                    if (res.code == 0) {
+                        CACHE.userInfo.firstRecallEnded = true;
+                    }
+                    this.node._touchListener.setSwallowTouches(false);
+                });
             }
         }
         else {
@@ -167,6 +218,23 @@ cc.Class({
                 }
                 this.node.on(cc.Node.EventType.TOUCH_START, this.onTouchStart, this);
             }
+        }
+        if (CACHE.userInfo && typeof CACHE.userInfo.stage == 'number' && CACHE.userInfo.stage == 99 && !CACHE.userInfo.firstRecallEnded) {
+            this.isSetTouch = true;
+            this.node.zIndex = 1000;
+            this.guideStep = 1;
+            let handPosition = cc.v2(-240, -190);
+
+            this.handNode = cc.instantiate(this.hand);
+            this.handNode.scaleX = 0.7;
+            this.handNode.scaleY = 0.7;
+            this.handNode.parent = this.node;
+            this.handNode.setPosition(handPosition);
+            let obj = this.handNode.getComponent('guideHand');
+            if (obj) {
+                obj.handAnimate();
+            }
+            this.node.on(cc.Node.EventType.TOUCH_START, this.onTouchStart, this);
         }
     },
 
