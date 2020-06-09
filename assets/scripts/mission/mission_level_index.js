@@ -17,7 +17,11 @@ cc.Class({
         root: cc.Node,
         startBtn: cc.Sprite,
         mask: cc.Sprite,
-        energy: cc.Node
+        energy: cc.Node,
+        canNext:{
+            type:Boolean,
+            default:false
+        }
     },
 
     setStartWithHard(hardLevel) {
@@ -123,19 +127,30 @@ cc.Class({
     },
 
     handleTravel() {
+        this.canNext=false
         cc.tween(this.energy)
             .to(0.5, { position: cc.v2(-81.357, 11.623), opacity: 255, scale: 1 }, { easing: 'cubicOut' })
+            .call(()=>{
+                this.redirectPuzzle()
+            })
             .start()
         Api.travel((res) => {
             if (res.code === 0) {
-                setTimeout(() => {
-                    cc.director.loadScene("puzzle");
-                }, 500)
+                this.redirectPuzzle()
             } else {
                 Toast.show(res.message)
             }
         })
     },
+
+    //导航到拼图，接口请求和动画完成后执行
+    redirectPuzzle(){
+        if(this.canNext){
+            cc.director.loadScene("puzzle");
+        }else{
+            this.canNext=true
+        }
+    },    
 
     initWithItem(item) {
         this.title.string = item.hurdleName;

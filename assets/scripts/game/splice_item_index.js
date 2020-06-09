@@ -18,10 +18,12 @@ cc.Class({
     properties: {
         label_num: cc.Label,
         sp_item: cc.Sprite,
+        content:cc.Mask,
+        contentNode:cc.Node,
         mask_item: cc.Mask,
         splice_item: cc.Node,
         isMove: cc.boolean,
-
+        shadow:cc.Node,
         pre_item: cc.Prefab,
 
     },
@@ -49,7 +51,8 @@ cc.Class({
                 cc.error(err);
                 return;
             }
-            self.mask_item.spriteFrame = assets;
+            self.content.spriteFrame = assets;
+            self.shadow.getComponent(cc.Mask).spriteFrame=assets
         });
     },
 
@@ -61,6 +64,28 @@ cc.Class({
             /*拿起增加z-index*/
             const current_node = this.item_node || this.splice_item;
             current_node.zIndex = 100;
+            // const puzzleItem= cc.find('content',this.item_node)
+            //根据旋转角度计算阴影显示的坐标
+            let angle = this.item_node.angle % 360;
+            let angleAbs=angle>=0?angle:360+angle
+            let shadowPostion;
+            switch (angleAbs){
+                case 0:
+                    shadowPostion=cc.v2(-5,3)
+                    break;
+                case 90:
+                    shadowPostion=cc.v2(3,5)
+                    break;
+                case 180:
+                    shadowPostion=cc.v2(5,-3)
+                    break;
+                case 270:
+                    shadowPostion=cc.v2(-3,-5)
+                    break;
+            }
+            cc.tween(this.contentNode)
+                .to(.1,{position:shadowPostion})
+                .start()
             /*
             不禁止事件传递,让底部栏可以滑动，提升体验
             current_node.setPropagateTouchEvents = false;
@@ -141,6 +166,14 @@ cc.Class({
             }
             this.item_node.zIndex = 100;//恢复z-index
             this.isMove = false;
+            // cc.find('shadow',this.item_node).active=false
+            // const puzzleItem= cc.find('content',this.item_node)
+            //去除拿起阴影
+            cc.tween(this.contentNode)
+                .to(.1,{position:cc.v2(0,0)})
+                .start()
+
+
             /*
             不禁止事件传递,让底部栏可以滑动，提升体验
             event.stopPropagation();
