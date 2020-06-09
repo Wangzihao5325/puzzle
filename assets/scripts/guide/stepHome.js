@@ -17,45 +17,78 @@ cc.Class({
             originNode = cc.find('Canvas/rootWarp/my_home');
             pos = originNode.convertToNodeSpaceAR(event.getLocation());
             btn = cc.find('Canvas/rootWarp/my_home/bowlWarp');
-        } else if (CACHE.userInfo.stage == 5 && (this.guideStep == 2 || this.guideStep == 3 || this.guideStep == 4 || this.guideStep == 5)) {
+        } else if (CACHE.userInfo.stage == 5 && (this.guideStep == 2 || this.guideStep == 3 || this.guideStep == 4 || this.guideStep == 5 || this.guideStep == 6)) {
             originNode = cc.find('Canvas/feedWarp/container/feedContent');
             pos = originNode.convertToNodeSpaceAR(event.getLocation());
             btn = cc.find('Canvas/feedWarp/container/feedContent/feedItem_2');
-        } else if (CACHE.userInfo.stage == 5 && this.guideStep == 6) {
+        } else if (CACHE.userInfo.stage == 5 && this.guideStep == 7) {
             originNode = cc.find('Canvas/feedWarp/container');
             pos = originNode.convertToNodeSpaceAR(event.getLocation());
             btn = cc.find('Canvas/feedWarp/container/close');
-        } else if (CACHE.userInfo.stage == 5 && this.guideStep == 7) {
+        } else if (CACHE.userInfo.stage == 5 && this.guideStep == 8) {
             originNode = cc.find('Canvas/rootWarp/my_home');
             pos = originNode.convertToNodeSpaceAR(event.getLocation());
             btn = cc.find('Canvas/rootWarp/my_home/cat');
-        } else if (CACHE.userInfo.stage == 5 && this.guideStep == 8) {
+        } else if (CACHE.userInfo.stage == 5 && this.guideStep == 9) {
             originNode = cc.find('Canvas/rootWarp/my_home/cat_action/container');
             pos = originNode.convertToNodeSpaceAR(event.getLocation());
             btn = cc.find('Canvas/rootWarp/my_home/cat_action/container/actionOut');
+        } else if (CACHE.userInfo.stage == 5 && this.guideStep == 10) {
+            originNode = cc.find('Canvas/ConfirmOut');
+            pos = originNode.convertToNodeSpaceAR(event.getLocation());
+            btn = cc.find('Canvas/ConfirmOut/dialogContainer/confirm');
+        } else if (CACHE.userInfo.stage == 5 && this.guideStep == 11) {
+            originNode = cc.find('Canvas/navi_footer');
+            pos = originNode.convertToNodeSpaceAR(event.getLocation());
+            btn = cc.find('Canvas/navi_footer/button_travel');
         }
         let rect = btn.getBoundingBox();
         if (rect.contains(pos)) {
             if (CACHE.userInfo.stage == 5 && this.guideStep == 1) {
                 this.guideStep++;
                 this.handNode.setPosition(cc.v2(0, -400));
-                //增加提示
-            } else if (CACHE.userInfo.stage == 5 && (this.guideStep == 2 || this.guideStep == 3 || this.guideStep == 4)) {
+                this.node._touchListener.setSwallowTouches(false);
+            } else if (CACHE.userInfo.stage == 5 && (this.guideStep == 2 || this.guideStep == 3 || this.guideStep == 4 || this.guideStep == 5)) {
                 this.guideStep++;
-            } else if (CACHE.userInfo.stage == 5 && this.guideStep == 5) {
-                this.guideStep++;
-                this.handNode.setPosition(cc.v2(270, -230));
+                this.node._touchListener.setSwallowTouches(false);
             } else if (CACHE.userInfo.stage == 5 && this.guideStep == 6) {
                 this.guideStep++;
-                this.handNode.setPosition(cc.v2(0, 100));
+                this.handNode.setPosition(cc.v2(270, -230));
+                this.node._touchListener.setSwallowTouches(false);
             } else if (CACHE.userInfo.stage == 5 && this.guideStep == 7) {
                 this.guideStep++;
+                this.handNode.setPosition(cc.v2(0, 100));
+                this.node._touchListener.setSwallowTouches(false);
+            } else if (CACHE.userInfo.stage == 5 && this.guideStep == 8) {
+                this.guideStep++;
                 setTimeout(() => {
-                    let positionNode = cc.find('Canvas/rootWarp/my_home/cat_action/container/actionOut');
-                    this.handNode.setPosition(cc.v2(positionNode.x, positionNode.y));
-                }, 200);
+                    // let originNode = cc.find('Canvas');
+                    // let positionNode = cc.find('Canvas/rootWarp/my_home/cat_action/container/actionOut');
+                    // let pos = originNode.convertToNodeSpaceAR(event.getLocation());
+                    this.handNode.setPosition(cc.v2(-70, 320));
+                }, 500);
+                this.node._touchListener.setSwallowTouches(false);
+            } else if (CACHE.userInfo.stage == 5 && this.guideStep == 9) {
+                this.guideStep++;
+                setTimeout(() => {
+                    this.handNode.setPosition(cc.v2(0, -220));
+                }, 500);
+                this.node._touchListener.setSwallowTouches(false);
+            } else if (CACHE.userInfo.stage == 5 && this.guideStep == 10) {
+                this.guideStep++;
+                setTimeout(() => {
+                    this.handNode.setPosition(cc.v2(0, -500));
+                }, 500);
+                this.node._touchListener.setSwallowTouches(false);
+            } else if (CACHE.userInfo.stage == 5 && this.guideStep == 11) {
+                Api.guideStageComplete({ stage: 5 }, (res) => {
+                    if (res.code == 0) {
+                        CACHE.userInfo.stage++;
+                    }
+                    this.guideStep++;
+                    this.node._touchListener.setSwallowTouches(false);
+                })
             }
-            this.node._touchListener.setSwallowTouches(false);
         }
         else {
             this.node._touchListener.setSwallowTouches(true);

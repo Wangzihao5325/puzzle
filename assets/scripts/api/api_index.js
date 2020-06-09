@@ -1,4 +1,5 @@
 import CusHttp from './custom_http';
+import { CACHE } from '../global/usual_cache';
 const API_DOMAIN = 'http://192.168.3.144:8090';
 
 /**
@@ -71,7 +72,10 @@ const use_prop = (payload = {}, callback, failedCallback) => new CusHttp().Post(
  * @param {Function} callback
  * @param {Function} failedCallback
  */
-const petHome = (callback, failedCallback) => new CusHttp().Get(`${API_DOMAIN}/pet/home`, callback, failedCallback);
+const petHome = (callback, failedCallback) => {
+    let stage = (CACHE.userInfo && typeof CACHE.userInfo.stage == 'number' && (CACHE.userInfo.stage == 5 || CACHE.userInfo.stage == 5)) ? CACHE.userInfo.stage : null;
+    new CusHttp().Get(stage ? `${API_DOMAIN}/pet/home?stage=${stage}` : `${API_DOMAIN}/pet/home`, callback, failedCallback);
+}
 
 /**
  * 宠物当前饥饿信息&喂食
@@ -126,7 +130,14 @@ const petEquip = (payload = { goodsId: 1 }, callback, failedCallback) => new Cus
  * @param {Function} callback
  * @param {Function} failedCallback
  */
-const petGoout = (callback, failedCallback) => new CusHttp().Post(`${API_DOMAIN}/pet/go_outward`, undefined, callback, failedCallback);
+const petGoout = (callback, failedCallback) => {
+    let payload = undefined;
+    let stage = (CACHE.userInfo && typeof CACHE.userInfo.stage == 'number' && (CACHE.userInfo.stage == 5 || CACHE.userInfo.stage == 5)) ? CACHE.userInfo.stage : null;
+    if (stage) {
+        payload = { stage };
+    }
+    new CusHttp().Post(`${API_DOMAIN}/pet/go_outward`, payload, callback, failedCallback)
+};
 
 
 
