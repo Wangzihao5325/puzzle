@@ -110,7 +110,7 @@ cc.Class({
         .to(.2,{scale:1.1})
         .to(.2,{scale:1})
         .start()
-        
+
         // startItem.getComponent(cc.Sprite).spriteFrame=this.coreStart
 
     },
@@ -139,7 +139,7 @@ cc.Class({
         this.imageContent.on(cc.Node.EventType.TOUCH_MOVE, (event) => {
             event.stopPropagation();
         })
-        this.imageContent.on(cc.Node.EventType.TOUCH_END, () => {
+        this.imageContent.on(cc.Node.EventType.TOUCH_END, (event) => {
             this.showPic()
             event.stopPropagation();
         })
@@ -148,29 +148,30 @@ cc.Class({
             this.touchAnimation(0,event)
             event.stopPropagation();
         })
-        this.comment.on(cc.Node.EventType.TOUCH_END, () => {
+        this.comment.on(cc.Node.EventType.TOUCH_END, (event) => {
             this.isComment=!this.isComment
             this.touchAnimation(1,event)
             this.toggleComment()
             event.stopPropagation();
         })
-        this.share.on(cc.Node.EventType.TOUCH_END, () => {
+        this.share.on(cc.Node.EventType.TOUCH_END, (event) => {
             this.touchAnimation(2,event)
+            this.shareAppMsg()
             event.stopPropagation();
         })
 
-        this.closeBtn.on(cc.Node.EventType.TOUCH_END, () => {
+        this.closeBtn.on(cc.Node.EventType.TOUCH_END, (event) => {
             this.handleClose()
             event.stopPropagation();
         })
         //蒙版禁止冒泡
-        this.warp.on(cc.Node.EventType.TOUCH_START, () => {
+        this.warp.on(cc.Node.EventType.TOUCH_START, (event) => {
             event.stopPropagation();
         })
-        this.warp.on(cc.Node.EventType.TOUCH_MOVE, () => {
+        this.warp.on(cc.Node.EventType.TOUCH_MOVE, (event) => {
             event.stopPropagation();
         })
-        this.warp.on(cc.Node.EventType.TOUCH_END, () => {
+        this.warp.on(cc.Node.EventType.TOUCH_END, (event) => {
             event.stopPropagation();
         })
     },
@@ -188,7 +189,12 @@ cc.Class({
         this.hurdleId=item.hurdleId
 
     },
-
+    shareAppMsg () {
+        wx.shareAppMessage({
+            title: "说走就走的旅行，就等你了！快上车！",
+            imageUrl: "https://puzzle.oss-cn-beijing.aliyuncs.com/wx_share.jpg",
+        });
+    }
 
 
     // update (dt) {},
