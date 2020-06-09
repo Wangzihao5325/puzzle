@@ -235,7 +235,6 @@ cc.Class({
     },
 
     saveFile(tempCanvas) {
-        // This is one of the ways that could save the img to your local.
         if (cc.sys.platform === cc.sys.WECHAT_GAME) {
             const data = {
                 x: 0,
