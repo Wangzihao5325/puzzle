@@ -219,7 +219,10 @@ cc.Class({
 
     },
     handleShare() {
-        console.log("点击分享")
+        wx.shareAppMessage({
+            title: "说走就走的旅行，就等你了！快上车！",
+            imageUrl: "https://puzzle.oss-cn-beijing.aliyuncs.com/wx_share.jpg",
+        });
     },
     handleDownload() {
         //点击下载
