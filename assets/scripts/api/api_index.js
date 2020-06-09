@@ -1,4 +1,5 @@
 import CusHttp from './custom_http';
+import { CACHE } from '../global/usual_cache';
 const API_DOMAIN = 'http://192.168.3.144:8090';
 
 /**
@@ -71,7 +72,10 @@ const use_prop = (payload = {}, callback, failedCallback) => new CusHttp().Post(
  * @param {Function} callback
  * @param {Function} failedCallback
  */
-const petHome = (callback, failedCallback) => new CusHttp().Get(`${API_DOMAIN}/pet/home`, callback, failedCallback);
+const petHome = (callback, failedCallback) => {
+    let stage = (CACHE.userInfo && typeof CACHE.userInfo.stage == 'number' && (CACHE.userInfo.stage == 5 || CACHE.userInfo.stage == 5)) ? CACHE.userInfo.stage : null;
+    new CusHttp().Get(stage ? `${API_DOMAIN}/pet/home?stage=${stage}` : `${API_DOMAIN}/pet/home`, callback, failedCallback);
+}
 
 /**
  * 宠物当前饥饿信息&喂食
@@ -126,7 +130,14 @@ const petEquip = (payload = { goodsId: 1 }, callback, failedCallback) => new Cus
  * @param {Function} callback
  * @param {Function} failedCallback
  */
-const petGoout = (callback, failedCallback) => new CusHttp().Post(`${API_DOMAIN}/pet/go_outward`, undefined, callback, failedCallback);
+const petGoout = (callback, failedCallback) => {
+    let payload = undefined;
+    let stage = (CACHE.userInfo && typeof CACHE.userInfo.stage == 'number' && (CACHE.userInfo.stage == 5 || CACHE.userInfo.stage == 5)) ? CACHE.userInfo.stage : null;
+    if (stage) {
+        payload = { stage };
+    }
+    new CusHttp().Post(`${API_DOMAIN}/pet/go_outward`, payload, callback, failedCallback)
+};
 
 
 
@@ -209,14 +220,14 @@ const sellGOods = (payload = {}, callback, failedCallback) => new CusHttp().Post
  * @param {Function} callback
  * @param {Function} failedCallback
  */
-const goodsCollect = (goodsQuality,callback, failedCallback) => new CusHttp().Get(`${API_DOMAIN}/travel/collect/goods?goodsQuality=${goodsQuality}`, callback, failedCallback);
+const goodsCollect = (goodsQuality, callback, failedCallback) => new CusHttp().Get(`${API_DOMAIN}/travel/collect/goods?goodsQuality=${goodsQuality}`, callback, failedCallback);
 
 /**
  * 收集景点
  * @param {Function} callback
  * @param {Function} failedCallback
  */
-const hurdleCollect = (goodsQuality,callback, failedCallback) => new CusHttp().Get(`${API_DOMAIN}/travel/collect/hurdle?goodsQuality=${goodsQuality}`, callback, failedCallback);
+const hurdleCollect = (goodsQuality, callback, failedCallback) => new CusHttp().Get(`${API_DOMAIN}/travel/collect/hurdle?goodsQuality=${goodsQuality}`, callback, failedCallback);
 
 
 
@@ -268,9 +279,9 @@ const task_activity_receive = (payload = {}, callback, failedCallback) => new Cu
  * @param {Function} callback
  * @param {Function} failedCallback
  */
-const backpack = (type,callback, failedCallback) => new CusHttp().Get(`${API_DOMAIN}/user/assets/backpack?type=${type}`, callback, failedCallback);
+const backpack = (type, callback, failedCallback) => new CusHttp().Get(`${API_DOMAIN}/user/assets/backpack?type=${type}`, callback, failedCallback);
 
-const showInfo = (callback, failedCallback) => new CusHttp().Get(`${API_DOMAIN}/exhibition/info`, callback, failedCallback);
+const showInfo = (stage, callback, failedCallback) => new CusHttp().Get(stage ? `${API_DOMAIN}/exhibition/info?stage=${stage}` : `${API_DOMAIN}/exhibition/info`, callback, failedCallback);
 
 //放置物品
 const placeGoods = (payload = { goodId: 0, standId: 0 }, callback, failedCallback) => new CusHttp().Post(`${API_DOMAIN}/exhibition/stand/good/place`, payload, callback, failedCallback);
@@ -311,6 +322,8 @@ const missionLockShow = (payload = { hurdleId: 0 }, callback, failedCallback) =>
 const guideState = (callback, failedCallback) => new CusHttp().Get(`${API_DOMAIN}/user/guide/current`, callback, failedCallback);
 
 const guideStageComplete = (payload = { stage: 1 }, callback, failedCallback) => new CusHttp().Post(`${API_DOMAIN}/user/guide/complete`, payload, callback, failedCallback);
+
+const guideStageSpecialComplete = (payload = { event: 1 }, callback, failedCallback) => new CusHttp().Post(`${API_DOMAIN}/user/guide/special`, payload, callback, failedCallback);
 
 const openGemShowcase = (payload = { key: 1 }, callback, failedCallback) => new CusHttp().Post(`${API_DOMAIN}/exhibition/stand/stand_diamond/unlock`, payload, callback, failedCallback);
 
@@ -375,5 +388,6 @@ export default {
 
     guideState,
     guideStageComplete,
+    guideStageSpecialComplete,
     openGemShowcase
 }

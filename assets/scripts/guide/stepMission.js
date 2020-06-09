@@ -14,39 +14,54 @@ cc.Class({
     // LIFE-CYCLE CALLBACKS:
 
     onLoad() {
-        // if (CACHE.userInfo && CACHE.userInfo.stage !== 99) {
-        //     if (CACHE.userInfo && CACHE.userInfo.stage === 1) {
-        //         this.isSetTouch = true;
-        //         this.node.zIndex = 10000;
-        //         this.guideStep = 1;
-        //         this.handNode = cc.instantiate(this.hand);
-        //         this.handNode.scaleX = 0.7;
-        //         this.handNode.scaleY = 0.7;
-        //         this.handNode.parent = this.node;
-        //         this.handNode.setPosition(cc.v2(-160, 60));
-        //         let obj = this.handNode.getComponent('guideHand');
-        //         if (obj) {
-        //             obj.handAnimate();
-        //         }
-        //         // 触摸监听
-        //         this.node.on(cc.Node.EventType.TOUCH_START, this.onTouchStart, this);
-        //     } else if (CACHE.userInfo && CACHE.userInfo.stage === 3) {
-        //         this.isSetTouch = true;
-        //         this.node.zIndex = 10000;
-        //         this.guideStep = 1;
-        //         this.handNode = cc.instantiate(this.hand);
-        //         this.handNode.scaleX = 0.7;
-        //         this.handNode.scaleY = 0.7;
-        //         this.handNode.parent = this.node;
-        //         this.handNode.setPosition(cc.v2(160, 60));
-        //         let obj = this.handNode.getComponent('guideHand');
-        //         if (obj) {
-        //             obj.handAnimate();
-        //         }
-        //         // 触摸监听
-        //         this.node.on(cc.Node.EventType.TOUCH_START, this.onTouchStart, this);
-        //     }
-        // }
+        if (CACHE.userInfo && CACHE.userInfo.stage !== 99) {
+            if (CACHE.userInfo && CACHE.userInfo.stage === 1) {
+                this.isSetTouch = true;
+                this.node.zIndex = 10000;
+                this.guideStep = 1;
+                this.handNode = cc.instantiate(this.hand);
+                this.handNode.scaleX = 0.7;
+                this.handNode.scaleY = 0.7;
+                this.handNode.parent = this.node;
+                this.handNode.setPosition(cc.v2(-160, 60));
+                let obj = this.handNode.getComponent('guideHand');
+                if (obj) {
+                    obj.handAnimate();
+                }
+                // 触摸监听
+                this.node.on(cc.Node.EventType.TOUCH_START, this.onTouchStart, this);
+            } else if (CACHE.userInfo && CACHE.userInfo.stage === 3) {
+                this.isSetTouch = true;
+                this.node.zIndex = 10000;
+                this.guideStep = 1;
+                this.handNode = cc.instantiate(this.hand);
+                this.handNode.scaleX = 0.7;
+                this.handNode.scaleY = 0.7;
+                this.handNode.parent = this.node;
+                this.handNode.setPosition(cc.v2(160, 60));
+                let obj = this.handNode.getComponent('guideHand');
+                if (obj) {
+                    obj.handAnimate();
+                }
+                // 触摸监听
+                this.node.on(cc.Node.EventType.TOUCH_START, this.onTouchStart, this);
+            } else if (CACHE.userInfo && CACHE.userInfo.stage === 6) {
+                this.isSetTouch = true;
+                this.node.zIndex = 10000;
+                this.guideStep = 1;
+                this.handNode = cc.instantiate(this.hand);
+                this.handNode.scaleX = 0.7;
+                this.handNode.scaleY = 0.7;
+                this.handNode.parent = this.node;
+                this.handNode.setPosition(cc.v2(-160, -300));
+                let obj = this.handNode.getComponent('guideHand');
+                if (obj) {
+                    obj.handAnimate();
+                }
+                // 触摸监听
+                this.node.on(cc.Node.EventType.TOUCH_START, this.onTouchStart, this);
+            }
+        }
     },
 
     onDestroy() {
@@ -79,6 +94,18 @@ cc.Class({
             // 获取相应按钮的大小范围
             btn = cc.find('Canvas/root/missionScrollView/view/content/mission_item-101002');
         } else if (CACHE.userInfo.stage === 3 && this.guideStep == 2) {
+            // 获取触摸点，转为Canvas画布上的坐标
+            originNode = this.node.parent;
+            pos = originNode.convertToNodeSpaceAR(event.getLocation());
+            // 获取相应按钮的大小范围
+            btn = cc.find('Canvas/root/mission_level/anniuju');
+        } else if (CACHE.userInfo.stage === 6 && this.guideStep == 1) {
+            // 获取触摸点，转为Canvas画布上的坐标
+            originNode = cc.find('Canvas/root/missionScrollView/view/content');
+            pos = originNode.convertToNodeSpaceAR(event.getLocation());
+            // 获取相应按钮的大小范围
+            btn = cc.find('Canvas/root/missionScrollView/view/content/mission_item-101003');
+        } else if (CACHE.userInfo.stage === 6 && this.guideStep == 2) {
             // 获取触摸点，转为Canvas画布上的坐标
             originNode = this.node.parent;
             pos = originNode.convertToNodeSpaceAR(event.getLocation());

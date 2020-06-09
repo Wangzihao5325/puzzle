@@ -346,7 +346,12 @@ cc.Class({
     },
 
     bagReceive(itemDate) {
-        Api.getShowReceive({ placeId: itemDate.placeId }, (res) => {
+        let payload = { placeId: itemDate.placeId };
+        let stage = (CACHE.userInfo && typeof CACHE.userInfo.stage == 'number' && CACHE.userInfo.stage !== 99) ? CACHE.userInfo.stage : null;
+        if (stage) {
+            payload.userGuideStage = stage;
+        }
+        Api.getShowReceive(payload, (res) => {
             Toast.show(`获得${res.data.name} x${res.data.num}`);
             let showcaseNode = cc.find(`Canvas/root/table/item_showcase_${itemDate.standId}`);
             if (showcaseNode) {

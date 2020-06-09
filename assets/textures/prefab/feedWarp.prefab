@@ -233,7 +233,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "feedItem",
+    "_name": "feedItem_1",
     "_objFlags": 0,
     "_parent": {
       "__id__": 3
@@ -987,7 +987,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "feedItem",
+    "_name": "feedItem_2",
     "_objFlags": 0,
     "_parent": {
       "__id__": 3
@@ -1872,7 +1872,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "feedItem",
+    "_name": "feedItem_3",
     "_objFlags": 0,
     "_parent": {
       "__id__": 3

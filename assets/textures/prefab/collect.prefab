@@ -990,7 +990,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "tabItem",
+    "_name": "tabItem_0",
     "_objFlags": 0,
     "_parent": {
       "__id__": 23
@@ -1383,7 +1383,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "tabItem",
+    "_name": "tabItem_1",
     "_objFlags": 0,
     "_parent": {
       "__id__": 23

@@ -33,48 +33,51 @@ cc.Class({
     },
 
     onLoad() {
-        // if (CACHE.userInfo.stage !== 99) {
-        //     let handPosition;
-        //     switch (CACHE.userInfo.stage) {
-        //         case 1:
-        //             handPosition = cc.v2(0, 0);
-        //             break;
-        //         case 2:
-        //             handPosition = cc.v2(200, -500);
-        //             this.stepTwoAddExcal();
-        //             break;
-        //         case 3:
-        //             handPosition = cc.v2(0, 0);
-        //             break;
-        //         case 4:
-        //             handPosition = cc.v2(200, -500);
-        //             this.stepTwoAddExcal();
-        //             break;
-        //         case 5:
-        //             handPosition = cc.v2(-200, -500);
-        //             this.stepFiveAddExcal();
-        //             break;
-        //         case 6:
-        //             break;
-        //         case 7:
-        //             break;
-        //     }
-        //     this.isSetTouch = true;
-        //     this.node.zIndex = 1000;
-        //     this.guideStep = 1;
+        if (CACHE.userInfo.stage !== 99) {
+            let handPosition;
+            switch (CACHE.userInfo.stage) {
+                case 1:
+                    handPosition = cc.v2(0, 0);
+                    break;
+                case 2:
+                    handPosition = cc.v2(200, -500);
+                    this.stepTwoAddExcal();
+                    break;
+                case 3:
+                    handPosition = cc.v2(0, 0);
+                    break;
+                case 4:
+                    handPosition = cc.v2(200, -500);
+                    this.stepTwoAddExcal();
+                    break;
+                case 5:
+                    handPosition = cc.v2(-200, -500);
+                    this.stepFiveAddExcal();
+                    break;
+                case 6:
+                    handPosition = cc.v2(0, 0);
+                    break;
+                case 7:
+                    handPosition = cc.v2(-200, -500);
+                    this.stepFiveAddExcal();
+                    break;
+            }
+            this.isSetTouch = true;
+            this.node.zIndex = 1000;
+            this.guideStep = 1;
 
-        //     this.handNode = cc.instantiate(this.hand);
-        //     this.handNode.scaleX = 0.7;
-        //     this.handNode.scaleY = 0.7;
-        //     this.handNode.parent = this.node;
-        //     this.handNode.setPosition(handPosition);
-        //     let obj = this.handNode.getComponent('guideHand');
-        //     if (obj) {
-        //         obj.handAnimate();
-        //     }
-        //     this.node.on(cc.Node.EventType.TOUCH_START, this.onTouchStart, this);
+            this.handNode = cc.instantiate(this.hand);
+            this.handNode.scaleX = 0.7;
+            this.handNode.scaleY = 0.7;
+            this.handNode.parent = this.node;
+            this.handNode.setPosition(handPosition);
+            let obj = this.handNode.getComponent('guideHand');
+            if (obj) {
+                obj.handAnimate();
+            }
+            this.node.on(cc.Node.EventType.TOUCH_START, this.onTouchStart, this);
 
-        // }
+        }
     },
 
     onDestroy() {
@@ -88,7 +91,7 @@ cc.Class({
         let originNode;
         let pos;
         let btn;
-        if (CACHE.userInfo.stage == 1 || CACHE.userInfo.stage == 3) {
+        if (CACHE.userInfo.stage == 1 || CACHE.userInfo.stage == 3 || CACHE.userInfo.stage == 6) {
             // 获取触摸点，转为Canvas画布上的坐标
             originNode = this.node.parent.parent;
             pos = originNode.convertToNodeSpaceAR(event.getLocation());
@@ -97,7 +100,12 @@ cc.Class({
             originNode = cc.find('Canvas/layoutRoot/footer_navi');;
             pos = originNode.convertToNodeSpaceAR(event.getLocation());
             btn = cc.find('Canvas/layoutRoot/footer_navi/button_show');
-        } else if (CACHE.userInfo.stage == 5) {
+        } else if (CACHE.userInfo.stage == 5 || CACHE.userInfo.stage == 7) {
+            originNode = cc.find('Canvas/layoutRoot/footer_navi');;
+            pos = originNode.convertToNodeSpaceAR(event.getLocation());
+            btn = cc.find('Canvas/layoutRoot/footer_navi/button_home');
+        } else if (CACHE.userInfo.stage == 8) {
+            //需要放一个动画
             originNode = cc.find('Canvas/layoutRoot/footer_navi');;
             pos = originNode.convertToNodeSpaceAR(event.getLocation());
             btn = cc.find('Canvas/layoutRoot/footer_navi/button_home');

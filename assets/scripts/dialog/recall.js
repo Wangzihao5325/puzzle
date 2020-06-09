@@ -4,8 +4,8 @@
 //  - https://docs.cocos.com/creator/manual/en/scripting/reference/attributes.html
 // Learn life-cycle callbacks:
 //  - https://docs.cocos.com/creator/manual/en/scripting/life-cycle-callbacks.html
-import {dateFormat} from '../utils/utils'
-import {GAME_CACH} from '../global/piece_index'
+import { dateFormat } from '../utils/utils'
+import { GAME_CACH } from '../global/piece_index'
 import { CACHE } from '../global/usual_cache';
 import Api from '../api/api_index'
 
@@ -13,27 +13,27 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
-        warp:cc.Node,
-        content:cc.Node,
-        scrollContent:cc.Node,
-        racallItem:cc.Prefab,
-        racallInfo:cc.Prefab,
-        close:cc.Node,
+        warp: cc.Node,
+        content: cc.Node,
+        scrollContent: cc.Node,
+        racallItem: cc.Prefab,
+        racallInfo: cc.Prefab,
+        close: cc.Node,
 
     },
 
     // LIFE-CYCLE CALLBACKS:
 
-    onLoad () {
+    onLoad() {
         this.init()
 
         this.setTouch()
     },
 
-    start () {
+    start() {
 
     },
-    init(type){
+    init(type) {
         // this.content.setPosition(cc.v2(0,-1000))
         // cc.tween(this.content)
         // .to(.4,{position:cc.v2(0,100)})
@@ -42,38 +42,38 @@ cc.Class({
 
         this.content.setScale(0.2)
         cc.tween(this.content)
-        .to(.3,{scale:1.2})
-        .to(0.15,{scale:1})
-        .start()
+            .to(.3, { scale: 1.2 })
+            .to(0.15, { scale: 1 })
+            .start()
         this.getRecallList()
 
     },
 
 
-    handleBack(){
+    handleBack() {
         cc.tween(this.content)
-        .to(.1,{scale:1.2})
-        .to(0.3,{scale:.2,opacity:0})
-        .call(()=>{
-            this.warp.active=false;
-            this.warp.destroy()
-        })
-        .start()
+            .to(.1, { scale: 1.2 })
+            .to(0.3, { scale: .2, opacity: 0 })
+            .call(() => {
+                this.warp.active = false;
+                this.warp.destroy()
+            })
+            .start()
     },
 
-    getRecallList(){
-        Api.memory_list(res=>{
-            if(res.code===0){
-                const data=res.data;
-                data.map((item,index)=>{
-                    this.initRecallTravelItem(item,index)
+    getRecallList() {
+        Api.memory_list(res => {
+            if (res.code === 0) {
+                const data = res.data;
+                data.map((item, index) => {
+                    this.initRecallTravelItem(item, index)
                 })
             }
         })
 
     },
 
-    showInfo(item){
+    showInfo(item) {
 
         // this.handleBack()
 
@@ -85,17 +85,18 @@ cc.Class({
 
 
 
-        
+
     },
 
-    initRecallTravelItem(item,index){
+    initRecallTravelItem(item, index) {
         let recall = cc.instantiate(this.racallItem);
+        recall.name = `recall_item_${index}`;
         let obj = recall.getComponent('recallItem');
-        recall.info=item
-        obj.init(item,index)
+        recall.info = item
+        obj.init(item, index)
         recall.parent = this.scrollContent;
-        this.scrollContent.height=210*(index+1)
-        recall.setPosition(cc.v2(0,-(.5+index)*210-20))
+        this.scrollContent.height = 210 * (index + 1)
+        recall.setPosition(cc.v2(0, -(.5 + index) * 210 - 20))
     },
 
 
@@ -115,9 +116,9 @@ cc.Class({
             event.stopPropagation();
         })
 
-        
+
     },
-  
+
 
     // update (dt) {},
 });
