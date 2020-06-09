@@ -27,6 +27,10 @@ cc.Class({
         },
         back:cc.Node,
         download:cc.Node,
+        picId: {
+            type: String,
+            default: null
+        },
 
     },
 
@@ -67,6 +71,7 @@ cc.Class({
             animatePath2: data.skeJson,
             picPath: data.texPng,
         };
+        this.picId = data.picId
         this.title.string=data.hurdleName
         this.initBgAnimate(animatePayload)
     },
@@ -121,12 +126,34 @@ cc.Class({
         this.warp.on(cc.Node.EventType.TOUCH_MOVE, (event) => {
             event.stopPropagation();
         })
-        
 
-        
+
+
     },
     handleDownload(){
-        console.log("点击分享")
+        if (!this.picId) {
+            Toast.show('未获取的图片');
+            return;
+        }
+        let cv = wx.createCanvas();
+        let ctx = cv.getContext("2d");
+        let image = wx.createImage();
+        image.onload = () => {
+            cv.width = image.width;
+            cv.height = image.height;
+            ctx.drawImage(image, 0, 0, image.width, image.height);
+            let path = cv.toTempFilePathSync();
+            wx.saveImageToPhotosAlbum({
+                filePath: path,
+                success: function () {
+                    Toast.show('保存成功');
+                },
+                fail: function () {
+                    Toast.show('保存失败');
+                }
+            })
+        }
+        image.src = "https://puzzle.oss-cn-beijing.aliyuncs.com/" + this.picId + ".png";
     },
 
 
