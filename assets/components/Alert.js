@@ -148,8 +148,7 @@ window.Alert.show = function (detailString,{title, confirmText, confirmCallBack,
     // 按钮点击确认事件
     self.onConfirmClick = function(event){
         if(self._confirmCallBack){
-            radioValue=!self._check
-            self._confirmCallBack();
+            self._confirmCallBack(self._check);
         }
         self.startFadeOut();
     };

@@ -144,6 +144,7 @@ cc.Class({
                 }
             }
             else {
+                console.log("在拼图区域移动")
                 this.item_node.setPosition(newPositin);
             }
             /*

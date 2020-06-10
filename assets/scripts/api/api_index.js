@@ -32,10 +32,13 @@ const missionDetails = (hurdleId = 101001, callback, failedCallback) => new CusH
  * @param {Function} callback
  * @param {Function} failedCallback
  */
-const missionComplete = (payload = { hurdleId: 101001, star: 1 }, callback, failedCallback) => new CusHttp().Post(`${API_DOMAIN}/travel/complete`, payload, callback, failedCallback);
-
-
-
+const missionComplete = (payload = { hurdleId: 101001, star: 1 }, callback, failedCallback) => {
+    let stage = (CACHE.userInfo && typeof CACHE.userInfo.stage == 'number' && (CACHE.userInfo.stage == 1)) ? CACHE.userInfo.stage : null;
+    if (stage) {
+        payload.stage = stage;
+    }
+    new CusHttp().Post(`${API_DOMAIN}/travel/complete`, payload, callback, failedCallback);
+};
 
 /**
  * 获取旅行文案
