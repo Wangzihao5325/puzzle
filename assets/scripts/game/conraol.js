@@ -197,12 +197,18 @@ cc.Class({
     },
     handleView(){
         if(!this.isViewing){
-            this.userProp({ show: 1 },
-                () => {
-                    this.doView()
-                    this.updateUserInfo()
-                }
-            )
+            if (this.checkComplate()) {
+                return false
+            } else if (CACHE.userData.showProp > 0) {
+                this.userProp({ show: 1 },
+                    () => {
+                        this.doView()
+                        this.updateUserInfo()
+                    }
+                )
+            } else {
+                Toast.show('余额不足，观看广告')
+            }
         }else{
             this.doView()
         }
@@ -363,14 +369,17 @@ cc.Class({
         const adNode= cc.find('free',this.magnet)
         const currentNum=userData.strongMagnet > 99 ? '99+' : userData.strongMagnet
         num.string=currentNum
-        if (userData.strongMagnet > 0) {
-            tiemNode.active = true
-            adNode.active = false
-        } else{
-            tiemNode.active = false
-            num.active=false
-            adNode.active = true
-        }
+        setTimeout(()=>{
+            if (userData.strongMagnet > 0) {
+                tiemNode.active = true
+                adNode.active = false
+            } else{
+                tiemNode.active = false
+                num.active=false
+                adNode.active = true
+            }
+        },200)
+
     },
 
     resetUiFrame(){
@@ -382,14 +391,17 @@ cc.Class({
         const adNode= cc.find('free',this.sort)
         const currentNum=userData.frame > 99 ? '99+' : userData.frame
         num.string=currentNum
-        if (userData.frame > 0) {
-            tiemNode.active = true
-            adNode.active = false
-        } else{
-            tiemNode.active = false
-            num.active=false
-            adNode.active = true
-        }
+        setTimeout(()=>{
+            if (userData.frame > 0) {
+                tiemNode.active = true
+                adNode.active = false
+            } else{
+                tiemNode.active = false
+                num.active=false
+                adNode.active = true
+            }
+        },200)
+
     },
 
     //更新眼睛道具
@@ -401,15 +413,17 @@ cc.Class({
         let adNode= cc.find('free',this.viewPuaaleImg)
         let currentNum=userData.showProp > 99 ? '99+' : userData.showProp
         num.string = currentNum
-        if (userData.showProp > 0) {
-            tiemNode.active = true
-            num.active=true
-            adNode.active = false
-        } else{
-            tiemNode.active = false
-            num.active=false
-            adNode.active = true
-        }
+        setTimeout(()=>{
+            if (userData.showProp > 0) {
+                tiemNode.active = true
+                num.active=true
+                adNode.active = false
+            } else{
+                tiemNode.active = false
+                num.active=false
+                adNode.active = true
+            }
+        },200)
     },
 
 
