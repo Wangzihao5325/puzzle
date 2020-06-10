@@ -23,9 +23,13 @@ class CusHttp {
             let http = cc.loader.getXMLHttpRequest();
             http.open("GET", Url, true);
             http.setRequestHeader("Content-Type", "application/json");
-            // http.setRequestHeader("X-Auth-Token", CACHE.token);
+            http.setRequestHeader("X-Auth-Token", CACHE.token);
             this._callback = cb;
             this._failedCallback = fcb;
+            this._reqCache = {
+                url: Url,
+                method: 'GET'
+            };
             http.onreadystatechange = this._result.bind(this);
             http.timeout = 10000;
             http.send();
@@ -38,9 +42,14 @@ class CusHttp {
             let http = cc.loader.getXMLHttpRequest();
             http.open("POST", Url, true);
             http.setRequestHeader("Content-Type", "application/json");
-            // http.setRequestHeader("X-Auth-Token", CACHE.token);
+            http.setRequestHeader("X-Auth-Token", CACHE.token);
             this._callback = cb;
             this._failedCallback = fcb;
+            this._reqCache = {
+                url: Url,
+                data: data,
+                method: 'POST'
+            };
             http.onreadystatechange = this._result.bind(this);
             http.timeout = 10000;
             http.send(data);
@@ -48,14 +57,18 @@ class CusHttp {
         })
     }
     Get_UrlEnCoded(Url, data, cb, fcb) {
-        console.log("Get_UrlEnCoded",data)
         this.getToken(() => {
             let http = cc.loader.getXMLHttpRequest();
             http.open("GET", Url, true);
             http.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-            // http.setRequestHeader("X-Auth-Token", CACHE.token);
+            http.setRequestHeader("X-Auth-Token", CACHE.token);
             this._callback = cb;
             this._failedCallback = fcb;
+            this._reqCache = {
+                url: Url,
+                data: data,
+                method: 'GET1'
+            };
             http.onreadystatechange = this._result.bind(this);
             http.timeout = 10000;
             http.send(data);
@@ -71,13 +84,15 @@ class CusHttp {
         http.onreadystatechange = () => {
             if (http.readyState === 4) {
                 const response = JSON.parse(http.responseText);
-                if (http.status === 200) {
-                    CACHE.token = http.getResponseHeader('X-Auth-Token');
-                    CACHE.userInfo = response.data.principal;
-                    if (cb) {
+                if (cb) {
+                    if (http.status === 200) {
+                        CACHE.token = http.getResponseHeader('X-Auth-Token');
+                        CACHE.userInfo = response.data.principal;
+                        CACHE.logining = false;
                         cb(response);
                     }
                 } else {
+                    CACHE.logining = false;
                     console.log("登录失败，" + response.message)
                 }
             }
@@ -87,8 +102,21 @@ class CusHttp {
     }
     _result() {
         if (this._http.readyState == 4 && this._http.status != 500) {
-            if (this._callback) {
-                this._callback(JSON.parse(this._http.responseText));
+            const response = JSON.parse(this._http.responseText);
+            if ([10001, 10002, 10003].indexOf(response.code) >= 0) {
+                if (!CACHE.logining) {
+                    CACHE.token = undefined;
+                    this.getToken();
+                }
+                if (this._reqCache.method === 'GET') {
+                    this.Get(this._reqCache.url, this._callback, this._failedCallback);
+                } else if (this._reqCache.method === 'POST') {
+                    this.Post(this._reqCache.url, this._reqCache.data, this._callback, this._failedCallback);
+                } else if (this._reqCache.method === "GET1") {
+                    this.Get_UrlEnCoded(this._reqCache.url, this._reqCache.data, this._callback, this._failedCallback);
+                }
+            } else if (this._callback) {
+                this._callback(response);
             }
         } else {
             // to do 异常处理
@@ -97,11 +125,20 @@ class CusHttp {
         }
     }
     getToken(callback) {
-        // if (!CACHE.token) {
-        //     WxApi.login(callback);
-        // } else {
+        if (!CACHE.token) {
+            if (!CACHE.logining) {
+                CACHE.logining = true;
+                WxApi.login(() => {
+                    CACHE.loginCallback.map(i => {i()});
+                    CACHE.loginCallback = [];
+                });
+            }
+            if (callback) {
+                CACHE.loginCallback.push(callback);
+            }
+        } else {
             callback();
-        // }
+        }
     }
 }
 export default CusHttp;
