@@ -131,6 +131,9 @@ cc.Class({
 
     },
     handleDownload(){
+        if (cc.sys.platform !== cc.sys.WECHAT_GAME) {
+            return;
+        }
         if (!this.picId) {
             Toast.show('未获取的图片');
             return;

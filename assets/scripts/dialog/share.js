@@ -219,19 +219,23 @@ cc.Class({
 
     },
     handleShare() {
-        wx.shareAppMessage({
-            title: "说走就走的旅行，就等你了！快上车！",
-            imageUrl: "https://puzzle.oss-cn-beijing.aliyuncs.com/wx_share.jpg",
-        });
+        if (cc.sys.platform === cc.sys.WECHAT_GAME) {
+            wx.shareAppMessage({
+                title: "说走就走的旅行，就等你了！快上车！",
+                imageUrl: "https://puzzle.oss-cn-beijing.aliyuncs.com/wx_share.jpg",
+            });
+        }
     },
     handleDownload() {
-        //点击下载
-        this.initTextRender();
-        this.scheduleOnce(() => {
-            let canvas = this.createCanvas();
-            this.createImg();
-            this.saveFile(canvas);
-        }, 1);
+        if (cc.sys.platform === cc.sys.WECHAT_GAME) {
+            //点击下载
+            this.initTextRender();
+            this.scheduleOnce(() => {
+                let canvas = this.createCanvas();
+                this.createImg();
+                this.saveFile(canvas);
+            }, 1);
+        }
     },
 
     saveFile(tempCanvas) {
