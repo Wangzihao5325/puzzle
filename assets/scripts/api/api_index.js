@@ -231,6 +231,49 @@ const hurdleCollect = (goodsQuality, callback, failedCallback) => new CusHttp().
 
 
 
+
+/**
+ * 日常任务列表
+ * @param {Function} callback
+ * @param {Function} failedCallback
+ */
+const task_daily = (callback, failedCallback) => new CusHttp().Get(`${API_DOMAIN}/task/daily/list`, callback, failedCallback);
+
+/**
+ * 主线任务列表
+ * @param {Function} callback
+ * @param {Function} failedCallback
+ */
+const task_main = (callback, failedCallback) => new CusHttp().Get(`${API_DOMAIN}/task/main/list`, callback, failedCallback);
+
+/**
+ * 领取奖励
+ * @param {Object} payload {null:null}
+ * @param {Function} callback
+ * @param {Function} failedCallback
+ */
+const task_receive = (payload = {}, callback, failedCallback) => new CusHttp().Post(`${API_DOMAIN}/task/receive`, payload, callback, failedCallback);
+
+
+
+/**
+ * 活跃度详情
+ * @param {Function} callback
+ * @param {Function} failedCallback
+ */
+const task_activity = (callback, failedCallback) => new CusHttp().Get(`${API_DOMAIN}/task/activity`, callback, failedCallback);
+
+/**
+ * 领取活跃度奖励
+ * @param {Object} payload {null:null}
+ * @param {Function} callback
+ * @param {Function} failedCallback
+ */
+const task_activity_receive = (payload = {}, callback, failedCallback) => new CusHttp().Post(`${API_DOMAIN}/task/activity/receive`, payload, callback, failedCallback);
+
+
+
+
 /**
  * 获取用户背包
  * @param {Function} callback
@@ -297,6 +340,11 @@ export default {
     use_prop,
     backpack,
 
+    task_daily,
+    task_main,
+    task_receive,
+    task_activity,
+    task_activity_receive,
     petHome,
     petHungry,
     petRemainFood,
