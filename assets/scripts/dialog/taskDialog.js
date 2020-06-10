@@ -264,11 +264,11 @@ cc.Class({
                     cc.find('giftIcon',this.git3).getComponent(cc.Sprite).spriteFrame=this.gift2Close
                 }
                 if(data.activity>=data.levelOne){
+                    let halo= cc.find('halo',this.git1)
                     if(!data.levelOneReceive){
                         cc.find('giftIcon',this.git1).getComponent(cc.Sprite).spriteFrame=this.gift1Close
                         cc.find('giftIcon',this.git2).getComponent(cc.Sprite).spriteFrame=this.gift1Close
                         cc.find('giftIcon',this.git3).getComponent(cc.Sprite).spriteFrame=this.gift2Close
-                        let halo= cc.find('halo',this.git1)
                         halo.active=true
                         cc.tween(halo)
                         .to(10,{angle:190})
@@ -276,35 +276,41 @@ cc.Class({
                         .start()
                     }else{
                         cc.find('giftIcon',this.git1).getComponent(cc.Sprite).spriteFrame=this.gift1Open
-
+                        cc.find('giftIcon',this.git2).getComponent(cc.Sprite).spriteFrame=this.gift1Close
+                        cc.find('giftIcon',this.git3).getComponent(cc.Sprite).spriteFrame=this.gift2Close
+                        halo.active=false
                     }
                 }
                 if(data.activity>=data.levelTwo){
+                    let halo= cc.find('halo',this.git2)
                     if(!data.levelTwoReceive){
                         cc.find('giftIcon',this.git2).getComponent(cc.Sprite).spriteFrame=this.gift1Close
                         cc.find('giftIcon',this.git3).getComponent(cc.Sprite).spriteFrame=this.gift2Close
-                        let halo= cc.find('halo',this.git2)
                         halo.active=true
                         cc.tween(halo)
                         .to(10,{angle:190})
                         .repeatForever()
                         .start()
                     }else{
+                        halo.active=false
+                        cc.find('giftIcon',this.git1).getComponent(cc.Sprite).spriteFrame=this.gift1Open
                         cc.find('giftIcon',this.git2).getComponent(cc.Sprite).spriteFrame=this.gift1Open
-
+                        cc.find('giftIcon',this.git3).getComponent(cc.Sprite).spriteFrame=this.gift2Close
                     }
                 }if(data.activity>=data.levelThree){
+                    let halo= cc.find('halo',this.git3)
                     if(!data.levelThreeReceive){
                         cc.find('giftIcon',this.git3).getComponent(cc.Sprite).spriteFrame=this.gift2Close
-                        let halo= cc.find('halo',this.git3)
                         halo.active=true
                         cc.tween(halo)
                         .to(10,{angle:190})
                         .repeatForever()
                         .start()
                     }else{
+                        halo.active=false
+                        cc.find('giftIcon',this.git1).getComponent(cc.Sprite).spriteFrame=this.gift1Open
+                        cc.find('giftIcon',this.git2).getComponent(cc.Sprite).spriteFrame=this.gift1Open
                         cc.find('giftIcon',this.git3).getComponent(cc.Sprite).spriteFrame=this.gift2Open
-
                     }
                 }
                 
