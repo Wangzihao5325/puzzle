@@ -34,6 +34,12 @@ cc.Class({
         game_share1: cc.Prefab,
         game_share2: cc.Prefab,
         game_fail: cc.Prefab,
+        viewIcon:cc.Node,
+        viewPuaaleImg:cc.Node,
+        isViewing:{
+            type:cc.Boolean,
+            default:false
+        }
 
     },
 
@@ -64,7 +70,10 @@ cc.Class({
         GAME_CACH.isComplate = false
         GAME_CACH.coutnDown = GAME_CACH.gameTime
         this.timer(GAME_CACH.coutnDown);
+        CACHE.mission_press.picId
     },
+
+    
 
     start() {
         // this.showAward([], CACHE.hard_level + 1)
@@ -186,6 +195,24 @@ cc.Class({
             }
         });
     },
+    handleView(){
+        if(!this.isViewing){
+            this.userProp({ show: 1 },
+                () => {
+                    this.doView()
+                    this.updateUserInfo()
+                }
+            )
+        }else{
+            this.doView()
+        }
+
+    },
+
+    doView(){
+        this.isViewing=!this.isViewing
+        this.viewPuaaleImg.active=this.isViewing
+    },
 
     setTouch() {
         this.magnet.on(cc.Node.EventType.TOUCH_START, (event) => {
@@ -194,6 +221,10 @@ cc.Class({
         })
         this.sort.on(cc.Node.EventType.TOUCH_START, (event) => {
             this.handleClickSort()
+            event.stopPropagation();
+        })
+        this.viewIcon.on(cc.Node.EventType.TOUCH_START, (event) => {
+            this.handleView()
             event.stopPropagation();
         })
         this.pauseBtn.on(cc.Node.EventType.TOUCH_START, (event) => {

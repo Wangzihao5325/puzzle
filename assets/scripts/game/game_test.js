@@ -1,6 +1,7 @@
 import { SIZES, LEVEL, PUZZLE_FOOTER, GAME_CACH } from '../global/piece_index';
 import { CACHE } from '../global/usual_cache';
 import Api from '../api/api_index';
+import { IMAGE_SERVER } from '../global/app_global_index'
 
 cc.Class({
     extends: cc.Component,
@@ -18,7 +19,9 @@ cc.Class({
         audio: {
             default: null,
             type: cc.AudioClip
-        }
+        },
+        viewPuaaleImg:cc.Sprite,
+
     },
 
     onLoad() {
@@ -43,6 +46,7 @@ cc.Class({
 
         const hardLevel = CACHE.hard_level;
         const missionObj = CACHE.mission_press;
+
         this.puzzle_name.string = `${CACHE.chapterData.hurdleName} `
         Api.missionDetails(missionObj.hurdleId, (res) => {
             const imagePath = missionObj.logoUrl;
@@ -52,11 +56,20 @@ cc.Class({
                 picPath: res.data.texPng,
             };
             this.game_bg.zIndex = 1;
+            this.initPuzzleImg(res.data.picId)
             this.initItem(hardLevel);
             this.initSpliceWarp(hardLevel, imagePath);
             this.initBgAnimate(animatePayload);
             GAME_CACH.animatePayload = animatePayload
         })
+    },
+
+    initPuzzleImg(picId){
+        console.log("img",`${IMAGE_SERVER}/${picId}.png`)
+        cc.loader.load(`${IMAGE_SERVER}/${picId}.png`, (err, texture) => {
+            console.log("texture",texture)
+            this.viewPuaaleImg = new cc.SpriteFrame(texture)
+        });
     },
 
     initItem(hardLevel = LEVEL.EASY) {// hardLevel: 0->2*3; 1->4*6; 2->6*8
