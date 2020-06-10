@@ -276,6 +276,8 @@ cc.Class({
                         .start()
                     }else{
                         cc.find('giftIcon',this.git1).getComponent(cc.Sprite).spriteFrame=this.gift1Open
+                        cc.find('giftIcon',this.git2).getComponent(cc.Sprite).spriteFrame=this.gift1Close
+                        cc.find('giftIcon',this.git3).getComponent(cc.Sprite).spriteFrame=this.gift2Close
                         halo.active=false
                     }
                 }
@@ -291,7 +293,9 @@ cc.Class({
                         .start()
                     }else{
                         halo.active=false
+                        cc.find('giftIcon',this.git1).getComponent(cc.Sprite).spriteFrame=this.gift1Open
                         cc.find('giftIcon',this.git2).getComponent(cc.Sprite).spriteFrame=this.gift1Open
+                        cc.find('giftIcon',this.git3).getComponent(cc.Sprite).spriteFrame=this.gift2Close
                     }
                 }if(data.activity>=data.levelThree){
                     let halo= cc.find('halo',this.git3)
@@ -304,8 +308,9 @@ cc.Class({
                         .start()
                     }else{
                         halo.active=false
+                        cc.find('giftIcon',this.git1).getComponent(cc.Sprite).spriteFrame=this.gift1Open
+                        cc.find('giftIcon',this.git2).getComponent(cc.Sprite).spriteFrame=this.gift1Open
                         cc.find('giftIcon',this.git3).getComponent(cc.Sprite).spriteFrame=this.gift2Open
-
                     }
                 }
                 
