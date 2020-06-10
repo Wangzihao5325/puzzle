@@ -131,6 +131,9 @@ cc.Class({
 
     },
     handleDownload(){
+        if (cc.sys.platform !== cc.sys.WECHAT_GAME) {
+            return;
+        }
         if (!this.picId) {
             Toast.show('未获取的图片');
             return;
@@ -142,19 +145,16 @@ cc.Class({
             cv.width = image.width;
             cv.height = image.height;
             ctx.drawImage(image, 0, 0, image.width, image.height);
-
-            if (cc.sys.platform === cc.sys.WECHAT_GAME) {
-                let path = cv.toTempFilePathSync();
-                wx.saveImageToPhotosAlbum({
-                    filePath: path,
-                    success: function () {
-                        Toast.show('保存成功');
-                    },
-                    fail: function () {
-                        Toast.show('保存失败');
-                    }
-                })
-            }
+            let path = cv.toTempFilePathSync();
+            wx.saveImageToPhotosAlbum({
+                filePath: path,
+                success: function () {
+                    Toast.show('保存成功');
+                },
+                fail: function () {
+                    Toast.show('保存失败');
+                }
+            })
         }
         image.src = "https://puzzle.oss-cn-beijing.aliyuncs.com/" + this.picId + ".png";
     },

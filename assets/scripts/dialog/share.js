@@ -219,10 +219,12 @@ cc.Class({
 
     },
     handleShare() {
-        wx.shareAppMessage({
-            title: "说走就走的旅行，就等你了！快上车！",
-            imageUrl: "https://puzzle.oss-cn-beijing.aliyuncs.com/wx_share.jpg",
-        });
+        if (cc.sys.platform === cc.sys.WECHAT_GAME) {
+            wx.shareAppMessage({
+                title: "说走就走的旅行，就等你了！快上车！",
+                imageUrl: "https://puzzle.oss-cn-beijing.aliyuncs.com/wx_share.jpg",
+            });
+        }
     },
     handleDownload() {
         if (cc.sys.platform === cc.sys.WECHAT_GAME) {
