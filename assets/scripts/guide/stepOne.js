@@ -97,11 +97,11 @@ cc.Class({
             pos = originNode.convertToNodeSpaceAR(event.getLocation());
             btn = cc.find('Canvas/map/view/content/bg/city_item-101/city_image');
         } else if (CACHE.userInfo.stage == 2 || CACHE.userInfo.stage == 4) {
-            originNode = cc.find('Canvas/layoutRoot/footer_navi');;
+            originNode = cc.find('Canvas/layoutRoot/footer_navi');
             pos = originNode.convertToNodeSpaceAR(event.getLocation());
             btn = cc.find('Canvas/layoutRoot/footer_navi/button_show');
         } else if (CACHE.userInfo.stage == 5 || CACHE.userInfo.stage == 7) {
-            originNode = cc.find('Canvas/layoutRoot/footer_navi');;
+            originNode = cc.find('Canvas/layoutRoot/footer_navi');
             pos = originNode.convertToNodeSpaceAR(event.getLocation());
             btn = cc.find('Canvas/layoutRoot/footer_navi/button_home');
         } else if (CACHE.userInfo.stage == 8) {
