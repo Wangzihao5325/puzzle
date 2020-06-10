@@ -20,10 +20,11 @@ class CusHttp {
      */
     Get(Url, cb, fcb) {
         this.getToken(() => {
+            const isWachat=cc.sys.platform === cc.sys.WECHAT_GAME
             let http = cc.loader.getXMLHttpRequest();
             http.open("GET", Url, true);
             http.setRequestHeader("Content-Type", "application/json");
-            http.setRequestHeader("X-Auth-Token", CACHE.token);
+            isWachat?http.setRequestHeader("X-Auth-Token", CACHE.token):undefined;
             this._callback = cb;
             this._failedCallback = fcb;
             this._reqCache = {
@@ -39,10 +40,11 @@ class CusHttp {
     Post(Url, data, cb, fcb) {
         this.getToken(() => {
             data = JSON.stringify(data);
+            const isWachat=cc.sys.platform === cc.sys.WECHAT_GAME
             let http = cc.loader.getXMLHttpRequest();
             http.open("POST", Url, true);
             http.setRequestHeader("Content-Type", "application/json");
-            http.setRequestHeader("X-Auth-Token", CACHE.token);
+            isWachat?http.setRequestHeader("X-Auth-Token", CACHE.token):undefined;
             this._callback = cb;
             this._failedCallback = fcb;
             this._reqCache = {
@@ -59,9 +61,10 @@ class CusHttp {
     Get_UrlEnCoded(Url, data, cb, fcb) {
         this.getToken(() => {
             let http = cc.loader.getXMLHttpRequest();
+            const isWachat=cc.sys.platform === cc.sys.WECHAT_GAME
             http.open("GET", Url, true);
             http.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-            http.setRequestHeader("X-Auth-Token", CACHE.token);
+            isWachat?http.setRequestHeader("X-Auth-Token", CACHE.token):undefined;
             this._callback = cb;
             this._failedCallback = fcb;
             this._reqCache = {
@@ -125,7 +128,9 @@ class CusHttp {
         }
     }
     getToken(callback) {
-        if (!CACHE.token) {
+        const isWachat=cc.sys.platform === cc.sys.WECHAT_GAME
+        CACHE.platform.isWachat=isWachat
+        if (!CACHE.token&&isWachat) {
             if (!CACHE.logining) {
                 CACHE.logining = true;
                 WxApi.login(() => {

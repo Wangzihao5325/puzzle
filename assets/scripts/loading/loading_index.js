@@ -94,7 +94,9 @@ cc.Class({
                                                 CACHE.userInfo.firstRewardTaskEnded = res.data.firstRewardTaskEnded;
                                                 cc.director.loadScene("travel");
                                             }
-                                            WxApi.loadUserInfo();
+                                            if(CACHE.platform.isWachat){
+                                                WxApi.loadUserInfo();
+                                            }
                                         });
 
                                     })
@@ -106,8 +108,6 @@ cc.Class({
                 })
             })
         });
-
-        // WxApi.login(() => {WxApi.loadUserInfo()});
     },
 
     // update (dt) {},
