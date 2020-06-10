@@ -136,6 +136,7 @@ cc.Class({
 
     refresh(){
         this.getTask()
+        this.getActive()
     },
 
     setTouch() {
@@ -200,14 +201,12 @@ cc.Class({
         }
         else if(data.activity>=data.levelTwo&&type===2){
             if(!data.levelTwoReceive){
-                return true
                 this.doTaskActivyRecevie(leavel)
             }else{
                 return false
             }
         }else if(data.activity>=data.levelThree&&type===3){
             if(!data.levelThreeReceive){
-                return true
                 this.doTaskActivyRecevie(leavel)
             }else{
                 return false
