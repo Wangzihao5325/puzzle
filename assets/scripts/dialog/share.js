@@ -225,13 +225,15 @@ cc.Class({
         });
     },
     handleDownload() {
-        //点击下载
-        this.initTextRender();
-        this.scheduleOnce(() => {
-            let canvas = this.createCanvas();
-            this.createImg();
-            this.saveFile(canvas);
-        }, 1);
+        if (cc.sys.platform === cc.sys.WECHAT_GAME) {
+            //点击下载
+            this.initTextRender();
+            this.scheduleOnce(() => {
+                let canvas = this.createCanvas();
+                this.createImg();
+                this.saveFile(canvas);
+            }, 1);
+        }
     },
 
     saveFile(tempCanvas) {
