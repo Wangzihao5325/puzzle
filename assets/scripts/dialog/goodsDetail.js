@@ -95,7 +95,8 @@ cc.Class({
                 window.Alert.show( `确认出售${this.info.name}`,
                 {
                   title: '温馨提示',
-                  confirmCallBack:()=>{
+                  confirmCallBack:(check)=>{
+                    CACHE.didAlert.sell=!check
                     this.sellGoods()
                   },
                   cancelCallBack: function () { },
@@ -104,7 +105,7 @@ cc.Class({
                 }
               );
             }else{
-
+                this.sellGoods()
             }
         }
 

@@ -7,6 +7,7 @@
 import {parseFormat} from '../utils/utils'
 import Api from '../api/api_index'
 import {User} from '../api/api_action'
+import { CACHE } from '../global/usual_cache';
 
 cc.Class({
     extends: cc.Component,
@@ -85,7 +86,29 @@ cc.Class({
         }
     },
     handleBuy(event){
-        // console.log("event",event)
+        //物品
+        console.log("CACHE.didAlert.buy",CACHE.didAlert.buy)
+        if(CACHE.didAlert.buy){
+            //是否提示
+            window.Alert.show( `确认购买${this.buy.info.name}`,
+            {
+                title: '温馨提示',
+                confirmCallBack:(check)=>{
+                    CACHE.didAlert.buy=!check
+                    this.doBuy()
+                },
+                cancelCallBack: function () { },
+                radioValue:CACHE.didAlert.buy,
+                confirmText: '确认',
+            }
+            );
+        }else{
+            this.doBuy()
+        }
+
+    },
+
+    doBuy(){
         const info =this.buy.info
         const data={
             tyep:info.commodityId,

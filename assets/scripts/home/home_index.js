@@ -454,7 +454,7 @@ cc.Class({
         if (this.currentBGM) {
             cc.audioEngine.stop(this.currentBGM);
         }
-        if(this.this.catPopTimer){
+        if(this.catPopTimer){
             clearTimeout(this.catPopTimer)
         }
     }
