@@ -404,11 +404,11 @@ cc.Class({
         if (userData.showProp > 0) {
             tiemNode.active = true
             num.active=true
-            // adNode.Node.active = false
+            adNode.active = false
         } else{
             tiemNode.active = false
             num.active=false
-            // adNode.Node.active = true
+            adNode.active = true
         }
     },
 
