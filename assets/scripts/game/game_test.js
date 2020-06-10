@@ -67,8 +67,7 @@ cc.Class({
     initPuzzleImg(picId){
         console.log("img",`${IMAGE_SERVER}/${picId}.png`)
         cc.loader.load(`${IMAGE_SERVER}/${picId}.png`, (err, texture) => {
-            console.log("texture",texture)
-            this.viewPuaaleImg = new cc.SpriteFrame(texture)
+            this.viewPuaaleImg.spriteFrame = new cc.SpriteFrame(texture)
         });
     },
 

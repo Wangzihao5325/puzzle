@@ -16,6 +16,7 @@ const BalanceUpdate = (callback, failedCallback) => {
                                 STAM: data.power,
                                 fragment: data.patDressFragment,
                                 strongMagnet: data.strongMagnet,
+                                showProp:data.showProp,
                                 frame: data.frame,
                                 catFood: catfood.count
                             };
