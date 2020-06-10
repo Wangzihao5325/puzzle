@@ -1,7 +1,7 @@
 cc.Class({
   extends: cc.Component,
 
-  initTextRender () {
+  initTextRender() {
     this.camera = cc.find('Canvas/Camera').getComponent(cc.Camera);
     this._canvas = null
     let texture = new cc.RenderTexture();
@@ -10,7 +10,7 @@ cc.Class({
     this.texture = texture;
   },
   // create the img element
-  createImg () {
+  createImg() {
     // return the type and dataUrl
     const dataURL = this._canvas.toDataURL("image/png");
     const img = document.createElement("img");
@@ -18,7 +18,7 @@ cc.Class({
     return img;
   },
   // create the canvas and context, filpY the image Data
-  createCanvas () {
+  createCanvas() {
     var width = this.texture.width;
     var height = this.texture.height;
     if (!this._canvas) {
@@ -44,7 +44,7 @@ cc.Class({
   },
 
   // show on the canvas
-  showImage (img) {
+  showImage(img) {
     let texture = new cc.Texture2D();
     texture.initWithElement(img);
 
@@ -70,9 +70,9 @@ cc.Class({
     this.captureAction(node, width, height);
   },
   // sprite action
-  captureAction (capture, width, height) {
-    let scaleAction = cc.scaleTo(1,0.3);
-    let targetPos = cc.v2(width - width / 6,  height / 4);
+  captureAction(capture, width, height) {
+    let scaleAction = cc.scaleTo(1, 0.3);
+    let targetPos = cc.v2(width - width / 6, height / 4);
     let moveAction = cc.moveTo(1, targetPos);
     let spawn = cc.spawn(scaleAction, moveAction);
     capture.runAction(spawn);
@@ -81,7 +81,7 @@ cc.Class({
     this.node.runAction(blinkAction);
   },
 
-  clearCanvas () {
+  clearCanvas() {
     let ctx = this._canvas.getContext('2d');
     ctx.clearRect(0, 0, this._canvas.width, this._canvas.height);
   }
