@@ -156,7 +156,7 @@ cc.Class({
             event.stopPropagation();
         });
 
-        
+
 
         this.signGetGoods.on(cc.Node.EventType.TOUCH_START, (event) => {
             event.stopPropagation();
@@ -186,7 +186,7 @@ cc.Class({
     signInfo() {
         Action.Sign.SignInfoUpdate((res) => {
             if (!CACHE.signData.todaySign) {
-                this.signRoot.active = true;
+                //this.signRoot.active = true;
             }
             CACHE.signData.signList.forEach((item, index) => {
                 if (index !== 6) {
