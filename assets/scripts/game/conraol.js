@@ -270,7 +270,7 @@ cc.Class({
         let game_share = cc.instantiate(shareList[leavel]);
         game_share.parent = this.root_warp;
         let obj = game_share.getComponent('share');
-        obj.init(item, leavel + 1)
+        // obj.init(item, leavel + 1)
 
     },
 

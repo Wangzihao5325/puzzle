@@ -10,6 +10,7 @@ import {
 } from '../global/app_global_index';
 import { CACHE } from '../global/usual_cache';
 import Api from '../api/api_index';
+import WxApi from '../global/wx_index';
 // import WxApi from '../global/wx_index';
 
 cc.Class({
@@ -93,6 +94,9 @@ cc.Class({
                                                 CACHE.userInfo.firstRewardTaskEnded = res.data.firstRewardTaskEnded;
                                                 cc.director.loadScene("travel");
                                             }
+                                            if(CACHE.platform.isWachat){
+                                                WxApi.loadUserInfo();
+                                            }
                                         });
 
                                     })
@@ -104,8 +108,6 @@ cc.Class({
                 })
             })
         });
-
-        // WxApi.login(() => {WxApi.loadUserInfo()});
     },
 
     // update (dt) {},

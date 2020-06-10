@@ -61,6 +61,9 @@ const CACHE = {
     isShouwSpeedUp: false,
     didAlert: {
         sell: true
+    },
+    platform:{
+        isWachat:false
     }
 }
 

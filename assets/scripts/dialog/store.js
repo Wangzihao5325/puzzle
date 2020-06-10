@@ -35,6 +35,10 @@ cc.Class({
         cc.tween(this.content)
         .to(.4,{position:cc.v2(0,0)},{ easing: 'fade'})
         .to(.2,{position:cc.v2(0,-118)},{ easing: 'fade'})
+        .call(()=>{
+            //动画执行结束后再渲染列表避免卡顿
+            this.init()
+        })
         .start()
 
         //头部滑出动画
@@ -56,7 +60,6 @@ cc.Class({
         this.pet_pop.setPosition(cc.v2(-400,10))
 
         this.popTimer()
-        this.init()
 
     },
 
