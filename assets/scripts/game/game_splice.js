@@ -37,7 +37,7 @@ cc.Class({
             if (texture) {
                 this.spframe_puzzle = new cc.SpriteFrame(texture);
                 /*初始化所有的块*/
-                initItem(SIZES, hardLevel, 0, this.pre_item, this.game_bg, this.spframe_puzzle)
+                initItem(SIZES, hardLevel, 0, this.pre_item, this.game_bg, this.spframe_puzzle,true)
 
             } else {
                 cc.error(err);
@@ -45,4 +45,10 @@ cc.Class({
         });
 
     },
-});
+
+
+    fallAnimation(){
+
+    },
+
+  

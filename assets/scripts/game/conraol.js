@@ -385,8 +385,7 @@ cc.Class({
     resetUiFrame(){
         const userData = CACHE.userData
 
-        const tiemNode= cc.find('sortTimes',this.sort) 
-        console.log("tiemNode",tiemNode)
+        const tiemNode= cc.find('sortTimes',this.sort)
         const num = cc.find('time',tiemNode).getComponent(cc.Label)
         const adNode= cc.find('free',this.sort)
         const currentNum=userData.frame > 99 ? '99+' : userData.frame
@@ -410,7 +409,7 @@ cc.Class({
 
         let tiemNode= cc.find('sortTimes',this.viewIcon) 
         let num = cc.find('time',tiemNode).getComponent(cc.Label)
-        let adNode= cc.find('free',this.viewPuaaleImg)
+        let adNode= cc.find('free',this.viewIcon)
         let currentNum=userData.showProp > 99 ? '99+' : userData.showProp
         num.string = currentNum
         setTimeout(()=>{
