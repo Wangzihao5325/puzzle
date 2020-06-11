@@ -1,6 +1,6 @@
 import { CACHE } from '../global/usual_cache';
 import { SCENE, SCENE_KEY } from '../global/app_global_index';
-import { HOME_CACHE,catPopList } from '../global/home_global';
+import { HOME_CACHE, catPopList } from '../global/home_global';
 import Api from '../api/api_index'
 
 cc.Class({
@@ -44,8 +44,8 @@ cc.Class({
 
         collectIcon: cc.Node,
         collect: cc.Prefab,
-        catPop:cc.Node,
-        catPopText:cc.Label,
+        catPop: cc.Node,
+        catPopText: cc.Label,
 
     },
 
@@ -81,25 +81,25 @@ cc.Class({
         this.bowlWarp.active = show
     },
 
-    setCatPop(){
-         this.catPopTimer=setTimeout(()=>{
+    setCatPop() {
+        this.catPopTimer = setTimeout(() => {
             this.showCatPop()
             this.setCatPop()
-        },30*1000)
+        }, 30 * 1000)
     },
 
     //限制猫咪提示气泡
-    showCatPop(){
-        const poptext=catPopList[Math.round(Math.random()*(catPopList.length-1))]
-        this.catPopText.string=poptext
+    showCatPop() {
+        const poptext = catPopList[Math.round(Math.random() * (catPopList.length - 1))]
+        this.catPopText.string = poptext
 
-        const postType= HOME_CACHE.cat_post;
-        popPostion=[[65,340],[-40,300],[65,360]]
-        this.catPop.setPosition(cc.v2(popPostion[postType][0],popPostion[postType][1]-40))
+        const postType = HOME_CACHE.cat_post;
+        popPostion = [[65, 340], [-40, 300], [65, 360]]
+        this.catPop.setPosition(cc.v2(popPostion[postType][0], popPostion[postType][1] - 40))
         cc.tween(this.catPop)
-            .to(.4, { position: cc.v2(popPostion[postType][0], popPostion[postType][1]),opacity:255 })
+            .to(.4, { position: cc.v2(popPostion[postType][0], popPostion[postType][1]), opacity: 255 })
             .delay(3)
-            .to(.2,{position:cc.v2(popPostion[postType][0],popPostion[postType][1]-40),opacity:0})
+            .to(.2, { position: cc.v2(popPostion[postType][0], popPostion[postType][1] - 40), opacity: 0 })
             .start()
     },
 
@@ -400,6 +400,10 @@ cc.Class({
                     //随机姿势
 
                     HOME_CACHE.cat_post = Math.round(Math.random() * 2)
+                    if (CACHE.userInfo && CACHE.userInfo.stage == 5) {
+                        //新手引导强制猫咪为站姿
+                        HOME_CACHE.cat_post = 2;
+                    }
 
                     const currentPost = catPostList[HOME_CACHE.cat_post]
 
@@ -454,7 +458,7 @@ cc.Class({
         if (this.currentBGM) {
             cc.audioEngine.stop(this.currentBGM);
         }
-        if(this.catPopTimer){
+        if (this.catPopTimer) {
             clearTimeout(this.catPopTimer)
         }
     }
