@@ -34,6 +34,9 @@ cc.Class({
     },
 
     onLoad() {
+        if (!CHCHE.isShowGuide) {
+            return;
+        }
         if (CACHE.userInfo.stage !== 99) {
             let handPosition;
             switch (CACHE.userInfo.stage) {

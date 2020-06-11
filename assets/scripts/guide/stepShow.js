@@ -8,6 +8,8 @@ cc.Class({
     properties: {
         hand: cc.Prefab,
         excal: cc.Prefab,
+        guideToast: cc.Prefab,
+        guideToastArrow: cc.Prefab
     },
 
     stepFiveAddExcal() {
@@ -29,9 +31,9 @@ cc.Class({
         let btn;
         if (CACHE.userInfo.stage == 2 && this.guideStep == 1) {//引导放置物品
             // 获取触摸点，转为Canvas画布上的坐标
-            originNode = cc.find('Canvas/root/table');;
+            originNode = cc.find('Canvas/root/table');
             pos = originNode.convertToNodeSpaceAR(event.getLocation());
-            btn = cc.find('Canvas/root/table/item_showcase_3/putongzhan');;
+            btn = cc.find('Canvas/root/table/item_showcase_3/putongzhan');
         } else if (CACHE.userInfo.stage == 2 && this.guideStep == 2) {
             originNode = cc.find(`Canvas/bag/bagTable/scrollView/view/content`);
             pos = originNode.convertToNodeSpaceAR(event.getLocation());
@@ -115,11 +117,15 @@ cc.Class({
     },
 
     onLoad() {
+        if (!CHCHE.isShowGuide) {
+            return;
+        }
         if (CACHE.userInfo && typeof CACHE.userInfo.stage == 'number' && CACHE.userInfo.stage !== 99) {
             if (CACHE.userInfo.stage == 2) {
                 this.isSetTouch = true;
                 this.node.zIndex = 1000;
                 this.guideStep = 1;
+                this.guideToastStep = 1;
                 let handPosition = cc.v2(0, 100);
 
                 this.handNode = cc.instantiate(this.hand);
@@ -132,6 +138,8 @@ cc.Class({
                     obj.handAnimate();
                 }
                 this.node.on(cc.Node.EventType.TOUCH_START, this.onTouchStart, this);
+
+                //this.guideToastStep = 1添加toast
             } else if (CACHE.userInfo.stage == 4) {
                 this.isSetTouch = true;
                 this.node.zIndex = 1000;

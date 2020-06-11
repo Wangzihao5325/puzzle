@@ -14,6 +14,9 @@ cc.Class({
     // LIFE-CYCLE CALLBACKS:
 
     onLoad() {
+        if (!CHCHE.isShowGuide) {
+            return;
+        }
         if (CACHE.userInfo && CACHE.userInfo.stage !== 99) {
             if (CACHE.userInfo && CACHE.userInfo.stage === 1) {
                 this.isSetTouch = true;
