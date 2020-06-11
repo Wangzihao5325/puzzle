@@ -7,6 +7,8 @@ cc.Class({
 
     properties: {
         hand: cc.Prefab,
+        guideToast: cc.Prefab,
+        guideToastArrow: cc.Prefab
     },
 
     onTouchStart(event) {
@@ -14,30 +16,46 @@ cc.Class({
         let pos;
         let btn;
         if (CACHE.userInfo.stage == 5 && this.guideStep == 1) {
+            originNode = cc.find('Canvas');
+            pos = originNode.convertToNodeSpaceAR(event.getLocation());
+            btn = cc.find('Canvas/guide');
+        } else if (CACHE.userInfo.stage == 5 && this.guideStep == 2) {
             originNode = cc.find('Canvas/rootWarp/my_home');
             pos = originNode.convertToNodeSpaceAR(event.getLocation());
             btn = cc.find('Canvas/rootWarp/my_home/bowlWarp');
-        } else if (CACHE.userInfo.stage == 5 && (this.guideStep == 2 || this.guideStep == 3 || this.guideStep == 4 || this.guideStep == 5 || this.guideStep == 6)) {
+        } else if (CACHE.userInfo.stage == 5 && this.guideStep == 3) {
+            originNode = cc.find('Canvas');
+            pos = originNode.convertToNodeSpaceAR(event.getLocation());
+            btn = cc.find('Canvas/guide');
+        } else if (CACHE.userInfo.stage == 5 && this.guideStep == 4) {
+            originNode = cc.find('Canvas');
+            pos = originNode.convertToNodeSpaceAR(event.getLocation());
+            btn = cc.find('Canvas/guide');
+        } else if (CACHE.userInfo.stage == 5 && this.guideStep == 5) {
+            originNode = cc.find('Canvas');
+            pos = originNode.convertToNodeSpaceAR(event.getLocation());
+            btn = cc.find('Canvas/guide');
+        } else if (CACHE.userInfo.stage == 5 && (this.guideStep == 6 || this.guideStep == 7 || this.guideStep == 8 || this.guideStep == 9 || this.guideStep == 10)) {
             originNode = cc.find('Canvas/feedWarp/container/feedContent');
             pos = originNode.convertToNodeSpaceAR(event.getLocation());
             btn = cc.find('Canvas/feedWarp/container/feedContent/feedItem_2');
-        } else if (CACHE.userInfo.stage == 5 && this.guideStep == 7) {
+        } else if (CACHE.userInfo.stage == 5 && this.guideStep == 11) {
             originNode = cc.find('Canvas/feedWarp/container');
             pos = originNode.convertToNodeSpaceAR(event.getLocation());
             btn = cc.find('Canvas/feedWarp/container/close');
-        } else if (CACHE.userInfo.stage == 5 && this.guideStep == 8) {
+        } else if (CACHE.userInfo.stage == 5 && this.guideStep == 12) {
             originNode = cc.find('Canvas/rootWarp/my_home');
             pos = originNode.convertToNodeSpaceAR(event.getLocation());
             btn = cc.find('Canvas/rootWarp/my_home/cat');
-        } else if (CACHE.userInfo.stage == 5 && this.guideStep == 9) {
+        } else if (CACHE.userInfo.stage == 5 && this.guideStep == 13) {
             originNode = cc.find('Canvas/rootWarp/my_home/cat_action/container');
             pos = originNode.convertToNodeSpaceAR(event.getLocation());
             btn = cc.find('Canvas/rootWarp/my_home/cat_action/container/actionOut');
-        } else if (CACHE.userInfo.stage == 5 && this.guideStep == 10) {
+        } else if (CACHE.userInfo.stage == 5 && this.guideStep == 14) {
             originNode = cc.find('Canvas/ConfirmOut');
             pos = originNode.convertToNodeSpaceAR(event.getLocation());
             btn = cc.find('Canvas/ConfirmOut/dialogContainer/confirm');
-        } else if (CACHE.userInfo.stage == 5 && this.guideStep == 11) {
+        } else if (CACHE.userInfo.stage == 5 && this.guideStep == 15) {
             originNode = cc.find('Canvas/navi_footer');
             pos = originNode.convertToNodeSpaceAR(event.getLocation());
             btn = cc.find('Canvas/navi_footer/button_travel');
@@ -85,21 +103,53 @@ cc.Class({
         let rect = btn.getBoundingBox();
         if (rect.contains(pos)) {
             if (CACHE.userInfo.stage == 5 && this.guideStep == 1) {
+                let handPosition = cc.v2(8, -230);
+                this.handNode = cc.instantiate(this.hand);
+                this.handNode.scaleX = 0.7;
+                this.handNode.scaleY = 0.7;
+                this.handNode.parent = this.node;
+                this.handNode.setPosition(handPosition);
+                let obj = this.handNode.getComponent('guideHand');
+                if (obj) {
+                    obj.handAnimate();
+                }
+                this.guideToastNode.active = false;
                 this.guideStep++;
+                this.node._touchListener.setSwallowTouches(true);
+            } else if (CACHE.userInfo.stage == 5 && this.guideStep == 2) {
+                this.handNode.active = false;
+                this.guideToastNode.setPosition(cc.v2(0, -150));
+                this.guideToastNode.item_obj.setContentStr("<color=#887160><color=#e37974>[高级猫粮]</color>可以大量增加<color=#e37974>饱食度</color>\n同时还可以增加<color=#e37974>幸运值</color>哦</color>")
+                this.guideToastNode.active = true;
+
+                this.guideStep++;
+                this.node._touchListener.setSwallowTouches(false);
+            } else if (CACHE.userInfo.stage == 5 && this.guideStep == 3) {
+                this.guideToastNode.item_obj.setContentStr("<color=#887160><color=#e37974>幸运值</color>越高,猫咪外出获得\n物品的几率越大</color>")
+                this.guideStep++;
+                this.node._touchListener.setSwallowTouches(true);
+            } else if (CACHE.userInfo.stage == 5 && this.guideStep == 4) {
+                this.guideToastNode.item_obj.setContentStr("<color=#887160>使用高级猫粮把小月半喂饱\n吧</color>")
+                this.guideStep++;
+                this.node._touchListener.setSwallowTouches(true);
+            } else if (CACHE.userInfo.stage == 5 && this.guideStep == 5) {
+                this.guideToastNode.active = false;
                 this.handNode.setPosition(cc.v2(0, -400));
-                this.node._touchListener.setSwallowTouches(false);
-            } else if (CACHE.userInfo.stage == 5 && (this.guideStep == 2 || this.guideStep == 3 || this.guideStep == 4 || this.guideStep == 5)) {
+                this.handNode.active = true;
+                this.guideStep++;
+                this.node._touchListener.setSwallowTouches(true);
+            } else if (CACHE.userInfo.stage == 5 && (this.guideStep == 6 || this.guideStep == 7 || this.guideStep == 8 || this.guideStep == 9)) {
                 this.guideStep++;
                 this.node._touchListener.setSwallowTouches(false);
-            } else if (CACHE.userInfo.stage == 5 && this.guideStep == 6) {
+            } else if (CACHE.userInfo.stage == 5 && this.guideStep == 10) {
                 this.guideStep++;
                 this.handNode.setPosition(cc.v2(270, -230));
                 this.node._touchListener.setSwallowTouches(false);
-            } else if (CACHE.userInfo.stage == 5 && this.guideStep == 7) {
+            } else if (CACHE.userInfo.stage == 5 && this.guideStep == 11) {
                 this.guideStep++;
                 this.handNode.setPosition(cc.v2(0, 100));
                 this.node._touchListener.setSwallowTouches(false);
-            } else if (CACHE.userInfo.stage == 5 && this.guideStep == 8) {
+            } else if (CACHE.userInfo.stage == 5 && this.guideStep == 12) {
                 this.guideStep++;
                 setTimeout(() => {
                     // let originNode = cc.find('Canvas');
@@ -108,19 +158,19 @@ cc.Class({
                     this.handNode.setPosition(cc.v2(-70, 320));
                 }, 500);
                 this.node._touchListener.setSwallowTouches(false);
-            } else if (CACHE.userInfo.stage == 5 && this.guideStep == 9) {
+            } else if (CACHE.userInfo.stage == 5 && this.guideStep == 13) {
                 this.guideStep++;
                 setTimeout(() => {
                     this.handNode.setPosition(cc.v2(0, -220));
                 }, 500);
                 this.node._touchListener.setSwallowTouches(false);
-            } else if (CACHE.userInfo.stage == 5 && this.guideStep == 10) {
+            } else if (CACHE.userInfo.stage == 5 && this.guideStep == 14) {
                 this.guideStep++;
                 setTimeout(() => {
                     this.handNode.setPosition(cc.v2(0, -500));
                 }, 500);
                 this.node._touchListener.setSwallowTouches(false);
-            } else if (CACHE.userInfo.stage == 5 && this.guideStep == 11) {
+            } else if (CACHE.userInfo.stage == 5 && this.guideStep == 15) {
                 Api.guideStageComplete({ stage: 5 }, (res) => {
                     if (res.code == 0) {
                         CACHE.userInfo.stage++;
@@ -192,17 +242,16 @@ cc.Class({
                 this.isSetTouch = true;
                 this.node.zIndex = 1000;
                 this.guideStep = 1;
-                let handPosition = cc.v2(8, -230);
 
-                this.handNode = cc.instantiate(this.hand);
-                this.handNode.scaleX = 0.7;
-                this.handNode.scaleY = 0.7;
-                this.handNode.parent = this.node;
-                this.handNode.setPosition(handPosition);
-                let obj = this.handNode.getComponent('guideHand');
-                if (obj) {
-                    obj.handAnimate();
+                this.guideToastNode = cc.instantiate(this.guideToast);
+                let guideToastObj = this.guideToastNode.getComponent('guideToast');
+                if (guideToastObj) {
+                    this.guideToastNode.item_obj = guideToastObj;
+                    guideToastObj.setContentStr("<color=#887160>看把孩子给饿的，都变瘦了\n赶紧把罐头给小月半加满</color>");
                 }
+                this.guideToastNode.parent = this.node;
+                this.guideToastNode.setPosition(0, -350);
+
                 this.node.on(cc.Node.EventType.TOUCH_START, this.onTouchStart, this);
             } else if (CACHE.userInfo.stage == 7) {
                 this.isSetTouch = true;
