@@ -104,6 +104,19 @@ cc.Class({
             item.destroy()
         })
         this.scrollContent.height=140*(data.length+1)+20
+
+        const dataFirstlyRender=data.slice(0,6)
+        const dataTimeoutRender=data.slice(6)
+
+        this.taskRender(dataFirstlyRender,0)
+        
+        //延时500ms渲染
+        setTimeout(()=>{
+            dataTimeoutRender.length&&this.taskRender(dataTimeoutRender,6)
+        },500)
+    },
+
+    taskRender(data,startIndex){
         for (let i = 0; i < data.length; i++) {
             let newNode = cc.instantiate(this.taskItem)
 
@@ -112,7 +125,7 @@ cc.Class({
             obj.init(item)
             newNode.parent = this.scrollContent
            
-            let position = cc.v2(0, (-(140 * (-0.5 + i+1))) - 10);
+            let position = cc.v2(0, (-(140 * (-0.5 + i+startIndex+1))) - 10);
             newNode.setPosition(position)
 
         }
