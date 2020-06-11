@@ -14,7 +14,7 @@ cc.Class({
     // LIFE-CYCLE CALLBACKS:
 
     onLoad() {
-        if (!CHCHE.isShowGuide) {
+        if (!CACHE.isShowGuide) {
             return;
         }
         if (CACHE.userInfo && CACHE.userInfo.stage !== 99) {

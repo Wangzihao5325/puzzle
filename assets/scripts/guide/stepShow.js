@@ -117,7 +117,7 @@ cc.Class({
     },
 
     onLoad() {
-        if (!CHCHE.isShowGuide) {
+        if (!CACHE.isShowGuide) {
             return;
         }
         if (CACHE.userInfo && typeof CACHE.userInfo.stage == 'number' && CACHE.userInfo.stage !== 99) {

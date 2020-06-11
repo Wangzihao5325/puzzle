@@ -34,7 +34,7 @@ cc.Class({
     },
 
     onLoad() {
-        if (!CHCHE.isShowGuide) {
+        if (!CACHE.isShowGuide) {
             return;
         }
         if (CACHE.userInfo.stage !== 99) {
