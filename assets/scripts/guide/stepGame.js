@@ -18,24 +18,26 @@ cc.Class({
         this.handNode.active = false;
 
         //第一次需要增加提示
-        this.guideToastNode = cc.instantiate(this.guideToast);
-        let obj = this.guideToastNode.getComponent('guideToast');
-        if (obj) {
-            this.guideToastNode.item_obj = obj;
-            obj.setContentStr("<color=#887160>恭喜你获得了旅游物品\n可以用它来<color=#e37974>[展览]</color>，赚小钱钱</color>");
-        }
-        this.guideToastNode.parent = this.node;
-        this.guideToastNode.setPosition(0, -300);
+        if (CACHE.userInfo && CACHE.userInfo.stage == 1) {
+            this.guideToastNode = cc.instantiate(this.guideToast);
+            let obj = this.guideToastNode.getComponent('guideToast');
+            if (obj) {
+                this.guideToastNode.item_obj = obj;
+                obj.setContentStr("<color=#887160>恭喜你获得了旅游物品\n可以用它来<color=#e37974>[展览]</color>，赚小钱钱</color>");
+            }
+            this.guideToastNode.parent = this.node;
+            this.guideToastNode.setPosition(0, -300);
 
-        this.guideToastArrowNode = cc.instantiate(this.guideToastArrow);
-        let arrowObj = this.guideToastArrowNode.getComponent('guideToastArrow');
-        if (arrowObj) {
-            arrowObj.animate();
+            this.guideToastArrowNode = cc.instantiate(this.guideToastArrow);
+            let arrowObj = this.guideToastArrowNode.getComponent('guideToastArrow');
+            if (arrowObj) {
+                arrowObj.animate();
+            }
+            this.guideToastArrowNode.scaleX = 0.5;
+            this.guideToastArrowNode.scaleY = 0.5;
+            this.guideToastArrowNode.parent = this.node;
+            this.guideToastArrowNode.setPosition(0, 0);
         }
-        this.guideToastArrowNode.scaleX = 0.5;
-        this.guideToastArrowNode.scaleY = 0.5;
-        this.guideToastArrowNode.parent = this.node;
-        this.guideToastArrowNode.setPosition(0, 0);
     },
 
     showDone() {

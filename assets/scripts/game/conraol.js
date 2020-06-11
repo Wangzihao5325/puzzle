@@ -34,11 +34,11 @@ cc.Class({
         game_share1: cc.Prefab,
         game_share2: cc.Prefab,
         game_fail: cc.Prefab,
-        viewIcon:cc.Node,
-        viewPuaaleImg:cc.Node,
-        isViewing:{
-            type:cc.Boolean,
-            default:false
+        viewIcon: cc.Node,
+        viewPuaaleImg: cc.Node,
+        isViewing: {
+            type: cc.Boolean,
+            default: false
         }
 
     },
@@ -73,7 +73,7 @@ cc.Class({
         CACHE.mission_press.picId
     },
 
-    
+
 
     start() {
         // this.showAward([], CACHE.hard_level + 1)
@@ -195,8 +195,8 @@ cc.Class({
             }
         });
     },
-    handleView(){
-        if(!this.isViewing){
+    handleView() {
+        if (!this.isViewing) {
             if (this.checkComplate()) {
                 return false
             } else if (CACHE.userData.showProp > 0) {
@@ -209,15 +209,15 @@ cc.Class({
             } else {
                 Toast.show('余额不足，观看广告')
             }
-        }else{
+        } else {
             this.doView()
         }
 
     },
 
-    doView(){
-        this.isViewing=!this.isViewing
-        this.viewPuaaleImg.active=this.isViewing
+    doView() {
+        this.isViewing = !this.isViewing
+        this.viewPuaaleImg.active = this.isViewing
     },
 
     setTouch() {
@@ -361,69 +361,69 @@ cc.Class({
         this.resetUiShow()
     },
 
-    resetUiMagnet(){
+    resetUiMagnet() {
         const userData = CACHE.userData
 
-        const tiemNode= cc.find('sortTimes',this.magnet) 
-        const num = cc.find('time',tiemNode).getComponent(cc.Label)
-        const adNode= cc.find('free',this.magnet)
-        const currentNum=userData.strongMagnet > 99 ? '99+' : userData.strongMagnet
-        num.string=currentNum
-        setTimeout(()=>{
+        const tiemNode = cc.find('sortTimes', this.magnet)
+        const num = cc.find('time', tiemNode).getComponent(cc.Label)
+        const adNode = cc.find('free', this.magnet)
+        const currentNum = userData.strongMagnet > 99 ? '99+' : userData.strongMagnet
+        num.string = currentNum
+        setTimeout(() => {
             if (userData.strongMagnet > 0) {
                 tiemNode.active = true
                 adNode.active = false
-            } else{
+            } else {
                 tiemNode.active = false
-                num.active=false
+                num.active = false
                 adNode.active = true
             }
-        },200)
+        }, 200)
 
     },
 
-    resetUiFrame(){
+    resetUiFrame() {
         const userData = CACHE.userData
 
-        const tiemNode= cc.find('sortTimes',this.sort) 
-        console.log("tiemNode",tiemNode)
-        const num = cc.find('time',tiemNode).getComponent(cc.Label)
-        const adNode= cc.find('free',this.sort)
-        const currentNum=userData.frame > 99 ? '99+' : userData.frame
-        num.string=currentNum
-        setTimeout(()=>{
+        const tiemNode = cc.find('sortTimes', this.sort)
+        console.log("tiemNode", tiemNode)
+        const num = cc.find('time', tiemNode).getComponent(cc.Label)
+        const adNode = cc.find('free', this.sort)
+        const currentNum = userData.frame > 99 ? '99+' : userData.frame
+        num.string = currentNum
+        setTimeout(() => {
             if (userData.frame > 0) {
                 tiemNode.active = true
                 adNode.active = false
-            } else{
+            } else {
                 tiemNode.active = false
-                num.active=false
+                num.active = false
                 adNode.active = true
             }
-        },200)
+        }, 200)
 
     },
 
     //更新眼睛道具
-    resetUiShow(){
+    resetUiShow() {
         const userData = CACHE.userData
 
-        let tiemNode= cc.find('sortTimes',this.viewIcon) 
-        let num = cc.find('time',tiemNode).getComponent(cc.Label)
-        let adNode= cc.find('free',this.viewPuaaleImg)
-        let currentNum=userData.showProp > 99 ? '99+' : userData.showProp
+        let tiemNode = cc.find('sortTimes', this.viewIcon)
+        let num = cc.find('time', tiemNode).getComponent(cc.Label)
+        let adNode = cc.find('free', this.viewPuaaleImg)
+        let currentNum = userData.showProp > 99 ? '99+' : userData.showProp
         num.string = currentNum
-        setTimeout(()=>{
+        setTimeout(() => {
             if (userData.showProp > 0) {
                 tiemNode.active = true
-                num.active=true
+                num.active = true
                 adNode.active = false
-            } else{
+            } else {
                 tiemNode.active = false
-                num.active=false
+                num.active = false
                 adNode.active = true
             }
-        },200)
+        }, 200)
     },
 
 

@@ -56,22 +56,30 @@ cc.Class({
             pos = originNode.convertToNodeSpaceAR(event.getLocation());
             btn = cc.find(`Canvas/root/footer_navi/button_travel`);
         } else if (CACHE.userInfo.stage == 4 && this.guideStep == 1) {
+            originNode = cc.find('Canvas');
+            pos = originNode.convertToNodeSpaceAR(event.getLocation());
+            btn = cc.find('Canvas/guide');
+        } else if (CACHE.userInfo.stage == 4 && this.guideStep == 2) {
+            originNode = cc.find('Canvas');
+            pos = originNode.convertToNodeSpaceAR(event.getLocation());
+            btn = cc.find('Canvas/guide');
+        } else if (CACHE.userInfo.stage == 4 && this.guideStep == 3) {
             originNode = cc.find(`Canvas/root/heart`);
             pos = originNode.convertToNodeSpaceAR(event.getLocation());
             btn = cc.find(`Canvas/root/heart/jiasu1`);
-        } else if (CACHE.userInfo.stage == 4 && this.guideStep == 2) {
+        } else if (CACHE.userInfo.stage == 4 && this.guideStep == 4) {
             originNode = cc.find(`Canvas/speedUpPop`);
             pos = originNode.convertToNodeSpaceAR(event.getLocation());
             btn = cc.find(`Canvas/speedUpPop/bg`);
-        } else if (CACHE.userInfo.stage == 4 && this.guideStep == 3) {
+        } else if (CACHE.userInfo.stage == 4 && this.guideStep == 5) {
             originNode = cc.find(`Canvas/root/table`);
             pos = originNode.convertToNodeSpaceAR(event.getLocation());
             btn = cc.find(`Canvas/root/table/item_showcase_3/putongzhan`);
-        } else if (CACHE.userInfo.stage == 4 && this.guideStep == 4) {
+        } else if (CACHE.userInfo.stage == 4 && this.guideStep == 6) {
             originNode = cc.find(`Canvas/root/table/item_showcase_3`);
             pos = originNode.convertToNodeSpaceAR(event.getLocation());
             btn = cc.find(`Canvas/root/table/item_showcase_3/anniulan`);
-        } else if (CACHE.userInfo.stage == 4 && this.guideStep == 5) {
+        } else if (CACHE.userInfo.stage == 4 && this.guideStep == 7) {
             originNode = cc.find(`Canvas/root/footer_navi`);
             pos = originNode.convertToNodeSpaceAR(event.getLocation());
             btn = cc.find(`Canvas/root/footer_navi/button_home`);
@@ -132,30 +140,50 @@ cc.Class({
                 });
                 this.node._touchListener.setSwallowTouches(false);
             } else if (CACHE.userInfo.stage == 4 && this.guideStep == 1) {
+                this.guideToastNode.item_obj.setContentStr("<color=#887160><color=#e37974>喜爱度</color>可以加速物品收获\n让我们来试一试吧</color>");
                 this.guideStep++;
-                this.handNode.active = false;
-                this.node._touchListener.setSwallowTouches(false);
-                //增加提示框
+                this.node._touchListener.setSwallowTouches(true);
             } else if (CACHE.userInfo.stage == 4 && this.guideStep == 2) {
+                let handPosition = cc.v2(250, -150);
+                this.handNode = cc.instantiate(this.hand);
+                this.handNode.scaleX = 0.7;
+                this.handNode.scaleY = 0.7;
+                this.handNode.parent = this.node;
+                this.handNode.setPosition(handPosition);
+                let obj = this.handNode.getComponent('guideHand');
+                if (obj) {
+                    obj.handAnimate();
+                }
+                this.guideToastNode.active = false;
                 this.guideStep++;
+                this.node._touchListener.setSwallowTouches(false);
+            } else if (CACHE.userInfo.stage == 4 && this.guideStep == 3) {
+                this.handNode.active = false;
+                this.guideStep++;
+                this.node._touchListener.setSwallowTouches(false);
+            } else if (CACHE.userInfo.stage == 4 && this.guideStep == 4) {
                 this.handNode.x = 0;
                 this.handNode.y = 100;
                 this.handNode.active = true;
-                this.node._touchListener.setSwallowTouches(false);
-            } else if (CACHE.userInfo.stage == 4 && this.guideStep == 3) {
                 this.guideStep++;
+                this.node._touchListener.setSwallowTouches(false);
+            } else if (CACHE.userInfo.stage == 4 && this.guideStep == 5) {
                 this.handNode.x = 0;
                 this.handNode.y = -50;
                 this.handNode.active = true;
-                this.node._touchListener.setSwallowTouches(false);
-            } else if (CACHE.userInfo.stage == 4 && this.guideStep == 4) {
                 this.guideStep++;
+                this.node._touchListener.setSwallowTouches(false);
+            } else if (CACHE.userInfo.stage == 4 && this.guideStep == 6) {
                 this.handNode.x = -200;
                 this.handNode.y = -500;
                 this.handNode.active = true;
                 this.stepFiveAddExcal();
+                this.guideToastNode.setPosition(0, -100);
+                this.guideToastNode.item_obj.setContentStr("<color=#887160>恭喜获得<color=#e37974>[高级猫粮]</color>\n家里的小月半饿坏了！\n快去喂它吧</color>");
+                this.guideToastNode.active = true;
+                this.guideStep++;
                 this.node._touchListener.setSwallowTouches(false);
-            } else if (CACHE.userInfo.stage == 4 && this.guideStep == 5) {
+            } else if (CACHE.userInfo.stage == 4 && this.guideStep == 7) {
                 this.guideStep++;
                 CACHE.userInfo.stage++
                 this.node._touchListener.setSwallowTouches(false);
@@ -203,17 +231,17 @@ cc.Class({
                 this.isSetTouch = true;
                 this.node.zIndex = 1000;
                 this.guideStep = 1;
-                let handPosition = cc.v2(250, -150);
 
-                this.handNode = cc.instantiate(this.hand);
-                this.handNode.scaleX = 0.7;
-                this.handNode.scaleY = 0.7;
-                this.handNode.parent = this.node;
-                this.handNode.setPosition(handPosition);
-                let obj = this.handNode.getComponent('guideHand');
-                if (obj) {
-                    obj.handAnimate();
+                /** */
+                this.guideToastNode = cc.instantiate(this.guideToast);
+                let guideToastObj = this.guideToastNode.getComponent('guideToast');
+                if (guideToastObj) {
+                    this.guideToastNode.item_obj = guideToastObj;
+                    guideToastObj.setContentStr("<color=#887160>哇！这么多人来看我们的展品！\nTA们的喜爱可以汇成<color=#e37974>喜爱度</color></color>");
                 }
+                this.guideToastNode.parent = this.node;
+                this.guideToastNode.setPosition(0, 50);
+
                 this.node.on(cc.Node.EventType.TOUCH_START, this.onTouchStart, this);
             }
         }

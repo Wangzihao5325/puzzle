@@ -69,8 +69,25 @@ cc.Class({
                     handPosition = cc.v2(0, 0);
                     break;
                 case 4:
-                    handPosition = cc.v2(200, -500);
-                    this.stepTwoAddExcal();
+                    {
+                        handPosition = cc.v2(200, -500);
+                        this.stepTwoAddExcal();
+                        //提示展厅来人
+                        this.guideToast = cc.instantiate(this.guideToast);
+                        let obj = this.guideToast.getComponent('guideToast');
+                        if (obj) {
+                            this.guideToast.item_obj = obj;
+                            obj.setContentStr("<color=#887160>展览厅来了好多人，好热闹呀！\n我们快去看看吧</color>");
+                        }
+                        this.guideToast.parent = this.node;
+                        this.guideToast.setPosition(0, -200);
+
+                        this.guideToastTimer = setTimeout(() => {
+                            if (this.guideToast) {
+                                this.guideToast.active = false;
+                            }
+                        }, 2000)
+                    }
                     break;
                 case 5:
                     handPosition = cc.v2(-200, -500);
