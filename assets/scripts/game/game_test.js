@@ -57,7 +57,7 @@ cc.Class({
             };
             this.game_bg.zIndex = 1;
             this.initPuzzleImg(res.data.picId)
-            this.initItem(hardLevel);
+            // this.initItem(hardLevel);
             this.initSpliceWarp(hardLevel, imagePath);
             this.initBgAnimate(animatePayload);
             GAME_CACH.animatePayload = animatePayload

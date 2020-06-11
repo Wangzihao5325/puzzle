@@ -97,6 +97,9 @@ cc.Class({
     },
 
     onLoad() {
+        if (!CHCHE.isShowGuide) {
+            return;
+        }
         if (CACHE.userInfo && typeof CACHE.userInfo.stage == 'number' && CACHE.userInfo.stage !== 99) {
             if (CACHE.userInfo.stage == 1 || CACHE.userInfo.stage == 3) {
                 this.isSetTouch = true;

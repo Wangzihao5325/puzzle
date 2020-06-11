@@ -1,6 +1,6 @@
 import { SCALELEAVEL, spliceArr, PUZZLE_FOOTER, PUZZLE_SCENE } from '../global/piece_index';
 
-function initItem(SIZES, hardLevel, sortType = 0, pre_item, game_bg, spframe_puzzle, resort = false, isAnimate = false) {
+function initItem(SIZES, hardLevel, sortType = 0, pre_item, game_bg, spframe_puzzle, resort = false, isAnimate = false,showAnimation=false) {
     /*根据难度取对应切片数据*/
     let sizeArr = SIZES[hardLevel];
     const scalLeavel = SCALELEAVEL[hardLevel]
@@ -71,10 +71,21 @@ function initItem(SIZES, hardLevel, sortType = 0, pre_item, game_bg, spframe_puz
             // cc.find('shadow',item_node).x = 5+hardLevel
             // cc.find('shadow',item_node).y = -(5+hardLevel)
             // item_node.getChildByName('content/shadow').height = item[3] * scalLeavel;
-            item_node.parent = game_bg;
+            if(showAnimation){
+                //第一次进入执行掉落动画
+                var puzzleBg = cc.find(`Canvas/root/puzzleWarp/puzzleBg`);
+                this.item_node.parent = puzzleBg;
+                const position = cc.v2(item[4],item[5])
+                item_node.setPosition(position);
+
+                 
+            }else{
+                item_node.parent = game_bg;
+                let position = cc.v2((PUZZLE_FOOTER.itemWidth * (index + 0.5)) + PUZZLE_FOOTER.itemWidthMargin, 0);
+                item_node.setPosition(position);
+            }
             //应该要根据规格进行优化
-            let position = cc.v2((PUZZLE_FOOTER.itemWidth * (index + 0.5)) + PUZZLE_FOOTER.itemWidthMargin, 0);
-            item_node.setPosition(position);
+
             let obj = item_node.getComponent('splice_item_index');
             if (obj) {
                 /*保存引用*/
