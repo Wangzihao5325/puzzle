@@ -142,8 +142,15 @@ cc.Class({
                 this.guideStep++;
                 this.node._touchListener.setSwallowTouches(false);
             } else if (CACHE.userInfo.stage == 5 && this.guideStep == 10) {
-                this.guideStep++;
+                this.guideToastNode.setPosition(cc.v2(0, -150));
+                this.guideToastNode.item_obj.setContentStr("<color=#887160>小月半吃饱了,\n走到门边抬头看着你</color>")
+                this.guideToastNode.active = true;
+                this.guideToastTimer = setTimeout(() => {
+                    this.guideToastNode.active = false;
+                    this.guideToastTimer = null;
+                }, 2000);
                 this.handNode.setPosition(cc.v2(270, -230));
+                this.guideStep++;
                 this.node._touchListener.setSwallowTouches(false);
             } else if (CACHE.userInfo.stage == 5 && this.guideStep == 11) {
                 this.guideStep++;
@@ -152,9 +159,6 @@ cc.Class({
             } else if (CACHE.userInfo.stage == 5 && this.guideStep == 12) {
                 this.guideStep++;
                 setTimeout(() => {
-                    // let originNode = cc.find('Canvas');
-                    // let positionNode = cc.find('Canvas/rootWarp/my_home/cat_action/container/actionOut');
-                    // let pos = originNode.convertToNodeSpaceAR(event.getLocation());
                     this.handNode.setPosition(cc.v2(-70, 320));
                 }, 500);
                 this.node._touchListener.setSwallowTouches(false);
@@ -165,6 +169,9 @@ cc.Class({
                 }, 500);
                 this.node._touchListener.setSwallowTouches(false);
             } else if (CACHE.userInfo.stage == 5 && this.guideStep == 14) {
+                this.guideToastNode.setPosition(cc.v2(0, -150));
+                this.guideToastNode.item_obj.setContentStr("<color=#887160>小猫猫出去旅行了,\n我们也继续<color=#e37974>[旅行]</color>吧</color>")
+                this.guideToastNode.active = true;
                 this.guideStep++;
                 setTimeout(() => {
                     this.handNode.setPosition(cc.v2(0, -500));
