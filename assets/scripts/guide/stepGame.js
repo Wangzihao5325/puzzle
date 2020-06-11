@@ -5,6 +5,7 @@ cc.Class({
     properties: {
         handSlip: cc.Prefab,
         hand: cc.Prefab,
+        guideToast: cc.Prefab
     },
 
     awardDone() {
@@ -14,10 +15,22 @@ cc.Class({
             this.timer = null;
         }
         this.handNode.active = false;
-        Toast.show('已经掉落啦');
+
+        //第一次需要增加提示
+        this.guideToast = cc.instantiate(this.guideToast);
+        let obj = this.guideToast.getComponent('guideToast');
+        if (obj) {
+            this.guideToast.item_obj = obj;
+            obj.setContentStr("<color=#887160>恭喜你获得了旅游物品\n可以用它来<color=#e37974>[展览]</color>，赚小钱钱</color>");
+        }
+        this.guideToast.parent = this.node;
+        this.guideToast.setPosition(0, -300);
     },
 
     showDone() {
+        if (this.guideToast) {
+            this.guideToast.active = false;
+        }
         this.guideStep++;
         this.handPressNode = cc.instantiate(this.hand);
         this.handPressNode.scaleX = 0.7;

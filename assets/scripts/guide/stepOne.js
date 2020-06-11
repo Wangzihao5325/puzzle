@@ -5,6 +5,7 @@ cc.Class({
     properties: {
         hand: cc.Prefab,
         excal: cc.Prefab,
+        guideToast: cc.Prefab
     },
 
     // LIFE-CYCLE CALLBACKS:
