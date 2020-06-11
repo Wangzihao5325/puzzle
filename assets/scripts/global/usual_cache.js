@@ -63,9 +63,10 @@ const CACHE = {
         sell: true,
         buy: true,
     },
-    platform:{
-        isWachat:false
-    }
+    platform: {
+        isWachat: false
+    },
+    isShowGuide: false
 }
 
 export default {
