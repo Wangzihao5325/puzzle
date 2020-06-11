@@ -41,8 +41,26 @@ cc.Class({
                     handPosition = cc.v2(0, 0);
                     break;
                 case 2:
-                    handPosition = cc.v2(200, -500);
-                    this.stepTwoAddExcal();
+                    {
+                        handPosition = cc.v2(200, -500);
+                        this.stepTwoAddExcal();
+
+                        //提示展览厅开放
+                        this.guideToast = cc.instantiate(this.guideToast);
+                        let obj = this.guideToast.getComponent('guideToast');
+                        if (obj) {
+                            this.guideToast.item_obj = obj;
+                            obj.setContentStr("<color=#887160>展览厅开放啦！</color>");
+                        }
+                        this.guideToast.parent = this.node;
+                        this.guideToast.setPosition(0, -200);
+
+                        this.guideToastTimer = setTimeout(() => {
+                            if (this.guideToast) {
+                                this.guideToast.active = false;
+                            }
+                        }, 2000)
+                    }
                     break;
                 case 3:
                     handPosition = cc.v2(0, 0);
@@ -85,6 +103,10 @@ cc.Class({
         // 取消监听
         if (this.isSetTouch) {
             this.node.off(cc.Node.EventType.TOUCH_START, this.onTouchStart, this);
+        }
+
+        if (this.guideToastTimer) {
+            clearTimeout(this.guideToastTimer);
         }
     },
 
