@@ -123,7 +123,7 @@ cc.Class({
         CACHE.travel_city_press = itemObj;//在cache中存储点击选项，新场景加载后读取，获得传值
         cc.director.loadScene("mission");
     },
-    showTask(){
+    showTask() {
         let task = cc.instantiate(this.taskDialog);
         // let obj = header.getComponent('task');
         task.parent = cc.find('Canvas');
@@ -174,6 +174,7 @@ cc.Class({
                     let obj = dayNode.getComponent('sign_item_index') || dayNode.getComponent('sign_item_seven');
                     if (obj) {
                         obj.todaySign();
+                        CACHE.signData.todaySign = true;
                         Action.User.BalanceUpdate((res) => {
                             this.header_obj.render();
                         });

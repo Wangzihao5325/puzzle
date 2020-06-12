@@ -82,8 +82,13 @@ cc.Class({
     // LIFE-CYCLE CALLBACKS:
 
     onLoad() {
-        this.setTouch();
-        this.endAnimate();
+        if (CACHE.userInfo && typeof CACHE.userInfo.stage == 'number' && CACHE.userInfo.stage == 8) {
+            this.setTouch();
+            this.endAnimate();
+        } else {
+            this.node.active = false
+        }
+
     },
 
     start() {
