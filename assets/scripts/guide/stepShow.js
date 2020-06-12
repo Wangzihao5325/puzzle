@@ -68,9 +68,9 @@ cc.Class({
             pos = originNode.convertToNodeSpaceAR(event.getLocation());
             btn = cc.find(`Canvas/root/heart/jiasu1`);
         } else if (CACHE.userInfo.stage == 4 && this.guideStep == 4) {
-            originNode = cc.find(`Canvas/speedUpPop`);
+            originNode = cc.find(`Canvas/speedUpPop/bg`);
             pos = originNode.convertToNodeSpaceAR(event.getLocation());
-            btn = cc.find(`Canvas/speedUpPop/bg`);
+            btn = cc.find(`Canvas/speedUpPop/bg/label3`);
         } else if (CACHE.userInfo.stage == 4 && this.guideStep == 5) {
             originNode = cc.find(`Canvas/root/table`);
             pos = originNode.convertToNodeSpaceAR(event.getLocation());
