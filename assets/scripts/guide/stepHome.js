@@ -208,7 +208,8 @@ cc.Class({
             } else if (CACHE.userInfo.stage == 7 && this.guideStep == 4) {
                 Api.guideStageComplete({ stage: 7 }, (res) => {
                     if (res.code == 0) {
-                        CACHE.userInfo.stage = 99;
+                        // CACHE.userInfo.stage = 99;
+                        CACHE.userInfo.stage++;
                     }
                     this.guideStep++;
                     this.node._touchListener.setSwallowTouches(false);

@@ -117,6 +117,8 @@ cc.Class({
                         }, 2000)
                     }
                     break;
+                case 8:
+                    break;
             }
             this.isSetTouch = true;
             this.node.zIndex = 1000;
