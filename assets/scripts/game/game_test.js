@@ -177,9 +177,9 @@ cc.Class({
             if(data.length){
                 let name = `item_puzzle_splice-${data[0][6]}`
                 let node=cc.find(`Canvas/root/puzzleWarp/puzzleBg/${name}`)
-                // let newNode  = cc.find(`Canvas/root/spliceWarp/${name}`)
+                let newNode  = cc.find(`Canvas/root/spliceWarp/${name}`)
                 let layout_warp  = cc.find(`Canvas/root/spliceWarp`)
-                // const olodPosition=[newNode.x,newNode.y]
+                const olodPosition=[newNode.x,newNode.y]
                 let contentNode=cc.find('content',node)
                 node.zIndex=100
                 //根据平涂块的需要掉落的距离设置动画时间
@@ -211,22 +211,21 @@ cc.Class({
                 cc.tween(node)
                     .to(0.2, { position: cc.v2(node.x,node.y+50) })
                     .to(fallTime, { position: cc.v2(node.x,-440),opacity:200 })
-                    // .to(.2, { scale:scalLeavel,opacity:255 })
+                    .to(.2, { scale:scalLeavel,opacity:0 })
                     // .to(.2, { opacity:255 })
                     .call(()=>{
                         
                     })
                     .start();
-                    console.log("index",index)
-                    layout_warp.insertChild(node, index+1);
-                //     newNode.setScale(scalLeavel/1)
-                //     newNode.setPosition(cc.v2(node.x,0))
-                //     console.log(newNode.getSiblingIndex())
-                // cc.tween(newNode)
-                //     .delay(.6)
-                //     .to(.2,{scale:1,opacity:255})
-                //     .to(.2,{position:cc.v2(olodPosition[0],olodPosition[1])})
-                //     .start()
+                
+                    newNode.setScale(scalLeavel/1)
+                    newNode.setPosition(cc.v2(node.x,0))
+                    console.log(newNode.getSiblingIndex())
+                    cc.tween(newNode)
+                        .delay(.6)
+                        .to(.2,{scale:1,opacity:255})
+                        // .to(.2,{position:cc.v2(olodPosition[0],olodPosition[1])})
+                        .start()
                     // var spliceWarp = cc.find(`Canvas/root/spliceWarp`)
                     // node.parent = spliceWarp
                     // /*依据计算拼底部栏坐标计算其在拼图区域的坐标*/

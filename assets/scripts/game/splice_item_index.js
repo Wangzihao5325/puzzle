@@ -131,10 +131,10 @@ cc.Class({
                     .to(0.2, { scale: 1 / SCALELEAVEL[hardLevel] })
                     .start();
                 //重新排列底部块的位置
-                // let game_bg = cc.find('Canvas/root/puzzleWarp/puzzleBg');
-                // if (game_bg) {
-                //     initItem(spliceArr, CACHE.hard_level, 2, this.pre_item, game_bg, new cc.SpriteFrame(), true, true);
-                // }
+                let game_bg = cc.find('Canvas/root/puzzleWarp/puzzleBg');
+                if (game_bg) {
+                    initItem(GAME_CACHE.spliceArr, CACHE.hard_level, 2, this.pre_item, game_bg, new cc.SpriteFrame(), true, true);
+                }
             }
             /*移回盒子*/
             else if (outList && this.item_node.y + delta.y < -428.5) {
@@ -146,10 +146,10 @@ cc.Class({
                 underwayIndex.remove(this.item_node.defaultIndex);
                 this.pushSpliceNode(this.item_node.defaultIndex, hardLevel);
                 //重新排列底部块的位置
-                // let game_bg = cc.find('Canvas/root/puzzleWarp/puzzleBg');
-                // if (game_bg) {
-                //     initItem(spliceArr, CACHE.hard_level, 2, this.pre_item, game_bg, new cc.SpriteFrame(), true, true);
-                // }
+                let game_bg = cc.find('Canvas/root/puzzleWarp/puzzleBg');
+                if (game_bg) {
+                    initItem(GAME_CACHE.spliceArr, CACHE.hard_level, 2, this.pre_item, game_bg, new cc.SpriteFrame(), true, true);
+                }
                 console.log(this.item_node.getSiblingIndex())
 
             }

@@ -116,7 +116,7 @@ cc.Class({
             setTimeout(() => {
                 currentNode.destroy()
                 item_puzzle_warp.destroy()
-                // initItem(spliceArr, CACHE.hard_level, 2, this.pre_item, this.game_bg, new cc.SpriteFrame(), true, true);
+                initItem(GAME_CACHE.spliceArr, CACHE.hard_level, 2, this.pre_item, this.game_bg, new cc.SpriteFrame(), true, true);
                 this.checkComplate()
             }, 400)
 
@@ -141,7 +141,7 @@ cc.Class({
             GAME_CACHE.complateIndex.push(index);
             this.removeSpliceNode(index)
             // underwayIndex.remove(index);
-            // initItem(GAME_CACHE.spliceArr, CACHE.hard_level, 2, this.pre_item, this.game_bg, new cc.SpriteFrame(), true, true);
+            initItem(GAME_CACHE.spliceArr, CACHE.hard_level, 2, this.pre_item, this.game_bg, new cc.SpriteFrame(), true, true);
             setTimeout(() => {
                 currentNode.destroy();
                 item_puzzle_warp.destroy();

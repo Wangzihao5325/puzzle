@@ -5,7 +5,7 @@
 // Learn life-cycle callbacks:
 //  - https://docs.cocos.com/creator/manual/en/scripting/life-cycle-callbacks.html
 import { dateFormat } from '../utils/utils'
-import { GAME_CACH } from '../global/piece_index'
+import { GAME_CACHE } from '../global/piece_index'
 import { CACHE } from '../global/usual_cache';
 import Api from '../api/api_index'
 

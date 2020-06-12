@@ -35,8 +35,7 @@ cc.Class({
             GAME_CACHE.layout=current_layout;
             // console.log("current_layout",current_layout)
             setTimeout(()=>{
-                // current_layout.type=cc.Layout.NONE
-
+                current_layout.type=cc.Layout.NONE
             },500)
         }
     },
