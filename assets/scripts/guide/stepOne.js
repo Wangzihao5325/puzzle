@@ -97,8 +97,25 @@ cc.Class({
                     handPosition = cc.v2(0, 0);
                     break;
                 case 7:
-                    handPosition = cc.v2(-200, -500);
-                    this.stepFiveAddExcal();
+                    {
+                        handPosition = cc.v2(-200, -500);
+                        this.stepFiveAddExcal();
+
+                        this.guideToast = cc.instantiate(this.guideToast);
+                        let obj = this.guideToast.getComponent('guideToast');
+                        if (obj) {
+                            this.guideToast.item_obj = obj;
+                            obj.setContentStr("<color=#887160><color=#e37974>[收集]</color>已开启</color>");
+                        }
+                        this.guideToast.parent = this.node;
+                        this.guideToast.setPosition(0, -200);
+
+                        this.guideToastTimer = setTimeout(() => {
+                            if (this.guideToast) {
+                                this.guideToast.active = false;
+                            }
+                        }, 2000)
+                    }
                     break;
             }
             this.isSetTouch = true;

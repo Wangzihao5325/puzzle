@@ -8,7 +8,8 @@ cc.Class({
     properties: {
         hand: cc.Prefab,
         guideToast: cc.Prefab,
-        guideToastArrow: cc.Prefab
+        guideToastArrow: cc.Prefab,
+        animateNode: cc.Node
     },
 
     onTouchStart(event) {
@@ -187,8 +188,14 @@ cc.Class({
                 })
             } else if (CACHE.userInfo.stage == 7 && this.guideStep == 1) {
                 //弹出一个页面再消失
+                this.animateNode.active = true;
+                setTimeout(() => {
+                    cc.tween(this.animateNode)
+                        .to(1, { opacity: 0 })
+                        .start()
+                    this.handNode.setPosition(cc.v2(150, 350));
+                }, 1000);
                 this.guideStep++;
-                this.handNode.setPosition(cc.v2(150, 350));
                 this.node._touchListener.setSwallowTouches(false);
             } else if (CACHE.userInfo.stage == 7 && this.guideStep == 2) {
                 this.guideStep++;
@@ -275,6 +282,21 @@ cc.Class({
                 if (obj) {
                     obj.handAnimate();
                 }
+
+                this.guideToastNode = cc.instantiate(this.guideToast);
+                let guideToastObj = this.guideToastNode.getComponent('guideToast');
+                if (guideToastObj) {
+                    this.guideToastNode.item_obj = guideToastObj;
+                    guideToastObj.setContentStr("<color=#887160>旅行获得的纪念品\n都在这里啦～</color>");
+                }
+                this.guideToastNode.parent = this.node;
+                this.guideToastNode.setPosition(0, 300);
+
+                this.guideToastTimer = setTimeout(() => {
+                    this.guideToastNode.active = false;
+                    this.guideToastTimer = null;
+                }, 2000);
+
                 this.node.on(cc.Node.EventType.TOUCH_START, this.onTouchStart, this);
             }
         }
