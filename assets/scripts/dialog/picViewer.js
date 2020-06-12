@@ -31,6 +31,8 @@ cc.Class({
             type: String,
             default: null
         },
+        animationBg:cc.Node,
+        imgNode:cc.Node,
 
     },
 
@@ -65,18 +67,26 @@ cc.Class({
 
     },
 
-    init(data){
-        const animatePayload = {
-            animatePath: data.texJson,
-            animatePath2: data.skeJson,
-            picPath: data.texPng,
-        };
-        this.picId = data.picId
-        this.title.string=data.hurdleName
-        this.initBgAnimate(animatePayload)
+    init(type,data,title){
+        this.title.string=title
+        if(type===1){
+            const animatePayload = {
+                animatePath: data.texJson,
+                animatePath2: data.skeJson,
+                picPath: data.texPng,
+            };
+            this.picId = data.picId
+            this.title.string=data.hurdleName
+            this.initBgAnimate(animatePayload)
+        }else{
+            this.initImage(data)
+        }
     },
 
     initBgAnimate(animatePayload) {
+
+        this.imgNode.active=false
+        this.animationBg.active=true
         if (this.dragonBone.dragonAtlasAsset) {
             return;
         }
@@ -104,6 +114,14 @@ cc.Class({
                 this.dragonBone.playAnimation(CACHE.dragonBoneAnimateName, 0);
 
             });
+        });
+    },
+
+    initImage(picUrl){
+        this.imgNode.active=true
+        this.animationBg.active=false
+        cc.loader.load(picUrl, (err, texture) => {
+            this.imgNode.getComponent(cc.Sprite).spriteFrame = new cc.SpriteFrame(texture)
         });
     },
 
