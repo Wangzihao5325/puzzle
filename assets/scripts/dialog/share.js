@@ -47,7 +47,7 @@ cc.Class({
 
     onLoad() {
         this.init()
-        this.initBgAnimate(GAME_CACH.animatePayload)
+        this.initBgAnimate(GAME_CACHE.animatePayload)
         this.setTouch()
     },
 
@@ -61,7 +61,7 @@ cc.Class({
             .to(.2, { position: cc.v2(0, 0) }, { easing: 'expoInOut' })
             .start()
 
-        GAME_CACH.textRandomTimes = 4
+        GAME_CACHE.textRandomTimes = 4
         this.handleChangeText()
 
         // const imgUrl= CACHE.mission_press.logoUrl
@@ -282,10 +282,10 @@ cc.Class({
         Api.travelComment(res => {
             const text = res.data
             // const text=`加拿大警方应美国要求在温哥华国际机场逮捕孟晚舟，美方随后提出引渡要求，指控其“隐瞒华为和伊`
-            if (GAME_CACH.textRandomTimes > 0) {
-                GAME_CACH.textRandomTimes--;
+            if (GAME_CACHE.textRandomTimes > 0) {
+                GAME_CACHE.textRandomTimes--;
                 this.initSentence(CACHE.hard_level, text)
-                this.random.string = GAME_CACH.textRandomTimes
+                this.random.string = GAME_CACHE.textRandomTimes
 
             } else {
                 Toast.show('随机已经使用完')

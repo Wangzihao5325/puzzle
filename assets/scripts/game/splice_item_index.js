@@ -4,7 +4,7 @@ import {
     SCALELEAVEL,
     underwayIndex,
     spliceArr,
-    GAME_CACH,
+    GAME_CACHE,
     PUZZLE_FOOTER,
     PUZZLE_SCENE,
     SIZES,
@@ -22,6 +22,7 @@ cc.Class({
         contentNode:cc.Node,
         mask_item: cc.Mask,
         splice_item: cc.Node,
+        item_node:cc.Node,
         isMove: cc.boolean,
         shadow:cc.Node,
         pre_item: cc.Prefab,
@@ -59,7 +60,6 @@ cc.Class({
     setTouch(hardLevel) {
         /* 初始化node Y轴偏移量（因为现在node在底部栏不可滑动,使用偏移量记录是否达到拖出底部栏的标准）*/
         this.item_node._offsetY = 0;
-
         this.node.on(cc.Node.EventType.TOUCH_START, (event) => {
             /*拿起增加z-index*/
             const current_node = this.item_node || this.splice_item;
@@ -112,7 +112,15 @@ cc.Class({
             else if (!outList && this.item_node._offsetY + delta.y > 90) {
                 /*移除范围内修改父级节点*/
                 var puzzleBg = cc.find(`Canvas/root/puzzleWarp/puzzleBg`);
+                this.item_node.removeFromParent(false);
+                console.log(this.item_node.getSiblingIndex())
                 this.item_node.parent = puzzleBg;
+                // const newNode=cc.instantiate(this.item_node);
+                // newNode.parent = puzzleBg;
+
+                let game_splice_obj  = cc.find(`Canvas/root/spliceWarp`).getComponent('game_splice')
+                game_splice_obj.setLayoutType(true)
+
                 /*依据计算拼底部栏坐标计算其在拼图区域的坐标*/
                 let bgX = Math.ceil(this.item_node.x - (PUZZLE_FOOTER.position[0] - PUZZLE_FOOTER.truePosition[0])) - PUZZLE_SCENE.width / 2;
                 const resetPostion = cc.v2(bgX, this.item_node.y + delta.y - 540 + 180);
@@ -123,10 +131,10 @@ cc.Class({
                     .to(0.2, { scale: 1 / SCALELEAVEL[hardLevel] })
                     .start();
                 //重新排列底部块的位置
-                let game_bg = cc.find('Canvas/root/puzzleWarp/puzzleBg');
-                if (game_bg) {
-                    initItem(spliceArr, CACHE.hard_level, 2, this.pre_item, game_bg, new cc.SpriteFrame(), true, true);
-                }
+                // let game_bg = cc.find('Canvas/root/puzzleWarp/puzzleBg');
+                // if (game_bg) {
+                //     initItem(spliceArr, CACHE.hard_level, 2, this.pre_item, game_bg, new cc.SpriteFrame(), true, true);
+                // }
             }
             /*移回盒子*/
             else if (outList && this.item_node.y + delta.y < -428.5) {
@@ -138,10 +146,12 @@ cc.Class({
                 underwayIndex.remove(this.item_node.defaultIndex);
                 this.pushSpliceNode(this.item_node.defaultIndex, hardLevel);
                 //重新排列底部块的位置
-                let game_bg = cc.find('Canvas/root/puzzleWarp/puzzleBg');
-                if (game_bg) {
-                    initItem(spliceArr, CACHE.hard_level, 2, this.pre_item, game_bg, new cc.SpriteFrame(), true, true);
-                }
+                // let game_bg = cc.find('Canvas/root/puzzleWarp/puzzleBg');
+                // if (game_bg) {
+                //     initItem(spliceArr, CACHE.hard_level, 2, this.pre_item, game_bg, new cc.SpriteFrame(), true, true);
+                // }
+                console.log(this.item_node.getSiblingIndex())
+
             }
             else {
                 console.log("在拼图区域移动")
@@ -158,10 +168,12 @@ cc.Class({
                 this.item_node._offsetY = 0;
             }
             if (hardLevel == LEVEL.HARD && !this.isMove) {
+                //第三级难度点击旋转
                 this.item_node.angle = (this.item_node.angle - 90) % 360;
             }
             const outList = this.item_node.parent.name === 'puzzleBg';
             if (outList) {
+                //在盒子外计算
                 let delta = event.touch.getDelta();
                 this.calPostion(this.item_node.x + delta.x, this.item_node.y + delta.y, this.item_node.angle, hardLevel);
             }
@@ -174,22 +186,25 @@ cc.Class({
                 .to(.1,{position:cc.v2(0,0)})
                 .start()
 
-
+                let game_splice_obj  = cc.find(`Canvas/root/spliceWarp`).getComponent('game_splice')
+                game_splice_obj.setLayoutType(true)
             /*
             不禁止事件传递,让底部栏可以滑动，提升体验
             event.stopPropagation();
             */
+           console.log(this.item_node.getSiblingIndex())
+
         })
     },
 
     removeSpliceNode(removeIndex) {
-        var currentArr = [...spliceArr[0]]
+        var currentArr = [...GAME_CACHE.spliceArr]
         currentArr.map((item, index) => {
             if (item[6] == removeIndex) {
                 currentArr.splice(index, 1)
             }
         })
-        spliceArr[0] = currentArr;
+        GAME_CACHE.spliceArr = currentArr;
     },
 
     pushSpliceNode(index, hardLevel) {
@@ -197,9 +212,9 @@ cc.Class({
         reg.every((item) => {
             if (item[6] == index) {
                 let spliceNode = [...item];
-                let currentArr = [...spliceArr[0]];
+                let currentArr = [...GAME_CACHE.spliceArr];
                 currentArr.unshift(spliceNode);
-                spliceArr[0] = currentArr;
+                GAME_CACHE.spliceArr = currentArr;
                 return false;
             }
             return true;
@@ -214,7 +229,7 @@ cc.Class({
         let reg = SIZES[hardLevel];
         let minDistance = Number.MAX_VALUE;
         let minItem = null;
-        reg.forEach((item) => {
+        reg.forEach((item,index) => {
             let distance = Math.pow((item[4] - x), 2) + Math.pow((item[5] - y), 2)
             if (distance <= minDistance) {
                 minDistance = distance;
@@ -227,17 +242,18 @@ cc.Class({
                 this.item_node.setPosition(newPositin);
                 var item_puzzle_warp = cc.find(`Canvas/root/puzzleWarp/puzzleBg/item_puzzle_warp-${this.item_node.defaultIndex}`);
                 item_puzzle_warp.active = false;
-                var item_puzzle_splice = cc.find(`Canvas/root/puzzleWarp/puzzleBg/item_puzzle_splice-${this.item_node.defaultIndex}`);
-                item_puzzle_splice.active = false;
-                GAME_CACH.complateIndex.push(this.item_node.defaultIndex);
+                // var item_puzzle_splice = cc.find(`Canvas/root/puzzleWarp/puzzleBg/item_puzzle_splice-${this.item_node.defaultIndex}`);
+                this.item_node.active = false;
+                this.item_node.destroy()
+                GAME_CACHE.complateIndex.push(this.item_node.defaultIndex);
                 underwayIndex.remove(this.item_node.defaultIndex)
                 this.checkSuccess();
-                if (GAME_CACH.complateIndex.length >= reg.length * 0.3) {
+                if (GAME_CACHE.complateIndex.length >= reg.length * 0.3) {
                     let dragonBonesNode = cc.find('Canvas/root/puzzleWarp/puzzleBg');
                     let animate = dragonBonesNode.getComponent(dragonBones.ArmatureDisplay)
                     animate.playAnimation(CACHE.dragonBoneAnimateName, 0);
                 }
-                setTimeout(() => { item_puzzle_warp.destroy(); item_puzzle_splice.destroy() }, 100)
+                setTimeout(() => { item_puzzle_warp.destroy();}, 100)
             } else {
                 this.item_node.setPosition(cc.v2(minItem[4], minItem[5]));
             }

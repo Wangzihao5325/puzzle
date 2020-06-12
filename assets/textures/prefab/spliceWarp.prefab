@@ -124,8 +124,8 @@
       "width": 200,
       "height": 150
     },
-    "_resize": 0,
-    "_N$layoutType": 0,
+    "_resize": 1,
+    "_N$layoutType": 1,
     "_N$cellSize": {
       "__type__": "cc.Size",
       "width": 40,
@@ -156,6 +156,9 @@
     },
     "pre_item": {
       "__uuid__": "756a7294-e6ed-407b-a264-15d137371a53"
+    },
+    "splice_layout": {
+      "__id__": 1
     },
     "spframe_puzzle": null,
     "_id": ""

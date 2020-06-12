@@ -1,8 +1,8 @@
-import { SCALELEAVEL, spliceArr, PUZZLE_FOOTER, PUZZLE_SCENE } from '../global/piece_index';
+import { SCALELEAVEL,SIZES, spliceArr, PUZZLE_FOOTER, PUZZLE_SCENE,GAME_CACHE } from '../global/piece_index';
 
-function initItem(SIZES, hardLevel, sortType = 0, pre_item, game_bg, spframe_puzzle, resort = false, isAnimate = false,showAnimation=false) {
+function initItem(SIZES, hardLevel, sortType = 0, pre_item, game_bg, spframe_puzzle, resort = false, isAnimate = false,showAnimation=false) {    
     /*根据难度取对应切片数据*/
-    let sizeArr = SIZES[hardLevel];
+    let sizeArr = [...SIZES[hardLevel]];
     const scalLeavel = SCALELEAVEL[hardLevel]
     /*拼图块排序*/
     let reSortSizeArr = SIZES[0];
@@ -17,7 +17,7 @@ function initItem(SIZES, hardLevel, sortType = 0, pre_item, game_bg, spframe_puz
             reSortSizeArr = SIZES[0];
             break;
     }
-    spliceArr.splice(0, 1, reSortSizeArr);
+    GAME_CACHE.spliceArr=reSortSizeArr
     /*遍历size根据size生成item*/
     if (resort) {
         var spliceWarp = cc.find(`Canvas/root/spliceWarp`)
@@ -49,7 +49,8 @@ function initItem(SIZES, hardLevel, sortType = 0, pre_item, game_bg, spframe_puz
         }
     } else {
         var spliceWarp = cc.find(`Canvas/root/spliceWarp`)
-        spliceWarp.width = (PUZZLE_FOOTER.itemWidth * reSortSizeArr.length + PUZZLE_FOOTER.itemWidthMargin);
+        // spliceWarp.width = (PUZZLE_FOOTER.itemWidth * reSortSizeArr.length + PUZZLE_FOOTER.itemWidthMargin);
+        spliceWarp.width = 640;
         reSortSizeArr.forEach((item, index) => {
             let item_node = cc.instantiate(pre_item);
             item_node.width = item[2] * scalLeavel+5+hardLevel;
@@ -72,35 +73,59 @@ function initItem(SIZES, hardLevel, sortType = 0, pre_item, game_bg, spframe_puz
             // cc.find('shadow',item_node).y = -(5+hardLevel)
             // item_node.getChildByName('content/shadow').height = item[3] * scalLeavel;
             if(showAnimation){
+
                 //第一次进入执行掉落动画
                 var puzzleBg = cc.find(`Canvas/root/puzzleWarp/puzzleBg`);
-                this.item_node.parent = puzzleBg;
+                const newNode=cc.instantiate(item_node)
+                newNode.parent = puzzleBg;
+                newNode.setScale(1/scalLeavel)
+                newNode.zIndex=11+index
                 const position = cc.v2(item[4],item[5])
-                item_node.setPosition(position);
-
-                 
-            }else{
-                item_node.parent = game_bg;
-                let position = cc.v2((PUZZLE_FOOTER.itemWidth * (index + 0.5)) + PUZZLE_FOOTER.itemWidthMargin, 0);
-                item_node.setPosition(position);
+                newNode.setPosition(position);
+                newNode.defaulSpliceX=(PUZZLE_FOOTER.itemWidth * (index + 0.5)) + PUZZLE_FOOTER.itemWidthMargin                 
+                let obj = newNode.getComponent('splice_item_index');
+                if (obj) {
+                    /*保存引用*/
+                    obj.item_node = item_node;
+                    //设置切片编号，便于测试
+                    obj.init(item[6]);
+                    /*底图切片*/
+                    obj.setSpItem(defaultRect(item, spframe_puzzle));
+                    /*添加蒙版*/
+                    obj.setMarsk(item[6], hardLevel);
+                    /*拖拽手势+高难度下的旋转手势*/
+                    obj.setTouch(hardLevel);
+                    /*设置随机旋转*/
+                    obj.setRandomRotation(hardLevel);
+                }
+                // item_node.opacity=0
             }
-            //应该要根据规格进行优化
 
-            let obj = item_node.getComponent('splice_item_index');
-            if (obj) {
-                /*保存引用*/
-                obj.item_node = item_node;
-                //设置切片编号，便于测试
-                obj.init(item[6]);
-                /*底图切片*/
-                obj.setSpItem(defaultRect(item, spframe_puzzle));
-                /*添加蒙版*/
-                obj.setMarsk(item[6], hardLevel);
-                /*拖拽手势+高难度下的旋转手势*/
-                obj.setTouch(hardLevel);
-                /*设置随机旋转*/
-                obj.setRandomRotation(hardLevel);
-            }
+
+            // item_node.parent = game_bg;
+            // item_node.zIndex=110000+index
+
+            // let position = cc.v2((PUZZLE_FOOTER.itemWidth * (index + 0.5)) + PUZZLE_FOOTER.itemWidthMargin, 0);
+            // item_node.setPosition(position);
+            // item_node.setSiblingIndex(10000+index);
+
+            // //应该要根据规格进行优化
+
+            // let obj = item_node.getComponent('splice_item_index');
+            // if (obj) {
+            //     /*保存引用*/
+            //     obj.item_node = item_node;
+            //     //设置切片编号，便于测试
+            //     obj.init(item[6]);
+            //     /*底图切片*/
+            //     obj.setSpItem(defaultRect(item, spframe_puzzle));
+            //     /*添加蒙版*/
+            //     obj.setMarsk(item[6], hardLevel);
+            //     /*拖拽手势+高难度下的旋转手势*/
+            //     obj.setTouch(hardLevel);
+            //     /*设置随机旋转*/
+            //     obj.setRandomRotation(hardLevel);
+            // }
         });
     }
 

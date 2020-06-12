@@ -1,6 +1,6 @@
 import { SIZES, SCALELEAVEL, underwayIndex, spliceArr } from '../global/piece_index';
 import { CACHE } from '../global/usual_cache';
-import { GAME_CACH } from '../global/piece_index';
+import { GAME_CACHE } from '../global/piece_index';
 
 import { initItem } from './initSplice';
 import GLOBAL_VAR from '../global/index'
@@ -67,9 +67,9 @@ cc.Class({
     onLoad() {
         this.setTouch();
         this.resetUI()
-        GAME_CACH.isComplate = false
-        GAME_CACH.coutnDown = GAME_CACH.gameTime
-        this.timer(GAME_CACH.coutnDown);
+        GAME_CACHE.isComplate = false
+        GAME_CACHE.coutnDown = GAME_CACHE.gameTime
+        this.timer(GAME_CACHE.coutnDown);
         CACHE.mission_press.picId
     },
 
@@ -111,7 +111,7 @@ cc.Class({
             cc.tween(currentNode)
                 .to(.4, { position: cc.v2(currentNode.defaultPostion[0], currentNode.defaultPostion[1]) })
                 .start()
-            GAME_CACH.complateIndex.push(index)
+            GAME_CACHE.complateIndex.push(index)
             underwayIndex.remove(index)
             setTimeout(() => {
                 currentNode.destroy()
@@ -138,18 +138,17 @@ cc.Class({
                 .start()
 
             const index = currentNode.defaultIndex;
-            GAME_CACH.complateIndex.push(index);
+            GAME_CACHE.complateIndex.push(index);
             this.removeSpliceNode(index)
             // underwayIndex.remove(index);
-            console.log('xxxx');
-            initItem(spliceArr, CACHE.hard_level, 2, this.pre_item, this.game_bg, new cc.SpriteFrame(), true, true);
+            // initItem(GAME_CACHE.spliceArr, CACHE.hard_level, 2, this.pre_item, this.game_bg, new cc.SpriteFrame(), true, true);
             setTimeout(() => {
                 currentNode.destroy();
                 item_puzzle_warp.destroy();
                 this.checkComplate();
             }, 400)
         }
-        if (GAME_CACH.complateIndex.length >= SIZES[CACHE.hard_level].length * 0.3) {
+        if (GAME_CACHE.complateIndex.length >= SIZES[CACHE.hard_level].length * 0.3) {
             let dragonBonesNode = cc.find('Canvas/root/puzzleWarp/puzzleBg');
             let animate = dragonBonesNode.getComponent(dragonBones.ArmatureDisplay)
             animate.playAnimation(CACHE.dragonBoneAnimateName, 0);
@@ -172,7 +171,7 @@ cc.Class({
         }
     },
     doSort() {
-        initItem(spliceArr, CACHE.hard_level, 1, this.pre_item, this.game_bg, this.spframe_puzzle, true);
+        initItem(GAME_CACHE.spliceArr, CACHE.hard_level, 1, this.pre_item, this.game_bg, this.spframe_puzzle, true);
     },
 
     gamePause() {
@@ -241,11 +240,11 @@ cc.Class({
 
     //判断完成，并调用完成动画
     checkComplate() {
-        if (SIZES[CACHE.hard_level].length == GAME_CACH.complateIndex.length) {
+        if (SIZES[CACHE.hard_level].length == GAME_CACHE.complateIndex.length) {
             Toast.show("拼图完成", 1000);
             this.doComplate()
-            GAME_CACH.complateIndex = []
-            GAME_CACH.isComplate = true
+            GAME_CACHE.complateIndex = []
+            GAME_CACHE.isComplate = true
             const spliceWarp_node = cc.find(`Canvas/root/spliceWarp`);
             spliceWarp_node.active = false;
             this.menuWarp.active = false;
@@ -302,7 +301,6 @@ cc.Class({
 
     //显示分享弹窗
     showShare(item, leavel) {
-        console.log("leavel", leavel)
         const shareList = [this.game_share1, this.game_share2, this.game_share3]
         let game_share = cc.instantiate(shareList[leavel]);
         game_share.parent = this.root_warp;
@@ -322,19 +320,19 @@ cc.Class({
     //倒计时
     timer(time) {
         this.countDownTimer = setTimeout(() => {
-            if (!GAME_CACH.pause && GAME_CACH.coutnDown > 0 && !GAME_CACH.isComplate) {
+            if (!GAME_CACHE.pause && GAME_CACHE.coutnDown > 0 && !GAME_CACHE.isComplate) {
                 time--;
                 this.countDown_label.string = this.formatTimer(time);
-                GAME_CACH.coutnDown = time
+                GAME_CACHE.coutnDown = time
                 this.timer(time);
-            } else if (!GAME_CACH.pause && time == 0 && !GAME_CACH.isComplate) {
+            } else if (!GAME_CACHE.pause && time == 0 && !GAME_CACHE.isComplate) {
                 // Toast.show("倒计时结束", 1000);
                 this.gameFail()
             }
-            else if (GAME_CACH.isComplate) {
-                GAME_CACH.coutnDown = 60;
-                GAME_CACH.isComplate = false;
-                GAME_CACH.pause = false;
+            else if (GAME_CACHE.isComplate) {
+                GAME_CACHE.coutnDown = 60;
+                GAME_CACHE.isComplate = false;
+                GAME_CACHE.pause = false;
             } else {
 
             }
@@ -346,8 +344,8 @@ cc.Class({
         if (this._guideGameRebornCallback) {
             this._guideGameRebornCallback()
         }
-        GAME_CACH.coutnDown = GAME_CACH.gameTime
-        this.timer(GAME_CACH.coutnDown)
+        GAME_CACHE.coutnDown = GAME_CACHE.gameTime
+        this.timer(GAME_CACHE.coutnDown)
 
     },
     onDestroy() {
@@ -428,13 +426,13 @@ cc.Class({
 
     //从底部拼图框中移除拼图块
     removeSpliceNode(removeIndex) {
-        var currentArr = [...spliceArr[0]]
+        var currentArr = [...GAME_CACHE.spliceArr]
         currentArr.map((item, index) => {
             if (item[6] == removeIndex) {
                 currentArr.splice(index, 1)
             }
         })
-        spliceArr[0] = currentArr;
+        GAME_CACHE.spliceArr = currentArr;
     },
 
     formatTimer(time) {

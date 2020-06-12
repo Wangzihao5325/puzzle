@@ -757,6 +757,9 @@
     "splice_item": {
       "__id__": 1
     },
+    "item_node": {
+      "__id__": 1
+    },
     "shadow": {
       "__id__": 2
     },

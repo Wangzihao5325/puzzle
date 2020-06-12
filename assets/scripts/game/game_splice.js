@@ -1,4 +1,4 @@
-import { SIZES, PUZZLE_SCENE, PUZZLE_FOOTER } from '../global/piece_index';
+import { SIZES, PUZZLE_SCENE, PUZZLE_FOOTER,GAME_CACHE } from '../global/piece_index';
 import { initItem } from './initSplice';
 
 
@@ -8,6 +8,7 @@ cc.Class({
     properties: {
         game_bg: cc.Node,
         pre_item: cc.Prefab,
+        splice_layout:cc.Node,
         spframe_puzzle: cc.SpriteFrame,
     },
 
@@ -17,7 +18,31 @@ cc.Class({
         });
     },
 
+    setLayoutType(auto){
+        const current_layout=this.splice_layout.getComponent(cc.Layout)
+    
+        if(auto){
+            console.log("动态布局")
+            // current_layout.type=cc.Layout.HORIZONTAL
+            // current_layout.resizeMode=cc.Layout.CONTAINER
+            // current_layout.horizontalDirection =cc.Layout.RIGHT_TO_LEFT
+            // current_layout.type=GAME_CACHE.layout.type
+            // current_layout.resizeMode=GAME_CACHE.layout.resizeMode
+            // current_layout.horizontalDirection=GAME_CACHE.layout.type
+            // current_layout.type=GAME_CACHE.layout.type
+            // current_layout.updateLayout();
+        }else{
+            GAME_CACHE.layout=current_layout;
+            // console.log("current_layout",current_layout)
+            setTimeout(()=>{
+                // current_layout.type=cc.Layout.NONE
+
+            },500)
+        }
+    },
+
     init(hardLevel, imagePath) {
+
         /*初始化底部栏位置记录*/
         PUZZLE_FOOTER.truePosition = [...PUZZLE_FOOTER.position];
         /* 设置底部栏的水平滑动*/
@@ -37,7 +62,7 @@ cc.Class({
             if (texture) {
                 this.spframe_puzzle = new cc.SpriteFrame(texture);
                 /*初始化所有的块*/
-                initItem(SIZES, hardLevel, 0, this.pre_item, this.game_bg, this.spframe_puzzle,true)
+                initItem(SIZES, hardLevel, 0, this.pre_item, this.game_bg, this.spframe_puzzle,false,false,true)
 
             } else {
                 cc.error(err);
@@ -45,10 +70,5 @@ cc.Class({
         });
 
     },
+})
 
-
-    fallAnimation(){
-
-    },
-
-  

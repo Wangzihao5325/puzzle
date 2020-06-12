@@ -282,14 +282,18 @@ var spliceArr = []
 
 var coutnDown = 0
 
-var GAME_CACH = {
+var GAME_CACHE = {
   gameTime: 300,
   coutnDown: 6,
   isComplate: false,
   pause: false,
   textRandomTimes: 4,
   complateIndex: [],
-  animatePayload: undefined
+  animatePayload: undefined,
+  currentLeavel : 2,
+  underwayIndex:[],
+  spliceArr:[],
+  layout:{}
 }
 
 const PUZZLE_FOOTER = {
@@ -316,7 +320,7 @@ export default {
   spliceArr,
   currentLeavel,
   coutnDown,
-  GAME_CACH,
+  GAME_CACHE,
   PUZZLE_FOOTER,
   PUZZLE_SCENE,
   LEVEL_STAR
