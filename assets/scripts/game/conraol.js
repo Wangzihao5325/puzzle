@@ -385,13 +385,12 @@ cc.Class({
     resetUiFrame() {
         const userData = CACHE.userData
 
-        const tiemNode = cc.find('sortTimes', this.sort)
-        console.log("tiemNode", tiemNode)
-        const num = cc.find('time', tiemNode).getComponent(cc.Label)
-        const adNode = cc.find('free', this.sort)
-        const currentNum = userData.frame > 99 ? '99+' : userData.frame
-        num.string = currentNum
-        setTimeout(() => {
+        const tiemNode= cc.find('sortTimes',this.sort)
+        const num = cc.find('time',tiemNode).getComponent(cc.Label)
+        const adNode= cc.find('free',this.sort)
+        const currentNum=userData.frame > 99 ? '99+' : userData.frame
+        num.string=currentNum
+        setTimeout(()=>{
             if (userData.frame > 0) {
                 tiemNode.active = true
                 adNode.active = false
@@ -408,10 +407,10 @@ cc.Class({
     resetUiShow() {
         const userData = CACHE.userData
 
-        let tiemNode = cc.find('sortTimes', this.viewIcon)
-        let num = cc.find('time', tiemNode).getComponent(cc.Label)
-        let adNode = cc.find('free', this.viewPuaaleImg)
-        let currentNum = userData.showProp > 99 ? '99+' : userData.showProp
+        let tiemNode= cc.find('sortTimes',this.viewIcon) 
+        let num = cc.find('time',tiemNode).getComponent(cc.Label)
+        let adNode= cc.find('free',this.viewIcon)
+        let currentNum=userData.showProp > 99 ? '99+' : userData.showProp
         num.string = currentNum
         setTimeout(() => {
             if (userData.showProp > 0) {

@@ -231,8 +231,17 @@ cc.Class({
             //点击下载
             this.initTextRender();
             this.scheduleOnce(() => {
+                this.back.active = false;
+                this.download.active = false;
+                this.shareBtn.active = false;
+                this.travelBtn.active = false;
+                this.changeText.active = false;
                 let canvas = this.createCanvas();
-                this.createImg();
+                this.back.active = true;
+                this.download.active = true;
+                this.shareBtn.active = true;
+                this.travelBtn.active = true;
+                this.changeText.active = true;
                 this.saveFile(canvas);
             }, 1);
         }
