@@ -252,7 +252,7 @@ cc.Class({
 
 
     randomCreateVistor() {
-        let randomY = -370 - Math.floor((50 * Math.random()));
+        let randomY = -420 - Math.floor((50 * Math.random()));
         let startX = (Math.random() - 0.5) > 0 ? 450 : -450;
         let pauseX = (Math.floor(Math.random() * 400)) - 200;
         let payload = {
