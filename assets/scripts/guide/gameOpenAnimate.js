@@ -4,6 +4,7 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
+        mask: cc.Node,
         ben: cc.Node,
         deng: cc.Node,
         cao: cc.Node,
@@ -24,6 +25,18 @@ cc.Class({
         aozi: cc.Node,
         shu: cc.Node,
 
+    },
+
+    setTouch() {
+        this.mask.on(cc.Node.EventType.TOUCH_START, (event) => {
+            event.stopPropagation();
+        })
+        this.mask.on(cc.Node.EventType.TOUCH_MOVE, (event) => {
+            event.stopPropagation();
+        })
+        this.mask.on(cc.Node.EventType.TOUCH_END, (event) => {
+            event.stopPropagation();
+        })
     },
 
     animateStepTwo() {
@@ -158,6 +171,7 @@ cc.Class({
 
     onLoad() {
         if (CACHE.userInfo && typeof CACHE.userInfo.stage == 'number' && CACHE.userInfo.stage == 1) {
+            this.setTouch();
             this.animateStepOne();
         } else {
             this.node.active = false
