@@ -61,11 +61,9 @@ cc.Class({
             .to(1, { opacity: 255 })
             .call(() => {
                 Api.guideStageComplete({ stage: 8 }, (res) => {
-                    if (res.code == 0) {
-                        CACHE.userInfo.stage = 99;
-                    }
-                    this.node.active = false;
                 })
+                CACHE.userInfo.stage = 99;
+                this.node.active = false;
             })
             .start()
     },

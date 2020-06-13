@@ -1,6 +1,6 @@
 import CusHttp from './custom_http';
 import { CACHE } from '../global/usual_cache';
-const API_DOMAIN = 'http://192.168.3.144:8090';
+const API_DOMAIN = 'https://mp.becabaking.xyz:8090';//'http://192.168.3.144:8090';
 
 /**
  * 根据城市id获取城市详情
@@ -136,10 +136,11 @@ const petEquip = (payload = { goodsId: 1 }, callback, failedCallback) => new Cus
 const petGoout = (callback, failedCallback) => {
     let payload = undefined;
     let stage = (CACHE.userInfo && typeof CACHE.userInfo.stage == 'number' && (CACHE.userInfo.stage == 5 || CACHE.userInfo.stage == 5)) ? CACHE.userInfo.stage : null;
+    let url = `${API_DOMAIN}/pet/go_outward`
     if (stage) {
-        payload = { stage };
+        url = `${url}?stage=${stage}`
     }
-    new CusHttp().Post(`${API_DOMAIN}/pet/go_outward`, payload, callback, failedCallback)
+    new CusHttp().Post(url, payload, callback, failedCallback)
 };
 
 

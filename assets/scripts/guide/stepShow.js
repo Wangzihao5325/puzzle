@@ -134,10 +134,9 @@ cc.Class({
                 this.node._touchListener.setSwallowTouches(true);
             } else if (CACHE.userInfo.stage == 2 && this.guideStep == 6) {
                 Api.guideStageComplete({ stage: 2 }, (res) => {
-                    if (res.code == 0) {
-                        CACHE.userInfo.stage++;
-                    }
                 });
+                this.guideStep++;
+                CACHE.userInfo.stage++;
                 this.node._touchListener.setSwallowTouches(false);
             } else if (CACHE.userInfo.stage == 4 && this.guideStep == 1) {
                 this.guideToastNode.item_obj.setContentStr("<color=#887160><color=#e37974>喜爱度</color>可以加速物品收获\n让我们来试一试吧</color>");
@@ -187,6 +186,8 @@ cc.Class({
                 this.guideStep++;
                 CACHE.userInfo.stage++
                 this.node._touchListener.setSwallowTouches(false);
+            } else {
+                this.node._touchListener.setSwallowTouches(true);
             }
         }
         else {
