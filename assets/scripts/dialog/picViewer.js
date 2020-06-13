@@ -69,6 +69,7 @@ cc.Class({
 
     init(type,data,title){
         this.title.string=title
+        this.type = type
         if(type===1){
             const animatePayload = {
                 animatePath: data.texJson,
@@ -80,6 +81,7 @@ cc.Class({
             this.initBgAnimate(animatePayload)
         }else{
             this.initImage(data)
+            this.picId = data
         }
     },
 
@@ -148,7 +150,12 @@ cc.Class({
 
 
     },
-    handleDownload(){
+    handleDownload () {
+        let url = this.type === 1 ? "https://puzzle.oss-cn-beijing.aliyuncs.com/" + this.picId + ".png"
+            : this.picId;
+        this.downloadFromUrl(url);
+    },
+    downloadFromUrl (url) {
         if (cc.sys.platform !== cc.sys.WECHAT_GAME) {
             return;
         }
@@ -174,7 +181,7 @@ cc.Class({
                 }
             })
         }
-        image.src = "https://puzzle.oss-cn-beijing.aliyuncs.com/" + this.picId + ".png";
+        image.src = url;
     },
 
 
