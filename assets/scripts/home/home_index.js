@@ -108,12 +108,13 @@ cc.Class({
         var outside_item = cc.find(`Canvas/rootWarp/my_home/outside`)
         var catItem = cc.find(`Canvas/rootWarp/my_home/cat/catItem`)
         let { outward } = HOME_CACHE.pet_info
+        this.showBowl(!outward)
+
         if (outside_item) {
             outside_item.active = outward
             catItem ? catItem.active = !outward : ''
             if (outward === false) {
                 outside_item.destroy()
-                this.showBowl(!outward)
             }
         } else {
             // const feedWarpInstan=  cc.find(`Canvas/feedWarp`)
@@ -123,7 +124,6 @@ cc.Class({
             catItem.active = !outward
             OutSide.parent = my_home
             OutSide.active = outward
-            this.showBowl(!outward)
         }
 
         //食物吃完了弹窗

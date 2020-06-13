@@ -16,7 +16,6 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
-        label_num: cc.Label,
         sp_item: cc.Sprite,
         content:cc.Mask,
         contentNode:cc.Node,
@@ -31,7 +30,6 @@ cc.Class({
 
     init(num) {
         this.num = num;
-        this.label_num.string = this.num;
         Array.prototype.remove = function (val) {
             var index = this.indexOf(val);
             if (index > -1) {
@@ -64,6 +62,8 @@ cc.Class({
             /*拿起增加z-index*/
             const current_node = this.item_node || this.splice_item;
             current_node.zIndex = 100;
+            // console.log('current_node',current_node)
+
             // const puzzleItem= cc.find('content',this.item_node)
             //根据旋转角度计算阴影显示的坐标
             let angle = this.item_node.angle % 360;
@@ -113,7 +113,6 @@ cc.Class({
                 /*移除范围内修改父级节点*/
                 var puzzleBg = cc.find(`Canvas/root/puzzleWarp/puzzleBg`);
                 this.item_node.removeFromParent(false);
-                console.log(this.item_node.getSiblingIndex())
                 this.item_node.parent = puzzleBg;
                 // const newNode=cc.instantiate(this.item_node);
                 // newNode.parent = puzzleBg;
@@ -150,11 +149,9 @@ cc.Class({
                 if (game_bg) {
                     initItem(GAME_CACHE.spliceArr, CACHE.hard_level, 2, this.pre_item, game_bg, new cc.SpriteFrame(), true, true);
                 }
-                console.log(this.item_node.getSiblingIndex())
 
             }
             else {
-                console.log("在拼图区域移动")
                 this.item_node.setPosition(newPositin);
             }
             /*
@@ -192,7 +189,6 @@ cc.Class({
             不禁止事件传递,让底部栏可以滑动，提升体验
             event.stopPropagation();
             */
-           console.log(this.item_node.getSiblingIndex())
 
         })
     },

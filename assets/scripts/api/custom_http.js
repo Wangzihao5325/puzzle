@@ -106,7 +106,7 @@ class CusHttp {
     _result() {
         if (this._http.readyState == 4 && this._http.status != 500) {
             const response = JSON.parse(this._http.responseText);
-            if ([10001, 10002, 10003].indexOf(response.code) >= 0) {
+            if ([1001, 1002, 1003].indexOf(response.code) >= 0) {
                 if (!CACHE.logining) {
                     CACHE.token = undefined;
                     this.getToken();

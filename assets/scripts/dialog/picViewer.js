@@ -31,6 +31,8 @@ cc.Class({
             type: String,
             default: null
         },
+        animationBg:cc.Node,
+        imgNode:cc.Node,
 
     },
 
@@ -65,18 +67,28 @@ cc.Class({
 
     },
 
-    init(data){
-        const animatePayload = {
-            animatePath: data.texJson,
-            animatePath2: data.skeJson,
-            picPath: data.texPng,
-        };
-        this.picId = data.picId
-        this.title.string=data.hurdleName
-        this.initBgAnimate(animatePayload)
+    init(type,data,title){
+        this.title.string=title
+        this.type = type
+        if(type===1){
+            const animatePayload = {
+                animatePath: data.texJson,
+                animatePath2: data.skeJson,
+                picPath: data.texPng,
+            };
+            this.picId = data.picId
+            this.title.string=data.hurdleName
+            this.initBgAnimate(animatePayload)
+        }else{
+            this.initImage(data)
+            this.picId = data
+        }
     },
 
     initBgAnimate(animatePayload) {
+
+        this.imgNode.active=false
+        this.animationBg.active=true
         if (this.dragonBone.dragonAtlasAsset) {
             return;
         }
@@ -107,6 +119,14 @@ cc.Class({
         });
     },
 
+    initImage(picUrl){
+        this.imgNode.active=true
+        this.animationBg.active=false
+        cc.loader.load(picUrl, (err, texture) => {
+            this.imgNode.getComponent(cc.Sprite).spriteFrame = new cc.SpriteFrame(texture)
+        });
+    },
+
     setTouch() {
         // this.download.on(cc.Node.EventType.TOUCH_END, (event) => {
         //     this.handleDownload()
@@ -130,7 +150,12 @@ cc.Class({
 
 
     },
-    handleDownload(){
+    handleDownload () {
+        let url = this.type === 1 ? "https://puzzle.oss-cn-beijing.aliyuncs.com/" + this.picId + ".png"
+            : this.picId;
+        this.downloadFromUrl(url);
+    },
+    downloadFromUrl (url) {
         if (cc.sys.platform !== cc.sys.WECHAT_GAME) {
             return;
         }
@@ -156,7 +181,7 @@ cc.Class({
                 }
             })
         }
-        image.src = "https://puzzle.oss-cn-beijing.aliyuncs.com/" + this.picId + ".png";
+        image.src = url;
     },
 
 

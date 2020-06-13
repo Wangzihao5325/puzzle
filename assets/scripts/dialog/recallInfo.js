@@ -36,6 +36,10 @@ cc.Class({
         commentContent:cc.Node,
         hurdleId:{type:String,default:''},
         closeBtn:cc.Node,
+        recallInfo:{
+            type:cc.Object,
+            destroy:{}
+        }
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -53,19 +57,14 @@ cc.Class({
     },
 
     showPic(item){
-        console.log("showPic")
-        Api.missionDetails(this.hurdleId,res=>{
-            if(res.code===0){
-                let picView = cc.instantiate(this.picView);
-                let obj = picView.getComponent('picViewer');
-                obj.init(res.data)
-                picView.parent = cc.find('Canvas');
-
-            }
-        })
+        let picView = cc.instantiate(this.picView);
+        let obj = picView.getComponent('picViewer');
+        obj.init(0,this.recallInfo.picUrl,this.recallInfo.hurdleName)
+        picView.parent = cc.find('Canvas');
     },
 
     getRecallInfo(item){
+        this.recallInfo=item
         Api.memory_travelInfo({hurdleId:item.hurdleId},res=>{
             if(res.code===0){
                 const data=res.data;

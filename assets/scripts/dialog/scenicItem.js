@@ -44,7 +44,7 @@ cc.Class({
             if(res.code===0){
                 let picView = cc.instantiate(this.picView);
                 let obj = picView.getComponent('picViewer');
-                obj.init(res.data)
+                obj.init(1,res.data,res.data.hurdleName)
                 picView.parent = cc.find('Canvas');
 
             }
