@@ -16,7 +16,6 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
-        label_num: cc.Label,
         sp_item: cc.Sprite,
         content:cc.Mask,
         contentNode:cc.Node,
@@ -31,7 +30,6 @@ cc.Class({
 
     init(num) {
         this.num = num;
-        this.label_num.string = this.num;
         Array.prototype.remove = function (val) {
             var index = this.indexOf(val);
             if (index > -1) {
