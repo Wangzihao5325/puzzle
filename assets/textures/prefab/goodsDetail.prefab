@@ -1908,7 +1908,7 @@
     "_useOriginalSize": false,
     "_string": "",
     "_N$string": "",
-    "_fontSize": 22,
+    "_fontSize": 16,
     "_lineHeight": 28,
     "_enableWrapText": true,
     "_N$file": null,
@@ -1917,7 +1917,7 @@
     "_batchAsBitmap": false,
     "_styleFlags": 0,
     "_underlineHeight": 0,
-    "_N$horizontalAlign": 1,
+    "_N$horizontalAlign": 0,
     "_N$verticalAlign": 1,
     "_N$fontFamily": "Arial",
     "_N$overflow": 3,
@@ -2656,6 +2656,8 @@
     "actionWarp": {
       "__id__": 55
     },
+    "info": {},
+    "canSell": true,
     "_id": ""
   },
   {

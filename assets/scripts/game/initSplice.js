@@ -32,7 +32,7 @@ function initItem(SIZES, hardLevel, sortType = 0, pre_item, game_bg, spframe_puz
             })
             const positionX=(PUZZLE_FOOTER.itemWidth * (index + 0.5)) + PUZZLE_FOOTER.itemWidthMargin
             let position = cc.v2(positionX, 0);
-            let onViewr=positionX+spliceWarpX>-400&&positionX+spliceWarpX<400?true:false
+            let onViewr=positionX+spliceWarpX>-450&&positionX+spliceWarpX<450?true:false
             if (isAnimate&&onViewr) {
                 cc.tween(item)
                     .to(0.5, { position: position,opacity:255 })

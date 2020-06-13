@@ -176,9 +176,13 @@ cc.Class({
 
     gamePause() {
         let pauseWarp = cc.instantiate(this.pause);
-        GLOBAL_VAR.pause = true;
+        GAME_CACHE.pause = true;
         pauseWarp.parent = this.game_root;
         pauseWarp.setPosition(0, 0);
+    },
+
+    gameContinue(){
+        this.timer(GAME_CACHE.coutnDown);
     },
 
     updateUserInfo() {
