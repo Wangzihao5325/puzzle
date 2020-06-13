@@ -104,7 +104,7 @@ cc.Class({
         let rect = btn.getBoundingBox();
         if (rect.contains(pos)) {
             if (CACHE.userInfo.stage == 5 && this.guideStep == 1) {
-                let handPosition = cc.v2(8, -230);
+                let handPosition = cc.v2(8, -100);
                 this.handNode = cc.instantiate(this.hand);
                 this.handNode.scaleX = 0.7;
                 this.handNode.scaleY = 0.7;
