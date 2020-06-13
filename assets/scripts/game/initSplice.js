@@ -21,8 +21,8 @@ function initItem(SIZES, hardLevel, sortType = 0, pre_item, game_bg, spframe_puz
     /*遍历size根据size生成item*/
     if (resort) {
         var spliceWarp = cc.find(`Canvas/root/spliceWarp`)
+        const spliceWarpX=spliceWarp.x
         var children = spliceWarp.children
-
         children.map(item => {
             let index;
             reSortSizeArr.map((reitem, i) => {
@@ -30,13 +30,16 @@ function initItem(SIZES, hardLevel, sortType = 0, pre_item, game_bg, spframe_puz
                     index = i
                 }
             })
-            let position = cc.v2((PUZZLE_FOOTER.itemWidth * (index + 0.5)) + PUZZLE_FOOTER.itemWidthMargin, 0);
-            if (isAnimate) {
+            const positionX=(PUZZLE_FOOTER.itemWidth * (index + 0.5)) + PUZZLE_FOOTER.itemWidthMargin
+            let position = cc.v2(positionX, 0);
+            let onViewr=positionX+spliceWarpX>-400&&positionX+spliceWarpX<400?true:false
+            if (isAnimate&&onViewr) {
                 cc.tween(item)
-                    .to(0.5, { position: position })
+                    .to(0.5, { position: position,opacity:255 })
                     .start();
             } else {
                 item.setPosition(position);
+                item.opacity=onViewr?255:0
             }
         })
         /*同步底部栏长度*/
@@ -49,6 +52,7 @@ function initItem(SIZES, hardLevel, sortType = 0, pre_item, game_bg, spframe_puz
         }
     } else {
         var spliceWarp = cc.find(`Canvas/root/spliceWarp`)
+        console.log("spliceWarp",spliceWarp)
         spliceWarp.width =showAnimation?640:(PUZZLE_FOOTER.itemWidth * reSortSizeArr.length + PUZZLE_FOOTER.itemWidthMargin);
         // spliceWarp.width = 640;
         reSortSizeArr.forEach((item, index) => {
@@ -106,11 +110,14 @@ function initItem(SIZES, hardLevel, sortType = 0, pre_item, game_bg, spframe_puz
             item_node.zIndex=10+index
 
             // spliceWarp.addChild(item_node, index);
-            // console.log("item_node.getSiblingIndex()",index,sizeArr.length-1,item_node.getSiblingIndex())
             
 
             let position = cc.v2((PUZZLE_FOOTER.itemWidth * (index + 0.5)) + PUZZLE_FOOTER.itemWidthMargin, 0);
             item_node.setPosition(position);
+
+            //设置显示隐藏提高性能
+  
+
             item_node.setSiblingIndex(10000+index);
 
             //应该要根据规格进行优化
