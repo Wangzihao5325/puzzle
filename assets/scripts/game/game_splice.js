@@ -22,7 +22,6 @@ cc.Class({
         const current_layout=this.splice_layout.getComponent(cc.Layout)
     
         if(auto){
-            console.log("动态布局")
             // current_layout.type=cc.Layout.HORIZONTAL
             // current_layout.resizeMode=cc.Layout.CONTAINER
             // current_layout.horizontalDirection =cc.Layout.RIGHT_TO_LEFT
@@ -33,7 +32,6 @@ cc.Class({
             // current_layout.updateLayout();
         }else{
             GAME_CACHE.layout=current_layout;
-            // console.log("current_layout",current_layout)
             setTimeout(()=>{
                 current_layout.type=cc.Layout.NONE
             },500)
@@ -52,6 +50,22 @@ cc.Class({
                     let newPositin = cc.v2(this.game_bg.x + delta.x, this.game_bg.y)
                     PUZZLE_FOOTER.truePosition = [this.game_bg.x + delta.x, this.game_bg.y]
                     this.game_bg.setPosition(newPositin);
+
+                    //根据当前视图判断显示和隐藏子节点
+                    const spliceWarpX=this.game_bg.x
+                    if(this.game_bg&&this.game_bg.children){
+                        this.game_bg.children.map(item=>{
+                            const positionX=item.x
+                            // console.log("positionX,spliceWarpX",positionX,spliceWarpX,positionX-spliceWarpX)
+                            let onViewr=positionX+spliceWarpX>-400&&positionX+spliceWarpX<600
+                            if(onViewr){
+                                item.opacity=255
+                            }else{
+                                item.opacity=0
+                            }
+                        })
+                    }
+
                 }
             }
         });

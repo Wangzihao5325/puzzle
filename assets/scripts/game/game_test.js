@@ -214,31 +214,23 @@ cc.Class({
                     .to(.2, { scale:scalLeavel,opacity:0 })
                     // .to(.2, { opacity:255 })
                     .call(()=>{
-                        
+                        node.destroy()
                     })
                     .start();
                 
                     newNode.setScale(scalLeavel/1)
                     newNode.setPosition(cc.v2(node.x,0))
-                    console.log(newNode.getSiblingIndex())
+                    newNode.opacity=0
+                     
                     cc.tween(newNode)
-                        .delay(.6)
-                        .to(.2,{scale:1,opacity:255})
-                        // .to(.2,{position:cc.v2(olodPosition[0],olodPosition[1])})
+                        .delay(.4)
+                        .to(.3,{scale:1,opacity:255})
+                        .call(()=>{
+                            if(newNode.x>(640+100)){
+                                newNode.opacity=0
+                            }
+                        })
                         .start()
-                    // var spliceWarp = cc.find(`Canvas/root/spliceWarp`)
-                    // node.parent = spliceWarp
-                    // /*依据计算拼底部栏坐标计算其在拼图区域的坐标*/
-                    
-                    
-                    // const resetPostion = cc.v2(node.defaulSpliceX, 0);
-                    // // node.setPosition(resetPostion);
-                    // cc.tween(node)
-                    //     .delay(0.5)
-                    //     .to(0.4, { position:resetPostion,scale: 1,opacity:0 })
-                    //     .start();
-
-
             }else{
                 clearTimeout(this.fallTimer)
                 let game_splice_obj  = cc.find(`Canvas/root/spliceWarp`).getComponent('game_splice')
