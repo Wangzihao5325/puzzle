@@ -136,10 +136,11 @@ const petEquip = (payload = { goodsId: 1 }, callback, failedCallback) => new Cus
 const petGoout = (callback, failedCallback) => {
     let payload = undefined;
     let stage = (CACHE.userInfo && typeof CACHE.userInfo.stage == 'number' && (CACHE.userInfo.stage == 5 || CACHE.userInfo.stage == 5)) ? CACHE.userInfo.stage : null;
+    let url = `${API_DOMAIN}/pet/go_outward`
     if (stage) {
-        payload = { stage };
+        url = `${url}?stage=${stage}`
     }
-    new CusHttp().Post(`${API_DOMAIN}/pet/go_outward`, payload, callback, failedCallback)
+    new CusHttp().Post(url, payload, callback, failedCallback)
 };
 
 
