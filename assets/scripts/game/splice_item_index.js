@@ -97,7 +97,7 @@ cc.Class({
             this.isMove = true;
             let delta = event.touch.getDelta();
             const outList = this.item_node.parent.name === 'puzzleBg';
-            let newPositin = cc.v2(this.item_node.x + delta.x, this.item_node.y + delta.y);
+            let newPositin = cc.v2(this.item_node.x + delta.x, this.item_node.y + delta.y>430?430:this.item_node.y + delta.y);
             //在拼图盒子内移动
             if (!outList && this.item_node._offsetY + delta.y < 90) {
                 /*积累偏移量*/
@@ -161,6 +161,38 @@ cc.Class({
         })
 
         this.node.on(cc.Node.EventType.TOUCH_END, (event) => {
+            if (this.isMove) {
+                this.item_node._offsetY = 0;
+            }
+            if (hardLevel == LEVEL.HARD && !this.isMove) {
+                //第三级难度点击旋转
+                this.item_node.angle = (this.item_node.angle - 90) % 360;
+            }
+            const outList = this.item_node.parent.name === 'puzzleBg';
+            if (outList) {
+                //在盒子外计算
+                let delta = event.touch.getDelta();
+                this.calPostion(this.item_node.x + delta.x, this.item_node.y + delta.y, this.item_node.angle, hardLevel);
+            }
+            this.item_node.zIndex = 100;//恢复z-index
+            this.isMove = false;
+            // cc.find('shadow',this.item_node).active=false
+            // const puzzleItem= cc.find('content',this.item_node)
+            //去除拿起阴影
+            cc.tween(this.contentNode)
+                .to(.1,{position:cc.v2(0,0)})
+                .start()
+
+                let game_splice_obj  = cc.find(`Canvas/root/spliceWarp`).getComponent('game_splice')
+                game_splice_obj.setLayoutType(true)
+            /*
+            不禁止事件传递,让底部栏可以滑动，提升体验
+            event.stopPropagation();
+            */
+
+        })
+
+        this.node.on(cc.Node.EventType.TOUCH_CANCEL, (event) => {
             if (this.isMove) {
                 this.item_node._offsetY = 0;
             }
