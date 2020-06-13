@@ -37,9 +37,11 @@ cc.Class({
         .to(.2,{position:cc.v2(0,-118)},{ easing: 'fade'})
         .call(()=>{
             //动画执行结束后再渲染列表避免卡顿
-            this.init()
         })
         .start()
+
+        this.init()
+
 
         //头部滑出动画
         this.header.setPosition(cc.v2(0,800))
@@ -120,12 +122,19 @@ cc.Class({
 
     initGoods(item,index){
         let goods = cc.instantiate(this.goods);
+        goods.opacity=0
         let obj = goods.getComponent('storeGood');
         goods.info=item
         obj.init(item)
         goods.parent = this.list;
         this.list.height=210*(index+1)
-        goods.setPosition(cc.v2(0,-(.5+index)*210))
+        const positionY = -(.5+index)*210
+        goods.setPosition(cc.v2(0,positionY-100))
+
+        cc.tween(goods)
+            .delay(.5+.1*(index+1))
+            .to(.4,{position:cc.v2(0,positionY),opacity:255},)
+        .start()
     },
 
     start () {
