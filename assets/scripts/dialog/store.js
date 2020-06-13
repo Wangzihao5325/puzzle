@@ -132,7 +132,7 @@ cc.Class({
         goods.setPosition(cc.v2(0,positionY-100))
 
         cc.tween(goods)
-            .delay(.5+.1*(index+1))
+            .delay(.2+.2*(index+1))
             .to(.4,{position:cc.v2(0,positionY),opacity:255},)
         .start()
     },
