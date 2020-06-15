@@ -102,9 +102,9 @@ cc.Class({
             return false
         }
 
-        if (underwayIndex && underwayIndex.length) {
+        if (GAME_CACHE.underwayIndex && GAME_CACHE.underwayIndex.length) {
             //磁铁吸引在拼图中的块
-            const index = underwayIndex[0]
+            const index = GAME_CACHE.underwayIndex[0]
             var currentNode = cc.find(`Canvas/root/puzzleWarp/puzzleBg/item_puzzle_splice-${index}`)
             var item_puzzle_warp = cc.find(`Canvas/root/puzzleWarp/puzzleBg/item_puzzle_warp-${index}`);
             /*动画*/
@@ -112,7 +112,7 @@ cc.Class({
                 .to(.4, { position: cc.v2(currentNode.defaultPostion[0], currentNode.defaultPostion[1]) })
                 .start()
             GAME_CACHE.complateIndex.push(index)
-            underwayIndex.remove(index)
+            GAME_CACHE.underwayIndex.remove(index)
             setTimeout(() => {
                 currentNode.destroy()
                 item_puzzle_warp.destroy()
@@ -184,7 +184,11 @@ cc.Class({
     gameContinue(){
         this.timer(GAME_CACHE.coutnDown);
     },
-
+    gameOver(){
+        GAME_CACHE.complateIndex = []
+        GAME_CACHE.underwayIndex=
+        GAME_CACHE.isComplate =false;
+    },
     updateUserInfo() {
         Action.User.BalanceUpdate(this.resetUI())
     },
@@ -276,9 +280,6 @@ cc.Class({
             if (res.code === 0) {
                 setTimeout(() => {
                     this.showAward(res.data.list, CACHE.hard_level + 1);
-                    if (this._guideShowAwardCallback) {
-                        this._guideShowAwardCallback();
-                    }
                 }, 1000)
             } else {
                 Toast.show(res.meeage)
@@ -292,13 +293,13 @@ cc.Class({
         game_award.parent = this.root_warp;
         let obj = game_award.getComponent('gameAward');
         obj.init(item, leavel)
-
+        if (this._guideShowAwardCallback) {
+            //新手引导使用的callback,用来判断奖励弹窗是否出现
+            this._guideShowAwardCallback();
+        }
         setTimeout(() => {
             game_award.destroy();
             this.showShare(item, leavel - 1);
-            if (this._guideShowShareCallback) {
-                this._guideShowShareCallback();
-            }
         }, 2000)
 
     },
@@ -308,9 +309,14 @@ cc.Class({
         const shareList = [this.game_share1, this.game_share2, this.game_share3]
         let game_share = cc.instantiate(shareList[leavel]);
         game_share.parent = this.root_warp;
+        game_share.name = 'game_share'
         let obj = game_share.getComponent('share');
         // obj.init(item, leavel + 1)
 
+        if (this._guideShowShareCallback) {
+            //新手引导使用的callback,用来判断分享弹窗是否出现并展示引导手势
+            this._guideShowShareCallback();
+        }
     },
 
     gameFail() {
@@ -387,12 +393,12 @@ cc.Class({
     resetUiFrame() {
         const userData = CACHE.userData
 
-        const tiemNode= cc.find('sortTimes',this.sort)
-        const num = cc.find('time',tiemNode).getComponent(cc.Label)
-        const adNode= cc.find('free',this.sort)
-        const currentNum=userData.frame > 99 ? '99+' : userData.frame
-        num.string=currentNum
-        setTimeout(()=>{
+        const tiemNode = cc.find('sortTimes', this.sort)
+        const num = cc.find('time', tiemNode).getComponent(cc.Label)
+        const adNode = cc.find('free', this.sort)
+        const currentNum = userData.frame > 99 ? '99+' : userData.frame
+        num.string = currentNum
+        setTimeout(() => {
             if (userData.frame > 0) {
                 tiemNode.active = true
                 adNode.active = false
@@ -409,10 +415,10 @@ cc.Class({
     resetUiShow() {
         const userData = CACHE.userData
 
-        let tiemNode= cc.find('sortTimes',this.viewIcon) 
-        let num = cc.find('time',tiemNode).getComponent(cc.Label)
-        let adNode= cc.find('free',this.viewIcon)
-        let currentNum=userData.showProp > 99 ? '99+' : userData.showProp
+        let tiemNode = cc.find('sortTimes', this.viewIcon)
+        let num = cc.find('time', tiemNode).getComponent(cc.Label)
+        let adNode = cc.find('free', this.viewIcon)
+        let currentNum = userData.showProp > 99 ? '99+' : userData.showProp
         num.string = currentNum
         setTimeout(() => {
             if (userData.showProp > 0) {

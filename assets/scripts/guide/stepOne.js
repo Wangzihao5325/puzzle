@@ -156,21 +156,37 @@ cc.Class({
         if (CACHE.userInfo.stage == 1 || CACHE.userInfo.stage == 3 || CACHE.userInfo.stage == 6) {
             // 获取触摸点，转为Canvas画布上的坐标
             originNode = this.node.parent.parent;
-            pos = originNode.convertToNodeSpaceAR(event.getLocation());
             btn = cc.find('Canvas/map/view/content/bg/city_item-101/city_image');
+            if (!originNode || !btn) {
+                this.node._touchListener.setSwallowTouches(true);
+                return;
+            }
+            pos = originNode.convertToNodeSpaceAR(event.getLocation());
         } else if (CACHE.userInfo.stage == 2 || CACHE.userInfo.stage == 4) {
             originNode = cc.find('Canvas/layoutRoot/footer_navi');
-            pos = originNode.convertToNodeSpaceAR(event.getLocation());
             btn = cc.find('Canvas/layoutRoot/footer_navi/button_show');
+            if (!originNode || !btn) {
+                this.node._touchListener.setSwallowTouches(true);
+                return;
+            }
+            pos = originNode.convertToNodeSpaceAR(event.getLocation());
         } else if (CACHE.userInfo.stage == 5 || CACHE.userInfo.stage == 7) {
             originNode = cc.find('Canvas/layoutRoot/footer_navi');
-            pos = originNode.convertToNodeSpaceAR(event.getLocation());
             btn = cc.find('Canvas/layoutRoot/footer_navi/button_home');
+            if (!originNode || !btn) {
+                this.node._touchListener.setSwallowTouches(true);
+                return;
+            }
+            pos = originNode.convertToNodeSpaceAR(event.getLocation());
         } else if (CACHE.userInfo.stage == 8) {
             //需要放一个动画
-            originNode = cc.find('Canvas/layoutRoot/footer_navi');;
-            pos = originNode.convertToNodeSpaceAR(event.getLocation());
+            originNode = cc.find('Canvas/layoutRoot/footer_navi');
             btn = cc.find('Canvas/layoutRoot/footer_navi/button_home');
+            if (!originNode || !btn) {
+                this.node._touchListener.setSwallowTouches(true);
+                return;
+            }
+            pos = originNode.convertToNodeSpaceAR(event.getLocation());
         }
         // 获取相应按钮的大小范围
         let rect = btn.getBoundingBox();

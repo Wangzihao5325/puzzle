@@ -11,9 +11,11 @@ cc.Class({
 
     awardDone() {
         this.guideStep++;
+
         if (this.timer) {
             clearTimeout(this.timer);
             this.timer = null;
+            this.isGameOver = true;
         }
         this.handNode.active = false;
 
@@ -41,26 +43,15 @@ cc.Class({
     },
 
     showDone() {
+        this.isGameOver = true;
+        this.showAppear = true;
         if (this.guideToastNode) {
             this.guideToastNode.active = false;
         }
         if (this.guideToastArrowNode) {
             this.guideToastArrowNode.active = false;
         }
-        this.guideStep++;
-        this.handPressNode = cc.instantiate(this.hand);
-        this.handPressNode.scaleX = 0.7;
-        this.handPressNode.scaleY = 0.7;
-        this.handPressNode.parent = this.node;
-        this.handPressNode.setPosition(-230, 480);
-        let obj = this.handPressNode.getComponent('guideHand');
-        if (obj) {
-            obj.handAnimate();
-        }
-    },
 
-    showDoneForStep6() {
-        this.guideStep++;
         this.handPressNode = cc.instantiate(this.hand);
         this.handPressNode.scaleX = 0.7;
         this.handPressNode.scaleY = 0.7;
@@ -73,6 +64,7 @@ cc.Class({
     },
 
     failedDone() {
+        this.isGameOver = true;
         if (this.timer) {
             clearTimeout(this.timer);
             this.timer = null;
@@ -81,6 +73,7 @@ cc.Class({
     },
 
     rebornDone() {
+        this.isGameOver = false;
         this.timer = setTimeout(() => {
             if (this.handNode) {
                 this.handNode.active = true;
@@ -90,8 +83,25 @@ cc.Class({
 
 
     onTouchStart(event) {
-        if (this.guideStep == 1) {
-            if (this.handNode) {
+        if (this.guideStep == 2) {//此时分享弹窗已经出现，不能让玩家乱点
+            let originNode = cc.find('Canvas/root/game_share/container/poster');
+            if (originNode) {
+                let pos = originNode.convertToNodeSpaceAR(event.getLocation());
+                let btn = cc.find('Canvas/root/game_share/container/poster/back');
+                let rect = btn.getBoundingBox();
+                if (rect.contains(pos)) {
+                    this.node._touchListener.setSwallowTouches(false);
+                } else {
+                    this.node._touchListener.setSwallowTouches(true);
+                }
+                return;
+            } else {
+                this.node._touchListener.setSwallowTouches(true);
+                return;
+            }
+        }
+        if (this.guideStep == 1 || this.guideStep == 3 || this.guideStep == 6) {
+            if (this.handNode && !this.isGameOver) {
                 this.handNode.active = false;
                 if (!this.timer) {
                     this.timer = setTimeout(() => {

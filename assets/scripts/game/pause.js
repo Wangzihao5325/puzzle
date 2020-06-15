@@ -29,7 +29,8 @@ cc.Class({
     },
     goBack() {
         this.dialog.active = false;
-        GLOBAL_VAR.pause = false;
+        const contralObj=cc.find('Canvas/root/menuWarp').getComponent('conraol')
+        contralObj.gameOver()
         cc.director.loadScene("travel");
     },
 
@@ -38,6 +39,7 @@ cc.Class({
         GAME_CACHE.pause = false;
         const contralObj=cc.find('Canvas/root/menuWarp').getComponent('conraol')
         contralObj.gameContinue()
+
     },
 
     continueGame() {

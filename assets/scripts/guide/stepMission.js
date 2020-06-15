@@ -79,41 +79,53 @@ cc.Class({
         let pos;
         let btn;
         if (CACHE.userInfo.stage === 1 && this.guideStep == 1) {
-            // 获取触摸点，转为Canvas画布上的坐标
             originNode = cc.find('Canvas/root/missionScrollView/view/content');
-            pos = originNode.convertToNodeSpaceAR(event.getLocation());
-            // 获取相应按钮的大小范围
             btn = cc.find('Canvas/root/missionScrollView/view/content/mission_item-101001');
+            if (!originNode || !btn) {
+                this.node._touchListener.setSwallowTouches(true);
+                return;
+            }
+            pos = originNode.convertToNodeSpaceAR(event.getLocation());
         } else if (CACHE.userInfo.stage === 1 && this.guideStep == 2) {
-            // 获取触摸点，转为Canvas画布上的坐标
             originNode = this.node.parent;
-            pos = originNode.convertToNodeSpaceAR(event.getLocation());
-            // 获取相应按钮的大小范围
             btn = cc.find('Canvas/root/mission_level/anniuju');
+            if (!originNode || !btn) {
+                this.node._touchListener.setSwallowTouches(true);
+                return;
+            }
+            pos = originNode.convertToNodeSpaceAR(event.getLocation());
         } else if (CACHE.userInfo.stage === 3 && this.guideStep == 1) {
-            // 获取触摸点，转为Canvas画布上的坐标
             originNode = cc.find('Canvas/root/missionScrollView/view/content');
-            pos = originNode.convertToNodeSpaceAR(event.getLocation());
-            // 获取相应按钮的大小范围
             btn = cc.find('Canvas/root/missionScrollView/view/content/mission_item-101002');
+            if (!originNode || !btn) {
+                this.node._touchListener.setSwallowTouches(true);
+                return;
+            }
+            pos = originNode.convertToNodeSpaceAR(event.getLocation());
         } else if (CACHE.userInfo.stage === 3 && this.guideStep == 2) {
-            // 获取触摸点，转为Canvas画布上的坐标
             originNode = this.node.parent;
-            pos = originNode.convertToNodeSpaceAR(event.getLocation());
-            // 获取相应按钮的大小范围
             btn = cc.find('Canvas/root/mission_level/anniuju');
+            if (!originNode || !btn) {
+                this.node._touchListener.setSwallowTouches(true);
+                return;
+            }
+            pos = originNode.convertToNodeSpaceAR(event.getLocation());
         } else if (CACHE.userInfo.stage === 6 && this.guideStep == 1) {
-            // 获取触摸点，转为Canvas画布上的坐标
             originNode = cc.find('Canvas/root/missionScrollView/view/content');
-            pos = originNode.convertToNodeSpaceAR(event.getLocation());
-            // 获取相应按钮的大小范围
             btn = cc.find('Canvas/root/missionScrollView/view/content/mission_item-101003');
-        } else if (CACHE.userInfo.stage === 6 && this.guideStep == 2) {
-            // 获取触摸点，转为Canvas画布上的坐标
-            originNode = this.node.parent;
+            if (!originNode || !btn) {
+                this.node._touchListener.setSwallowTouches(true);
+                return;
+            }
             pos = originNode.convertToNodeSpaceAR(event.getLocation());
-            // 获取相应按钮的大小范围
+        } else if (CACHE.userInfo.stage === 6 && this.guideStep == 2) {
+            originNode = this.node.parent;
             btn = cc.find('Canvas/root/mission_level/anniuju');
+            if (!originNode || !btn) {
+                this.node._touchListener.setSwallowTouches(true);
+                return;
+            }
+            pos = originNode.convertToNodeSpaceAR(event.getLocation());
         }
         let rect = btn.getBoundingBox();
         // 判断触摸点是否在按钮上
