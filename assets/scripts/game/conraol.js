@@ -102,9 +102,9 @@ cc.Class({
             return false
         }
 
-        if (underwayIndex && underwayIndex.length) {
+        if (GAME_CACHE.underwayIndex && GAME_CACHE.underwayIndex.length) {
             //磁铁吸引在拼图中的块
-            const index = underwayIndex[0]
+            const index = GAME_CACHE.underwayIndex[0]
             var currentNode = cc.find(`Canvas/root/puzzleWarp/puzzleBg/item_puzzle_splice-${index}`)
             var item_puzzle_warp = cc.find(`Canvas/root/puzzleWarp/puzzleBg/item_puzzle_warp-${index}`);
             /*动画*/
@@ -112,7 +112,7 @@ cc.Class({
                 .to(.4, { position: cc.v2(currentNode.defaultPostion[0], currentNode.defaultPostion[1]) })
                 .start()
             GAME_CACHE.complateIndex.push(index)
-            underwayIndex.remove(index)
+            GAME_CACHE.underwayIndex.remove(index)
             setTimeout(() => {
                 currentNode.destroy()
                 item_puzzle_warp.destroy()
@@ -176,11 +176,19 @@ cc.Class({
 
     gamePause() {
         let pauseWarp = cc.instantiate(this.pause);
-        GLOBAL_VAR.pause = true;
+        GAME_CACHE.pause = true;
         pauseWarp.parent = this.game_root;
         pauseWarp.setPosition(0, 0);
     },
 
+    gameContinue(){
+        this.timer(GAME_CACHE.coutnDown);
+    },
+    gameOver(){
+        GAME_CACHE.complateIndex = []
+        GAME_CACHE.underwayIndex=
+        GAME_CACHE.isComplate =false;
+    },
     updateUserInfo() {
         Action.User.BalanceUpdate(this.resetUI())
     },

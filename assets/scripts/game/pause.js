@@ -5,6 +5,7 @@
 // Learn life-cycle callbacks:
 //  - https://docs.cocos.com/creator/manual/en/scripting/life-cycle-callbacks.html
 import GLOBAL_VAR from '../global/index'
+import { GAME_CACHE } from '../global/piece_index';
 
 cc.Class({
     extends: cc.Component,
@@ -28,19 +29,24 @@ cc.Class({
     },
     goBack() {
         this.dialog.active = false;
-        GLOBAL_VAR.pause = false;
+        const contralObj=cc.find('Canvas/root/menuWarp').getComponent('conraol')
+        contralObj.gameOver()
         cc.director.loadScene("travel");
     },
 
     closeDialog() {
         this.dialog.active = false;
-        GLOBAL_VAR.pause = false
+        GAME_CACHE.pause = false;
+        const contralObj=cc.find('Canvas/root/menuWarp').getComponent('conraol')
+        contralObj.gameContinue()
 
     },
 
     continueGame() {
         this.dialog.active = false;
-        GLOBAL_VAR.pause = false
+        GAME_CACHE.pause = false;
+        const contralObj=cc.find('Canvas/root/menuWarp').getComponent('conraol')
+        contralObj.gameContinue()
     },
 
     toglleSound() {

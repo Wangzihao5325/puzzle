@@ -97,7 +97,7 @@ cc.Class({
             this.isMove = true;
             let delta = event.touch.getDelta();
             const outList = this.item_node.parent.name === 'puzzleBg';
-            let newPositin = cc.v2(this.item_node.x + delta.x, this.item_node.y + delta.y);
+            let newPositin = cc.v2(this.item_node.x + delta.x, this.item_node.y + delta.y>430?430:this.item_node.y + delta.y);
             //在拼图盒子内移动
             if (!outList && this.item_node._offsetY + delta.y < 90) {
                 /*积累偏移量*/
@@ -124,7 +124,7 @@ cc.Class({
                 let bgX = Math.ceil(this.item_node.x - (PUZZLE_FOOTER.position[0] - PUZZLE_FOOTER.truePosition[0])) - PUZZLE_SCENE.width / 2;
                 const resetPostion = cc.v2(bgX, this.item_node.y + delta.y - 540 + 180);
                 this.item_node.setPosition(resetPostion);
-                underwayIndex.push(this.item_node.defaultIndex);
+                GAME_CACHE.underwayIndex.push(this.item_node.defaultIndex);
                 this.removeSpliceNode(this.item_node.defaultIndex);
                 cc.tween(this.item_node)
                     .to(0.2, { scale: 1 / SCALELEAVEL[hardLevel] })
@@ -142,7 +142,7 @@ cc.Class({
                 this.item_node.setScale(1)
                 const resetPostion = cc.v2(this.item_node.x + delta.x, 0)
                 this.item_node.setPosition(resetPostion);
-                underwayIndex.remove(this.item_node.defaultIndex);
+                GAME_CACHE.underwayIndex.remove(this.item_node.defaultIndex);
                 this.pushSpliceNode(this.item_node.defaultIndex, hardLevel);
                 //重新排列底部块的位置
                 let game_bg = cc.find('Canvas/root/puzzleWarp/puzzleBg');
@@ -161,6 +161,38 @@ cc.Class({
         })
 
         this.node.on(cc.Node.EventType.TOUCH_END, (event) => {
+            if (this.isMove) {
+                this.item_node._offsetY = 0;
+            }
+            if (hardLevel == LEVEL.HARD && !this.isMove) {
+                //第三级难度点击旋转
+                this.item_node.angle = (this.item_node.angle - 90) % 360;
+            }
+            const outList = this.item_node.parent.name === 'puzzleBg';
+            if (outList) {
+                //在盒子外计算
+                let delta = event.touch.getDelta();
+                this.calPostion(this.item_node.x + delta.x, this.item_node.y + delta.y, this.item_node.angle, hardLevel);
+            }
+            this.item_node.zIndex = 100;//恢复z-index
+            this.isMove = false;
+            // cc.find('shadow',this.item_node).active=false
+            // const puzzleItem= cc.find('content',this.item_node)
+            //去除拿起阴影
+            cc.tween(this.contentNode)
+                .to(.1,{position:cc.v2(0,0)})
+                .start()
+
+                let game_splice_obj  = cc.find(`Canvas/root/spliceWarp`).getComponent('game_splice')
+                game_splice_obj.setLayoutType(true)
+            /*
+            不禁止事件传递,让底部栏可以滑动，提升体验
+            event.stopPropagation();
+            */
+
+        })
+
+        this.node.on(cc.Node.EventType.TOUCH_CANCEL, (event) => {
             if (this.isMove) {
                 this.item_node._offsetY = 0;
             }
@@ -242,7 +274,7 @@ cc.Class({
                 this.item_node.active = false;
                 this.item_node.destroy()
                 GAME_CACHE.complateIndex.push(this.item_node.defaultIndex);
-                underwayIndex.remove(this.item_node.defaultIndex)
+                GAME_CACHE.underwayIndex.remove(this.item_node.defaultIndex)
                 this.checkSuccess();
                 if (GAME_CACHE.complateIndex.length >= reg.length * 0.3) {
                     let dragonBonesNode = cc.find('Canvas/root/puzzleWarp/puzzleBg');
