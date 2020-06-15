@@ -33,6 +33,8 @@ cc.Class({
                 }
                 // 触摸监听
                 this.node.on(cc.Node.EventType.TOUCH_START, this.onTouchStart, this);
+                this.node.on(cc.Node.EventType.TOUCH_END, this.onTouchEnd, this);
+                this.node.on(cc.Node.EventType.TOUCH_MOVE, this.onTouchMove, this);
             } else if (CACHE.userInfo && CACHE.userInfo.stage === 3) {
                 this.isSetTouch = true;
                 this.node.zIndex = 10000;
@@ -48,6 +50,8 @@ cc.Class({
                 }
                 // 触摸监听
                 this.node.on(cc.Node.EventType.TOUCH_START, this.onTouchStart, this);
+                this.node.on(cc.Node.EventType.TOUCH_END, this.onTouchEnd, this);
+                this.node.on(cc.Node.EventType.TOUCH_MOVE, this.onTouchMove, this);
             } else if (CACHE.userInfo && CACHE.userInfo.stage === 6) {
                 this.isSetTouch = true;
                 this.node.zIndex = 10000;
@@ -63,6 +67,8 @@ cc.Class({
                 }
                 // 触摸监听
                 this.node.on(cc.Node.EventType.TOUCH_START, this.onTouchStart, this);
+                this.node.on(cc.Node.EventType.TOUCH_END, this.onTouchEnd, this);
+                this.node.on(cc.Node.EventType.TOUCH_MOVE, this.onTouchMove, this);
             }
         }
     },
@@ -70,11 +76,82 @@ cc.Class({
     onDestroy() {
         // 取消监听
         if (this.isSetTouch) {
-            this.node.off(cc.Node.EventType.TOUCH_START, this.onTouchStart, this);
+            this.node.on(cc.Node.EventType.TOUCH_START, this.onTouchStart, this);
+            this.node.off(cc.Node.EventType.TOUCH_END, this.onTouchEnd, this);
+            this.node.on(cc.Node.EventType.TOUCH_MOVE, this.onTouchMove, this);
         }
     },
 
     onTouchStart(event) {
+        let originNode;
+        let pos;
+        let btn;
+        if (CACHE.userInfo.stage === 1 && this.guideStep == 1) {
+            originNode = cc.find('Canvas/root/missionScrollView/view/content');
+            btn = cc.find('Canvas/root/missionScrollView/view/content/mission_item-101001');
+            if (!originNode || !btn) {
+                this.node._touchListener.setSwallowTouches(true);
+                return;
+            }
+            pos = originNode.convertToNodeSpaceAR(event.getLocation());
+        } else if (CACHE.userInfo.stage === 1 && this.guideStep == 2) {
+            originNode = this.node.parent;
+            btn = cc.find('Canvas/root/mission_level/anniuju');
+            if (!originNode || !btn) {
+                this.node._touchListener.setSwallowTouches(true);
+                return;
+            }
+            pos = originNode.convertToNodeSpaceAR(event.getLocation());
+        } else if (CACHE.userInfo.stage === 3 && this.guideStep == 1) {
+            originNode = cc.find('Canvas/root/missionScrollView/view/content');
+            btn = cc.find('Canvas/root/missionScrollView/view/content/mission_item-101002');
+            if (!originNode || !btn) {
+                this.node._touchListener.setSwallowTouches(true);
+                return;
+            }
+            pos = originNode.convertToNodeSpaceAR(event.getLocation());
+        } else if (CACHE.userInfo.stage === 3 && this.guideStep == 2) {
+            originNode = this.node.parent;
+            btn = cc.find('Canvas/root/mission_level/anniuju');
+            if (!originNode || !btn) {
+                this.node._touchListener.setSwallowTouches(true);
+                return;
+            }
+            pos = originNode.convertToNodeSpaceAR(event.getLocation());
+        } else if (CACHE.userInfo.stage === 6 && this.guideStep == 1) {
+            originNode = cc.find('Canvas/root/missionScrollView/view/content');
+            btn = cc.find('Canvas/root/missionScrollView/view/content/mission_item-101003');
+            if (!originNode || !btn) {
+                this.node._touchListener.setSwallowTouches(true);
+                return;
+            }
+            pos = originNode.convertToNodeSpaceAR(event.getLocation());
+        } else if (CACHE.userInfo.stage === 6 && this.guideStep == 2) {
+            originNode = this.node.parent;
+            btn = cc.find('Canvas/root/mission_level/anniuju');
+            if (!originNode || !btn) {
+                this.node._touchListener.setSwallowTouches(true);
+                return;
+            }
+            pos = originNode.convertToNodeSpaceAR(event.getLocation());
+        }
+        let rect = btn.getBoundingBox();
+        // 判断触摸点是否在按钮上
+        if (rect.contains(pos)) {
+            // 允许触摸事件传递给按钮(允许冒泡)
+            this.node._touchListener.setSwallowTouches(false);
+        }
+        else {
+            // 吞噬触摸，禁止触摸事件传递给按钮(禁止冒泡)
+            this.node._touchListener.setSwallowTouches(true);
+        }
+    },
+
+    onTouchMove(event) {
+        this.node._touchListener.setSwallowTouches(true);
+    },
+
+    onTouchEnd(event) {
         let originNode;
         let pos;
         let btn;
