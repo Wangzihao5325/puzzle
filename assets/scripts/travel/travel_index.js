@@ -21,6 +21,7 @@ cc.Class({
         signBtn: cc.Sprite,
         signItem: cc.Prefab,
         signDaySeven: cc.Prefab,
+        signBg: cc.Node,
         signRoot: cc.Node,
         signClose: cc.Node,
         signGetGoods: cc.Node,
@@ -129,7 +130,18 @@ cc.Class({
         task.parent = cc.find('Canvas');
     },
 
-    signSetTouch() {
+    signSetTouch() {//signBg
+
+        this.signBg.on(cc.Node.EventType.TOUCH_START, (event) => {
+            event.stopPropagation();
+        });
+        this.signBg.on(cc.Node.EventType.TOUCH_MOVE, (event) => {
+            event.stopPropagation();
+        });
+        this.signBg.on(cc.Node.EventType.TOUCH_END, (event) => {
+            event.stopPropagation();
+        });
+
         this.signBtn.node.on(cc.Node.EventType.TOUCH_START, (event) => {
             event.stopPropagation();
         });
