@@ -118,6 +118,20 @@ cc.Class({
         }
     },
 
+    onTouchStartWithoutGuide() {
+        this.handNode.active = false;
+        if (!this.timer) {
+            this.timer = setTimeout(() => {
+                this.guideHandShow();
+            }, 10000);
+        } else {
+            clearTimeout(this.timer);
+            this.timer = setTimeout(() => {
+                this.guideHandShow();
+            }, 10000);
+        }
+    },
+
     guideHandShow() {
         if (this.handNode) {
             this.handNode.active = true;
@@ -159,9 +173,11 @@ cc.Class({
             }
         } else if (CACHE.userInfo.stage == 99) {
             //未导航时长时间不操作处理
+            this.node.zIndex = 10000;
             this.timer = setTimeout(() => {
                 this.guideHandShow();
             }, 10000);
+            this.node.on(cc.Node.EventType.TOUCH_START, this.onTouchStartWithoutGuide, this);
         }
     },
 
