@@ -27,6 +27,8 @@ cc.Class({
         signGetGoods: cc.Node,
         taskIcon: cc.Node,
         taskDialog: cc.Prefab,
+        signNew: cc.Node,
+        taskNew: cc.Node,
 
         map: cc.ScrollView,
 
