@@ -37,6 +37,10 @@ cc.Class({
         lackBtn:cc.Node,
         currentRareBtn:cc.Node,
         footerWarp:cc.Node,
+        type1New: cc.Node,
+        type2New: cc.Node,
+        normalNew: cc.Node,
+        lackNew: cc.Node
 
     },
 
@@ -93,7 +97,7 @@ cc.Class({
 
     },
 
-    
+
 
     initBackpack(data){
         // currentPageContent.parent=this.pageContent
@@ -145,9 +149,9 @@ cc.Class({
         this.scrollContent.children.map(item=>{
             item.destroy()
         })
-        
+
         this.footerWarp.active=!type
-        
+
         this.current.setPosition(cc.v2(type?135:-135,5))
         cc.find('tabTitle',this.current).getComponent(cc.Label).string=['纪念品','景 · 点'][type]
         this.getCollect()
@@ -193,10 +197,10 @@ cc.Class({
             event.stopPropagation();
         })
 
-        
-        
+
+
     },
-  
+
 
     // update (dt) {},
 });

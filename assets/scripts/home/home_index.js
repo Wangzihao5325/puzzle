@@ -8,7 +8,7 @@ cc.Class({
 
     properties: {
         ske_anim: {
-            type: sp.Skeleton, // 
+            type: sp.Skeleton, //
             default: null,
         },
         cat: cc.Node,
@@ -46,6 +46,9 @@ cc.Class({
         collect: cc.Prefab,
         catPop: cc.Node,
         catPopText: cc.Label,
+        recallNew: cc.Node,
+        backpackNew: cc.Node,
+        collectNew: cc.Node,
 
     },
 
