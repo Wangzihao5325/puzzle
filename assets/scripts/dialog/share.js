@@ -8,6 +8,7 @@ import { dateFormat } from '../utils/utils'
 import { GAME_CACHE } from '../global/piece_index'
 import { CACHE } from '../global/usual_cache';
 import Api from '../api/api_index'
+import { SHARE_URL } from '../global/app_global_index'
 
 cc.Class({
     extends: require('../global/textureRenderUtils'),
@@ -222,7 +223,7 @@ cc.Class({
         if (cc.sys.platform === cc.sys.WECHAT_GAME) {
             wx.shareAppMessage({
                 title: "说走就走的旅行，就等你了！快上车！",
-                imageUrl: "https://puzzle.oss-cn-beijing.aliyuncs.com/wx_share.jpg",
+                imageUrl: SHARE_URL,
             });
         }
     },

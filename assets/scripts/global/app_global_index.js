@@ -16,7 +16,9 @@ const SCENE_KEY = {
     LOADING: 5,
 };
 
-const IMAGE_SERVER = 'https://puzzle.oss-cn-beijing.aliyuncs.com';
+const IMAGE_SERVER = 'https://img.becabaking.xyz';
+
+const SHARE_URL = `${IMAGE_SERVER}/wx_share.jpg`;
 
 const BG_ASSET_URL = [
     `${IMAGE_SERVER}/travel.png`,
@@ -89,5 +91,6 @@ export default {
     YOUNG_WOMAN_VISTER,
     VISTER_ATTITUDE,
     NAVI_ASSETS,
-    IMAGE_SERVER
+    IMAGE_SERVER,
+    SHARE_URL
 }

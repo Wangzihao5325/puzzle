@@ -8,6 +8,7 @@ import {dateFormat} from '../utils/utils'
 import {GAME_CACH} from '../global/piece_index'
 import { CACHE } from '../global/usual_cache';
 import Api from '../api/api_index'
+import { IMAGE_SERVER } from '../global/app_global_index'
 
 cc.Class({
     extends: cc.Component,
@@ -151,7 +152,7 @@ cc.Class({
 
     },
     handleDownload () {
-        let url = this.type === 1 ? "https://puzzle.oss-cn-beijing.aliyuncs.com/" + this.picId + ".png"
+        let url = this.type === 1 ? IMAGE_SERVER + "/" + this.picId + ".png"
             : this.picId;
         this.downloadFromUrl(url);
     },
