@@ -158,32 +158,28 @@ cc.Class({
             originNode = this.node.parent.parent;
             btn = cc.find('Canvas/map/view/content/bg/city_item-101/city_image');
             if (!originNode || !btn) {
-                this.node._touchListener.setSwallowTouches(true);
-                return;
+                return false;
             }
             pos = originNode.convertToNodeSpaceAR(event.getLocation());
         } else if (CACHE.userInfo.stage == 2 || CACHE.userInfo.stage == 4) {
             originNode = cc.find('Canvas/layoutRoot/footer_navi');
             btn = cc.find('Canvas/layoutRoot/footer_navi/button_show');
             if (!originNode || !btn) {
-                this.node._touchListener.setSwallowTouches(true);
-                return;
+                return false;
             }
             pos = originNode.convertToNodeSpaceAR(event.getLocation());
         } else if (CACHE.userInfo.stage == 5 || CACHE.userInfo.stage == 7) {
             originNode = cc.find('Canvas/layoutRoot/footer_navi');
             btn = cc.find('Canvas/layoutRoot/footer_navi/button_home');
             if (!originNode || !btn) {
-                this.node._touchListener.setSwallowTouches(true);
-                return;
+                return false;
             }
             pos = originNode.convertToNodeSpaceAR(event.getLocation());
         } else if (CACHE.userInfo.stage == 8) {
             originNode = cc.find('Canvas/layoutRoot/footer_navi');
             btn = cc.find('Canvas/layoutRoot/footer_navi/button_home');
             if (!originNode || !btn) {
-                this.node._touchListener.setSwallowTouches(true);
-                return;
+                return false;
             }
             pos = originNode.convertToNodeSpaceAR(event.getLocation());
         }
