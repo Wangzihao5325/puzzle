@@ -95,7 +95,7 @@
         "__id__": 3
       }
     ],
-    "_active": true,
+    "_active": false,
     "_components": [
       {
         "__id__": 7
@@ -174,7 +174,7 @@
     "_prefab": {
       "__id__": 6
     },
-    "_opacity": 140,
+    "_opacity": 120,
     "_color": {
       "__type__": "cc.Color",
       "r": 0,
@@ -237,7 +237,7 @@
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
     "_spriteFrame": {
-      "__uuid__": "9bbda31e-ad49-43c9-aaf2-f7d9896bac69"
+      "__uuid__": "ee4c81ef-fc0f-44af-953a-70c60653484d"
     },
     "_type": 1,
     "_sizeMode": 0,
