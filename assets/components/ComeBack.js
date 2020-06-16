@@ -8,11 +8,11 @@
 
 window.ComeBack = {
     _alert: null,           // prefab
-    _goodItem:null,
-    _close:null,
-    _confirmButton:   null,   // 取消按钮
-    _confirmCallBack:null,//确认回调
-    _animSpeed:300
+    _goodItem: null,
+    _close: null,
+    _confirmButton: null,   // 取消按钮
+    _confirmCallBack: null,//确认回调
+    _animSpeed: 300
 
 };
 
@@ -24,7 +24,7 @@ window.ComeBack = {
  * neeCancel:       取消点击事件回调  function 类型.
  * duration:        动画速度 default = 0.3.
 */
-window.ComeBack.show = function (goods,_confirmCallBack=()=>{},animSpeed ) {
+window.ComeBack.show = function (goods, _confirmCallBack = () => { }, animSpeed) {
 
     // 引用
     var self = this;
@@ -71,7 +71,7 @@ window.ComeBack.show = function (goods,_confirmCallBack=()=>{},animSpeed ) {
         // 父视图
         ComeBack._alert.parent = cc.find("Canvas");
 
-        goods.map((item,index)=>{
+        goods.map((item, index) => {
             // 加载 goodItem prefab 创建
             cc.loader.loadRes("goodItem", cc.Prefab, function (error, prefab) {
 
@@ -84,11 +84,11 @@ window.ComeBack.show = function (goods,_confirmCallBack=()=>{},animSpeed ) {
 
                 // 实例 
                 var goodItem = cc.instantiate(prefab);
-                let obj=goodItem.getComponent('goodItem')
+                let obj = goodItem.getComponent('goodItem')
                 obj.init(item)
-                const indexX=(index+1)%3
-                const indexY=Math.ceil((index+1)/3)
-                goodItem.parent=cc.find("dialogContainer/content", alert);
+                const indexX = (index + 1) % 3
+                const indexY = Math.ceil((index + 1) / 3)
+                goodItem.parent = cc.find("dialogContainer/content", alert);
                 // let position = cc.v2((170 * (indexX+0.5)) +20-270, 210-(200*(indexY-0.5))-20);
                 // goodItem.setPosition(position);
 
@@ -100,7 +100,7 @@ window.ComeBack.show = function (goods,_confirmCallBack=()=>{},animSpeed ) {
 
         // 参数
         self.configAlert();
-        
+
     });
 
     // 参数
@@ -111,18 +111,18 @@ window.ComeBack.show = function (goods,_confirmCallBack=()=>{},animSpeed ) {
 
 
     };
-    self.close = function (){
+    self.close = function () {
         self.startFadeOut();
 
     }
 
     // 按钮点击事件
-    self.onButtonClicked = function(event){
-        if(event.target.name == "confirm"){
-            if(self._confirmButton){
+    self.onButtonClicked = function (event) {
+        if (event.target.name == "confirm") {
+            if (self._confirmButton) {
                 self._confirmButton();
             }
-        }else{
+        } else {
             self.startFadeOut();
         }
     };
@@ -136,8 +136,8 @@ window.ComeBack.show = function (goods,_confirmCallBack=()=>{},animSpeed ) {
         // ComeBack._alert.runAction(self.actionFadeIn);
 
         cc.tween(ComeBack._alert)
-        .to(1, { position: cc.v2(0,0)},{opacity:0})
-        .start()
+            .to(1, { position: cc.v2(0, 0) }, { opacity: 0 })
+            .start()
     };
 
     // 执行弹出动画
@@ -145,9 +145,9 @@ window.ComeBack.show = function (goods,_confirmCallBack=()=>{},animSpeed ) {
         // cc.eventManager.pauseTarget(Alert._alert, true);
         // ComeBack._alert.runAction(self.actionFadeOut);
         cc.tween(ComeBack._alert)
-        .to(1, { position: cc.v2(0,0)},{opacity:1})
-        .start()
-        self.onDestory();
+            .to(1, { position: cc.v2(0, 0) }, { opacity: 1 })
+            .start()
+        self.onDestroy();
 
     };
 
@@ -159,16 +159,16 @@ window.ComeBack.show = function (goods,_confirmCallBack=()=>{},animSpeed ) {
 
     // 弹出动画完成回调
     self.onFadeOutFinish = function () {
-        self.onDestory();
+        self.onDestroy();
     };
 
 
     // 销毁 alert (内存管理还没搞懂，暂且这样写吧~v~)
-    self.onDestory = function () {
-        ComeBack._alert.active=false;
+    self.onDestroy = function () {
+        ComeBack._alert.active = false;
         ComeBack._confirmCallBack = null;
         ComeBack._alert = null;
- 
+
         ComeBack._animSpeed = 0.3;
     };
 };

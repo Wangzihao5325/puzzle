@@ -142,7 +142,7 @@ window.Alert.show = function (detailString,{title, confirmText, confirmCallBack,
 
     // 弹出动画完成回调
     self.onFadeOutFinish = function () {
-        self.onDestory();
+        self.onDestroy();
     };
 
     // 按钮点击确认事件
@@ -172,7 +172,7 @@ window.Alert.show = function (detailString,{title, confirmText, confirmCallBack,
     };
 
     // 销毁 alert (内存管理还没搞懂，暂且这样写吧~v~)
-    self.onDestory = function () {
+    self.onDestroy = function () {
         window.Alert._alert.destroy();
         window.Alert._confirmCallBack = null;
         window.Alert._cancelCallBack = null;

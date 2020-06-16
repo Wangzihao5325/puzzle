@@ -119,7 +119,9 @@ cc.Class({
     },
 
     onTouchStartWithoutGuide() {
-        this.handNode.active = false;
+        if (this.handNode) {
+            this.handNode.active = false;
+        }
         if (!this.timer) {
             this.timer = setTimeout(() => {
                 this.guideHandShow();
@@ -138,14 +140,17 @@ cc.Class({
             this.handNode.active = true;
         } else {
             this.handNode = cc.instantiate(this.handSlip);
-            this.handNode.scaleX = 0.7;
-            this.handNode.scaleY = 0.7;
-            this.handNode.parent = this.node;
-            this.handNode.setPosition(cc.v2(-250, -500));
-            let obj = this.handNode.getComponent('pluzzeGuide');
-            if (obj) {
-                obj.handAnimate();
-            }
+            this.asyncTimer = setTimeout(() => {
+                this.handNode.scaleX = 0.7;
+                this.handNode.scaleY = 0.7;
+                this.handNode.parent = this.node;
+                this.handNode.setPosition(cc.v2(-250, -500));
+                let obj = this.handNode.getComponent('pluzzeGuide');
+                if (obj) {
+                    obj.handAnimate();
+                }
+                this.asyncTimer = null;
+            }, 0);
         }
     },
 
@@ -182,7 +187,14 @@ cc.Class({
         }
     },
 
-    start() {
-
-    },
+    onDestroy() {
+        if (this.timer) {
+            clearTimeout(this.timer);
+            this.timer = null;
+        }
+        if (this.asyncTimer) {
+            clearTimeout(this.asyncTimer);
+            this.asyncTimer = null;
+        }
+    }
 });

@@ -134,7 +134,7 @@ cc.Class({
         })
     },
 
-    onDestory(){
+    onDestroy(){
         clearTimeout(this.timer)
     }
 

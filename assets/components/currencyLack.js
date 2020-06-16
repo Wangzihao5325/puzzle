@@ -120,7 +120,7 @@ window.CurrencyLack.show = function (_confirmCallBack=()=>{},animSpeed ) {
         cc.tween(CurrencyLack._alert)
         .to(1, { position: cc.v2(0,0)},{opacity:1})
         .start()
-        self.onDestory();
+        self.onDestroy();
 
     };
 
@@ -132,12 +132,12 @@ window.CurrencyLack.show = function (_confirmCallBack=()=>{},animSpeed ) {
 
     // 弹出动画完成回调
     self.onFadeOutFinish = function () {
-        self.onDestory();
+        self.onDestroy();
     };
 
 
     // 销毁 alert (内存管理还没搞懂，暂且这样写吧~v~)
-    self.onDestory = function () {
+    self.onDestroy = function () {
         window.CurrencyLack._alert.active=false;
         window.CurrencyLack._confirmCallBack = null;
         window.CurrencyLack._alert = null;
