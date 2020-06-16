@@ -194,6 +194,9 @@ cc.Class({
                     if (obj) {
                         obj.todaySign();
                         CACHE.signData.todaySign = true;
+                        this.signNew.active = false;
+                        //重新更新任务红点
+                        this.loadTaskTips()
                         Action.User.BalanceUpdate((res) => {
                             this.header_obj.render();
                         });
@@ -206,6 +209,7 @@ cc.Class({
     signInfo() {
         Action.Sign.SignInfoUpdate((res) => {
             if (!CACHE.signData.todaySign) {
+                this.signNew.active = true;
                 //this.signRoot.active = true;
             }
             CACHE.signData.signList.forEach((item, index) => {
@@ -341,6 +345,8 @@ cc.Class({
         if (CACHE.isBGM && !this.currentBGM) {
             this.currentBGM = cc.audioEngine.play(this.audio, true, 1);
         }
+        //设置红点显示或隐藏
+        this.loadTaskTips();
     },
 
     start() {
@@ -355,6 +361,19 @@ cc.Class({
             this.powerTimerReg();
             this.powerTimerReg = null;
         }
+    },
+    loadTaskTips() {
+        Api.task_tips((res) => {
+            if (res.code === 0) {
+                CACHE.taskTips = res.data
+                this.updateTaskTips()
+            } else {
+                //请求异常处理
+            }
+        })
+    },
+    updateTaskTips() {
+        this.taskNew.active = CACHE.taskTips.task;
     }
 
     // update (dt) {},

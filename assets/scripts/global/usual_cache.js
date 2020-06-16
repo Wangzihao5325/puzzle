@@ -66,7 +66,12 @@ const CACHE = {
     platform: {
         isWachat: false
     },
-    isShowGuide: true
+    isShowGuide: true,
+    taskTips: {
+        task: false,
+        dailyTask: false,
+        mainTask: false
+    }
 }
 
 export default {
