@@ -81,46 +81,26 @@ cc.Class({
         if (CACHE.userInfo.stage === 1 && this.guideStep == 1) {
             originNode = cc.find('Canvas/root/missionScrollView/view/content');
             btn = cc.find('Canvas/root/missionScrollView/view/content/mission_item-101001');
-            if (!originNode || !btn) {
-                return false;
-            }
-            pos = originNode.convertToNodeSpaceAR(event.getLocation());
         } else if (CACHE.userInfo.stage === 1 && this.guideStep == 2) {
             originNode = this.node.parent;
             btn = cc.find('Canvas/root/mission_level/anniuju');
-            if (!originNode || !btn) {
-                return false;
-            }
-            pos = originNode.convertToNodeSpaceAR(event.getLocation());
         } else if (CACHE.userInfo.stage === 3 && this.guideStep == 1) {
             originNode = cc.find('Canvas/root/missionScrollView/view/content');
             btn = cc.find('Canvas/root/missionScrollView/view/content/mission_item-101002');
-            if (!originNode || !btn) {
-                return false;
-            }
-            pos = originNode.convertToNodeSpaceAR(event.getLocation());
         } else if (CACHE.userInfo.stage === 3 && this.guideStep == 2) {
             originNode = this.node.parent;
             btn = cc.find('Canvas/root/mission_level/anniuju');
-            if (!originNode || !btn) {
-                return false;
-            }
-            pos = originNode.convertToNodeSpaceAR(event.getLocation());
         } else if (CACHE.userInfo.stage === 6 && this.guideStep == 1) {
             originNode = cc.find('Canvas/root/missionScrollView/view/content');
             btn = cc.find('Canvas/root/missionScrollView/view/content/mission_item-101003');
-            if (!originNode || !btn) {
-                return false;
-            }
-            pos = originNode.convertToNodeSpaceAR(event.getLocation());
         } else if (CACHE.userInfo.stage === 6 && this.guideStep == 2) {
             originNode = this.node.parent;
             btn = cc.find('Canvas/root/mission_level/anniuju');
-            if (!originNode || !btn) {
-                return false;
-            }
-            pos = originNode.convertToNodeSpaceAR(event.getLocation());
         }
+        if (!originNode || !btn) {
+            return false;
+        }
+        pos = originNode.convertToNodeSpaceAR(event.getLocation());
         let rect = btn.getBoundingBox();
         return rect.contains(pos);
     },

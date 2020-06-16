@@ -13,6 +13,7 @@ cc.Class({
         splice_warp: cc.Prefab,
         game_root: cc.Node,
         puzzle_name: cc.Label,
+        puzzleColor:cc.Node,
         dragonBone: {
             default: null,
             type: dragonBones.ArmatureDisplay
@@ -63,11 +64,12 @@ cc.Class({
                 picPath: res.data.texPng,
             };
             this.game_bg.zIndex = 1;
-            this.initPuzzleImg(res.data.picId)
-            this.initItem(hardLevel);
+            // this.initPuzzleImg(res.data.picId)
+            // this.initItem(hardLevel);
             this.initSpliceWarp(hardLevel, imagePath);
-            this.initBgAnimate(animatePayload);
+            // this.initBgAnimate(animatePayload);
             GAME_CACHE.animatePayload = animatePayload
+            GAME_CACHE.currentCityId = res.data.picId
         })
     },
 
@@ -101,7 +103,13 @@ cc.Class({
                 obj.item_node = item_node;
                 obj.setMarsk(item[6], hardLevel)
             }
+
+            if(index===sizeArr.length-1){
+                this.puzzleColor.active=false
+                this.initBgAnimate(GAME_CACHE.animatePayload);
+            }
         });
+            
     },
 
     initSpliceWarp(hardLevel = LEVEL.EASY, imagePath) {
@@ -142,6 +150,9 @@ cc.Class({
 
                 this.dragonBone.armatureName = dragonBonesJson.armature[0].name;
                 CACHE.dragonBoneAnimateName = dragonBonesJson.armature[0].defaultActions[0].gotoAndPlay;
+
+                this.initPuzzleImg(GAME_CACHE.currentCityId)
+
                 //this.dragonBone.playAnimation(dragonBonesJson.armature[0].defaultActions[0].gotoAndPlay, 0);
             });
         });
@@ -181,6 +192,7 @@ cc.Class({
                 let layout_warp  = cc.find(`Canvas/root/spliceWarp`)
                 const olodPosition=[newNode.x,newNode.y]
                 let contentNode=cc.find('content',node)
+                let shadowNode=cc.find('shadow',node)
                 node.zIndex=100
                 //根据平涂块的需要掉落的距离设置动画时间
                 const fallTime=Math.ceil((440+node.y)/880*6)/10
@@ -205,6 +217,7 @@ cc.Class({
                         shadowPostion=cc.v2(-3,-5)
                         break;
                 }
+                shadowNode.active=true
                 cc.tween(contentNode)
                     .to(.2,{position:shadowPostion})
                     .start()
@@ -235,6 +248,11 @@ cc.Class({
                 clearTimeout(this.fallTimer)
                 let game_splice_obj  = cc.find(`Canvas/root/spliceWarp`).getComponent('game_splice')
                 game_splice_obj.setLayoutType(false)
+
+                //加载切块蒙版
+                this.initItem(hardLevel);
+
+                
             }
 
        

@@ -348,7 +348,7 @@ cc.Class({
 
     },
 
-    onDestory() {
+    onDestroy() {
         if (this.timer) {
             this.timer();
         }

@@ -83,6 +83,7 @@ cc.Class({
                     shadowPostion=cc.v2(-3,-5)
                     break;
             }
+            this.shadow.active=true
             cc.tween(this.contentNode)
                 .to(.1,{position:shadowPostion})
                 .start()
@@ -150,6 +151,12 @@ cc.Class({
                     initItem(GAME_CACHE.spliceArr, CACHE.hard_level, 2, this.pre_item, game_bg, new cc.SpriteFrame(), true, true);
                 }
 
+                //去除拿起阴影
+                this.shadow.active=false
+                cc.tween(this.contentNode)
+                    .to(.1,{position:cc.v2(0,0)})
+                    .start()
+
             }
             else {
                 this.item_node.setPosition(newPositin);
@@ -166,7 +173,10 @@ cc.Class({
             }
             if (hardLevel == LEVEL.HARD && !this.isMove) {
                 //第三级难度点击旋转
-                this.item_node.angle = (this.item_node.angle - 90) % 360;
+                // this.item_node.angle = (this.item_node.angle - 90) % 360;
+                cc.tween(this.item_node)
+                    .to(.1,{angle: (this.item_node.angle - 90) % 360})
+                    .start()
             }
             const outList = this.item_node.parent.name === 'puzzleBg';
             if (outList) {
@@ -198,7 +208,10 @@ cc.Class({
             }
             if (hardLevel == LEVEL.HARD && !this.isMove) {
                 //第三级难度点击旋转
-                this.item_node.angle = (this.item_node.angle - 90) % 360;
+                // this.item_node.angle = (this.item_node.angle - 90) % 360;
+                cc.tween(this.item_node)
+                .to(.1,{angle: (this.item_node.angle - 90) % 360})
+                .start()
             }
             const outList = this.item_node.parent.name === 'puzzleBg';
             if (outList) {
@@ -211,6 +224,7 @@ cc.Class({
             // cc.find('shadow',this.item_node).active=false
             // const puzzleItem= cc.find('content',this.item_node)
             //去除拿起阴影
+            this.shadow.active=false
             cc.tween(this.contentNode)
                 .to(.1,{position:cc.v2(0,0)})
                 .start()
@@ -267,7 +281,10 @@ cc.Class({
         if (minItem) {
             if (minItem[4] == defaultx && minItem[5] == defaulty && rotation == 0) {
                 let newPositin = cc.v2(defaultx, defaulty);
-                this.item_node.setPosition(newPositin);
+                // this.item_node.setPosition(newPositin);
+                cc.tween(this.item_node)
+                .to(.2,{position:newPositin})
+                .start()
                 var item_puzzle_warp = cc.find(`Canvas/root/puzzleWarp/puzzleBg/item_puzzle_warp-${this.item_node.defaultIndex}`);
                 item_puzzle_warp.active = false;
                 // var item_puzzle_splice = cc.find(`Canvas/root/puzzleWarp/puzzleBg/item_puzzle_splice-${this.item_node.defaultIndex}`);
@@ -283,7 +300,10 @@ cc.Class({
                 }
                 setTimeout(() => { item_puzzle_warp.destroy();}, 100)
             } else {
-                this.item_node.setPosition(cc.v2(minItem[4], minItem[5]));
+                // this.item_node.setPosition(cc.v2(minItem[4], minItem[5]));
+                cc.tween(this.item_node)
+                .to(.2,{position:cc.v2(minItem[4], minItem[5])})
+                .start()
             }
         }
     },

@@ -81,58 +81,49 @@ cc.Class({
         if (CACHE.userInfo.stage == 2 && this.guideStep == 1) {
             // 获取触摸点，转为Canvas画布上的坐标
             originNode = cc.find('Canvas');
-            pos = originNode.convertToNodeSpaceAR(event.getLocation());
             btn = cc.find('Canvas/guide');
         } else if (CACHE.userInfo.stage == 2 && this.guideStep == 2) {
             originNode = cc.find('Canvas');
-            pos = originNode.convertToNodeSpaceAR(event.getLocation());
             btn = cc.find('Canvas/guide');
         } else if (CACHE.userInfo.stage == 2 && this.guideStep == 3) {
             // 获取触摸点，转为Canvas画布上的坐标
             originNode = cc.find('Canvas/root/table');
-            pos = originNode.convertToNodeSpaceAR(event.getLocation());
             btn = cc.find('Canvas/root/table/item_showcase_3/putongzhan');
         } else if (CACHE.userInfo.stage == 2 && this.guideStep == 4) {
             originNode = cc.find(`Canvas/bag/bagTable/scrollView/view/content`);
-            pos = originNode.convertToNodeSpaceAR(event.getLocation());
             btn = cc.find(`Canvas/bag/bagTable/scrollView/view/content/item_goods_0`);
         } else if (CACHE.userInfo.stage == 2 && this.guideStep == 5) {
             originNode = cc.find('Canvas');
-            pos = originNode.convertToNodeSpaceAR(event.getLocation());
             btn = cc.find('Canvas/guide');
         } else if (CACHE.userInfo.stage == 2 && this.guideStep == 6) {
             originNode = cc.find(`Canvas/root/footer_navi`);
-            pos = originNode.convertToNodeSpaceAR(event.getLocation());
             btn = cc.find(`Canvas/root/footer_navi/button_travel`);
         } else if (CACHE.userInfo.stage == 4 && this.guideStep == 1) {
             originNode = cc.find('Canvas');
-            pos = originNode.convertToNodeSpaceAR(event.getLocation());
             btn = cc.find('Canvas/guide');
         } else if (CACHE.userInfo.stage == 4 && this.guideStep == 2) {
             originNode = cc.find('Canvas');
-            pos = originNode.convertToNodeSpaceAR(event.getLocation());
             btn = cc.find('Canvas/guide');
         } else if (CACHE.userInfo.stage == 4 && this.guideStep == 3) {
             originNode = cc.find(`Canvas/root/heart`);
-            pos = originNode.convertToNodeSpaceAR(event.getLocation());
             btn = cc.find(`Canvas/root/heart/jiasu1`);
         } else if (CACHE.userInfo.stage == 4 && this.guideStep == 4) {
             originNode = cc.find(`Canvas/speedUpPop/bg`);
-            pos = originNode.convertToNodeSpaceAR(event.getLocation());
             btn = cc.find(`Canvas/speedUpPop/bg/label3`);
         } else if (CACHE.userInfo.stage == 4 && this.guideStep == 5) {
             originNode = cc.find(`Canvas/root/table`);
-            pos = originNode.convertToNodeSpaceAR(event.getLocation());
             btn = cc.find(`Canvas/root/table/item_showcase_3/putongzhan`);
         } else if (CACHE.userInfo.stage == 4 && this.guideStep == 6) {
             originNode = cc.find(`Canvas/root/table/item_showcase_3`);
-            pos = originNode.convertToNodeSpaceAR(event.getLocation());
             btn = cc.find(`Canvas/root/table/item_showcase_3/anniulan`);
         } else if (CACHE.userInfo.stage == 4 && this.guideStep == 7) {
             originNode = cc.find(`Canvas/root/footer_navi`);
-            pos = originNode.convertToNodeSpaceAR(event.getLocation());
             btn = cc.find(`Canvas/root/footer_navi/button_home`);
         }
+        if (!originNode || !btn) {
+            return false;
+        }
+        pos = originNode.convertToNodeSpaceAR(event.getLocation());
         // 获取相应按钮的大小范围
         let rect = btn.getBoundingBox();
         return rect.contains(pos);

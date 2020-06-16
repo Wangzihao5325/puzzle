@@ -157,32 +157,20 @@ cc.Class({
             // 获取触摸点，转为Canvas画布上的坐标
             originNode = this.node.parent.parent;
             btn = cc.find('Canvas/map/view/content/bg/city_item-101/city_image');
-            if (!originNode || !btn) {
-                return false;
-            }
-            pos = originNode.convertToNodeSpaceAR(event.getLocation());
         } else if (CACHE.userInfo.stage == 2 || CACHE.userInfo.stage == 4) {
             originNode = cc.find('Canvas/layoutRoot/footer_navi');
             btn = cc.find('Canvas/layoutRoot/footer_navi/button_show');
-            if (!originNode || !btn) {
-                return false;
-            }
-            pos = originNode.convertToNodeSpaceAR(event.getLocation());
         } else if (CACHE.userInfo.stage == 5 || CACHE.userInfo.stage == 7) {
             originNode = cc.find('Canvas/layoutRoot/footer_navi');
             btn = cc.find('Canvas/layoutRoot/footer_navi/button_home');
-            if (!originNode || !btn) {
-                return false;
-            }
-            pos = originNode.convertToNodeSpaceAR(event.getLocation());
         } else if (CACHE.userInfo.stage == 8) {
             originNode = cc.find('Canvas/layoutRoot/footer_navi');
             btn = cc.find('Canvas/layoutRoot/footer_navi/button_home');
-            if (!originNode || !btn) {
-                return false;
-            }
-            pos = originNode.convertToNodeSpaceAR(event.getLocation());
         }
+        if (!originNode || !btn) {
+            return false;
+        }
+        pos = originNode.convertToNodeSpaceAR(event.getLocation());
         let rect = btn.getBoundingBox();
         return rect.contains(pos);
     },

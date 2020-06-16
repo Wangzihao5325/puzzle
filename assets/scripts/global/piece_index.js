@@ -290,6 +290,7 @@ var GAME_CACHE = {
   textRandomTimes: 4,
   complateIndex: [],
   animatePayload: undefined,
+  currentCityId:undefined,
   currentLeavel : 2,
   underwayIndex:[],
   spliceArr:[],

@@ -211,7 +211,7 @@ window.Tire.show = function (time,_confirmCallBack,animSpeed ) {
         cc.tween(Tire._alert)
         .to(1, { position: cc.v2(0,0)},{opacity:1})
         .start()
-        self.onDestory();
+        self.onDestroy();
 
     };
 
@@ -223,12 +223,12 @@ window.Tire.show = function (time,_confirmCallBack,animSpeed ) {
 
     // 弹出动画完成回调
     self.onFadeOutFinish = function () {
-        self.onDestory();
+        self.onDestroy();
     };
 
 
     // 销毁 alert (内存管理还没搞懂，暂且这样写吧~v~)
-    self.onDestory = function () {
+    self.onDestroy = function () {
       window.Tire._alert.active=false;
       window.Tire._confirmCallBack = null;
       window.Tire._alert = null;
