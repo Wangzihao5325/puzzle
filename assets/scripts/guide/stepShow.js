@@ -12,6 +12,56 @@ cc.Class({
         guideToastArrow: cc.Prefab
     },
 
+    onLoad() {
+        if (!CACHE.isShowGuide) {
+            return;
+        }
+        if (CACHE.userInfo && typeof CACHE.userInfo.stage == 'number' && CACHE.userInfo.stage !== 99) {
+            if (CACHE.userInfo.stage == 2) {
+                this.isSetTouch = true;
+                this.node.zIndex = 1000;
+                this.guideStep = 1;
+
+                this.guideToastNode = cc.instantiate(this.guideToast);
+                let guideToastObj = this.guideToastNode.getComponent('guideToast');
+                if (guideToastObj) {
+                    this.guideToastNode.item_obj = guideToastObj;
+                    guideToastObj.setContentStr("<color=#887160>不同展台会产生不同收益\n猫粮展台可以获得<color=#e37974>[高级猫粮]</color>!\n快去试试吧!</color>");
+                }
+                this.guideToastNode.parent = this.node;
+                this.guideToastNode.setPosition(0, -300);
+                this.guideToastArrowNode = cc.instantiate(this.guideToastArrow);
+                let arrowObj = this.guideToastArrowNode.getComponent('guideToastArrow');
+                if (arrowObj) {
+                    arrowObj.animate();
+                }
+                this.guideToastArrowNode.scaleX = 0.5;
+                this.guideToastArrowNode.scaleY = 0.5;
+                this.guideToastArrowNode.parent = this.node;
+                this.guideToastArrowNode.setPosition(0, 200);
+                this.node.on(cc.Node.EventType.TOUCH_START, this.onTouchStart, this);
+                this.node.on(cc.Node.EventType.TOUCH_MOVE, this.onTouchMove, this);
+                this.node.on(cc.Node.EventType.TOUCH_END, this.onTouchEnd, this);
+            } else if (CACHE.userInfo.stage == 4) {
+                this.isSetTouch = true;
+                this.node.zIndex = 1000;
+                this.guideStep = 1;
+
+                this.guideToastNode = cc.instantiate(this.guideToast);
+                let guideToastObj = this.guideToastNode.getComponent('guideToast');
+                if (guideToastObj) {
+                    this.guideToastNode.item_obj = guideToastObj;
+                    guideToastObj.setContentStr("<color=#887160>哇！这么多人来看我们的展品！\nTA们的喜爱可以汇成<color=#e37974>喜爱度</color></color>");
+                }
+                this.guideToastNode.parent = this.node;
+                this.guideToastNode.setPosition(0, 50);
+                this.node.on(cc.Node.EventType.TOUCH_START, this.onTouchStart, this);
+                this.node.on(cc.Node.EventType.TOUCH_MOVE, this.onTouchMove, this);
+                this.node.on(cc.Node.EventType.TOUCH_END, this.onTouchEnd, this);
+            }
+        }
+    },
+
     stepFiveAddExcal() {
         this.excalNode = cc.instantiate(this.excal);
         this.excalNode.scaleX = 0.7;
@@ -24,8 +74,7 @@ cc.Class({
         }
     },
 
-    // LIFE-CYCLE CALLBACKS:
-    onTouchStart(event) {
+    isUserPressIn(event) {
         let originNode;
         let pos;
         let btn;
@@ -86,15 +135,20 @@ cc.Class({
         }
         // 获取相应按钮的大小范围
         let rect = btn.getBoundingBox();
-        // 判断触摸点是否在按钮上
-        if (rect.contains(pos)) {
-            if (CACHE.userInfo.stage == 2 && this.guideStep == 1) {
+        return rect.contains(pos);
+    },
+
+    guide(isEnd) {
+        if (CACHE.userInfo.stage == 2 && this.guideStep == 1) {
+            if (isEnd) {
                 this.guideToastNode.setPosition(0, -100);
                 this.guideToastArrowNode.setPosition(100, 370);
                 this.guideToastNode.item_obj.setContentStr("<color=#887160>参与主题展可以额外获得奖励哦！\n现在的主题是<color=#e37974>[美食节]</color>!\n快放一些<color=#e37974>[美食]</color>到展台上吧！</color>");
                 this.guideStep++;
-                this.node._touchListener.setSwallowTouches(true);
-            } else if (CACHE.userInfo.stage == 2 && this.guideStep == 2) {
+            }
+            return true;
+        } else if (CACHE.userInfo.stage == 2 && this.guideStep == 2) {
+            if (isEnd) {
                 let handPosition = cc.v2(0, 100);
                 this.handNode = cc.instantiate(this.hand);
                 this.handNode.scaleX = 0.7;
@@ -108,15 +162,19 @@ cc.Class({
                 this.guideToastNode.active = false;
                 this.guideToastArrowNode.active = false;
                 this.guideStep++;
-                this.node._touchListener.setSwallowTouches(true);
-            } else if (CACHE.userInfo.stage == 2 && this.guideStep == 3) {
+            }
+            return true;
+        } else if (CACHE.userInfo.stage == 2 && this.guideStep == 3) {
+            if (isEnd) {
                 this.handNode.setPosition(cc.v2(-200, 300));
                 this.guideToastNode.setPosition(0, 0);
                 this.guideToastNode.item_obj.setContentStr("<color=#887160>选择一个美食，如果是<color=#e37974>稀有物品</color>!\n会获得<color=#e37974>双倍</color>收益哦！</color>");
                 this.guideToastNode.active = true;
                 this.guideStep++;
-                this.node._touchListener.setSwallowTouches(false);
-            } else if (CACHE.userInfo.stage == 2 && this.guideStep == 4) {
+            }
+            return false;
+        } else if (CACHE.userInfo.stage == 2 && this.guideStep == 4) {
+            if (isEnd) {
                 this.handNode.active = false;
                 this.guideToastNode.setPosition(0, -300);
                 this.guideToastNode.item_obj.setContentStr("<color=#887160>时间到了就可以收获奖励啦～</color>");
@@ -124,25 +182,33 @@ cc.Class({
                 this.guideToastArrowNode.setPosition(0, 0);
                 this.guideToastArrowNode.active = true;
                 this.guideStep++;
-                this.node._touchListener.setSwallowTouches(false);
-            } else if (CACHE.userInfo.stage == 2 && this.guideStep == 5) {
+            }
+            return false;
+        } else if (CACHE.userInfo.stage == 2 && this.guideStep == 5) {
+            if (isEnd) {
                 this.guideToastNode.active = false;
                 this.guideToastArrowNode.active = false;
                 this.handNode.setPosition(cc.v2(0, -500));
                 this.handNode.active = true;
                 this.guideStep++;
-                this.node._touchListener.setSwallowTouches(true);
-            } else if (CACHE.userInfo.stage == 2 && this.guideStep == 6) {
+            }
+            return true;
+        } else if (CACHE.userInfo.stage == 2 && this.guideStep == 6) {
+            if (isEnd) {
                 Api.guideStageComplete({ stage: 2 }, (res) => {
                 });
                 this.guideStep++;
                 CACHE.userInfo.stage++;
-                this.node._touchListener.setSwallowTouches(false);
-            } else if (CACHE.userInfo.stage == 4 && this.guideStep == 1) {
+            }
+            return false;
+        } else if (CACHE.userInfo.stage == 4 && this.guideStep == 1) {
+            if (isEnd) {
                 this.guideToastNode.item_obj.setContentStr("<color=#887160><color=#e37974>喜爱度</color>可以加速物品收获\n让我们来试一试吧</color>");
                 this.guideStep++;
-                this.node._touchListener.setSwallowTouches(true);
-            } else if (CACHE.userInfo.stage == 4 && this.guideStep == 2) {
+            }
+            return true;
+        } else if (CACHE.userInfo.stage == 4 && this.guideStep == 2) {
+            if (isEnd) {
                 let handPosition = cc.v2(250, -150);
                 this.handNode = cc.instantiate(this.hand);
                 this.handNode.scaleX = 0.7;
@@ -155,24 +221,32 @@ cc.Class({
                 }
                 this.guideToastNode.active = false;
                 this.guideStep++;
-                this.node._touchListener.setSwallowTouches(false);
-            } else if (CACHE.userInfo.stage == 4 && this.guideStep == 3) {
+            }
+            return false;
+        } else if (CACHE.userInfo.stage == 4 && this.guideStep == 3) {
+            if (isEnd) {
                 this.handNode.active = false;
                 this.guideStep++;
-                this.node._touchListener.setSwallowTouches(false);
-            } else if (CACHE.userInfo.stage == 4 && this.guideStep == 4) {
+            }
+            return false;
+        } else if (CACHE.userInfo.stage == 4 && this.guideStep == 4) {
+            if (isEnd) {
                 this.handNode.x = 0;
                 this.handNode.y = 100;
                 this.handNode.active = true;
                 this.guideStep++;
-                this.node._touchListener.setSwallowTouches(false);
-            } else if (CACHE.userInfo.stage == 4 && this.guideStep == 5) {
+            }
+            return false;
+        } else if (CACHE.userInfo.stage == 4 && this.guideStep == 5) {
+            if (isEnd) {
                 this.handNode.x = 0;
                 this.handNode.y = -50;
                 this.handNode.active = true;
                 this.guideStep++;
-                this.node._touchListener.setSwallowTouches(false);
-            } else if (CACHE.userInfo.stage == 4 && this.guideStep == 6) {
+            }
+            return false;
+        } else if (CACHE.userInfo.stage == 4 && this.guideStep == 6) {
+            if (isEnd) {
                 this.handNode.x = -200;
                 this.handNode.y = -500;
                 this.handNode.active = true;
@@ -181,76 +255,39 @@ cc.Class({
                 this.guideToastNode.item_obj.setContentStr("<color=#887160>恭喜获得<color=#e37974>[高级猫粮]</color>\n家里的小月半饿坏了！\n快去喂它吧</color>");
                 this.guideToastNode.active = true;
                 this.guideStep++;
-                this.node._touchListener.setSwallowTouches(false);
-            } else if (CACHE.userInfo.stage == 4 && this.guideStep == 7) {
+            }
+            return false;
+        } else if (CACHE.userInfo.stage == 4 && this.guideStep == 7) {
+            if (isEnd) {
                 this.guideStep++;
                 CACHE.userInfo.stage++
-                this.node._touchListener.setSwallowTouches(false);
-            } else {
-                this.node._touchListener.setSwallowTouches(true);
             }
+            return false;
+        } else {
+            return true;
+        }
+    },
+
+    onTouchStart(event) {
+        if (this.isUserPressIn(event)) {
+            this.node._touchListener.setSwallowTouches(this.guide());
         }
         else {
-            // 吞噬触摸，禁止触摸事件传递给按钮(禁止冒泡)
             this.node._touchListener.setSwallowTouches(true);
         }
     },
 
-    onLoad() {
-        if (!CACHE.isShowGuide) {
-            return;
+    onTouchMove(event) {
+        this.node._touchListener.setSwallowTouches(true);
+    },
+
+    onTouchEnd(event) {
+        if (this.isUserPressIn(event)) {
+            this.node._touchListener.setSwallowTouches(this.guide(true));
         }
-        if (CACHE.userInfo && typeof CACHE.userInfo.stage == 'number' && CACHE.userInfo.stage !== 99) {
-            if (CACHE.userInfo.stage == 2) {
-                this.isSetTouch = true;
-                this.node.zIndex = 1000;
-                this.guideStep = 1;
-
-                /**this.guideToastStep = 1添加toast */
-                this.guideToastNode = cc.instantiate(this.guideToast);
-                let guideToastObj = this.guideToastNode.getComponent('guideToast');
-                if (guideToastObj) {
-                    this.guideToastNode.item_obj = guideToastObj;
-                    guideToastObj.setContentStr("<color=#887160>不同展台会产生不同收益\n猫粮展台可以获得<color=#e37974>[高级猫粮]</color>!\n快去试试吧!</color>");
-                }
-                this.guideToastNode.parent = this.node;
-                this.guideToastNode.setPosition(0, -300);
-
-                this.guideToastArrowNode = cc.instantiate(this.guideToastArrow);
-                let arrowObj = this.guideToastArrowNode.getComponent('guideToastArrow');
-                if (arrowObj) {
-                    arrowObj.animate();
-                }
-                this.guideToastArrowNode.scaleX = 0.5;
-                this.guideToastArrowNode.scaleY = 0.5;
-                this.guideToastArrowNode.parent = this.node;
-                this.guideToastArrowNode.setPosition(0, 200);
-
-                this.node.on(cc.Node.EventType.TOUCH_START, this.onTouchStart, this);
-
-            } else if (CACHE.userInfo.stage == 4) {
-                this.isSetTouch = true;
-                this.node.zIndex = 1000;
-                this.guideStep = 1;
-
-                /** */
-                this.guideToastNode = cc.instantiate(this.guideToast);
-                let guideToastObj = this.guideToastNode.getComponent('guideToast');
-                if (guideToastObj) {
-                    this.guideToastNode.item_obj = guideToastObj;
-                    guideToastObj.setContentStr("<color=#887160>哇！这么多人来看我们的展品！\nTA们的喜爱可以汇成<color=#e37974>喜爱度</color></color>");
-                }
-                this.guideToastNode.parent = this.node;
-                this.guideToastNode.setPosition(0, 50);
-
-                this.node.on(cc.Node.EventType.TOUCH_START, this.onTouchStart, this);
-            }
+        else {
+            this.node._touchListener.setSwallowTouches(true);
         }
     },
 
-    start() {
-
-    },
-
-    // update (dt) {},
 });
