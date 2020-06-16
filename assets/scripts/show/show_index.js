@@ -44,6 +44,7 @@ cc.Class({
         heartMask: cc.Sprite,
         heartProgress: cc.Label,
         heartLight: cc.Node,
+        addLabel: cc.Node,
 
         speedUpPopRoot: cc.Node,
         speedUpPopMask: cc.Sprite,
@@ -110,6 +111,7 @@ cc.Class({
         /**看视频 */
         this.speedUpPopVideo.node.on(cc.Node.EventType.TOUCH_END, (event) => {
             //to do:增加观看视频全部减速的处理
+            Toast.show('视频功能尚未开放哦!');
             event.stopPropagation();
         })
         /**不看视频 */
@@ -580,14 +582,27 @@ cc.Class({
     addHeart() {
         Api.addHeartEnergy({ key: 0 }, (res) => {
             CACHE.showData.heartEnergy = res.data
-            this.heartRender();
+            this.heartRender(true);
         });
     },
 
-    heartRender() {
+    heartRender(isAdd) {
         this.heartProgress.string = `${CACHE.showData.heartEnergy}%`;
         this.heartMask.fillRange = CACHE.showData.heartEnergy / 100;
         this.heartLight.active = false;
+        if (isAdd) {//出现+1文字
+            if (!this.addLabel.acitve && CACHE.showData.heartEnergy !== 100) {
+                this.addLabel.active = true;
+                this.addLabel.setPosition(cc.v2(0, 24));
+                this.addLabel.opacity = 255;
+                cc.tween(this.addLabel)
+                    .to(1, { position: cc.v2(0, 56), opacity: 0 })
+                    .call(() => {
+                        this.addLabel.acitve == false
+                    })
+                    .start();
+            }
+        }
         if (CACHE.showData.heartEnergy == 100) {
             this.heartLight.active = true;
             cc.tween(this.heartLight)
