@@ -8,31 +8,6 @@ cc.Class({
         guideToast: cc.Prefab
     },
 
-    // LIFE-CYCLE CALLBACKS:
-    stepTwoAddExcal() {
-        this.excalNode = cc.instantiate(this.excal);
-        this.excalNode.scaleX = 0.7;
-        this.excalNode.scaleY = 0.7;
-        this.excalNode.parent = this.node;
-        this.excalNode.setPosition(cc.v2(200, -450));
-        let obj = this.excalNode.getComponent('guideExcal');
-        if (obj) {
-            obj.animate();
-        }
-    },
-
-    stepFiveAddExcal() {
-        this.excalNode = cc.instantiate(this.excal);
-        this.excalNode.scaleX = 0.7;
-        this.excalNode.scaleY = 0.7;
-        this.excalNode.parent = this.node;
-        this.excalNode.setPosition(cc.v2(-200, -450));
-        let obj = this.excalNode.getComponent('guideExcal');
-        if (obj) {
-            obj.animate();
-        }
-    },
-
     onLoad() {
         if (!CACHE.isShowGuide) {
             return;
@@ -134,7 +109,8 @@ cc.Class({
                 obj.handAnimate();
             }
             this.node.on(cc.Node.EventType.TOUCH_START, this.onTouchStart, this);
-
+            this.node.on(cc.Node.EventType.TOUCH_MOVE, this.onTouchMove, this);
+            this.node.on(cc.Node.EventType.TOUCH_END, this.onTouchEnd, this);
         }
     },
 
@@ -149,7 +125,31 @@ cc.Class({
         }
     },
 
-    onTouchStart(event) {
+    stepTwoAddExcal() {
+        this.excalNode = cc.instantiate(this.excal);
+        this.excalNode.scaleX = 0.7;
+        this.excalNode.scaleY = 0.7;
+        this.excalNode.parent = this.node;
+        this.excalNode.setPosition(cc.v2(200, -450));
+        let obj = this.excalNode.getComponent('guideExcal');
+        if (obj) {
+            obj.animate();
+        }
+    },
+
+    stepFiveAddExcal() {
+        this.excalNode = cc.instantiate(this.excal);
+        this.excalNode.scaleX = 0.7;
+        this.excalNode.scaleY = 0.7;
+        this.excalNode.parent = this.node;
+        this.excalNode.setPosition(cc.v2(-200, -450));
+        let obj = this.excalNode.getComponent('guideExcal');
+        if (obj) {
+            obj.animate();
+        }
+    },
+
+    isUserPressIn(event) {
         let originNode;
         let pos;
         let btn;
@@ -158,65 +158,52 @@ cc.Class({
             originNode = this.node.parent.parent;
             btn = cc.find('Canvas/map/view/content/bg/city_item-101/city_image');
             if (!originNode || !btn) {
-                this.node._touchListener.setSwallowTouches(true);
-                return;
+                return false;
             }
             pos = originNode.convertToNodeSpaceAR(event.getLocation());
         } else if (CACHE.userInfo.stage == 2 || CACHE.userInfo.stage == 4) {
             originNode = cc.find('Canvas/layoutRoot/footer_navi');
             btn = cc.find('Canvas/layoutRoot/footer_navi/button_show');
             if (!originNode || !btn) {
-                this.node._touchListener.setSwallowTouches(true);
-                return;
+                return false;
             }
             pos = originNode.convertToNodeSpaceAR(event.getLocation());
         } else if (CACHE.userInfo.stage == 5 || CACHE.userInfo.stage == 7) {
             originNode = cc.find('Canvas/layoutRoot/footer_navi');
             btn = cc.find('Canvas/layoutRoot/footer_navi/button_home');
             if (!originNode || !btn) {
-                this.node._touchListener.setSwallowTouches(true);
-                return;
+                return false;
             }
             pos = originNode.convertToNodeSpaceAR(event.getLocation());
         } else if (CACHE.userInfo.stage == 8) {
-            //需要放一个动画
             originNode = cc.find('Canvas/layoutRoot/footer_navi');
             btn = cc.find('Canvas/layoutRoot/footer_navi/button_home');
             if (!originNode || !btn) {
-                this.node._touchListener.setSwallowTouches(true);
-                return;
+                return false;
             }
             pos = originNode.convertToNodeSpaceAR(event.getLocation());
         }
-        // 获取相应按钮的大小范围
         let rect = btn.getBoundingBox();
-        // 判断触摸点是否在按钮上
-        if (rect.contains(pos)) {
-            // 允许触摸事件传递给按钮(允许冒泡)
+        return rect.contains(pos);
+    },
+
+    onTouchEnd(event) {
+        if (this.isUserPressIn(event)) {
             this.node._touchListener.setSwallowTouches(false);
-        }
-        else {
-            // 吞噬触摸，禁止触摸事件传递给按钮(禁止冒泡)
+        } else {
             this.node._touchListener.setSwallowTouches(true);
         }
     },
 
-    guide() {
-        if (this.guideStep == 1) {
-            let sign = this.node.parent.getChildByName('signFloat');
-            // 将frame节点移到第一个按钮
-            this.handNode.setPosition(sign.position);
-        }
-        else if (this.guideStep == 2) {
-            let location = this.node.parent.getChildByName('location');
-            // 将frame节点移到第二个按钮
-            this.handNode.setPosition(location.position);
-        }
+    onTouchMove(event) {
+        this.node._touchListener.setSwallowTouches(true);
     },
 
-    start() {
-
+    onTouchStart(event) {
+        if (this.isUserPressIn(event)) {
+            this.node._touchListener.setSwallowTouches(false);
+        } else {
+            this.node._touchListener.setSwallowTouches(true);
+        }
     },
-
-    // update (dt) {},
 });

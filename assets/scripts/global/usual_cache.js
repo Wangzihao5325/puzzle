@@ -66,7 +66,7 @@ const CACHE = {
     platform: {
         isWachat: false
     },
-    isShowGuide: false
+    isShowGuide: true
 }
 
 export default {

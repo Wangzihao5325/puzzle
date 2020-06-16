@@ -40,14 +40,19 @@ cc.Class({
 
     locationCity() {
         let cityStateArr = CITIES;
-        cityStateArr.every((item) => {
-            if (item.isRecommend) {
-                this.map.scrollToOffset(cc.v2(item.positionX + 640 - 320, item.positionY - 568), 2);
-                return false;
-            } else {
-                return true;
-            }
-        });
+        if (CACHE.isShowGuide && typeof CACHE.userInfo.stage !== 99) {
+            let item = cityStateArr[0];
+            this.map.scrollToOffset(cc.v2(item.positionX + 640 - 320, item.positionY - 568), 2);
+        } else {
+            cityStateArr.every((item) => {
+                if (item.isRecommend) {
+                    this.map.scrollToOffset(cc.v2(item.positionX + 640 - 320, item.positionY - 568), 2);
+                    return false;
+                } else {
+                    return true;
+                }
+            });
+        }
     },
 
     drawLine(start, end) {
