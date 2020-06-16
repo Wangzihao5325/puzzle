@@ -97,153 +97,71 @@ cc.Class({
         if (CACHE.userInfo.stage == 5 && this.guideStep == 1) {
             originNode = cc.find('Canvas');
             btn = cc.find('Canvas/guide');
-            if (!originNode || !btn) {
-                return false;
-            }
-            pos = originNode.convertToNodeSpaceAR(event.getLocation());
         } else if (CACHE.userInfo.stage == 5 && this.guideStep == 2) {
             originNode = cc.find('Canvas/rootWarp/my_home');
             btn = cc.find('Canvas/rootWarp/my_home/bowlWarp');
-            if (!originNode || !btn) {
-                return false;
-            }
-            pos = originNode.convertToNodeSpaceAR(event.getLocation());
         } else if (CACHE.userInfo.stage == 5 && this.guideStep == 3) {
             originNode = cc.find('Canvas');
             btn = cc.find('Canvas/guide');
-            if (!originNode || !btn) {
-                return false;
-            }
-            pos = originNode.convertToNodeSpaceAR(event.getLocation());
         } else if (CACHE.userInfo.stage == 5 && this.guideStep == 4) {
             originNode = cc.find('Canvas');
             btn = cc.find('Canvas/guide');
-            if (!originNode || !btn) {
-                return false;
-            }
-            pos = originNode.convertToNodeSpaceAR(event.getLocation());
         } else if (CACHE.userInfo.stage == 5 && this.guideStep == 5) {
             originNode = cc.find('Canvas');
             btn = cc.find('Canvas/guide');
-            if (!originNode || !btn) {
-                return false;
-            }
-            pos = originNode.convertToNodeSpaceAR(event.getLocation());
         } else if (CACHE.userInfo.stage == 5 && (this.guideStep == 6 || this.guideStep == 7 || this.guideStep == 8 || this.guideStep == 9 || this.guideStep == 10)) {
             originNode = cc.find('Canvas/feedWarp/container/feedContent');
             btn = cc.find('Canvas/feedWarp/container/feedContent/feedItem_2');
-            if (!originNode || !btn) {
-                return false;
-            }
-            pos = originNode.convertToNodeSpaceAR(event.getLocation());
         } else if (CACHE.userInfo.stage == 5 && this.guideStep == 11) {
             originNode = cc.find('Canvas/feedWarp/container');
             btn = cc.find('Canvas/feedWarp/container/close');
-            if (!originNode || !btn) {
-                return false;
-            }
-            pos = originNode.convertToNodeSpaceAR(event.getLocation());
         } else if (CACHE.userInfo.stage == 5 && this.guideStep == 12) {
             originNode = cc.find('Canvas/rootWarp/my_home');
             btn = cc.find('Canvas/rootWarp/my_home/cat');
-            if (!originNode || !btn) {
-                return false;
-            }
-            pos = originNode.convertToNodeSpaceAR(event.getLocation());
         } else if (CACHE.userInfo.stage == 5 && this.guideStep == 13) {
             originNode = cc.find('Canvas/rootWarp/my_home/cat_action/container');
             btn = cc.find('Canvas/rootWarp/my_home/cat_action/container/actionOut');
-            if (!originNode || !btn) {
-                return false;
-            }
-            pos = originNode.convertToNodeSpaceAR(event.getLocation());
         } else if (CACHE.userInfo.stage == 5 && this.guideStep == 14) {
             originNode = cc.find('Canvas/ConfirmOut');
             btn = cc.find('Canvas/ConfirmOut/dialogContainer/confirm');
-            if (!originNode || !btn) {
-                return false;
-            }
-            pos = originNode.convertToNodeSpaceAR(event.getLocation());
         } else if (CACHE.userInfo.stage == 5 && this.guideStep == 15) {
             originNode = cc.find('Canvas/navi_footer');
             btn = cc.find('Canvas/navi_footer/button_travel');
-            if (!originNode || !btn) {
-                return false;
-            }
-            pos = originNode.convertToNodeSpaceAR(event.getLocation());
         } else if (CACHE.userInfo.stage == 7 && this.guideStep == 1) {
             originNode = cc.find('Canvas/rootWarp/my_home');
             btn = cc.find('Canvas/rootWarp/my_home/collact');
-            console.log('dddd');
-            if (!originNode || !btn) {
-                console.log('pppp');
-                return false;
-            }
-            pos = originNode.convertToNodeSpaceAR(event.getLocation());
         } else if (CACHE.userInfo.stage == 7 && this.guideStep == 2) {
             originNode = cc.find('Canvas/collect_root/warp/content/tabContent');
             btn = cc.find('Canvas/collect_root/warp/content/tabContent/tabItem_1');
-            if (!originNode || !btn) {
-                return false;
-            }
-            pos = originNode.convertToNodeSpaceAR(event.getLocation());
         } else if (CACHE.userInfo.stage == 7 && this.guideStep == 3) {
             originNode = cc.find('Canvas/collect_root/warp/header');
             btn = cc.find('Canvas/collect_root/warp/header/close');
-            if (!originNode || !btn) {
-                return false;
-            }
-            pos = originNode.convertToNodeSpaceAR(event.getLocation());
         } else if (CACHE.userInfo.stage == 7 && this.guideStep == 4) {
             originNode = cc.find('Canvas/navi_footer');
             btn = cc.find('Canvas/navi_footer/button_travel');
-            if (!originNode || !btn) {
-                return false;
-            }
-            pos = originNode.convertToNodeSpaceAR(event.getLocation());
         } else if (CACHE.userInfo.stage == 99 && !CACHE.userInfo.firstRecallEnded && this.guideStep == 1) {
             originNode = cc.find('Canvas/rootWarp/my_home');
             btn = cc.find('Canvas/rootWarp/my_home/recall');
-            if (!originNode || !btn) {
-                return false;
-            }
-            pos = originNode.convertToNodeSpaceAR(event.getLocation());
         } else if (CACHE.userInfo.stage == 99 && !CACHE.userInfo.firstRecallEnded && this.guideStep == 2) {
             originNode = cc.find('Canvas/recallDialog/warp/content/New ScrollView/view/content');
             btn = cc.find('Canvas/recallDialog/warp/content/New ScrollView/view/content/recall_item_0');
-            if (!originNode || !btn) {
-                return false;
-            }
-            pos = originNode.convertToNodeSpaceAR(event.getLocation());
         } else if (CACHE.userInfo.stage == 99 && !CACHE.userInfo.firstRecallEnded && this.guideStep == 3) {
             originNode = cc.find('Canvas/recallInfo/recallInfoContent/commentIcon');
             btn = cc.find('Canvas/recallInfo/recallInfoContent/commentIcon/icon-like');
-            if (!originNode || !btn) {
-                return false;
-            }
-            pos = originNode.convertToNodeSpaceAR(event.getLocation());
         } else if (CACHE.userInfo.stage == 99 && !CACHE.userInfo.firstRecallEnded && this.guideStep == 4) {
             originNode = cc.find('Canvas/recallInfo/recallInfoContent/header');
             btn = cc.find('Canvas/recallInfo/recallInfoContent/header/close');
-            if (!originNode || !btn) {
-                return false;
-            }
-            pos = originNode.convertToNodeSpaceAR(event.getLocation());
         } else if (CACHE.userInfo.stage == 99 && !CACHE.userInfo.firstRecallEnded && this.guideStep == 5) {
             originNode = cc.find('Canvas/recallDialog/warp/header');
             btn = cc.find('Canvas/recallDialog/warp/header/close');
-            if (!originNode || !btn) {
-                return false;
-            }
-            pos = originNode.convertToNodeSpaceAR(event.getLocation());
         } else if (CACHE.userInfo.stage == 99 && !CACHE.userInfo.firstRecallEnded && this.guideStep == 6) {
             originNode = cc.find('Canvas/navi_footer');
             btn = cc.find('Canvas/navi_footer/button_travel');
-            if (!originNode || !btn) {
-                return false;
-            }
-            pos = originNode.convertToNodeSpaceAR(event.getLocation());
         }
+        if (!originNode || !btn) {
+            return false;
+        }
+        pos = originNode.convertToNodeSpaceAR(event.getLocation());
         let rect = btn.getBoundingBox();
         return rect.contains(pos);
     },
