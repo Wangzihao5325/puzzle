@@ -27,7 +27,10 @@ cc.Class({
         currentType:{
             type:Number,
             default:0
-        }
+        },
+        type1New: cc.Node,
+        type2New: cc.Node,
+        type3New: cc.Node
 
     },
 
@@ -37,6 +40,8 @@ cc.Class({
         this.init()
 
         this.setTouch()
+        //设置红点显示或隐藏
+        this.setRedDot()
     },
 
     start () {
@@ -75,7 +80,7 @@ cc.Class({
 
     },
 
-    
+
 
     initBackpack(data){
         // currentPageContent.parent=this.pageContent
@@ -141,9 +146,9 @@ cc.Class({
             event.stopPropagation();
         })
 
-        
+
     },
-  
+
 
     // update (dt) {},
 });
