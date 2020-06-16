@@ -40,7 +40,9 @@ cc.Class({
         info:{
             type:Object,
             default:{}
-        }
+        },
+        dailyNew: cc.Node,
+        mainNew: cc.Node
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -95,7 +97,7 @@ cc.Class({
 
     },
 
-    
+
 
     initTask(data){
         // currentPageContent.parent=this.pageContent
@@ -109,7 +111,7 @@ cc.Class({
         const dataTimeoutRender=data.slice(6)
 
         this.taskRender(dataFirstlyRender,0)
-        
+
         //延时500ms渲染
         setTimeout(()=>{
             dataTimeoutRender.length&&this.taskRender(dataTimeoutRender,6)
@@ -124,7 +126,7 @@ cc.Class({
             const item=data[i]
             obj.init(item)
             newNode.parent = this.scrollContent
-           
+
             let position = cc.v2(0, (-(140 * (-0.5 + i+startIndex+1))) - 10);
             newNode.setPosition(position)
 
@@ -138,9 +140,9 @@ cc.Class({
         this.scrollContent.children.map(item=>{
             item.destroy()
         })
-        
+
         this.footerWarp.active=!type
-        
+
         this.current.setPosition(cc.v2(type?135:-135,5))
         this.tip.active=!type
         cc.find('tabTitle',this.current).getComponent(cc.Label).string=['日常任务','主线任务'][type]
@@ -188,13 +190,13 @@ cc.Class({
             this.receiveActive(3)
             event.stopPropagation();
         })
-        
 
 
-        
-        
+
+
+
     },
-  
+
     receiveActive(leavel){
 
         //判断是否可以领取
@@ -226,7 +228,7 @@ cc.Class({
             }
         }
 
-     
+
     },
 
     doTaskActivyRecevie(leavel){
@@ -325,7 +327,7 @@ cc.Class({
                         cc.find('giftIcon',this.git3).getComponent(cc.Sprite).spriteFrame=this.gift2Open
                     }
                 }
-                
+
             }
         })
     },
