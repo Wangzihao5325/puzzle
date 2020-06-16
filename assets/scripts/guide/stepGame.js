@@ -130,6 +130,7 @@ cc.Class({
                 this.guideHandShow();
             }, 10000);
         }
+        this.node._touchListener.setSwallowTouches(false);
     },
 
     guideHandShow() {
