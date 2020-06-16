@@ -40,8 +40,6 @@ cc.Class({
         this.init()
 
         this.setTouch()
-        //设置红点显示或隐藏
-        this.setRedDot()
     },
 
     start () {
