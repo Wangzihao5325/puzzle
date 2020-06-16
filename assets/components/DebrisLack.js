@@ -121,7 +121,7 @@ window.DebrisLack.show = function (_confirmCallBack=()=>{},animSpeed ) {
         cc.tween(DebrisLack._alert)
         .to(1, { position: cc.v2(0,0)},{opacity:1})
         .start()
-        self.onDestory();
+        self.onDestroy();
 
     };
 
@@ -133,12 +133,12 @@ window.DebrisLack.show = function (_confirmCallBack=()=>{},animSpeed ) {
 
     // 弹出动画完成回调
     self.onFadeOutFinish = function () {
-        self.onDestory();
+        self.onDestroy();
     };
 
 
     // 销毁 alert (内存管理还没搞懂，暂且这样写吧~v~)
-    self.onDestory = function () {
+    self.onDestroy = function () {
         window.DebrisLack._alert.active=false;
         window.DebrisLack._confirmCallBack = null;
         window.DebrisLack._alert = null;

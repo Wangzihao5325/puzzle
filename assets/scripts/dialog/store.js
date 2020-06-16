@@ -157,9 +157,7 @@ cc.Class({
         })
     },
 
-    onDestory(){
-        console.log("onDestory")
-
+    onDestroy(){
         clearTimeout(this.popCountDownTimer)
     }
 

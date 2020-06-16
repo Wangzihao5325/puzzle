@@ -12,322 +12,6 @@ cc.Class({
         animateNode: cc.Node
     },
 
-    onTouchStart(event) {
-        let originNode;
-        let pos;
-        let btn;
-        if (CACHE.userInfo.stage == 5 && this.guideStep == 1) {
-            originNode = cc.find('Canvas');
-            btn = cc.find('Canvas/guide');
-            if (!originNode || !btn) {
-                this.node._touchListener.setSwallowTouches(true);
-                return;
-            }
-            pos = originNode.convertToNodeSpaceAR(event.getLocation());
-        } else if (CACHE.userInfo.stage == 5 && this.guideStep == 2) {
-            originNode = cc.find('Canvas/rootWarp/my_home');
-            btn = cc.find('Canvas/rootWarp/my_home/bowlWarp');
-            if (!originNode || !btn) {
-                this.node._touchListener.setSwallowTouches(true);
-                return;
-            }
-            pos = originNode.convertToNodeSpaceAR(event.getLocation());
-        } else if (CACHE.userInfo.stage == 5 && this.guideStep == 3) {
-            originNode = cc.find('Canvas');
-            btn = cc.find('Canvas/guide');
-            if (!originNode || !btn) {
-                this.node._touchListener.setSwallowTouches(true);
-                return;
-            }
-            pos = originNode.convertToNodeSpaceAR(event.getLocation());
-        } else if (CACHE.userInfo.stage == 5 && this.guideStep == 4) {
-            originNode = cc.find('Canvas');
-            btn = cc.find('Canvas/guide');
-            if (!originNode || !btn) {
-                this.node._touchListener.setSwallowTouches(true);
-                return;
-            }
-            pos = originNode.convertToNodeSpaceAR(event.getLocation());
-        } else if (CACHE.userInfo.stage == 5 && this.guideStep == 5) {
-            originNode = cc.find('Canvas');
-            btn = cc.find('Canvas/guide');
-            if (!originNode || !btn) {
-                this.node._touchListener.setSwallowTouches(true);
-                return;
-            }
-            pos = originNode.convertToNodeSpaceAR(event.getLocation());
-        } else if (CACHE.userInfo.stage == 5 && (this.guideStep == 6 || this.guideStep == 7 || this.guideStep == 8 || this.guideStep == 9 || this.guideStep == 10)) {
-            originNode = cc.find('Canvas/feedWarp/container/feedContent');
-            btn = cc.find('Canvas/feedWarp/container/feedContent/feedItem_2');
-            if (!originNode || !btn) {
-                this.node._touchListener.setSwallowTouches(true);
-                return;
-            }
-            pos = originNode.convertToNodeSpaceAR(event.getLocation());
-        } else if (CACHE.userInfo.stage == 5 && this.guideStep == 11) {
-            originNode = cc.find('Canvas/feedWarp/container');
-            btn = cc.find('Canvas/feedWarp/container/close');
-            if (!originNode || !btn) {
-                this.node._touchListener.setSwallowTouches(true);
-                return;
-            }
-            pos = originNode.convertToNodeSpaceAR(event.getLocation());
-        } else if (CACHE.userInfo.stage == 5 && this.guideStep == 12) {
-            originNode = cc.find('Canvas/rootWarp/my_home');
-            btn = cc.find('Canvas/rootWarp/my_home/cat');
-            if (!originNode || !btn) {
-                this.node._touchListener.setSwallowTouches(true);
-                return;
-            }
-            pos = originNode.convertToNodeSpaceAR(event.getLocation());
-        } else if (CACHE.userInfo.stage == 5 && this.guideStep == 13) {
-            originNode = cc.find('Canvas/rootWarp/my_home/cat_action/container');
-            btn = cc.find('Canvas/rootWarp/my_home/cat_action/container/actionOut');
-            if (!originNode || !btn) {
-                this.node._touchListener.setSwallowTouches(true);
-                return;
-            }
-            pos = originNode.convertToNodeSpaceAR(event.getLocation());
-        } else if (CACHE.userInfo.stage == 5 && this.guideStep == 14) {
-            originNode = cc.find('Canvas/ConfirmOut');
-            btn = cc.find('Canvas/ConfirmOut/dialogContainer/confirm');
-            if (!originNode || !btn) {
-                this.node._touchListener.setSwallowTouches(true);
-                return;
-            }
-            pos = originNode.convertToNodeSpaceAR(event.getLocation());
-        } else if (CACHE.userInfo.stage == 5 && this.guideStep == 15) {
-            originNode = cc.find('Canvas/navi_footer');
-            btn = cc.find('Canvas/navi_footer/button_travel');
-            if (!originNode || !btn) {
-                this.node._touchListener.setSwallowTouches(true);
-                return;
-            }
-            pos = originNode.convertToNodeSpaceAR(event.getLocation());
-        } else if (CACHE.userInfo.stage == 7 && this.guideStep == 1) {
-            originNode = cc.find('Canvas/rootWarp/my_home');
-            btn = cc.find('Canvas/rootWarp/my_home/collact');
-            if (!originNode || !btn) {
-                this.node._touchListener.setSwallowTouches(true);
-                return;
-            }
-            pos = originNode.convertToNodeSpaceAR(event.getLocation());
-        } else if (CACHE.userInfo.stage == 7 && this.guideStep == 2) {
-            originNode = cc.find('Canvas/collect_root/warp/content/tabContent');
-            btn = cc.find('Canvas/collect_root/warp/content/tabContent/tabItem_1');
-            if (!originNode || !btn) {
-                this.node._touchListener.setSwallowTouches(true);
-                return;
-            }
-            pos = originNode.convertToNodeSpaceAR(event.getLocation());
-        } else if (CACHE.userInfo.stage == 7 && this.guideStep == 3) {
-            originNode = cc.find('Canvas/collect_root/warp/header');
-            btn = cc.find('Canvas/collect_root/warp/header/close');
-            if (!originNode || !btn) {
-                this.node._touchListener.setSwallowTouches(true);
-                return;
-            }
-            pos = originNode.convertToNodeSpaceAR(event.getLocation());
-        } else if (CACHE.userInfo.stage == 7 && this.guideStep == 4) {
-            originNode = cc.find('Canvas/navi_footer');
-            btn = cc.find('Canvas/navi_footer/button_travel');
-            if (!originNode || !btn) {
-                this.node._touchListener.setSwallowTouches(true);
-                return;
-            }
-            pos = originNode.convertToNodeSpaceAR(event.getLocation());
-        } else if (CACHE.userInfo.stage == 99 && !CACHE.userInfo.firstRecallEnded && this.guideStep == 1) {
-            originNode = cc.find('Canvas/rootWarp/my_home');
-            btn = cc.find('Canvas/rootWarp/my_home/recall');
-            if (!originNode || !btn) {
-                this.node._touchListener.setSwallowTouches(true);
-                return;
-            }
-            pos = originNode.convertToNodeSpaceAR(event.getLocation());
-        } else if (CACHE.userInfo.stage == 99 && !CACHE.userInfo.firstRecallEnded && this.guideStep == 2) {
-            originNode = cc.find('Canvas/recallDialog/warp/content/New ScrollView/view/content');
-            btn = cc.find('Canvas/recallDialog/warp/content/New ScrollView/view/content/recall_item_0');
-            if (!originNode || !btn) {
-                this.node._touchListener.setSwallowTouches(true);
-                return;
-            }
-            pos = originNode.convertToNodeSpaceAR(event.getLocation());
-        } else if (CACHE.userInfo.stage == 99 && !CACHE.userInfo.firstRecallEnded && this.guideStep == 3) {
-            originNode = cc.find('Canvas/recallInfo/recallInfoContent/commentIcon');
-            btn = cc.find('Canvas/recallInfo/recallInfoContent/commentIcon/icon-like');
-            if (!originNode || !btn) {
-                this.node._touchListener.setSwallowTouches(true);
-                return;
-            }
-            pos = originNode.convertToNodeSpaceAR(event.getLocation());
-        } else if (CACHE.userInfo.stage == 99 && !CACHE.userInfo.firstRecallEnded && this.guideStep == 4) {
-            originNode = cc.find('Canvas/recallInfo/recallInfoContent/header');
-            btn = cc.find('Canvas/recallInfo/recallInfoContent/header/close');
-            if (!originNode || !btn) {
-                this.node._touchListener.setSwallowTouches(true);
-                return;
-            }
-            pos = originNode.convertToNodeSpaceAR(event.getLocation());
-        } else if (CACHE.userInfo.stage == 99 && !CACHE.userInfo.firstRecallEnded && this.guideStep == 5) {
-            originNode = cc.find('Canvas/recallDialog/warp/header');
-            btn = cc.find('Canvas/recallDialog/warp/header/close');
-            if (!originNode || !btn) {
-                this.node._touchListener.setSwallowTouches(true);
-                return;
-            }
-            pos = originNode.convertToNodeSpaceAR(event.getLocation());
-        } else if (CACHE.userInfo.stage == 99 && !CACHE.userInfo.firstRecallEnded && this.guideStep == 6) {
-            originNode = cc.find('Canvas/navi_footer');
-            btn = cc.find('Canvas/navi_footer/button_travel');
-            if (!originNode || !btn) {
-                this.node._touchListener.setSwallowTouches(true);
-                return;
-            }
-            pos = originNode.convertToNodeSpaceAR(event.getLocation());
-        }
-        let rect = btn.getBoundingBox();
-        if (rect.contains(pos)) {
-            if (CACHE.userInfo.stage == 5 && this.guideStep == 1) {
-                let handPosition = cc.v2(8, -100);
-                this.handNode = cc.instantiate(this.hand);
-                this.handNode.scaleX = 0.7;
-                this.handNode.scaleY = 0.7;
-                this.handNode.parent = this.node;
-                this.handNode.setPosition(handPosition);
-                let obj = this.handNode.getComponent('guideHand');
-                if (obj) {
-                    obj.handAnimate();
-                }
-                this.guideToastNode.active = false;
-                this.guideStep++;
-                this.node._touchListener.setSwallowTouches(true);
-            } else if (CACHE.userInfo.stage == 5 && this.guideStep == 2) {
-                this.handNode.active = false;
-                this.guideToastNode.setPosition(cc.v2(0, -150));
-                this.guideToastNode.item_obj.setContentStr("<color=#887160><color=#e37974>[高级猫粮]</color>可以大量增加<color=#e37974>饱食度</color>\n同时还可以增加<color=#e37974>幸运值</color>哦</color>")
-                this.guideToastNode.active = true;
-
-                this.guideStep++;
-                this.node._touchListener.setSwallowTouches(false);
-            } else if (CACHE.userInfo.stage == 5 && this.guideStep == 3) {
-                this.guideToastNode.item_obj.setContentStr("<color=#887160><color=#e37974>幸运值</color>越高,猫咪外出获得\n物品的几率越大</color>")
-                this.guideStep++;
-                this.node._touchListener.setSwallowTouches(true);
-            } else if (CACHE.userInfo.stage == 5 && this.guideStep == 4) {
-                this.guideToastNode.item_obj.setContentStr("<color=#887160>使用高级猫粮把小月半喂饱\n吧</color>")
-                this.guideStep++;
-                this.node._touchListener.setSwallowTouches(true);
-            } else if (CACHE.userInfo.stage == 5 && this.guideStep == 5) {
-                this.guideToastNode.active = false;
-                this.handNode.setPosition(cc.v2(0, -400));
-                this.handNode.active = true;
-                this.guideStep++;
-                this.node._touchListener.setSwallowTouches(true);
-            } else if (CACHE.userInfo.stage == 5 && (this.guideStep == 6 || this.guideStep == 7 || this.guideStep == 8 || this.guideStep == 9)) {
-                this.guideStep++;
-                this.node._touchListener.setSwallowTouches(false);
-            } else if (CACHE.userInfo.stage == 5 && this.guideStep == 10) {
-                this.guideToastNode.setPosition(cc.v2(0, -150));
-                this.guideToastNode.item_obj.setContentStr("<color=#887160>小月半吃饱了,\n走到门边抬头看着你</color>")
-                this.guideToastNode.active = true;
-                this.guideToastTimer = setTimeout(() => {
-                    this.guideToastNode.active = false;
-                    this.guideToastTimer = null;
-                }, 2000);
-                this.handNode.setPosition(cc.v2(270, -230));
-                this.guideStep++;
-                this.node._touchListener.setSwallowTouches(false);
-            } else if (CACHE.userInfo.stage == 5 && this.guideStep == 11) {
-                this.guideStep++;
-                this.handNode.setPosition(cc.v2(0, 100));
-                this.node._touchListener.setSwallowTouches(false);
-            } else if (CACHE.userInfo.stage == 5 && this.guideStep == 12) {
-                this.guideStep++;
-                setTimeout(() => {
-                    this.handNode.setPosition(cc.v2(-70, 320));
-                }, 500);
-                this.node._touchListener.setSwallowTouches(false);
-            } else if (CACHE.userInfo.stage == 5 && this.guideStep == 13) {
-                this.guideStep++;
-                setTimeout(() => {
-                    this.handNode.setPosition(cc.v2(0, -220));
-                }, 500);
-                this.node._touchListener.setSwallowTouches(false);
-            } else if (CACHE.userInfo.stage == 5 && this.guideStep == 14) {
-                this.guideToastNode.setPosition(cc.v2(0, -150));
-                this.guideToastNode.item_obj.setContentStr("<color=#887160>小猫猫出去旅行了,\n我们也继续<color=#e37974>[旅行]</color>吧</color>")
-                this.guideToastNode.active = true;
-                this.guideStep++;
-                setTimeout(() => {
-                    this.handNode.setPosition(cc.v2(0, -500));
-                }, 500);
-                this.node._touchListener.setSwallowTouches(false);
-            } else if (CACHE.userInfo.stage == 5 && this.guideStep == 15) {
-                Api.guideStageComplete({ stage: 5 }, (res) => {
-                })
-                CACHE.userInfo.stage++;
-                this.guideStep++;
-                this.node._touchListener.setSwallowTouches(false);
-            } else if (CACHE.userInfo.stage == 7 && this.guideStep == 1) {
-                //弹出一个页面再消失
-                this.animateNode.active = true;
-                setTimeout(() => {
-                    cc.tween(this.animateNode)
-                        .to(1, { opacity: 0 })
-                        .start()
-                    this.handNode.setPosition(cc.v2(150, 350));
-                }, 1000);
-                this.guideStep++;
-                this.node._touchListener.setSwallowTouches(false);
-            } else if (CACHE.userInfo.stage == 7 && this.guideStep == 2) {
-                this.guideStep++;
-                this.handNode.setPosition(cc.v2(260, 460));
-                this.node._touchListener.setSwallowTouches(false);
-            } else if (CACHE.userInfo.stage == 7 && this.guideStep == 3) {
-                this.guideStep++;
-                this.handNode.setPosition(cc.v2(0, -500));
-                this.node._touchListener.setSwallowTouches(false);
-            } else if (CACHE.userInfo.stage == 7 && this.guideStep == 4) {
-                Api.guideStageComplete({ stage: 7 }, (res) => {
-                })
-                // CACHE.userInfo.stage = 99;
-                CACHE.userInfo.stage++;
-                this.guideStep++;
-                this.node._touchListener.setSwallowTouches(false);
-            } else if (CACHE.userInfo.stage == 99 && !CACHE.userInfo.firstRecallEnded && this.guideStep == 1) {
-                this.guideStep++;
-                this.handNode.setPosition(cc.v2(0, 200));
-                this.node._touchListener.setSwallowTouches(false);
-            } else if (CACHE.userInfo.stage == 99 && !CACHE.userInfo.firstRecallEnded && this.guideStep == 2) {
-                this.guideStep++;
-                this.handNode.setPosition(cc.v2(-260, -450));
-                this.node._touchListener.setSwallowTouches(false);
-            } else if (CACHE.userInfo.stage == 99 && !CACHE.userInfo.firstRecallEnded && this.guideStep == 3) {
-                this.guideStep++;
-                this.handNode.setPosition(cc.v2(280, 460));
-                this.node._touchListener.setSwallowTouches(false);
-            } else if (CACHE.userInfo.stage == 99 && !CACHE.userInfo.firstRecallEnded && this.guideStep == 4) {
-                this.guideStep++;
-                this.handNode.setPosition(cc.v2(250, 430));
-                this.node._touchListener.setSwallowTouches(false);
-            } else if (CACHE.userInfo.stage == 99 && !CACHE.userInfo.firstRecallEnded && this.guideStep == 5) {
-                this.guideStep++;
-                this.handNode.setPosition(cc.v2(0, -500));
-                this.node._touchListener.setSwallowTouches(false);
-            } else if (CACHE.userInfo.stage == 99 && !CACHE.userInfo.firstRecallEnded && this.guideStep == 6) {
-                Api.guideStageSpecialComplete({ event: 1 }, (res) => {
-                    if (res.code == 0) {
-                        CACHE.userInfo.firstRecallEnded = true;
-                    }
-                    this.node._touchListener.setSwallowTouches(false);
-                });
-            }
-        }
-        else {
-            this.node._touchListener.setSwallowTouches(true);
-        }
-    },
-
     onLoad() {
         if (!CACHE.isShowGuide) {
             return;
@@ -348,6 +32,8 @@ cc.Class({
                 this.guideToastNode.setPosition(0, -350);
 
                 this.node.on(cc.Node.EventType.TOUCH_START, this.onTouchStart, this);
+                this.node.on(cc.Node.EventType.TOUCH_MOVE, this.onTouchMove, this);
+                this.node.on(cc.Node.EventType.TOUCH_END, this.onTouchEnd, this);
             } else if (CACHE.userInfo.stage == 7) {
                 this.isSetTouch = true;
                 this.node.zIndex = 1000;
@@ -379,6 +65,8 @@ cc.Class({
                 }, 2000);
 
                 this.node.on(cc.Node.EventType.TOUCH_START, this.onTouchStart, this);
+                this.node.on(cc.Node.EventType.TOUCH_MOVE, this.onTouchMove, this);
+                this.node.on(cc.Node.EventType.TOUCH_END, this.onTouchEnd, this);
             }
         }
         if (CACHE.userInfo && typeof CACHE.userInfo.stage == 'number' && CACHE.userInfo.stage == 99 && !CACHE.userInfo.firstRecallEnded) {
@@ -397,11 +85,285 @@ cc.Class({
                 obj.handAnimate();
             }
             this.node.on(cc.Node.EventType.TOUCH_START, this.onTouchStart, this);
+            this.node.on(cc.Node.EventType.TOUCH_MOVE, this.onTouchMove, this);
+            this.node.on(cc.Node.EventType.TOUCH_END, this.onTouchEnd, this);
         }
     },
 
-    start() {
-
+    isUserPressIn(event) {
+        let originNode;
+        let pos;
+        let btn;
+        if (CACHE.userInfo.stage == 5 && this.guideStep == 1) {
+            originNode = cc.find('Canvas');
+            btn = cc.find('Canvas/guide');
+        } else if (CACHE.userInfo.stage == 5 && this.guideStep == 2) {
+            originNode = cc.find('Canvas/rootWarp/my_home');
+            btn = cc.find('Canvas/rootWarp/my_home/bowlWarp');
+        } else if (CACHE.userInfo.stage == 5 && this.guideStep == 3) {
+            originNode = cc.find('Canvas');
+            btn = cc.find('Canvas/guide');
+        } else if (CACHE.userInfo.stage == 5 && this.guideStep == 4) {
+            originNode = cc.find('Canvas');
+            btn = cc.find('Canvas/guide');
+        } else if (CACHE.userInfo.stage == 5 && this.guideStep == 5) {
+            originNode = cc.find('Canvas');
+            btn = cc.find('Canvas/guide');
+        } else if (CACHE.userInfo.stage == 5 && (this.guideStep == 6 || this.guideStep == 7 || this.guideStep == 8 || this.guideStep == 9 || this.guideStep == 10)) {
+            originNode = cc.find('Canvas/feedWarp/container/feedContent');
+            btn = cc.find('Canvas/feedWarp/container/feedContent/feedItem_2');
+        } else if (CACHE.userInfo.stage == 5 && this.guideStep == 11) {
+            originNode = cc.find('Canvas/feedWarp/container');
+            btn = cc.find('Canvas/feedWarp/container/close');
+        } else if (CACHE.userInfo.stage == 5 && this.guideStep == 12) {
+            originNode = cc.find('Canvas/rootWarp/my_home');
+            btn = cc.find('Canvas/rootWarp/my_home/cat');
+        } else if (CACHE.userInfo.stage == 5 && this.guideStep == 13) {
+            originNode = cc.find('Canvas/rootWarp/my_home/cat_action/container');
+            btn = cc.find('Canvas/rootWarp/my_home/cat_action/container/actionOut');
+        } else if (CACHE.userInfo.stage == 5 && this.guideStep == 14) {
+            originNode = cc.find('Canvas/ConfirmOut');
+            btn = cc.find('Canvas/ConfirmOut/dialogContainer/confirm');
+        } else if (CACHE.userInfo.stage == 5 && this.guideStep == 15) {
+            originNode = cc.find('Canvas/navi_footer');
+            btn = cc.find('Canvas/navi_footer/button_travel');
+        } else if (CACHE.userInfo.stage == 7 && this.guideStep == 1) {
+            originNode = cc.find('Canvas/rootWarp/my_home');
+            btn = cc.find('Canvas/rootWarp/my_home/collact');
+        } else if (CACHE.userInfo.stage == 7 && this.guideStep == 2) {
+            originNode = cc.find('Canvas/collect_root/warp/content/tabContent');
+            btn = cc.find('Canvas/collect_root/warp/content/tabContent/tabItem_1');
+        } else if (CACHE.userInfo.stage == 7 && this.guideStep == 3) {
+            originNode = cc.find('Canvas/collect_root/warp/header');
+            btn = cc.find('Canvas/collect_root/warp/header/close');
+        } else if (CACHE.userInfo.stage == 7 && this.guideStep == 4) {
+            originNode = cc.find('Canvas/navi_footer');
+            btn = cc.find('Canvas/navi_footer/button_travel');
+        } else if (CACHE.userInfo.stage == 99 && !CACHE.userInfo.firstRecallEnded && this.guideStep == 1) {
+            originNode = cc.find('Canvas/rootWarp/my_home');
+            btn = cc.find('Canvas/rootWarp/my_home/recall');
+        } else if (CACHE.userInfo.stage == 99 && !CACHE.userInfo.firstRecallEnded && this.guideStep == 2) {
+            originNode = cc.find('Canvas/recallDialog/warp/content/New ScrollView/view/content');
+            btn = cc.find('Canvas/recallDialog/warp/content/New ScrollView/view/content/recall_item_0');
+        } else if (CACHE.userInfo.stage == 99 && !CACHE.userInfo.firstRecallEnded && this.guideStep == 3) {
+            originNode = cc.find('Canvas/recallInfo/recallInfoContent/commentIcon');
+            btn = cc.find('Canvas/recallInfo/recallInfoContent/commentIcon/icon-like');
+        } else if (CACHE.userInfo.stage == 99 && !CACHE.userInfo.firstRecallEnded && this.guideStep == 4) {
+            originNode = cc.find('Canvas/recallInfo/recallInfoContent/header');
+            btn = cc.find('Canvas/recallInfo/recallInfoContent/header/close');
+        } else if (CACHE.userInfo.stage == 99 && !CACHE.userInfo.firstRecallEnded && this.guideStep == 5) {
+            originNode = cc.find('Canvas/recallDialog/warp/header');
+            btn = cc.find('Canvas/recallDialog/warp/header/close');
+        } else if (CACHE.userInfo.stage == 99 && !CACHE.userInfo.firstRecallEnded && this.guideStep == 6) {
+            originNode = cc.find('Canvas/navi_footer');
+            btn = cc.find('Canvas/navi_footer/button_travel');
+        }
+        if (!originNode || !btn) {
+            return false;
+        }
+        pos = originNode.convertToNodeSpaceAR(event.getLocation());
+        let rect = btn.getBoundingBox();
+        return rect.contains(pos);
     },
+
+    guide(isEnd) {
+        if (CACHE.userInfo.stage == 5 && this.guideStep == 1) {
+            if (isEnd) {
+                let handPosition = cc.v2(8, -100);
+                this.handNode = cc.instantiate(this.hand);
+                this.handNode.scaleX = 0.7;
+                this.handNode.scaleY = 0.7;
+                this.handNode.parent = this.node;
+                this.handNode.setPosition(handPosition);
+                let obj = this.handNode.getComponent('guideHand');
+                if (obj) {
+                    obj.handAnimate();
+                }
+                this.guideToastNode.active = false;
+                this.guideStep++;
+            }
+            return true;
+        } else if (CACHE.userInfo.stage == 5 && this.guideStep == 2) {
+            if (isEnd) {
+                this.handNode.active = false;
+                this.guideToastNode.setPosition(cc.v2(0, -150));
+                this.guideToastNode.item_obj.setContentStr("<color=#887160><color=#e37974>[高级猫粮]</color>可以大量增加<color=#e37974>饱食度</color>\n同时还可以增加<color=#e37974>幸运值</color>哦</color>")
+                this.guideToastNode.active = true;
+                this.guideStep++;
+            }
+            return false;
+        } else if (CACHE.userInfo.stage == 5 && this.guideStep == 3) {
+            if (isEnd) {
+                this.guideToastNode.item_obj.setContentStr("<color=#887160><color=#e37974>幸运值</color>越高,猫咪外出获得\n物品的几率越大</color>")
+                this.guideStep++;
+            }
+            return true;
+        } else if (CACHE.userInfo.stage == 5 && this.guideStep == 4) {
+            if (isEnd) {
+                this.guideToastNode.item_obj.setContentStr("<color=#887160>使用高级猫粮把小月半喂饱\n吧</color>")
+                this.guideStep++;
+            }
+            return true;
+        } else if (CACHE.userInfo.stage == 5 && this.guideStep == 5) {
+            if (isEnd) {
+                this.guideToastNode.active = false;
+                this.handNode.setPosition(cc.v2(0, -400));
+                this.handNode.active = true;
+                this.guideStep++;
+            }
+            return true;
+        } else if (CACHE.userInfo.stage == 5 && (this.guideStep == 6 || this.guideStep == 7 || this.guideStep == 8 || this.guideStep == 9)) {
+            if (isEnd) {
+                this.guideStep++;
+            }
+            return false;
+        } else if (CACHE.userInfo.stage == 5 && this.guideStep == 10) {
+            if (isEnd) {
+                this.guideToastNode.setPosition(cc.v2(0, -150));
+                this.guideToastNode.item_obj.setContentStr("<color=#887160>小月半吃饱了,\n走到门边抬头看着你</color>")
+                this.guideToastNode.active = true;
+                this.guideToastTimer = setTimeout(() => {
+                    this.guideToastNode.active = false;
+                    this.guideToastTimer = null;
+                }, 2000);
+                this.handNode.setPosition(cc.v2(270, -230));
+                this.guideStep++;
+            }
+            return false;
+        } else if (CACHE.userInfo.stage == 5 && this.guideStep == 11) {
+            if (isEnd) {
+                this.guideStep++;
+                this.handNode.setPosition(cc.v2(0, 100));
+            }
+            return false;
+        } else if (CACHE.userInfo.stage == 5 && this.guideStep == 12) {
+            if (isEnd) {
+                this.guideStep++;
+                setTimeout(() => {
+                    this.handNode.setPosition(cc.v2(-70, 320));
+                }, 500);
+            }
+            return false;
+        } else if (CACHE.userInfo.stage == 5 && this.guideStep == 13) {
+            if (isEnd) {
+                this.guideStep++;
+                setTimeout(() => {
+                    this.handNode.setPosition(cc.v2(0, -220));
+                }, 500);
+            }
+            return false;
+        } else if (CACHE.userInfo.stage == 5 && this.guideStep == 14) {
+            if (isEnd) {
+                this.guideToastNode.setPosition(cc.v2(0, -150));
+                this.guideToastNode.item_obj.setContentStr("<color=#887160>小猫猫出去旅行了,\n我们也继续<color=#e37974>[旅行]</color>吧</color>")
+                this.guideToastNode.active = true;
+                this.guideStep++;
+                setTimeout(() => {
+                    this.handNode.setPosition(cc.v2(0, -500));
+                }, 500);
+            }
+            return false;
+        } else if (CACHE.userInfo.stage == 5 && this.guideStep == 15) {
+            if (isEnd) {
+                Api.guideStageComplete({ stage: 5 }, (res) => {
+                })
+                CACHE.userInfo.stage++;
+                this.guideStep++;
+            }
+            return false;
+        } else if (CACHE.userInfo.stage == 7 && this.guideStep == 1) {
+            if (isEnd) {
+                this.animateNode.active = true;
+                this.handNode.active = false;
+                setTimeout(() => {
+                    cc.tween(this.animateNode)
+                        .to(1, { opacity: 0 })
+                        .start()
+                    this.handNode.setPosition(cc.v2(150, 350));
+                    this.handNode.active = true;
+                }, 3000);
+                this.guideStep++;
+            }
+            return false;
+        } else if (CACHE.userInfo.stage == 7 && this.guideStep == 2) {
+            if (isEnd) {
+                this.guideStep++;
+                this.handNode.setPosition(cc.v2(260, 460));
+            }
+            return false;
+        } else if (CACHE.userInfo.stage == 7 && this.guideStep == 3) {
+            if (isEnd) {
+                this.guideStep++;
+                this.handNode.setPosition(cc.v2(0, -500));
+            }
+            return false;
+        } else if (CACHE.userInfo.stage == 7 && this.guideStep == 4) {
+            if (isEnd) {
+                Api.guideStageComplete({ stage: 7 }, (res) => {
+                })
+                CACHE.userInfo.stage++;
+                this.guideStep++;
+            }
+            return false;
+        } else if (CACHE.userInfo.stage == 99 && !CACHE.userInfo.firstRecallEnded && this.guideStep == 1) {
+            if (isEnd) {
+                this.guideStep++;
+                this.handNode.setPosition(cc.v2(0, 200));
+            }
+            return false;
+        } else if (CACHE.userInfo.stage == 99 && !CACHE.userInfo.firstRecallEnded && this.guideStep == 2) {
+            if (isEnd) {
+                this.guideStep++;
+                this.handNode.setPosition(cc.v2(-260, -450));
+            }
+            return false;
+        } else if (CACHE.userInfo.stage == 99 && !CACHE.userInfo.firstRecallEnded && this.guideStep == 3) {
+            if (isEnd) {
+                this.guideStep++;
+                this.handNode.setPosition(cc.v2(280, 460));
+            }
+            return false;
+        } else if (CACHE.userInfo.stage == 99 && !CACHE.userInfo.firstRecallEnded && this.guideStep == 4) {
+            if (isEnd) {
+                this.guideStep++;
+                this.handNode.setPosition(cc.v2(250, 430));
+            }
+            return false;
+        } else if (CACHE.userInfo.stage == 99 && !CACHE.userInfo.firstRecallEnded && this.guideStep == 5) {
+            if (isEnd) {
+                this.guideStep++;
+                this.handNode.setPosition(cc.v2(0, -500));
+            }
+            return false;
+        } else if (CACHE.userInfo.stage == 99 && !CACHE.userInfo.firstRecallEnded && this.guideStep == 6) {
+            if (isEnd) {
+                Api.guideStageSpecialComplete({ event: 1 }, (res) => { });
+                CACHE.userInfo.firstRecallEnded = true;
+            }
+            return false;
+        }
+    },
+
+    onTouchStart(event) {
+        if (this.isUserPressIn(event)) {
+            this.node._touchListener.setSwallowTouches(this.guide());
+        } else {
+            this.node._touchListener.setSwallowTouches(true);
+        }
+    },
+
+    onTouchMove() {
+        this.node._touchListener.setSwallowTouches(true);
+    },
+
+    onTouchEnd(event) {
+        if (this.isUserPressIn(event)) {
+            this.node._touchListener.setSwallowTouches(this.guide(true));
+        } else {
+            this.node._touchListener.setSwallowTouches(true);
+        }
+    },
+
+
 
 });

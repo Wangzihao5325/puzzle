@@ -115,7 +115,7 @@ window.ConfirmOut.show = function (_confirmCallBack=()=>{},animSpeed ) {
         cc.tween(ConfirmOut._alert)
         .to(1, { position: cc.v2(0,0)},{opacity:1})
         .start()
-        self.onDestory();
+        self.onDestroy();
 
     };
 
@@ -127,12 +127,12 @@ window.ConfirmOut.show = function (_confirmCallBack=()=>{},animSpeed ) {
 
     // 弹出动画完成回调
     self.onFadeOutFinish = function () {
-        self.onDestory();
+        self.onDestroy();
     };
 
 
     // 销毁 alert (内存管理还没搞懂，暂且这样写吧~v~)
-    self.onDestory = function () {
+    self.onDestroy = function () {
         window.ConfirmOut._alert.active=false;
         window.ConfirmOut._confirmCallBack = null;
         window.ConfirmOut._alert = null;

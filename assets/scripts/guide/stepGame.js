@@ -83,7 +83,23 @@ cc.Class({
 
 
     onTouchStart(event) {
-        if (this.guideStep == 2) {//此时分享弹窗已经出现，不能让玩家乱点
+        if (this.guideStep == 1) {
+            if (this.handNode && !this.isGameOver) {
+                this.handNode.active = false;
+                if (!this.timer) {
+                    this.timer = setTimeout(() => {
+                        this.guideHandShow();
+                    }, 10000);
+                } else {
+                    clearTimeout(this.timer);
+                    this.timer = setTimeout(() => {
+                        this.guideHandShow();
+                    }, 10000);
+                }
+            }
+            this.node._touchListener.setSwallowTouches(false);
+        } else if (this.guideStep == 2) {
+            //此时分享弹窗已经出现，不能让玩家乱点
             let originNode = cc.find('Canvas/root/game_share/container/poster');
             if (originNode) {
                 let pos = originNode.convertToNodeSpaceAR(event.getLocation());
@@ -100,25 +116,41 @@ cc.Class({
                 return;
             }
         }
-        if (this.guideStep == 1 || this.guideStep == 3 || this.guideStep == 6) {
-            if (this.handNode && !this.isGameOver) {
-                this.handNode.active = false;
-                if (!this.timer) {
-                    this.timer = setTimeout(() => {
-                        if (this.handNode) {
-                            this.handNode.active = true;
-                        }
-                    }, 10000);
-                } else {
-                    clearTimeout(this.timer);
-                    this.timer = setTimeout(() => {
-                        if (this.handNode) {
-                            this.handNode.active = true;
-                        }
-                    }, 10000);
+    },
+
+    onTouchStartWithoutGuide() {
+        if (this.handNode) {
+            this.handNode.active = false;
+        }
+        if (!this.timer) {
+            this.timer = setTimeout(() => {
+                this.guideHandShow();
+            }, 10000);
+        } else {
+            clearTimeout(this.timer);
+            this.timer = setTimeout(() => {
+                this.guideHandShow();
+            }, 10000);
+        }
+        this.node._touchListener.setSwallowTouches(false);
+    },
+
+    guideHandShow() {
+        if (this.handNode) {
+            this.handNode.active = true;
+        } else {
+            this.handNode = cc.instantiate(this.handSlip);
+            this.asyncTimer = setTimeout(() => {
+                this.handNode.scaleX = 0.7;
+                this.handNode.scaleY = 0.7;
+                this.handNode.parent = this.node;
+                this.handNode.setPosition(cc.v2(-250, -500));
+                let obj = this.handNode.getComponent('pluzzeGuide');
+                if (obj) {
+                    obj.handAnimate();
                 }
-            }
-            this.node._touchListener.setSwallowTouches(false);
+                this.asyncTimer = null;
+            }, 0);
         }
     },
 
@@ -126,46 +158,13 @@ cc.Class({
         if (!CACHE.isShowGuide) {
             return;
         }
-        if (CACHE.userInfo && typeof CACHE.userInfo.stage == 'number' && CACHE.userInfo.stage !== 99) {
-            if (CACHE.userInfo.stage == 1 || CACHE.userInfo.stage == 3) {
+        if (CACHE.userInfo && CACHE.userInfo.stage !== 99) {
+            if (CACHE.userInfo.stage == 1 || CACHE.userInfo.stage == 3 || CACHE.userInfo.stage == 6) {
                 this.isSetTouch = true;
                 this.node.zIndex = 10000;
                 this.guideStep = 1;
 
-                this.handNode = cc.instantiate(this.handSlip);
-                this.handNode.scaleX = 0.7;
-                this.handNode.scaleY = 0.7;
-                this.handNode.parent = this.node;
-                this.handNode.setPosition(cc.v2(-250, -500));
-                let obj = this.handNode.getComponent('pluzzeGuide');
-                if (obj) {
-                    obj.handAnimate();
-                }
-
-                //设置callback
-                let conraol = cc.find('Canvas/root/menuWarp');
-                if (conraol) {
-                    let conraolComponent = conraol.getComponent('conraol');
-                    if (conraolComponent) {
-                        conraolComponent._guideCallbackSetting(() => this.awardDone(), () => this.showDone(), () => this.failedDone(), () => this.rebornDone());
-                    }
-                }
-                // 触摸监听
-                this.node.on(cc.Node.EventType.TOUCH_START, this.onTouchStart, this);
-            } else if (CACHE.userInfo.stage == 6) {
-                this.isSetTouch = true;
-                this.node.zIndex = 10000;
-                this.guideStep = 1;
-
-                this.handNode = cc.instantiate(this.handSlip);
-                this.handNode.scaleX = 0.7;
-                this.handNode.scaleY = 0.7;
-                this.handNode.parent = this.node;
-                this.handNode.setPosition(cc.v2(-250, -500));
-                let obj = this.handNode.getComponent('pluzzeGuide');
-                if (obj) {
-                    obj.handAnimate();
-                }
+                this.guideHandShow();
 
                 //设置callback
                 let conraol = cc.find('Canvas/root/menuWarp');
@@ -178,10 +177,24 @@ cc.Class({
                 // 触摸监听
                 this.node.on(cc.Node.EventType.TOUCH_START, this.onTouchStart, this);
             }
+        } else if (CACHE.userInfo.stage == 99) {
+            //未导航时长时间不操作处理
+            this.node.zIndex = 10000;
+            this.timer = setTimeout(() => {
+                this.guideHandShow();
+            }, 10000);
+            this.node.on(cc.Node.EventType.TOUCH_START, this.onTouchStartWithoutGuide, this);
         }
     },
 
-    start() {
-
-    },
+    onDestroy() {
+        if (this.timer) {
+            clearTimeout(this.timer);
+            this.timer = null;
+        }
+        if (this.asyncTimer) {
+            clearTimeout(this.asyncTimer);
+            this.asyncTimer = null;
+        }
+    }
 });
