@@ -8,7 +8,9 @@ cc.Class({
         home_btn: cc.Button,
         travel_btn: cc.Button,
         show_btn: cc.Button,
-        pin: cc.Prefab
+        pin: cc.Prefab,
+        earLeft: cc.Sprite,
+        earRight: cc.Sprite
     },
 
     initBtnBg(sceneType) {
@@ -16,6 +18,10 @@ cc.Class({
         this.home_btn.normalSprite = sceneType == SCENE.HOME ? new cc.SpriteFrame(NAVI_BG_ASSETS[1]) : new cc.SpriteFrame(NAVI_BG_ASSETS[0]);
         this.travel_btn.normalSprite = sceneType == SCENE.TRAVEL ? new cc.SpriteFrame(NAVI_BG_ASSETS[3]) : new cc.SpriteFrame(NAVI_BG_ASSETS[2]);
         this.show_btn.normalSprite = sceneType == SCENE.SHOW ? new cc.SpriteFrame(NAVI_BG_ASSETS[5]) : new cc.SpriteFrame(NAVI_BG_ASSETS[4]);
+        if (sceneType == SCENE.HOME) {
+            this.earLeft.node.active = true;
+            this.earRight.node.active = true;
+        }
     },
 
     initAnimate() {
@@ -39,12 +45,36 @@ cc.Class({
         this.pin.item_node = pinNode;
     },
 
+    earAnimate() {
+        cc.tween(this.earLeft.node)
+            .to(0.05, { angle: -10 })
+            .to(0.1, { angle: 10 })
+            .to(0.1, { angle: -10 })
+            .to(0.05, { angle: 0 })
+            .delay(2)
+            .union()
+            .repeatForever()
+            .start();
+
+        cc.tween(this.earRight.node)
+            .to(0.05, { angle: -10 })
+            .to(0.1, { angle: 10 })
+            .to(0.1, { angle: -10 })
+            .to(0.05, { angle: 0 })
+            .delay(2)
+            .union()
+            .repeatForever()
+            .start();
+    },
+
     initWithScene(sceneType) {
         setTimeout(() => {
             this.initBtnBg(sceneType);
             if (sceneType == SCENE.TRAVEL) {
                 this.initPin();
                 this.initAnimate();
+            } else if (sceneType == SCENE.HOME) {
+                this.earAnimate()
             }
         }, 10);
     },
