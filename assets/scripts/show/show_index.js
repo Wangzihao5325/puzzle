@@ -147,8 +147,11 @@ cc.Class({
     headerInit() {
         let header = cc.instantiate(this.header);
         let obj = header.getComponent('header_warp_index');
+        let headerWidgrt = header.getComponent(cc.Widget);
+        headerWidgrt.isAlignTop = true;
+        headerWidgrt.top = 110;
         header.parent = this.root;
-        header.setPosition(0, 528);
+        //header.setPosition(0, 528);
         header.zIndex = 10;
         this.headerObj = obj;
         this.headerObj.initShowScene();
