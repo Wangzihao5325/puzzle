@@ -48,7 +48,9 @@ cc.Class({
     // LIFE-CYCLE CALLBACKS:
 
     onLoad () {
-        this.init()
+        this.init();
+        this.dailyNew.active = CACHE.taskTips.dailyTask
+        this.mainNew.active = CACHE.taskTips.mainTask
 
         this.setTouch()
     },
@@ -77,6 +79,7 @@ cc.Class({
             this.modal.destroy()
         })
         .start()
+        cc.find('Canvas').getComponent('travel_index').updateTaskTips()
     },
 
     // task_daily,
@@ -91,10 +94,8 @@ cc.Class({
             if(res.code===0){
                 const data=res.data;
                 this.initTask(data)
-
             }
         })
-
     },
 
 
@@ -119,22 +120,32 @@ cc.Class({
     },
 
     taskRender(data,startIndex){
+        let count = 0;
         for (let i = 0; i < data.length; i++) {
             let newNode = cc.instantiate(this.taskItem)
 
             let obj = newNode.getComponent('taskItem')
             const item=data[i]
             obj.init(item)
+            // 统计当前用户未领取的任务数，如果为0，则tab上的红点需要隐藏
+            count += item.complete && !item.receive ? 1 : 0
             newNode.parent = this.scrollContent
 
             let position = cc.v2(0, (-(140 * (-0.5 + i+startIndex+1))) - 10);
             newNode.setPosition(position)
 
         }
+        if (startIndex === 0) {
+            //判断当前tab和旅行页图标是否显示
+            CACHE.taskTips[!this.currentType ? 'dailyTask' : 'mainTask'] = !!count
+            CACHE.taskTips.task = CACHE.taskTips.dailyTask || CACHE.taskTips.mainTask
+        }
     },
 
 
     changeType(type){
+        this.dailyNew.active = CACHE.taskTips.dailyTask
+        this.mainNew.active = CACHE.taskTips.mainTask
         this.currentType=type
 
         this.scrollContent.children.map(item=>{
