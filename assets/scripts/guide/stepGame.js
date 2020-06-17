@@ -150,7 +150,7 @@ cc.Class({
                     obj.handAnimate();
                 }
                 this.asyncTimer = null;
-            }, 0);
+            }, 1000);
         }
     },
 
@@ -164,7 +164,7 @@ cc.Class({
                 this.node.zIndex = 10000;
                 this.guideStep = 1;
 
-                this.guideHandShow();
+                // this.guideHandShow();
 
                 //设置callback
                 let conraol = cc.find('Canvas/root/menuWarp');
@@ -172,6 +172,15 @@ cc.Class({
                     let conraolComponent = conraol.getComponent('conraol');
                     if (conraolComponent) {
                         conraolComponent._guideCallbackSetting(() => this.awardDone(), () => this.showDone(), () => this.failedDone(), () => this.rebornDone());
+                    }
+                }
+
+                //设置掉落结束的callback
+                let gameTestNode = cc.find('Canvas');
+                if (gameTestNode) {
+                    let gameTest = gameTestNode.getComponent('game_test');
+                    if (gameTest) {
+                        gameTest._setPliceAnimationCallback(() => this.guideHandShow());
                     }
                 }
                 // 触摸监听
