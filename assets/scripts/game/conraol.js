@@ -186,7 +186,7 @@ cc.Class({
     },
     gameOver(){
         GAME_CACHE.complateIndex = []
-        GAME_CACHE.underwayIndex=
+        GAME_CACHE.underwayIndex=[]
         GAME_CACHE.isComplate =false;
     },
     updateUserInfo() {
