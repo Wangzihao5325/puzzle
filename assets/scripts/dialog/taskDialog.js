@@ -126,7 +126,7 @@ cc.Class({
         for (let i = 0; i < dataFirstlyRender.length; i++) {
             this.renderTaskItem(data[i],i)
             if(i===dataFirstlyRender.length-1){
-                this.onScrollingEvent()
+                // this.onScrollingEvent()
             }
         }
     },
@@ -153,7 +153,7 @@ cc.Class({
         this.scrollContent.children.map(item=>{
             item.destroy()
         })
-        this.scroll.getComponent(cc.ScrollView).setContentPosition(cc.v2(0,0));
+        this.scroll.getComponent(cc.ScrollView).setContentPosition(cc.v2(0,-340));
         
 
         this.footerWarp.active=!type
@@ -195,8 +195,7 @@ cc.Class({
     },
 
     refresh(){
-        this.scroll.getComponent(cc.ScrollView).setContentPosition(cc.v2(0,0));
-        this.onScrollingEvent()
+        this.scroll.getComponent(cc.ScrollView).setContentPosition(cc.v2(0,340));
         this.getTask()
         this.getActive()
     },
