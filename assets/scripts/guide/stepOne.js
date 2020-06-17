@@ -1,4 +1,5 @@
 import { CACHE } from '../global/usual_cache';
+import { CITIES } from '../global/travel_global_index';
 cc.Class({
     extends: cc.Component,
 
@@ -111,6 +112,9 @@ cc.Class({
             this.node.on(cc.Node.EventType.TOUCH_START, this.onTouchStart, this);
             this.node.on(cc.Node.EventType.TOUCH_MOVE, this.onTouchMove, this);
             this.node.on(cc.Node.EventType.TOUCH_END, this.onTouchEnd, this);
+        } else {
+            this.normalTouchGuide(true);
+            this.node.on(cc.Node.EventType.TOUCH_START, this.onNormalTouchStart, this);
         }
     },
 
@@ -119,9 +123,90 @@ cc.Class({
         if (this.isSetTouch) {
             this.node.off(cc.Node.EventType.TOUCH_START, this.onTouchStart, this);
         }
-
         if (this.guideToastTimer) {
             clearTimeout(this.guideToastTimer);
+        }
+        if (this.touchTimer) {
+            clearTimeout(this.touchTimer);
+        }
+    },
+
+    onNormalTouchStart() {
+        this.normalTouchGuide(false);
+        this.node._touchListener.setSwallowTouches(false);
+    },
+
+    normalTouchGuide(isInit) {
+        if (!isInit) {
+            let innerGuideNode = cc.find('Canvas/map/view/content/bg/bgGuideNode');
+            if (innerGuideNode) {
+                let innerObj = innerGuideNode.getComponent('guideTravelBg');
+                innerObj.animateDisappear();
+            }
+            if (this.handNode) {
+                this.handNode.active = false;
+            }
+        }
+        if (this.touchTimer) {
+            clearTimeout(this.touchTimer);
+            this.touchTimer = null;
+            this.normalTouchGuide();
+        } else {
+            this.touchTimer = setTimeout(() => {
+                //先判断城市在不在框框里，在框框里城市上有手势，否则，定位出现手势
+                let cityRecommend = null;
+                CITIES.every((item, index) => {
+                    if (item.isRecommend) {
+                        cityRecommend = item;
+                        return false;
+                    } else {
+                        return true;
+                    }
+                });
+                let scrollView = cc.find('Canvas/map');
+                // 获取 ScrollView Node 的左下角坐标在世界坐标系中的坐标
+                let svLeftBottomPoint = scrollView.parent.convertToWorldSpaceAR(
+                    cc.v2(
+                        scrollView.x - scrollView.anchorX * scrollView.width,
+                        scrollView.y - scrollView.anchorY * scrollView.height
+                    )
+                );
+                // 求出 ScrollView 可视区域在世界坐标系中的矩形（碰撞盒）
+                let svBBoxRect = cc.rect(
+                    svLeftBottomPoint.x,
+                    svLeftBottomPoint.y,
+                    scrollView.width,
+                    scrollView.height
+                );
+                let cityNode = cc.find(`Canvas/map/view/content/bg/city_item-${cityRecommend.key}`)
+                if (svBBoxRect.contains(cityNode.parent.convertToWorldSpaceAR(cityNode))) {
+                    let innerGuideNode = cc.find('Canvas/map/view/content/bg/bgGuideNode');
+                    if (innerGuideNode) {
+                        let innerObj = innerGuideNode.getComponent('guideTravelBg');
+                        innerObj.animateAtPoint(cc.v2(cityRecommend.positionX, cityRecommend.positionY));
+                    }
+                } else {//先亮定位按钮
+                    this.animateAtLoction();
+                }
+                this.touchTimer = null;
+            }, 5000);
+        }
+    },
+
+    animateAtLoction() {
+        if (this.handNode) {
+            this.handNode.active = true;
+        } else {
+            this.handNode = cc.instantiate(this.hand);
+            this.handNode.scaleX = 0.7;
+            this.handNode.scaleY = 0.7;
+            this.node.zIndex = 1000;
+            this.handNode.parent = this.node;
+            this.handNode.setPosition(cc.v2(240, -320));
+            let obj = this.handNode.getComponent('guideHand');
+            if (obj) {
+                obj.circleAnimate();
+            }
         }
     },
 

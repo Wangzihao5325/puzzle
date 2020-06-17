@@ -119,33 +119,31 @@ cc.Class({
 
     },
 
+    stageStepOver() {
+        CACHE.userInfo.stage++;
+        this.shareWarp.active = false;
+        this.shareWarp.destroy()
+        cc.director.loadScene("travel");
+    },
+
     handleBack() {
         if (CACHE.userInfo && typeof CACHE.userInfo.stage == 'number' && CACHE.userInfo.stage == 1) {
             Api.guideStageComplete({ stage: 1 }, (res) => {
-                if (res.code == 0) {
-                    CACHE.userInfo.stage++;
-                }
-                this.shareWarp.active = false;
-                this.shareWarp.destroy()
-                cc.director.loadScene("travel");
+                this.stageStepOver();
+            }, (res) => {
+                this.stageStepOver();
             })
         } else if (CACHE.userInfo && typeof CACHE.userInfo.stage == 'number' && CACHE.userInfo.stage == 3) {
             Api.guideStageComplete({ stage: 3 }, (res) => {
-                if (res.code == 0) {
-                    CACHE.userInfo.stage++;
-                }
-                this.shareWarp.active = false;
-                this.shareWarp.destroy()
-                cc.director.loadScene("travel");
+                this.stageStepOver();
+            }, (res) => {
+                this.stageStepOver();
             })
         } else if (CACHE.userInfo && typeof CACHE.userInfo.stage == 'number' && CACHE.userInfo.stage == 6) {
             Api.guideStageComplete({ stage: 6 }, (res) => {
-                if (res.code == 0) {
-                    CACHE.userInfo.stage++;
-                }
-                this.shareWarp.active = false;
-                this.shareWarp.destroy()
-                cc.director.loadScene("travel");
+                this.stageStepOver();
+            }, (res) => {
+                this.stageStepOver();
             })
         } else {
             this.shareWarp.active = false;

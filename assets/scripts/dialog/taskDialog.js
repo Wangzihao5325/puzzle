@@ -42,15 +42,17 @@ cc.Class({
             default:{}
         },
         dailyNew: cc.Node,
-        mainNew: cc.Node
+        mainNew: cc.Node,
+        scroll:cc.Node,
+
     },
 
     // LIFE-CYCLE CALLBACKS:
 
     onLoad () {
         this.init();
-        this.dailyNew.active = CACHE.btnTips.dailyTask
-        this.mainNew.active = CACHE.btnTips.mainTask
+        this.dailyNew.active = CACHE.taskTips.dailyTask
+        this.mainNew.active = CACHE.taskTips.mainTask
 
         this.setTouch()
     },
@@ -64,7 +66,11 @@ cc.Class({
         cc.tween(this.warp)
         .to(.3,{scale:1.2})
         .to(0.15,{scale:1})
+        .call(()=>{
+            this.loadingFinsh=true
+        })
         .start()
+
         this.getTask(0)
         this.getActive()
 
@@ -93,6 +99,7 @@ cc.Class({
         apiList[this.currentType](res=>{
             if(res.code===0){
                 const data=res.data;
+                this.taskList=data
                 this.initTask(data)
             }
         })
@@ -100,72 +107,103 @@ cc.Class({
 
 
 
-    initTask(data){
+    initTask(){
+        if(!this.loadingFinsh){
+            setTimeout(()=>{
+                this.initTask()
+            },100)
+            return false
+        }
+        const data=this.taskList
         // currentPageContent.parent=this.pageContent
-        //清除原来的
-        this.scrollContent.children.map(item=>{
+        //���ԭ����
+        this.scrollContent.children&&this.scrollContent.children.map(item=>{
             item.destroy()
         })
         this.scrollContent.height=140*(data.length+1)+20
 
-        const dataFirstlyRender=data.slice(0,6)
-        const dataTimeoutRender=data.slice(6)
-
-        this.taskRender(dataFirstlyRender,0)
-
-        //延时500ms渲染
-        setTimeout(()=>{
-            dataTimeoutRender.length&&this.taskRender(dataTimeoutRender,6)
-        },500)
+        const dataFirstlyRender=data.slice(0,5)
+        for (let i = 0; i < dataFirstlyRender.length; i++) {
+            this.renderTaskItem(data[i],i)
+            if(i===dataFirstlyRender.length-1){
+                // this.onScrollingEvent()
+            }
+        }
     },
 
-    taskRender(data,startIndex){
-        let count = 0;
-        for (let i = 0; i < data.length; i++) {
-            let newNode = cc.instantiate(this.taskItem)
 
-            let obj = newNode.getComponent('taskItem')
-            const item=data[i]
-            obj.init(item)
-            // 统计当前用户未领取的任务数，如果为0，则tab上的红点需要隐藏
-            count += item.complete && !item.receive ? 1 : 0
-            newNode.parent = this.scrollContent
-
-            let position = cc.v2(0, (-(140 * (-0.5 + i+startIndex+1))) - 10);
-            newNode.setPosition(position)
-
-        }
-        if (startIndex === 0) {
-            //判断当前tab和旅行页图标是否显示
-            CACHE.btnTips[!this.currentType ? 'dailyTask' : 'mainTask'] = !!count
-            CACHE.btnTips.task = CACHE.btnTips.dailyTask || CACHE.btnTips.mainTask
-        }
+    renderTaskItem(item,index){
+        let newNode = cc.instantiate(this.taskItem)
+        let obj = newNode.getComponent('taskItem')
+        obj.init(item)
+        newNode.parent = this.scrollContent
+        // newNode.opacity=i<=4?255:0
+        let position = cc.v2(0, (-(140 * (-0.5 + index+1))) - 10);
+        newNode.setPosition(position)
+        item.opacity=255
     },
 
 
     changeType(type){
-        this.dailyNew.active = CACHE.btnTips.dailyTask
-        this.mainNew.active = CACHE.btnTips.mainTask
+        if(this.currentType===type){
+            return false;
+        }
         this.currentType=type
 
         this.scrollContent.children.map(item=>{
             item.destroy()
         })
+        this.scroll.getComponent(cc.ScrollView).setContentPosition(cc.v2(0,-340));
+        
 
         this.footerWarp.active=!type
-
+        
         this.current.setPosition(cc.v2(type?135:-135,5))
         this.tip.active=!type
         cc.find('tabTitle',this.current).getComponent(cc.Label).string=['日常任务','主线任务'][type]
         this.getTask()
     },
 
+    /**
+     * �����м���
+     * @param {any} event 
+     */
+    onScrollingEvent(event){
+        var offsetY = this.scroll.getComponent(cc.ScrollView).getScrollOffset().y;
+        const scrollHeight = this.scroll.height
+        const children= this.scrollContent.children;
+
+        const data=this.taskList;
+            data.map((item,i)=>{
+                const positionY=(-(140 * (-0.5 + i+1))) - 10;
+                if(-positionY>offsetY-100&&-positionY<offsetY+scrollHeight+100){
+                    //�ڿ��ӷ�λ��
+                    if(children&&children[i]){
+                        //�ڵ���ڣ���ʾ�ڵ�
+                        children[i].opacity!==255?children[i].opacity=255:undefined
+                    }else{
+                        //�ڵ㲻���ڣ������ڵ�
+                        this.renderTaskItem(item,i)
+                    }
+                }else{
+                    //���ڿ��ӷ�λ������
+                    if(children&&children[i]){
+                        children[i].opacity=0
+                    }
+                }
+            })
+    },
+
     refresh(){
+        this.scroll.getComponent(cc.ScrollView).setContentPosition(cc.v2(0,340));
         this.getTask()
         this.getActive()
     },
 
     setTouch() {
+        this.scroll.on("scrolling", (event) => {
+            this.onScrollingEvent(event)
+        })
         this.warp.on(cc.Node.EventType.TOUCH_START, (event) => {
             event.stopPropagation();
         })

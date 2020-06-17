@@ -96,6 +96,12 @@ cc.Class({
             originNode = cc.find('Canvas');
             btn = cc.find('Canvas/guide');
         } else if (CACHE.userInfo.stage == 2 && this.guideStep == 6) {
+            originNode = cc.find('Canvas');
+            btn = cc.find('Canvas/guide');
+        } else if (CACHE.userInfo.stage == 2 && this.guideStep == 7) {
+            originNode = cc.find('Canvas');
+            btn = cc.find('Canvas/guide');
+        } else if (CACHE.userInfo.stage == 2 && this.guideStep == 8) {
             originNode = cc.find(`Canvas/root/footer_navi`);
             btn = cc.find(`Canvas/root/footer_navi/button_travel`);
         } else if (CACHE.userInfo.stage == 4 && this.guideStep == 1) {
@@ -177,6 +183,20 @@ cc.Class({
             return false;
         } else if (CACHE.userInfo.stage == 2 && this.guideStep == 5) {
             if (isEnd) {
+                this.guideToastNode.setPosition(0, -300);
+                this.guideToastNode.item_obj.setContentStr("<color=#887160>打卡景点可以，有几率获得物品\n物品越丰富，越容易<color=#e37974>符合主题展览</color></color>");
+                this.guideToastArrowNode.active = false;
+                this.guideStep++;
+            }
+            return true;
+        } else if (CACHE.userInfo.stage == 2 && this.guideStep == 6) {
+            if (isEnd) {
+                this.guideToastNode.item_obj.setContentStr("<color=#887160>快去旅行吧~~~</color>");
+                this.guideStep++;
+            }
+            return true;
+        } else if (CACHE.userInfo.stage == 2 && this.guideStep == 7) {
+            if (isEnd) {
                 this.guideToastNode.active = false;
                 this.guideToastArrowNode.active = false;
                 this.handNode.setPosition(cc.v2(0, -500));
@@ -184,7 +204,7 @@ cc.Class({
                 this.guideStep++;
             }
             return true;
-        } else if (CACHE.userInfo.stage == 2 && this.guideStep == 6) {
+        } else if (CACHE.userInfo.stage == 2 && this.guideStep == 8) {
             if (isEnd) {
                 Api.guideStageComplete({ stage: 2 }, (res) => {
                 });
@@ -217,6 +237,8 @@ cc.Class({
         } else if (CACHE.userInfo.stage == 4 && this.guideStep == 3) {
             if (isEnd) {
                 this.handNode.active = false;
+                this.guideToastNode.item_obj.setContentStr("<color=#887160>观看视频可以<color=#e37974>全部加速</color>～</color>");
+                this.guideToastNode.active = true;
                 this.guideStep++;
             }
             return false;
