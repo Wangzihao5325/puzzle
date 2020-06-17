@@ -51,8 +51,8 @@ cc.Class({
 
     onLoad () {
         this.init();
-        this.dailyNew.active = CACHE.taskTips.dailyTask
-        this.mainNew.active = CACHE.taskTips.mainTask
+        this.dailyNew.active = CACHE.btnTips.dailyTask
+        this.mainNew.active = CACHE.btnTips.mainTask
 
         this.setTouch()
     },
@@ -116,18 +116,24 @@ cc.Class({
         }
         const data=this.taskList
         // currentPageContent.parent=this.pageContent
-        //���ԭ����
         this.scrollContent.children&&this.scrollContent.children.map(item=>{
             item.destroy()
         })
         this.scrollContent.height=140*(data.length+1)+20
 
         const dataFirstlyRender=data.slice(0,5)
+        let count = 0;
         for (let i = 0; i < dataFirstlyRender.length; i++) {
             this.renderTaskItem(data[i],i)
+            count += data[i].complete && !data[i].receive ? 1 : 0
             if(i===dataFirstlyRender.length-1){
                 // this.onScrollingEvent()
             }
+        }
+        if (startIndex === 0) {
+            //判断当前tab和旅行页图标是否显示
+            CACHE.btnTips[!this.currentType ? 'dailyTask' : 'mainTask'] = !!count
+            CACHE.btnTips.task = CACHE.btnTips.dailyTask || CACHE.btnTips.mainTask
         }
     },
 
@@ -149,15 +155,17 @@ cc.Class({
             return false;
         }
         this.currentType=type
+        this.dailyNew.active = CACHE.btnTips.dailyTask
+        this.mainNew.active = CACHE.btnTips.mainTask
 
         this.scrollContent.children.map(item=>{
             item.destroy()
         })
         this.scroll.getComponent(cc.ScrollView).setContentPosition(cc.v2(0,-340));
-        
+
 
         this.footerWarp.active=!type
-        
+
         this.current.setPosition(cc.v2(type?135:-135,5))
         this.tip.active=!type
         cc.find('tabTitle',this.current).getComponent(cc.Label).string=['日常任务','主线任务'][type]
@@ -166,7 +174,7 @@ cc.Class({
 
     /**
      * �����м���
-     * @param {any} event 
+     * @param {any} event
      */
     onScrollingEvent(event){
         var offsetY = this.scroll.getComponent(cc.ScrollView).getScrollOffset().y;
