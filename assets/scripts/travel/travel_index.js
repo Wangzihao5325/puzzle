@@ -365,7 +365,10 @@ cc.Class({
     loadTaskTips() {
         Api.task_tips((res) => {
             if (res.code === 0) {
-                CACHE.taskTips = res.data
+                CACHE.btnTips = {
+                    ...CACHE.btnTips,
+                    ...res.data
+                }
                 this.updateTaskTips()
             } else {
                 //请求异常处理
@@ -373,7 +376,7 @@ cc.Class({
         })
     },
     updateTaskTips() {
-        this.taskNew.active = CACHE.taskTips.task;
+        this.taskNew.active = CACHE.btnTips.task;
     }
 
     // update (dt) {},

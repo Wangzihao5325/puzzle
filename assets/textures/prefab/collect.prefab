@@ -1177,7 +1177,7 @@
       "__id__": 24
     },
     "_children": [],
-    "_active": true,
+    "_active": false,
     "_components": [
       {
         "__id__": 29
@@ -1570,7 +1570,7 @@
       "__id__": 35
     },
     "_children": [],
-    "_active": true,
+    "_active": false,
     "_components": [
       {
         "__id__": 40
@@ -3105,7 +3105,7 @@
       "__id__": 75
     },
     "_children": [],
-    "_active": true,
+    "_active": false,
     "_components": [
       {
         "__id__": 84
@@ -3139,8 +3139,8 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        69,
-        16,
+        104,
+        22,
         0,
         0,
         0,
@@ -3208,8 +3208,8 @@
     "_target": null,
     "_alignFlags": 33,
     "_left": 0,
-    "_right": 30,
-    "_top": 3,
+    "_right": -5,
+    "_top": -3,
     "_bottom": 0,
     "_verticalCenter": 0,
     "_horizontalCenter": 0,
@@ -3608,7 +3608,7 @@
       "__id__": 89
     },
     "_children": [],
-    "_active": true,
+    "_active": false,
     "_components": [
       {
         "__id__": 98
@@ -3642,8 +3642,8 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        69,
-        16,
+        104,
+        22,
         0,
         0,
         0,
@@ -3711,8 +3711,8 @@
     "_target": null,
     "_alignFlags": 33,
     "_left": 0,
-    "_right": 30,
-    "_top": 3,
+    "_right": -5,
+    "_top": -3,
     "_bottom": 0,
     "_verticalCenter": 0,
     "_horizontalCenter": 0,

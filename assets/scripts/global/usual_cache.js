@@ -66,11 +66,17 @@ const CACHE = {
     platform: {
         isWachat: false
     },
-    isShowGuide: true,
-    taskTips: {
-        task: false,
-        dailyTask: false,
-        mainTask: false
+    isShowGuide: false,
+    btnTips: {
+        task: false, //旅行页任务
+        dailyTask: false, //日常任务
+        mainTask: false, //主线任务
+        collect: false, //收集
+        souvenir: false, //纪念品
+        scenic: false, //景点
+        normal: false, //普通纪念品
+        lack: false, //稀有纪念品
+        reCall: false, //回忆
     }
 }
 

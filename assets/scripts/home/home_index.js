@@ -298,6 +298,7 @@ cc.Class({
         if (CACHE.isBGM && !this.currentBGM) {
             this.currentBGM = cc.audioEngine.play(this.audio, true, 1);
         }
+        this.loadBtnTips();
     },
 
     start() {
@@ -464,6 +465,28 @@ cc.Class({
         if (this.catPopTimer) {
             clearTimeout(this.catPopTimer)
         }
+    },
+    loadBtnTips() {
+        Api.myHomeTips((res) => {
+            if (res.code === 0) {
+                CACHE.btnTips = {
+                    ...CACHE.btnTips,
+                    collect: res.data.colletTip,
+                    souvenir: res.data.normalGoodsTip || res.data.unusualGoodsTip,
+                    scenic: res.data.hurdleTip,
+                    normal: res.data.normalGoodsTip,
+                    lack: res.data.unusualGoodsTip,
+                    reCall: res.data.memoryTip, //回忆
+                }
+                this.updateBtnTips()
+            } else {
+                //请求异常处理
+            }
+        })
+    },
+    updateBtnTips() {
+        this.collectNew.active = CACHE.btnTips.collect
+        this.recallNew.active = CACHE.btnTips.reCall
     }
 
     // update (dt) {},

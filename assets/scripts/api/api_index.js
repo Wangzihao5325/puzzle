@@ -1,6 +1,7 @@
 import CusHttp from './custom_http';
 import { CACHE } from '../global/usual_cache';
-const API_DOMAIN = 'http://192.168.3.144:8090';//'https://mp.becabaking.xyz:8090';
+const API_DOMAIN = 'http://192.168.3.144:8090';
+// const API_DOMAIN = 'https://mp.becabaking.xyz:8090';
 
 /**
  * 根据城市id获取城市详情
@@ -160,7 +161,12 @@ const petBackNotice = (callback, failedCallback) => new CusHttp().Get(`${API_DOM
  */
 const backNoticeView = (payload = {}, callback, failedCallback) => new CusHttp().Post(`${API_DOMAIN}/pet/back_notice/viewed`, payload, callback, failedCallback);
 
-
+/**
+ * 我的家页面红点提示数据加载
+ * @param callback
+ * @param failedCallback
+ */
+const myHomeTips = (callback, failedCallback) => new CusHttp().Get(`${API_DOMAIN}/travel/collect/tip`, callback, failedCallback);
 
 /**
  * 获取回忆景点列表
@@ -225,6 +231,22 @@ const sellGOods = (payload = {}, callback, failedCallback) => new CusHttp().Post
  * @param {Function} failedCallback
  */
 const goodsCollect = (goodsQuality, callback, failedCallback) => new CusHttp().Get(`${API_DOMAIN}/travel/collect/goods?goodsQuality=${goodsQuality}`, callback, failedCallback);
+
+/**
+ * 消除收集物品上“新”角标
+ * @param payload
+ * @param callback
+ * @param failedCallback
+ */
+const showCollectGoods = (payload = {}, callback, failedCallback) => new CusHttp().Post(`${API_DOMAIN}/travel/collect/goods_show`, payload, callback, failedCallback);
+
+/**
+ * 消除收集景点上“新”角标
+ * @param payload
+ * @param callback
+ * @param failedCallback
+ */
+const showCollectHurdle = (payload = {}, callback, failedCallback) => new CusHttp().Post(`${API_DOMAIN}/travel/collect/hurdle_show`, payload, callback, failedCallback);
 
 /**
  * 收集景点
@@ -374,6 +396,9 @@ export default {
     memory_praise,
     goodsCollect,
     hurdleCollect,
+    myHomeTips,
+    showCollectGoods,
+    showCollectHurdle,
 
     showInfo,
     placeGoods,

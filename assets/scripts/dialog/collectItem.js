@@ -5,6 +5,8 @@
 // Learn life-cycle callbacks:
 //  - https://docs.cocos.com/creator/manual/en/scripting/life-cycle-callbacks.html
 
+import Api from '../api/api_index'
+
 cc.Class({
     extends: cc.Component,
 
@@ -41,6 +43,9 @@ cc.Class({
         let obj = good_detail.getComponent('goodsDetail')
         obj.goodsItemClick(this.info,false)
         good_detail.parent = cc.find('Canvas')
+        if (this.new.active) {
+            this.removeNewFlag();
+        }
     },
 
     setTouch(callback) {
@@ -63,19 +68,19 @@ cc.Class({
         cc.loader.load(item.iconUrl, (err, texture) => {
             if(item.owned){
                 this.pic.spriteFrame = new cc.SpriteFrame(texture)
-                
+
             }else{
                 this.sketch_mask.active=true
                 this.sketch_mask.getComponent(cc.Mask).spriteFrame=new cc.SpriteFrame(texture)
             }
         });
-        
+
     },
 
     initType(item){
         if(item.goodsQuality===0){
             //普通
-            // this.warp.getComponent(cc.Sprite).spriteFrame=this.propBg 
+            // this.warp.getComponent(cc.Sprite).spriteFrame=this.propBg
             // this.iconContent.getComponent(cc.Sprite).spriteFrame=this.propBg
             this.normalName.active=true
             this.normalName.getComponent(cc.Label).string=item.name
@@ -89,7 +94,16 @@ cc.Class({
             this.rareName.active=true
             this.rareName.getComponent(cc.Label).string=item.name
         }
+        this.new.active = item.novel
     },
+    removeNewFlag() {
+        Api.showCollectGoods({goodsId: this.info.goodsId}, (res) => {
+            if (res.code === 0) {
+                this.info.novel = this.new.active = false
+                cc.find('Canvas').getChildByName('collect_root').getComponent('collect').updateTipsFromItem()
+            }
+        })
+    }
 
     // update (dt) {},
 });

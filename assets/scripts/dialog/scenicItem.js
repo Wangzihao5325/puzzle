@@ -49,6 +49,9 @@ cc.Class({
 
             }
         })
+        if (this.new.active) {
+            this.removeNewFlag();
+        }
     },
 
     init(data){
@@ -59,7 +62,7 @@ cc.Class({
         cc.loader.load(data.picUrl, (err, texture)=> {
             this.pic.spriteFrame=new cc.SpriteFrame(texture)
         });
-
+        this.new.active = this.info.collect
     },
 
     setTouch() {
@@ -77,5 +80,13 @@ cc.Class({
             event.stopPropagation();
         })
     },
+    removeNewFlag() {
+        Api.showCollectHurdle({hurdleId: this.info.hurdleId}, (res) => {
+            if (res.code === 0) {
+                this.info.collect = this.new.active = false
+                cc.find('Canvas').getChildByName('collect_root').getComponent('collect').updateTipsFromItem()
+            }
+        })
+    }
     // update (dt) {},
 });

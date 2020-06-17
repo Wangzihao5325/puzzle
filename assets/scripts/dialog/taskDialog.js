@@ -49,8 +49,8 @@ cc.Class({
 
     onLoad () {
         this.init();
-        this.dailyNew.active = CACHE.taskTips.dailyTask
-        this.mainNew.active = CACHE.taskTips.mainTask
+        this.dailyNew.active = CACHE.btnTips.dailyTask
+        this.mainNew.active = CACHE.btnTips.mainTask
 
         this.setTouch()
     },
@@ -137,15 +137,15 @@ cc.Class({
         }
         if (startIndex === 0) {
             //判断当前tab和旅行页图标是否显示
-            CACHE.taskTips[!this.currentType ? 'dailyTask' : 'mainTask'] = !!count
-            CACHE.taskTips.task = CACHE.taskTips.dailyTask || CACHE.taskTips.mainTask
+            CACHE.btnTips[!this.currentType ? 'dailyTask' : 'mainTask'] = !!count
+            CACHE.btnTips.task = CACHE.btnTips.dailyTask || CACHE.btnTips.mainTask
         }
     },
 
 
     changeType(type){
-        this.dailyNew.active = CACHE.taskTips.dailyTask
-        this.mainNew.active = CACHE.taskTips.mainTask
+        this.dailyNew.active = CACHE.btnTips.dailyTask
+        this.mainNew.active = CACHE.btnTips.mainTask
         this.currentType=type
 
         this.scrollContent.children.map(item=>{

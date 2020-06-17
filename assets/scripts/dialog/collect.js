@@ -48,7 +48,7 @@ cc.Class({
 
     onLoad () {
         this.init()
-
+        this.updateTypeTips()
         this.setTouch()
     },
 
@@ -75,6 +75,7 @@ cc.Class({
             this.modal.destroy()
         })
         .start()
+        cc.find('Canvas').getComponent('home_index').updateBtnTips()
     },
 
     getCollect(type,goodsQuality){
@@ -97,7 +98,30 @@ cc.Class({
 
     },
 
-
+    //item清除“新”标记时调用此方法，传入参数1，随后重新刷新各tips节点状态
+    updateTipsFromItem() {
+        if (this.count > 0) {
+            this.count -= 1
+        }
+        if (this.currentType === 1) {
+            CACHE.btnTips.scenic = !!this.count
+            CACHE.btnTips.collect = CACHE.btnTips.souvenir || CACHE.btnTips.scenic
+        } else {
+            CACHE.btnTips[!this.goodsQuality ? 'normal' : 'lack'] = !!this.count
+            CACHE.btnTips.souvenir = CACHE.btnTips.normal || CACHE.btnTips.lack
+            CACHE.btnTips.collect = CACHE.btnTips.souvenir || CACHE.btnTips.scenic
+        }
+        this.updateTypeTips();
+    },
+    updateTypeTips() {
+        this.type1New.active = CACHE.btnTips.souvenir
+        this.type2New.active = CACHE.btnTips.scenic
+        this.currentType === 0 && this.updateRareTips();
+    },
+    updateRareTips() {
+        this.normalNew.active = this.currentType === 0 && this.goodsQuality === 1 && CACHE.btnTips.normal
+        this.lackNew.active = this.currentType === 0 && this.goodsQuality === 0 && CACHE.btnTips.lack
+    },
 
     initBackpack(data){
         // currentPageContent.parent=this.pageContent
@@ -105,12 +129,13 @@ cc.Class({
         this.scrollContent.children.map(item=>{
             item.destroy()
         })
-
+        this.count = 0;
         for (let i = 0; i < data.length; i++) {
             let newNode = cc.instantiate(this.collectItem)
 
             let obj = newNode.getComponent('collectItem')
             const item=data[i]
+            this.count += item.novel ? 1 : 0;
             obj.init(item)
             newNode.parent = this.scrollContent
             const indexX = (i)%3
@@ -121,18 +146,22 @@ cc.Class({
             cc.tween(newNode)
                 .to(.3,)
         }
+        CACHE.btnTips[!this.goodsQuality ? 'normal' : 'lack'] = !!this.count
+        CACHE.btnTips.souvenir = CACHE.btnTips.normal || CACHE.btnTips.lack
+        CACHE.btnTips.collect = CACHE.btnTips.souvenir || CACHE.btnTips.scenic
     },
 
     initScenic(data){
         this.scrollContent.children.map(item=>{
             item.destroy()
         })
-
+        this.count = 0
         for (let i = 0; i < data.length; i++) {
             let newNode = cc.instantiate(this.scenicItem)
 
             let obj = newNode.getComponent('scenicItem')
             const item=data[i]
+            this.count += item.collect ? 1 : 0;
             obj.init(item)
             newNode.parent = this.scrollContent
             const indexX = (i)%2
@@ -141,10 +170,13 @@ cc.Class({
             let position = cc.v2(( 250* (indexX + .5)), (-(370 * (-0.5 + indexY))) - 10);
             newNode.setPosition(position)
         }
+        CACHE.btnTips.scenic = !!this.count
+        CACHE.btnTips.collect = CACHE.btnTips.souvenir || CACHE.btnTips.scenic
     },
 
     changeType(type){
         this.currentType=type
+        this.updateTypeTips()
 
         this.scrollContent.children.map(item=>{
             item.destroy()
@@ -161,6 +193,7 @@ cc.Class({
         this.currentRareBtn.setPosition(cc.v2(type?140:-140,0))
         cc.find('text',this.currentRareBtn).getComponent(cc.Label).string=type?'稀有物品':'普通物品'
         this.goodsQuality=type
+        this.updateRareTips()
         this.getCollect()
     },
 
