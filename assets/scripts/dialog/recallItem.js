@@ -33,7 +33,10 @@ cc.Class({
     showRecallInfo(){
         const recallDialog=cc.find('Canvas/recallDialog').getComponent('recall')
         recallDialog.showInfo(this.item)
-        
+        if (this.item.novel) {
+            this.item.nocel = this.new.active = false
+        }
+
         // let recallInfoIns = cc.instantiate(this.racallInfo);
         // let obj = recallInfo.getComponent('recallInfo');
 
@@ -58,7 +61,7 @@ cc.Class({
         this.item = item;
         this.time.string = dateFormat((new Date(item.createTime)),'yyyy-MM-dd');
 
-    
+
         cc.loader.load(item.picUrl, (err, texture) => {
             this.pic.spriteFrame = new cc.SpriteFrame(texture)
         });
@@ -68,7 +71,7 @@ cc.Class({
             weatherIcon.spriteFrame=new cc.SpriteFrame(texture)
         });
 
-
+        this.new.active = this.item.novel
     },
 
 

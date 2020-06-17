@@ -59,18 +59,21 @@ cc.Class({
                 this.warp.destroy()
             })
             .start()
+        debugger
+        CACHE.btnTips.reCall = this.count > 0
+        cc.find('Canvas').getComponent('home_index').updateBtnTips()
     },
 
     getRecallList() {
         Api.memory_list(res => {
             if (res.code === 0) {
                 const data = res.data;
+                this.count = 0
                 data.map((item, index) => {
                     this.initRecallTravelItem(item, index)
                 })
             }
         })
-
     },
 
     showInfo(item) {
@@ -82,10 +85,9 @@ cc.Class({
 
         obj.init(item)
         recallInfoIns.parent = cc.find('Canvas')
-
-
-
-
+        if (item.novel) {
+            this.count -= 1
+        }
     },
 
     initRecallTravelItem(item, index) {
@@ -97,6 +99,7 @@ cc.Class({
         recall.parent = this.scrollContent;
         this.scrollContent.height = 210 * (index + 1)
         recall.setPosition(cc.v2(0, -(.5 + index) * 210 - 20))
+        this.count += item.novel ? 1 : 0
     },
 
 
