@@ -1,4 +1,4 @@
-import { SIZES, LEVEL, PUZZLE_FOOTER,PUZZLE_SCENE,spliceArr, GAME_CACHE,SCALELEAVEL } from '../global/piece_index';
+import { SIZES, LEVEL, PUZZLE_FOOTER, PUZZLE_SCENE, spliceArr, GAME_CACHE, SCALELEAVEL } from '../global/piece_index';
 import { CACHE } from '../global/usual_cache';
 import Api from '../api/api_index';
 import { IMAGE_SERVER } from '../global/app_global_index'
@@ -13,7 +13,7 @@ cc.Class({
         splice_warp: cc.Prefab,
         game_root: cc.Node,
         puzzle_name: cc.Label,
-        puzzleColor:cc.Node,
+        puzzleColor: cc.Node,
         dragonBone: {
             default: null,
             type: dragonBones.ArmatureDisplay
@@ -22,10 +22,10 @@ cc.Class({
             default: null,
             type: cc.AudioClip
         },
-        viewPuaaleImg:cc.Sprite,
-        spliceList:{
-            type:cc.Array,
-            default:[]
+        viewPuaaleImg: cc.Sprite,
+        spliceList: {
+            type: cc.Array,
+            default: []
         }
 
     },
@@ -73,7 +73,7 @@ cc.Class({
         })
     },
 
-    initPuzzleImg(picId){
+    initPuzzleImg(picId) {
         cc.loader.load(`${IMAGE_SERVER}/${picId}.png`, (err, texture) => {
             this.viewPuaaleImg.spriteFrame = new cc.SpriteFrame(texture)
         });
@@ -104,12 +104,12 @@ cc.Class({
                 obj.setMarsk(item[6], hardLevel)
             }
 
-            if(index===sizeArr.length-1){
-                this.puzzleColor.active=false
+            if (index === sizeArr.length - 1) {
+                this.puzzleColor.active = false
                 this.initBgAnimate(GAME_CACHE.animatePayload);
             }
         });
-            
+
     },
 
     initSpliceWarp(hardLevel = LEVEL.EASY, imagePath) {
@@ -170,98 +170,106 @@ cc.Class({
         */
     },
 
-    puzzlePliceAnimation(){
+    puzzlePliceAnimation() {
         // var puzzleItem = cc.find(`Canvas/root/puzzleWarp/puzzleBg`);
-        let list=[...GAME_CACHE.spliceArr];
+        let list = [...GAME_CACHE.spliceArr];
         // list.reverse();
-        const time=[50,20,10][CACHE.hard_level]
-        this.pliceAnimation(list,time)
+        const time = [50, 20, 10][CACHE.hard_level]
+        this.pliceAnimation(list, time)
     },
 
     //拼图块凋落动画
-    pliceAnimation(data,time,index=0){
+    pliceAnimation(data, time, index = 0) {
         const hardLevel = CACHE.hard_level;
-        if(this.fallTimer){
+        if (this.fallTimer) {
             clearTimeout(this.fallTimer)
         }
         const scalLeavel = SCALELEAVEL[CACHE.hard_level]
-            if(data.length){
-                let name = `item_puzzle_splice-${data[0][6]}`
-                let node=cc.find(`Canvas/root/puzzleWarp/puzzleBg/${name}`)
-                let newNode  = cc.find(`Canvas/root/spliceWarp/${name}`)
-                let layout_warp  = cc.find(`Canvas/root/spliceWarp`)
-                const olodPosition=[newNode.x,newNode.y]
-                let contentNode=cc.find('content',node)
-                let shadowNode=cc.find('shadow',node)
-                node.zIndex=100
-                //根据平涂块的需要掉落的距离设置动画时间
-                const fallTime=Math.ceil((440+node.y)/880*6)/10
+        if (data.length) {
+            let name = `item_puzzle_splice-${data[0][6]}`
+            let node = cc.find(`Canvas/root/puzzleWarp/puzzleBg/${name}`)
+            let newNode = cc.find(`Canvas/root/spliceWarp/${name}`)
+            let layout_warp = cc.find(`Canvas/root/spliceWarp`)
+            const olodPosition = [newNode.x, newNode.y]
+            let contentNode = cc.find('content', node)
+            let shadowNode = cc.find('shadow', node)
+            node.zIndex = 100
+            //根据平涂块的需要掉落的距离设置动画时间
+            const fallTime = Math.ceil((440 + node.y) / 880 * 6) / 10
 
-                this.fallTimer= setTimeout(()=>{
-                    this.pliceAnimation(data.splice(1),time,index+1)
-                },time)
-                let angle = node.angle % 360;
-                let angleAbs=angle>=0?angle:360+angle
-                let shadowPostion;
-                switch (angleAbs){
-                    case 0:
-                        shadowPostion=cc.v2(-5,3)
-                        break;
-                    case 90:
-                        shadowPostion=cc.v2(3,5)
-                        break;
-                    case 180:
-                        shadowPostion=cc.v2(5,-3)
-                        break;
-                    case 270:
-                        shadowPostion=cc.v2(-3,-5)
-                        break;
-                }
-                shadowNode.active=true
-                cc.tween(contentNode)
-                    .to(.2,{position:shadowPostion})
-                    .start()
-                cc.tween(node)
-                    .to(0.2, { position: cc.v2(node.x,node.y+50) })
-                    .to(fallTime, { position: cc.v2(node.x,-440),opacity:200 })
-                    .to(.2, { scale:scalLeavel,opacity:0 })
-                    // .to(.2, { opacity:255 })
-                    .call(()=>{
-                        node.destroy()
-                    })
-                    .start();
-                
-                    newNode.setScale(scalLeavel/1)
-                    newNode.setPosition(cc.v2(node.x,0))
-                    newNode.opacity=0
-                     
-                    cc.tween(newNode)
-                        .delay(.4)
-                        .to(.3,{scale:1,opacity:255})
-                        .call(()=>{
-                            if(newNode.x>(640+100)){
-                                newNode.opacity=0
-                            }
-                        })
-                        .start()
-            }else{
-                clearTimeout(this.fallTimer)
-                let game_splice_obj  = cc.find(`Canvas/root/spliceWarp`).getComponent('game_splice')
-                game_splice_obj.setLayoutType(false)
-
-                //加载切块蒙版
-                this.initItem(hardLevel);
-
-                
+            this.fallTimer = setTimeout(() => {
+                this.pliceAnimation(data.splice(1), time, index + 1)
+            }, time)
+            let angle = node.angle % 360;
+            let angleAbs = angle >= 0 ? angle : 360 + angle
+            let shadowPostion;
+            switch (angleAbs) {
+                case 0:
+                    shadowPostion = cc.v2(-5, 3)
+                    break;
+                case 90:
+                    shadowPostion = cc.v2(3, 5)
+                    break;
+                case 180:
+                    shadowPostion = cc.v2(5, -3)
+                    break;
+                case 270:
+                    shadowPostion = cc.v2(-3, -5)
+                    break;
             }
+            shadowNode.active = true
+            cc.tween(contentNode)
+                .to(.2, { position: shadowPostion })
+                .start()
+            cc.tween(node)
+                .to(0.2, { position: cc.v2(node.x, node.y + 50) })
+                .to(fallTime, { position: cc.v2(node.x, -440), opacity: 200 })
+                .to(.2, { scale: scalLeavel, opacity: 0 })
+                // .to(.2, { opacity:255 })
+                .call(() => {
+                    node.destroy()
+                })
+                .start();
 
-       
+            newNode.setScale(scalLeavel / 1)
+            newNode.setPosition(cc.v2(node.x, 0))
+            newNode.opacity = 0
+
+            cc.tween(newNode)
+                .delay(.4)
+                .to(.3, { scale: 1, opacity: 255 })
+                .call(() => {
+                    if (newNode.x > (640 + 100)) {
+                        newNode.opacity = 0
+                    }
+                })
+                .start()
+        } else {
+            clearTimeout(this.fallTimer)
+            let game_splice_obj = cc.find(`Canvas/root/spliceWarp`).getComponent('game_splice')
+            game_splice_obj.setLayoutType(false)
+
+            //加载切块蒙版
+            this.initItem(hardLevel);
+
+            if (this.pliceAnimationCallback) {
+                this.pliceAnimationCallback();
+            }
+        }
+
+
+    },
+
+    _setPliceAnimationCallback(callback) {
+        //给新手引导使用的回调
+        this.pliceAnimationCallback = callback
     },
 
     start() {
-        setTimeout(()=>{
+        setTimeout(() => {
             this.puzzlePliceAnimation()
-        },500)
+        }, 500)
+
     },
 
 });
