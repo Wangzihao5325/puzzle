@@ -83,6 +83,9 @@ cc.Class({
 
 
     onTouchStart(event) {
+        if (!this.isInitDone) {
+            return;
+        }
         if (this.guideStep == 1) {
             if (this.handNode && !this.isGameOver) {
                 this.handNode.active = false;
@@ -119,6 +122,9 @@ cc.Class({
     },
 
     onTouchStartWithoutGuide() {
+        if (!this.isInitDone) {
+            return;
+        }
         if (this.handNode) {
             this.handNode.active = false;
         }
@@ -150,6 +156,7 @@ cc.Class({
                     obj.handAnimate();
                 }
                 this.asyncTimer = null;
+                this.isInitDone = true;//判断引导中手势是否加载完毕，加载完毕后才允许用户点击
             }, 1000);
         }
     },
@@ -192,6 +199,15 @@ cc.Class({
             this.timer = setTimeout(() => {
                 this.guideHandShow();
             }, 10000);
+
+            let gameTestNode = cc.find('Canvas');
+            if (gameTestNode) {
+                let gameTest = gameTestNode.getComponent('game_test');
+                if (gameTest) {
+                    gameTest._setPliceAnimationCallback(() => { setTimeout(() => { this.isInitDone = true }, 1000) });
+                }
+            }
+
             this.node.on(cc.Node.EventType.TOUCH_START, this.onTouchStartWithoutGuide, this);
         }
     },
