@@ -5,6 +5,7 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
+        home_btn_warp:cc.Node,
         home_btn: cc.Button,
         travel_btn: cc.Button,
         show_btn: cc.Button,
@@ -102,7 +103,10 @@ cc.Class({
     // onLoad () {},
 
     start() {
-
+        if(CACHE.platform.isIphoneX){
+            let warpWidget=this.home_btn_warp.getComponent(cc.Widget)
+            warpWidget.bottom=100
+        }
     },
 
     // update (dt) {},

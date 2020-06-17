@@ -262,7 +262,6 @@ cc.Class({
         setTimeout(()=>{
             this.puzzlePliceAnimation()
         },500)
-
     },
 
 });

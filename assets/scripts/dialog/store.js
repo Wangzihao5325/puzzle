@@ -44,10 +44,12 @@ cc.Class({
 
 
         //头部滑出动画
-        this.header.setPosition(cc.v2(0,800))
+        const screenHeight=cc.view.getVisibleSize().height
+        const headerY=screenHeight/2-this.header.height/2
+        this.header.setPosition(cc.v2(0,headerY+400))
         cc.tween(this.header)
         .delay(.4)
-        .to(.4,{position:cc.v2(0,508)},{ easing: 'sineIn'})
+        .to(.4,{position:cc.v2(0,headerY)},{ easing: 'sineIn'})
         .start()
 
         //宠物从下往上动画

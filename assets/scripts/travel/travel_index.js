@@ -111,8 +111,8 @@ cc.Class({
         footer.name = 'footer_navi';
         let obj = footer.getComponent('navi_footer');
         obj.initWithScene(CACHE.scene);
-        footer.parent = this.layout_root;
-        footer.setPosition(0, -500);
+        footer.parent = cc.find('Canvas');
+        // footer.setPosition(0, -500);
     },
 
     headerInit() {

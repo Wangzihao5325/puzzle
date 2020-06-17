@@ -64,7 +64,8 @@ const CACHE = {
         buy: true,
     },
     platform: {
-        isWachat: false
+        isWachat: false,
+        isIphoneX:false
     },
     isShowGuide: false,
     btnTips: {
