@@ -130,11 +130,9 @@ cc.Class({
                 // this.onScrollingEvent()
             }
         }
-        if (startIndex === 0) {
-            //判断当前tab和旅行页图标是否显示
-            CACHE.btnTips[!this.currentType ? 'dailyTask' : 'mainTask'] = !!count
-            CACHE.btnTips.task = CACHE.btnTips.dailyTask || CACHE.btnTips.mainTask
-        }
+        //判断当前tab和旅行页图标是否显示
+        CACHE.btnTips[!this.currentType ? 'dailyTask' : 'mainTask'] = !!count
+        CACHE.btnTips.task = CACHE.btnTips.dailyTask || CACHE.btnTips.mainTask
     },
 
 
