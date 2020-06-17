@@ -66,7 +66,7 @@ const CACHE = {
     platform: {
         isWachat: false
     },
-    isShowGuide: false,
+    isShowGuide: true,
     btnTips: {
         task: false, //旅行页任务
         dailyTask: false, //日常任务
