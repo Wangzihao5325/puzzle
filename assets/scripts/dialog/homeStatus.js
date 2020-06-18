@@ -15,6 +15,8 @@ cc.Class({
         luckyItem:cc.Node,
         energeTip:cc.Prefab,
         luckyTip:cc.Prefab,
+        energeAdd:cc.Node,
+        luckyAdd:cc.Node,
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -36,6 +38,24 @@ cc.Class({
         const parentsList=[this.energeItem,this.luckyItem]
         let newNode = cc.instantiate(prefabList[type])
         newNode.parent=this.headerWarp
+    },
+
+    //添加能量数字动画
+    addAnimation(type,num){
+        const node=type===1?this.luckyAdd:this.energeAdd;
+        node.getComponent(cc.Label).string=`+ ${num}`
+        const positionY=node.y
+        const positionX=node.x
+        node.opacity=0
+        node.setPosition(cc.v2(positionX,positionY-30))
+        cc.tween(node)
+        .to(.2,{position:cc.v2(positionX,positionY),opacity:255})
+        .to(.3,{position:cc.v2(positionX,positionY+30),opacity:0})
+        .call(()=>{
+            node.setPosition(cc.v2(positionX,positionY))
+        })
+        .start()
+
     },
 
     start () {

@@ -86,6 +86,7 @@ cc.Class({
             if(res.code===0){
                 const toast=index===2?`幸运值+${cur.lucky}`:index===1?`饱食度+${cur.hungry} 幸运值+${cur.lucky}`:`饱食度+${cur.hungry}`
                 Toast.show(toast)
+                this.feedAddAnimation(data)
                 HOME_CACHE.pet_info={
                     ...HOME_CACHE.pet_info,
                     ...data
@@ -99,6 +100,18 @@ cc.Class({
             }
         });
     },
+
+
+    feedAddAnimation(data){
+        const obj=cc.find('Canvas/headerWarp').getComponent('homeStatus')
+        if(HOME_CACHE.pet_info.currentHungry<data.currentHungry){
+            obj.addAnimation(0,data.currentHungry-HOME_CACHE.pet_info.currentHungry)
+        }
+        if(HOME_CACHE.pet_info.currentLucky<data.currentLucky){
+            obj.addAnimation(1,data.currentLucky-HOME_CACHE.pet_info.currentLucky)
+        }
+    },
+
     handleClose(){
         cc.tween(this.feedWarp)
         .to(.2, { position: cc.v2(0, -1000) },{ easing: 'sineOutIn'})
