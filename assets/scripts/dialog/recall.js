@@ -59,7 +59,6 @@ cc.Class({
                 this.warp.destroy()
             })
             .start()
-        debugger
         CACHE.btnTips.reCall = this.count > 0
         cc.find('Canvas').getComponent('home_index').updateBtnTips()
     },

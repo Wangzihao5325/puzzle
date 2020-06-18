@@ -40,8 +40,16 @@ cc.Class({
         type1New: cc.Node,
         type2New: cc.Node,
         normalNew: cc.Node,
-        lackNew: cc.Node
-
+        lackNew: cc.Node,
+        scroll:cc.Node,
+        scenicList:{
+            type:cc.Boolean,
+            default:[]
+        },
+        souvenirList:{
+            type:cc.Boolean,
+            default:[]
+        }
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -86,10 +94,12 @@ cc.Class({
                 this.num.string=`${res.data.own} /\ ${res.data.amount}`
                 if(this.currentType===0){
                     const data=res.data.goodsList;
+                    this.souvenirList=data
                     this.initBackpack(data)
 
                 }else{
                     const data=res.data.hurdleList
+                    this.scenicList=data
                     this.initScenic(data)
                 }
 
@@ -124,31 +134,34 @@ cc.Class({
     },
 
     initBackpack(data){
-        // currentPageContent.parent=this.pageContent
         //清除原来的
         this.scrollContent.children.map(item=>{
             item.destroy()
         })
         this.count = 0;
         for (let i = 0; i < data.length; i++) {
-            let newNode = cc.instantiate(this.collectItem)
-
-            let obj = newNode.getComponent('collectItem')
             const item=data[i]
+            i<12?this.initBackpackItem(item,i):undefined
             this.count += item.novel ? 1 : 0;
-            obj.init(item)
-            newNode.parent = this.scrollContent
-            const indexX = (i)%3
-            const indexY = Math.ceil((i + 1) / 3)
-            this.scrollContent.height=180*indexY+20
-            let position = cc.v2(( 167* (indexX + .5)), (-(180 * (-0.5 + indexY))) - 10);
-            newNode.setPosition(position)
-            cc.tween(newNode)
-                .to(.3,)
         }
+        //计数是否有未读
         CACHE.btnTips[!this.goodsQuality ? 'normal' : 'lack'] = !!this.count
         CACHE.btnTips.souvenir = CACHE.btnTips.normal || CACHE.btnTips.lack
         CACHE.btnTips.collect = CACHE.btnTips.souvenir || CACHE.btnTips.scenic
+    },
+
+    initBackpackItem(item,i){
+        let newNode = cc.instantiate(this.collectItem)
+
+        let obj = newNode.getComponent('collectItem')
+        this.count += item.novel ? 1 : 0;
+        obj.init(item)
+        newNode.parent = this.scrollContent
+        const indexX = (i)%3
+        const indexY = Math.ceil((i + 1) / 3)
+        this.scrollContent.height=180*indexY+20
+        let position = cc.v2(( 167* (indexX + .5)), (-(180 * (-0.5 + indexY))) - 10);
+        newNode.setPosition(position)
     },
 
     initScenic(data){
@@ -157,21 +170,26 @@ cc.Class({
         })
         this.count = 0
         for (let i = 0; i < data.length; i++) {
-            let newNode = cc.instantiate(this.scenicItem)
-
-            let obj = newNode.getComponent('scenicItem')
             const item=data[i]
             this.count += item.collect ? 1 : 0;
-            obj.init(item)
-            newNode.parent = this.scrollContent
-            const indexX = (i)%2
-            const indexY = Math.ceil((i + 1) / 2)
-            this.scrollContent.height=400*indexY+20
-            let position = cc.v2(( 250* (indexX + .5)), (-(370 * (-0.5 + indexY))) - 10);
-            newNode.setPosition(position)
+            i<4?this.initScenicItem(item,i):undefined
         }
         CACHE.btnTips.scenic = !!this.count
         CACHE.btnTips.collect = CACHE.btnTips.souvenir || CACHE.btnTips.scenic
+    },
+
+    initScenicItem(item,i){
+        let newNode = cc.instantiate(this.scenicItem)
+
+        let obj = newNode.getComponent('scenicItem')
+        this.count += item.collect ? 1 : 0;
+        obj.init(item)
+        newNode.parent = this.scrollContent
+        const indexX = (i)%2
+        const indexY = Math.ceil((i + 1) / 2)
+        this.scrollContent.height=400*indexY+20
+        let position = cc.v2(( 250* (indexX + .5)), (-(370 * (-0.5 + indexY))) - 10);
+        newNode.setPosition(position)
     },
 
     changeType(type){
@@ -197,7 +215,57 @@ cc.Class({
         this.getCollect()
     },
 
+    //scrollView滚动
+    onScrollingEvent(event){
+
+        const data=this.currentType===1?this.scenicList:this.souvenirList
+
+        var offsetY = this.scroll.getComponent(cc.ScrollView).getScrollOffset().y;
+        const scrollHeight = this.scroll.height
+        const children= this.scrollContent.children;
+
+        if(this.currentType===0){
+            
+
+            data.map((item,i)=>{
+                const indexY = Math.ceil((i + 1) / 3)
+                const positionY=(-(180 * (-0.5 + indexY))) - 10;
+                if(-positionY>offsetY-180&&-positionY<offsetY+scrollHeight+180){
+                    if(children&&children[i]){
+                        children[i].opacity!==255?children[i].opacity=255:undefined
+                    }else{
+                        this.initBackpackItem(item,i)
+                    }
+                }else{
+                    if(children&&children[i]){
+                        children[i].opacity=0
+                    }
+                }
+            })
+        }else{
+            data.map((item,i)=>{
+                const indexY = Math.ceil((i + 1) / 2)
+                const positionY=(-(370 * (-0.5 + indexY))) - 10;
+                if(-positionY>offsetY-370&&-positionY<offsetY+scrollHeight+370){
+                    if(children&&children[i]){
+                        children[i].opacity!==255?children[i].opacity=255:undefined
+                    }else{
+                        this.initScenicItem(item,i)
+                    }
+                }else{
+                    if(children&&children[i]){
+                        children[i].opacity=0
+                    }
+                }
+            })
+        }
+
+    },
+
     setTouch() {
+        this.scroll.on("scrolling", (event) => {
+            this.onScrollingEvent()
+        })
         this.warp.on(cc.Node.EventType.TOUCH_START, (event) => {
             event.stopPropagation();
         })

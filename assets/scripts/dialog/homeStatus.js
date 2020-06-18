@@ -50,6 +50,7 @@ cc.Class({
         node.setPosition(cc.v2(positionX,positionY-30))
         cc.tween(node)
         .to(.2,{position:cc.v2(positionX,positionY),opacity:255})
+        .to(.4,{opacity:200})
         .to(.3,{position:cc.v2(positionX,positionY+30),opacity:0})
         .call(()=>{
             node.setPosition(cc.v2(positionX,positionY))
