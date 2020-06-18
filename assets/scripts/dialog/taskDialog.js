@@ -61,7 +61,6 @@ cc.Class({
 
     },
     init(type){
-
         this.warp.setScale(0.2)
         cc.tween(this.warp)
         .to(.3,{scale:1.2})
@@ -77,15 +76,22 @@ cc.Class({
     },
 
 
-    handleClose(){
-        cc.tween(this.warp)
-        .to(.1,{scale:1.2})
-        .to(0.3,{scale:.2,opacity:0})
-        .call(()=>{
+    handleClose(showAnimation=true){
+        this.scrollContent.destroy()
+        if(showAnimation){
+            cc.tween(this.warp)
+            .to(.1,{scale:1.2})
+            .to(0.3,{scale:.2,opacity:0})
+            .call(()=>{
+                this.modal.destroy()
+            })
+            .start()
+            cc.find('Canvas').getComponent('travel_index').updateTaskTips()
+        }else{
             this.modal.destroy()
-        })
-        .start()
-        cc.find('Canvas').getComponent('travel_index').updateTaskTips()
+            cc.find('Canvas').getComponent('travel_index').updateTaskTips()
+        }
+
     },
 
     // task_daily,
@@ -137,6 +143,7 @@ cc.Class({
 
 
     renderTaskItem(item,index){
+        item.mainTask=this.currentType
         let newNode = cc.instantiate(this.taskItem)
         let obj = newNode.getComponent('taskItem')
         obj.init(item)
