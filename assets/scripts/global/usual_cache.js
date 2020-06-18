@@ -65,7 +65,8 @@ const CACHE = {
     },
     platform: {
         isWachat: false,
-        isIphoneX:false
+        isIphoneX: false,
+        visibleSize: null
     },
     isShowGuide: false,
     btnTips: {
@@ -78,7 +79,8 @@ const CACHE = {
         normal: false, //普通纪念品
         lack: false, //稀有纪念品
         reCall: false, //回忆
-    }
+    },
+    missionLocationHurdleId: 0
 }
 
 export default {

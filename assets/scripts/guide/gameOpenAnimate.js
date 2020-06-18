@@ -170,6 +170,11 @@ cc.Class({
     // LIFE-CYCLE CALLBACKS:
 
     onLoad() {
+        this.node.zIndex = 10000;
+        if (!CACHE.isShowGuide) {
+            this.node.active = false;
+            return;
+        }
         if (CACHE.userInfo && typeof CACHE.userInfo.stage == 'number' && CACHE.userInfo.stage == 1) {
             this.setTouch();
             this.animateStepOne();

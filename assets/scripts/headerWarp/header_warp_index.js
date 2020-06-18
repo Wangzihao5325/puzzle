@@ -3,6 +3,7 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
+        headerWarp:cc.Node,
         coinLabel: cc.Label,
         gemLabel: cc.Label,
         STAMLabel: cc.Label,
@@ -52,7 +53,9 @@ cc.Class({
     // onLoad () {},
 
     start() {
-
+        if (CACHE.platform.isIphoneX) {
+            this.headerWarp.height = 140
+        }
     },
 
     // update (dt) {},

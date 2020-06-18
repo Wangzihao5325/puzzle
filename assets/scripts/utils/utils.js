@@ -1,4 +1,5 @@
-import { CURRENCY } from './enumber'
+import { CURRENCY } from './enumber';
+import { CACHE } from '../global/usual_cache';
 const TimeData = {
   days: undefined,
   hours: undefined,
@@ -204,4 +205,25 @@ export function dateFormat(timestamp, fmt) { // author: meizz
   for (var k in o)
     if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
   return fmt;
+}
+
+export function footerNaviPosition(type) {
+  let position = null;
+  let reg = CACHE.platform.isIphoneX ? 100 : 70;
+  let height = -CACHE.platform.visibleSize.height / 2 + reg;
+  switch (type) {
+    case 'home':
+      position = cc.v2(-200, height);
+      break;
+    case 'show':
+      position = cc.v2(200, height);
+      break;
+    case 'travel':
+      position = cc.v2(0, height);
+      break;
+    default:
+      position = cc.v2(200, height);
+      break;
+  }
+  return position;
 }

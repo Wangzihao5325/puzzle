@@ -63,6 +63,13 @@ cc.Class({
                 this.node.on(cc.Node.EventType.TOUCH_END, this.onTouchEnd, this);
                 this.node.on(cc.Node.EventType.TOUCH_MOVE, this.onTouchMove, this);
             }
+        } else {
+            this.node.zIndex = 10000;
+            this.normalTouchGuide(true);
+            this.node.on(cc.Node.EventType.TOUCH_START, this.onNormalTouchStart, this);
+            this.node.on(cc.Node.EventType.TOUCH_END, this.touchWithoutShield, this);
+            this.node.on(cc.Node.EventType.TOUCH_MOVE, this.touchWithoutShield, this);
+            this.node.on(cc.Node.EventType.TOUCH_CANCEL, this.touchWithoutShield, this);
         }
     },
 
@@ -71,6 +78,43 @@ cc.Class({
             this.node.on(cc.Node.EventType.TOUCH_START, this.onTouchStart, this);
             this.node.off(cc.Node.EventType.TOUCH_END, this.onTouchEnd, this);
             this.node.on(cc.Node.EventType.TOUCH_MOVE, this.onTouchMove, this);
+        }
+        if (this.touchTimer) {
+            clearTimeout(this.touchTimer);
+            this.touchTimer = null;
+        }
+    },
+
+    onNormalTouchStart() {
+        this.normalTouchGuide(false);
+        this.node._touchListener.setSwallowTouches(false);
+    },
+
+    touchWithoutShield() {
+        this.node._touchListener.setSwallowTouches(false);
+    },
+
+    normalTouchGuide(isInit) {
+        if (!isInit) {
+            let innerGuideNode = cc.find('Canvas/root/missionScrollView/view/content/guideNode');
+            if (innerGuideNode) {
+                let innerObj = innerGuideNode.getComponent('guideTravelBg');
+                innerObj.animateDisappear();
+            }
+        }
+        if (this.touchTimer) {
+            clearTimeout(this.touchTimer);
+            this.touchTimer = null;
+            this.normalTouchGuide();
+        } else {
+            this.touchTimer = setTimeout(() => {
+                let innerGuideNode = cc.find('Canvas/root/missionScrollView/view/content/guideNode');
+                if (innerGuideNode && innerGuideNode._private_location) {
+                    let innerObj = innerGuideNode.getComponent('guideTravelBg');
+                    innerObj.animateAtPoint(cc.v2(innerGuideNode._private_location));
+                }
+                this.touchTimer = null;
+            }, 5000);
         }
     },
 
