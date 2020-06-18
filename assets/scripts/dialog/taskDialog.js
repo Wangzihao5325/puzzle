@@ -58,7 +58,7 @@ cc.Class({
     },
 
     start () {
-     
+    
     },
     init(type){
         this.warp.setScale(0.2)
