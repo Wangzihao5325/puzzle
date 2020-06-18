@@ -1,4 +1,5 @@
 import { CITIES } from '../global/travel_global_index';
+import { CACHE } from '../global/usual_cache';
 
 cc.Class({
     extends: cc.Component,
@@ -24,7 +25,9 @@ cc.Class({
             let cityStateArr = CITIES;
             cityStateArr.every((item) => {
                 if (item.isRecommend) {
-                    this.map.scrollToOffset(cc.v2(item.positionX + 640 - 320, item.positionY - 568), 2);
+                    let x = item.positionX + 960 - (CACHE.platform.visibleSize.width / 2);
+                    let y = item.positionY - 852 - (CACHE.platform.visibleSize.height / 2);
+                    this.map.scrollToOffset(cc.v2(x, y), 2);
                     return false;
                 } else {
                     return true;

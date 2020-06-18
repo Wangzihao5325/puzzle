@@ -65,7 +65,8 @@ const CACHE = {
     },
     platform: {
         isWachat: false,
-        isIphoneX:false
+        isIphoneX: false,
+        visibleSize: null
     },
     isShowGuide: true,
     btnTips: {

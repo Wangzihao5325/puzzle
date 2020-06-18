@@ -31,6 +31,7 @@ cc.Class({
         taskNew: cc.Node,
 
         map: cc.ScrollView,
+        mapMask: cc.Node,
 
         audio: {
             default: null,
@@ -42,11 +43,16 @@ cc.Class({
         let cityStateArr = CITIES;
         if (CACHE.isShowGuide && typeof CACHE.userInfo.stage !== 99) {
             let item = cityStateArr[0];
-            this.map.scrollToOffset(cc.v2(item.positionX + 640 - 320, item.positionY - 568), 2);
+            let x = item.positionX + 960 - (CACHE.platform.visibleSize.width / 2);
+            let y = item.positionY - 852 - (CACHE.platform.visibleSize.height / 2);
+            this.map.scrollToOffset(cc.v2(x, y), 2);
         } else {
             cityStateArr.every((item) => {
                 if (item.isRecommend) {
-                    this.map.scrollToOffset(cc.v2(item.positionX + 640 - 320, item.positionY - 568), 2);
+                    let item = cityStateArr[0];
+                    let x = item.positionX + 960 - (CACHE.platform.visibleSize.width / 2);
+                    let y = item.positionY - 852 - (CACHE.platform.visibleSize.height / 2);
+                    this.map.scrollToOffset(cc.v2(x, y), 2);
                     return false;
                 } else {
                     return true;
@@ -101,6 +107,13 @@ cc.Class({
     },
 
     setBg() {
+        // map: cc.ScrollView,
+        // mapMask: cc.Node,
+        this.map.node.height = CACHE.platform.visibleSize.height;
+        this.map.node.width = CACHE.platform.visibleSize.width;
+        this.mapMask.height = CACHE.platform.visibleSize.height;
+        this.mapMask.width = CACHE.platform.visibleSize.width;
+
         const bg_assets = CACHE.assets.bg;
         let travelBgTex = bg_assets[SCENE_KEY.TRAVEL];
         this.chhina_map_pic.spriteFrame = new cc.SpriteFrame(travelBgTex);
@@ -119,8 +132,7 @@ cc.Class({
         let header = cc.instantiate(this.header);
         let obj = header.getComponent('header_warp_index');
         this.header_obj = obj;
-        header.parent = this.layout_root;
-        header.setPosition(0, 528);
+        header.parent = cc.find('Canvas');
         Action.User.BalanceUpdate((res) => {
             obj.render();
             this.powerTimer();

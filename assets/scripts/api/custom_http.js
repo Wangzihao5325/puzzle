@@ -20,11 +20,11 @@ class CusHttp {
      */
     Get(Url, cb, fcb) {
         this.getToken(() => {
-            const isWachat=cc.sys.platform === cc.sys.WECHAT_GAME
+            const isWachat = cc.sys.platform === cc.sys.WECHAT_GAME
             let http = cc.loader.getXMLHttpRequest();
             http.open("GET", Url, true);
             http.setRequestHeader("Content-Type", "application/json");
-            isWachat?http.setRequestHeader("X-Auth-Token", CACHE.token):undefined;
+            isWachat ? http.setRequestHeader("X-Auth-Token", CACHE.token) : undefined;
             this._callback = cb;
             this._failedCallback = fcb;
             this._reqCache = {
@@ -40,11 +40,11 @@ class CusHttp {
     Post(Url, data, cb, fcb) {
         this.getToken(() => {
             data = JSON.stringify(data);
-            const isWachat=cc.sys.platform === cc.sys.WECHAT_GAME
+            const isWachat = cc.sys.platform === cc.sys.WECHAT_GAME
             let http = cc.loader.getXMLHttpRequest();
             http.open("POST", Url, true);
             http.setRequestHeader("Content-Type", "application/json");
-            isWachat?http.setRequestHeader("X-Auth-Token", CACHE.token):undefined;
+            isWachat ? http.setRequestHeader("X-Auth-Token", CACHE.token) : undefined;
             this._callback = cb;
             this._failedCallback = fcb;
             this._reqCache = {
@@ -61,10 +61,10 @@ class CusHttp {
     Get_UrlEnCoded(Url, data, cb, fcb) {
         this.getToken(() => {
             let http = cc.loader.getXMLHttpRequest();
-            const isWachat=cc.sys.platform === cc.sys.WECHAT_GAME
+            const isWachat = cc.sys.platform === cc.sys.WECHAT_GAME
             http.open("GET", Url, true);
             http.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-            isWachat?http.setRequestHeader("X-Auth-Token", CACHE.token):undefined;
+            isWachat ? http.setRequestHeader("X-Auth-Token", CACHE.token) : undefined;
             this._callback = cb;
             this._failedCallback = fcb;
             this._reqCache = {
@@ -128,15 +128,16 @@ class CusHttp {
         }
     }
     getToken(callback) {
-        const isWachat=cc.sys.platform === cc.sys.WECHAT_GAME
-        const isIphoneX=cc.view.getVisibleSize().height>1385
-        CACHE.platform.isIphoneX=isIphoneX
-        CACHE.platform.isWachat=isWachat
-        if (!CACHE.token&&isWachat) {
+        CACHE.platform.visibleSize = cc.view.getVisibleSize();
+        const isWachat = cc.sys.platform === cc.sys.WECHAT_GAME;
+        const isIphoneX = CACHE.platform.visibleSize.height > 1385;
+        CACHE.platform.isIphoneX = isIphoneX;
+        CACHE.platform.isWachat = isWachat;
+        if (!CACHE.token && isWachat) {
             if (!CACHE.logining) {
                 CACHE.logining = true;
                 WxApi.login(() => {
-                    CACHE.loginCallback.map(i => {i()});
+                    CACHE.loginCallback.map(i => { i() });
                     CACHE.loginCallback = [];
                 });
             }
