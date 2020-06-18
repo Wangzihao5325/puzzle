@@ -5,6 +5,8 @@
 // Learn life-cycle callbacks:
 //  - https://docs.cocos.com/creator/manual/en/scripting/life-cycle-callbacks.html
 import Api from '../api/api_index'
+import {CITIES} from '../global/travel_global_index'
+import {CACHE} from '../global/usual_cache'
 
 cc.Class({
     extends: cc.Component,
@@ -60,7 +62,7 @@ cc.Class({
             this.done.active=true
         }else if(item.complete&&!item.receive){
             this.getBtn.active=true
-        }else{
+        }else if(!item.mainTask){
             this.goBtn.active=true
         }
         this.processText.string=`${item.process} / ${item.times}`
@@ -74,7 +76,7 @@ cc.Class({
         Api.task_receive({taskId:this.info.taskId},res=>{
             if(res.code===0){
                 const data=res.data
-                Toast.show(`${data.name} +${data.rewordAmount}`)
+                Toast.show(`${data.name} +${data.rewordAmount}`,{icon:data.iconUrl})
                 //执行动画
                 this.getBtn.active=false
                 this.done.active=true
@@ -95,10 +97,55 @@ cc.Class({
 
         })
     },
+
+    getCurrentCity(){
+        for(let i=0;i<CITIES.length;i++){
+            const data=CITIES[i]
+            if(data.missionDone<data.missionNum){
+                CACHE.travel_city_press=data
+                cc.director.loadScene("mission");
+                break;
+            }
+        }
+    },
+
     handleGo(){
-        const taskDialog=cc.find('Canvas/task')
-        const obj=taskDialog.getComponent('taskDialog')
-        obj.handleClose()
+
+        const type=this.info.jump;
+        switch (type){
+            case 0:
+                //完成游戏,跳转到关卡选择（完成两次三星关卡，包含使用道具）
+                this.getCurrentCity()
+                break;
+            case 1:
+                //展览
+                cc.director.loadScene("show");
+                break;
+            case 2:
+                //完成宠物外出
+                cc.director.loadScene("my_home");
+                setTimeout(()=>{
+                    const obj=cc.find('Canvas').getComponent('home_index')
+                    obj.showCatAction(true)
+                },3000)
+                break;
+            case 3:
+                //宠物喂养
+                cc.director.loadScene("my_home");
+                setTimeout(()=>{
+                    const obj=cc.find('Canvas').getComponent('home_index')
+                    obj.show_feed()
+                },3000)
+                break;
+            case 4:
+                //签到
+                break;
+        }
+
+
+        // const taskDialog=cc.find('Canvas/task')
+        // const obj=taskDialog.getComponent('taskDialog')
+        // obj.handleClose()
     },
 
    

@@ -322,15 +322,20 @@ cc.Class({
         this.initCat()
     },
 
-    showCatAction() {
+    showCatAction(goOut=false) {
         let { outward } = HOME_CACHE.pet_info
         if (outward) {
+            Toast.show('宠物已经外出')
             return false
         }
         let catActionInstan = cc.instantiate(this.cat_action);
         catActionInstan.name = 'cat_action';
         catActionInstan.parent = this.home_root
         catActionInstan.setPosition(0, 80);
+        if(goOut){
+            catActionInstan.getComponent('action').handleGoout()
+            catActionInstan.destroy()
+        }
     },
     showStore() {
         let store = cc.instantiate(this.store);

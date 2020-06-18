@@ -1,7 +1,6 @@
 window.Toast = {
   _toast: null,           // prefab
   _detailLabel:   null,   // 内容
-  _animSpeed:     0.3,    // 动画速度
   _sprite:        null,   //人物
   _timer:         1000,   //倒计时
 };
@@ -13,8 +12,9 @@ window.Toast = {
 * neeCancel:       是否展示取消按钮 bool 类型 default YES.
 * duration:        动画速度 default = 0.3.
 */
-window.Toast.show = function (detailString, timer=2000, enterCallBack, needCancel, animSpeed) {
-
+window.Toast.show = function (detailString,info={timer:2000,icon:undefined,iconScale:1,color:undefined})  {
+  const {timer,icon,color,iconScale=.6}=info
+  // console.log("v",timer)
   // 引用
   var self = this;
 
@@ -26,8 +26,6 @@ window.Toast.show = function (detailString, timer=2000, enterCallBack, needCance
         .start()
   };
 
-  // 
-  Toast._animSpeed = animSpeed ? animSpeed : Toast._animSpeed;
 
   // 加载 prefab 创建
   cc.loader.loadRes("Toast", cc.Prefab, function (error, prefab) {
@@ -44,8 +42,18 @@ window.Toast.show = function (detailString, timer=2000, enterCallBack, needCance
       Toast._toast = toast;
 
       // // 获取子节点
-      Toast._detailLabel = cc.find("toastContent/toastText", toast).getComponent(cc.Label);
+      Toast._detailLabel = cc.find("toastContent/toastContainer/toastText", toast).getComponent(cc.Label);
+      if(icon){
+        cc.find("toastContent/toastContainer/iconContent", toast).active=true
 
+        cc.loader.load(icon, (err, texture) => {
+          cc.find("toastContent/toastContainer/iconContent/icon", toast).getComponent(cc.Sprite).spriteFrame = new cc.SpriteFrame(texture)
+          cc.find("toastContent/toastContainer/iconContent/icon", toast).scale=iconScale
+        });
+      }
+      if(color){
+        Toast._detailLabel = cc.find("toastContent/toastText", toast).getComponent(cc.Label).color = color;
+      }
       // 父视图
       Toast._toast.parent = cc.find("Canvas");
 
@@ -53,17 +61,17 @@ window.Toast.show = function (detailString, timer=2000, enterCallBack, needCance
       self.startFadeIn();
 
       // 参数
-      self.configToast(detailString, timer, enterCallBack, needCancel, animSpeed);
+      self.configToast(detailString, timer);
       
   });
 
   // 参数
-  self.configToast = function (detailString, timer, enterCallBack, needCancel, animSpeed) {
+  self.configToast = function (detailString, timer) {
 
       // 内容
       Toast._detailLabel.string = detailString;
       if(timer){
-          Toast._timer = timer
+          Toast._timer = timer||2000
       }
   };
 
@@ -84,6 +92,5 @@ window.Toast.show = function (detailString, timer=2000, enterCallBack, needCance
     window.Toast._toast.destroy();
     window.Toast._toast = null;
     window.Toast._detailLabel = null;
-    window.Toast._animSpeed = 0.3;
   };
 };
