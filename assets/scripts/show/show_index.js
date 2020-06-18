@@ -119,6 +119,7 @@ cc.Class({
             CACHE.isShouwSpeedUp = true;
             this.speedUpPopRoot.active = false;
             Toast.show('请选择一个正在展览中的展台');
+            this.speedUpSelectMaskRoot.zIndex = 1000;
             this.speedUpSelectMaskRoot.active = true;
             event.stopPropagation();
         })
@@ -486,6 +487,7 @@ cc.Class({
     },
 
     openBag(itemData) {
+        this.bagRoot.zIndex = 1000;
         this.bagRoot.active = true;
         CACHE.show_table_press = itemData;
     },
@@ -625,6 +627,7 @@ cc.Class({
         this.heartMask.node.on(cc.Node.EventType.TOUCH_END, (event) => {
             if (CACHE.showData.heartEnergy == 100) {
                 if (CACHE.isShowOn[0] || CACHE.isShowOn[1] || CACHE.isShowOn[2]) {
+                    this.speedUpPopRoot.zIndex = 1000;
                     this.speedUpPopRoot.active = true;
                 } else {
                     Toast.show('您没有需要加速的物品');

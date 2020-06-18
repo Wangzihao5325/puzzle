@@ -1,6 +1,6 @@
 import { CACHE } from '../global/usual_cache';
 import Api from '../api/api_index';
-
+import { footerNaviPosition } from '../utils/utils';
 
 cc.Class({
     extends: cc.Component,
@@ -102,8 +102,8 @@ cc.Class({
             originNode = cc.find('Canvas');
             btn = cc.find('Canvas/guide');
         } else if (CACHE.userInfo.stage == 2 && this.guideStep == 8) {
-            originNode = cc.find(`Canvas/root/footer_navi`);
-            btn = cc.find(`Canvas/root/footer_navi/button_travel`);
+            originNode = cc.find(`Canvas/footer_navi`);
+            btn = cc.find(`Canvas/footer_navi/button_travel`);
         } else if (CACHE.userInfo.stage == 4 && this.guideStep == 1) {
             originNode = cc.find('Canvas');
             btn = cc.find('Canvas/guide');
@@ -123,8 +123,8 @@ cc.Class({
             originNode = cc.find(`Canvas/root/table/item_showcase_3`);
             btn = cc.find(`Canvas/root/table/item_showcase_3/anniulan`);
         } else if (CACHE.userInfo.stage == 4 && this.guideStep == 7) {
-            originNode = cc.find(`Canvas/root/footer_navi`);
-            btn = cc.find(`Canvas/root/footer_navi/button_home`);
+            originNode = cc.find(`Canvas/footer_navi`);
+            btn = cc.find(`Canvas/footer_navi/button_home`);
         }
         if (!originNode || !btn) {
             return false;
@@ -199,7 +199,9 @@ cc.Class({
             if (isEnd) {
                 this.guideToastNode.active = false;
                 this.guideToastArrowNode.active = false;
-                this.handNode.setPosition(cc.v2(0, -500));
+                //footerNaviPosition('show')
+                this.handNode.setPosition(footerNaviPosition('travel'));
+                //this.handNode.setPosition(cc.v2(0, -500));
                 this.handNode.active = true;
                 this.guideStep++;
             }
@@ -260,8 +262,9 @@ cc.Class({
             return false;
         } else if (CACHE.userInfo.stage == 4 && this.guideStep == 6) {
             if (isEnd) {
-                this.handNode.x = -200;
-                this.handNode.y = -500;
+                let homePosition = footerNaviPosition('home');
+                this.handNode.x = homePosition.x;
+                this.handNode.y = homePosition.y;
                 this.handNode.active = true;
                 this.stepFiveAddExcal();
                 this.guideToastNode.setPosition(0, -100);

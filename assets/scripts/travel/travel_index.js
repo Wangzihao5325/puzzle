@@ -133,6 +133,7 @@ cc.Class({
         let obj = header.getComponent('header_warp_index');
         this.header_obj = obj;
         header.parent = cc.find('Canvas');
+        header.zIndex = 0;
         Action.User.BalanceUpdate((res) => {
             obj.render();
             this.powerTimer();

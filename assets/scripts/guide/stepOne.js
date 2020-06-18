@@ -1,5 +1,6 @@
 import { CACHE } from '../global/usual_cache';
 import { CITIES } from '../global/travel_global_index';
+import { footerNaviPosition } from '../utils/utils';
 cc.Class({
     extends: cc.Component,
 
@@ -21,7 +22,7 @@ cc.Class({
                     break;
                 case 2:
                     {
-                        handPosition = cc.v2(200, -500);
+                        handPosition = footerNaviPosition('show');
                         this.stepTwoAddExcal();
 
                         //提示展览厅开放
@@ -33,7 +34,6 @@ cc.Class({
                         }
                         this.guideToast.parent = this.node;
                         this.guideToast.setPosition(0, -200);
-
                         this.guideToastTimer = setTimeout(() => {
                             if (this.guideToast) {
                                 this.guideToast.active = false;
@@ -215,7 +215,8 @@ cc.Class({
         this.excalNode.scaleX = 0.7;
         this.excalNode.scaleY = 0.7;
         this.excalNode.parent = this.node;
-        this.excalNode.setPosition(cc.v2(200, -450));
+        let reg = CACHE.platform.isIphoneX ? 150 : 120;
+        this.excalNode.setPosition(cc.v2(200, -CACHE.platform.visibleSize.height / 2 + reg));
         let obj = this.excalNode.getComponent('guideExcal');
         if (obj) {
             obj.animate();
@@ -227,7 +228,8 @@ cc.Class({
         this.excalNode.scaleX = 0.7;
         this.excalNode.scaleY = 0.7;
         this.excalNode.parent = this.node;
-        this.excalNode.setPosition(cc.v2(-200, -450));
+        let reg = CACHE.platform.isIphoneX ? 150 : 120;
+        this.excalNode.setPosition(cc.v2(-200, -CACHE.platform.visibleSize.height / 2 + reg));
         let obj = this.excalNode.getComponent('guideExcal');
         if (obj) {
             obj.animate();
@@ -243,14 +245,14 @@ cc.Class({
             originNode = this.node.parent.parent;
             btn = cc.find('Canvas/map/view/content/bg/city_item-101/city_image');
         } else if (CACHE.userInfo.stage == 2 || CACHE.userInfo.stage == 4) {
-            originNode = cc.find('Canvas/layoutRoot/footer_navi');
-            btn = cc.find('Canvas/layoutRoot/footer_navi/button_show');
+            originNode = cc.find('Canvas/footer_navi');
+            btn = cc.find('Canvas/footer_navi/button_show');
         } else if (CACHE.userInfo.stage == 5 || CACHE.userInfo.stage == 7) {
-            originNode = cc.find('Canvas/layoutRoot/footer_navi');
-            btn = cc.find('Canvas/layoutRoot/footer_navi/button_home');
+            originNode = cc.find('Canvas/footer_navi');
+            btn = cc.find('Canvas/footer_navi/button_home');
         } else if (CACHE.userInfo.stage == 8) {
-            originNode = cc.find('Canvas/layoutRoot/footer_navi');
-            btn = cc.find('Canvas/layoutRoot/footer_navi/button_home');
+            originNode = cc.find('Canvas/footer_navi');
+            btn = cc.find('Canvas/footer_navi/button_home');
         }
         if (!originNode || !btn) {
             return false;
