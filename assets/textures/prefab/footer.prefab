@@ -37,10 +37,13 @@
     "_components": [
       {
         "__id__": 47
+      },
+      {
+        "__id__": 48
       }
     ],
     "_prefab": {
-      "__id__": 48
+      "__id__": 49
     },
     "_opacity": 255,
     "_color": {
@@ -65,7 +68,7 @@
       "ctor": "Float64Array",
       "array": [
         0,
-        -500,
+        60,
         0,
         0,
         0,
@@ -743,6 +746,7 @@
       "__id__": 8
     },
     "_enabled": true,
+    "home_btn_warp": null,
     "home_btn": null,
     "travel_btn": null,
     "show_btn": null,
@@ -1202,6 +1206,7 @@
       "__id__": 21
     },
     "_enabled": true,
+    "home_btn_warp": null,
     "home_btn": null,
     "travel_btn": null,
     "show_btn": null,
@@ -1661,6 +1666,7 @@
       "__id__": 34
     },
     "_enabled": true,
+    "home_btn_warp": null,
     "home_btn": null,
     "travel_btn": null,
     "show_btn": null,
@@ -1688,6 +1694,9 @@
       "__id__": 1
     },
     "_enabled": true,
+    "home_btn_warp": {
+      "__id__": 1
+    },
     "home_btn": {
       "__id__": 16
     },
@@ -1706,6 +1715,33 @@
     "earRight": {
       "__id__": 6
     },
+    "_id": ""
+  },
+  {
+    "__type__": "cc.Widget",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 1
+    },
+    "_enabled": true,
+    "alignMode": 1,
+    "_target": null,
+    "_alignFlags": 4,
+    "_left": 0,
+    "_right": 0,
+    "_top": 0,
+    "_bottom": 60,
+    "_verticalCenter": 0,
+    "_horizontalCenter": 0,
+    "_isAbsLeft": true,
+    "_isAbsRight": true,
+    "_isAbsTop": true,
+    "_isAbsBottom": true,
+    "_isAbsHorizontalCenter": true,
+    "_isAbsVerticalCenter": true,
+    "_originalWidth": 0,
+    "_originalHeight": 0,
     "_id": ""
   },
   {

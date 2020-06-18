@@ -129,6 +129,8 @@ class CusHttp {
     }
     getToken(callback) {
         const isWachat=cc.sys.platform === cc.sys.WECHAT_GAME
+        const isIphoneX=cc.view.getVisibleSize().height>1385
+        CACHE.platform.isIphoneX=isIphoneX
         CACHE.platform.isWachat=isWachat
         if (!CACHE.token&&isWachat) {
             if (!CACHE.logining) {
