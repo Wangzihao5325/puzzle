@@ -112,7 +112,7 @@ cc.Class({
         this.speedUpPopVideo.node.on(cc.Node.EventType.TOUCH_END, (event) => {
             //to do:增加观看视频全部减速的处理
             Toast.show('视频功能尚未开放哦!');
-            event.stopPropagation();
+            event.stopPropagation()
         })
         /**不看视频 */
         this.speedUpPopNoVideo.node.on(cc.Node.EventType.TOUCH_END, (event) => {

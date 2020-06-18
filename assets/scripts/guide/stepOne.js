@@ -46,7 +46,7 @@ cc.Class({
                     break;
                 case 4:
                     {
-                        handPosition = cc.v2(200, -500);
+                        handPosition = footerNaviPosition('show');
                         this.stepTwoAddExcal();
                         //提示展厅来人
                         this.guideToast = cc.instantiate(this.guideToast);
@@ -66,7 +66,7 @@ cc.Class({
                     }
                     break;
                 case 5:
-                    handPosition = cc.v2(-200, -500);
+                    handPosition = footerNaviPosition('home');
                     this.stepFiveAddExcal();
                     break;
                 case 6:
@@ -74,7 +74,7 @@ cc.Class({
                     break;
                 case 7:
                     {
-                        handPosition = cc.v2(-200, -500);
+                        handPosition = footerNaviPosition('home');
                         this.stepFiveAddExcal();
 
                         this.guideToast = cc.instantiate(this.guideToast);
@@ -113,6 +113,7 @@ cc.Class({
             this.node.on(cc.Node.EventType.TOUCH_MOVE, this.onTouchMove, this);
             this.node.on(cc.Node.EventType.TOUCH_END, this.onTouchEnd, this);
         } else {
+            this.node.zIndex = 1000;
             this.normalTouchGuide(true);
             this.node.on(cc.Node.EventType.TOUCH_START, this.onNormalTouchStart, this);
         }
@@ -242,7 +243,7 @@ cc.Class({
         let btn;
         if (CACHE.userInfo.stage == 1 || CACHE.userInfo.stage == 3 || CACHE.userInfo.stage == 6) {
             // 获取触摸点，转为Canvas画布上的坐标
-            originNode = this.node.parent.parent;
+            originNode = this.node.parent;
             btn = cc.find('Canvas/map/view/content/bg/city_item-101/city_image');
         } else if (CACHE.userInfo.stage == 2 || CACHE.userInfo.stage == 4) {
             originNode = cc.find('Canvas/footer_navi');
