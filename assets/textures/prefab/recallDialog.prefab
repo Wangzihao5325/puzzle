@@ -1532,6 +1532,11 @@
     "close": {
       "__id__": 14
     },
+    "scroll": {
+      "__id__": 26
+    },
+    "recallList": [],
+    "animationFinsh": false,
     "_id": ""
   },
   {
