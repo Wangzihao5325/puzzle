@@ -41,24 +41,24 @@ cc.Class({
 
     locationCity() {
         let cityStateArr = CITIES;
+        let item = null,
+            x = 0,
+            y = 0;
         if (CACHE.isShowGuide && typeof CACHE.userInfo.stage !== 99) {
-            let item = cityStateArr[0];
-            let x = item.positionX + 960 - (CACHE.platform.visibleSize.width / 2);
-            let y = item.positionY - 852 - (CACHE.platform.visibleSize.height / 2);
-            this.map.scrollToOffset(cc.v2(x, y), 2);
+            item = cityStateArr[0];
         } else {
-            cityStateArr.every((item) => {
-                if (item.isRecommend) {
-                    let item = cityStateArr[0];
-                    let x = item.positionX + 960 - (CACHE.platform.visibleSize.width / 2);
-                    let y = item.positionY - 852 - (CACHE.platform.visibleSize.height / 2);
-                    this.map.scrollToOffset(cc.v2(x, y), 2);
+            cityStateArr.every((innerItem, index) => {
+                if (innerItem.isRecommend) {
+                    item = cityStateArr[index];
                     return false;
                 } else {
                     return true;
                 }
             });
         }
+        x = item.positionX + 960 - (CACHE.platform.visibleSize.width / 2);
+        y = 852 - item.positionY - (CACHE.platform.visibleSize.height / 2);
+        this.map.scrollToOffset(cc.v2(x, y), 2);
     },
 
     drawLine(start, end) {

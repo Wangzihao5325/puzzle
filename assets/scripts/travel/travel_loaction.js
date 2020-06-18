@@ -26,7 +26,7 @@ cc.Class({
             cityStateArr.every((item) => {
                 if (item.isRecommend) {
                     let x = item.positionX + 960 - (CACHE.platform.visibleSize.width / 2);
-                    let y = item.positionY - 852 - (CACHE.platform.visibleSize.height / 2);
+                    let y = 852 - item.positionY - (CACHE.platform.visibleSize.height / 2);
                     this.map.scrollToOffset(cc.v2(x, y), 2);
                     return false;
                 } else {
