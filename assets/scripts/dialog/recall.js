@@ -19,7 +19,15 @@ cc.Class({
         racallItem: cc.Prefab,
         racallInfo: cc.Prefab,
         close: cc.Node,
-
+        scroll:cc.Node,
+        recallList:{
+            type:cc.Array,
+            default:[]
+        },
+        animationFinsh:{
+            type:cc.Boolean,
+            default:false
+        }
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -44,6 +52,9 @@ cc.Class({
         cc.tween(this.content)
             .to(.3, { scale: 1.2 })
             .to(0.15, { scale: 1 })
+            .call(()=>{
+                this.animationFinsh=true
+            })
             .start()
         this.getRecallList()
 
@@ -51,11 +62,11 @@ cc.Class({
 
 
     handleBack() {
+        this.scrollContent.destroy()
         cc.tween(this.content)
             .to(.1, { scale: 1.2 })
             .to(0.3, { scale: .2, opacity: 0 })
             .call(() => {
-                this.warp.active = false;
                 this.warp.destroy()
             })
             .start()
@@ -68,11 +79,24 @@ cc.Class({
             if (res.code === 0) {
                 const data = res.data;
                 this.count = 0
-                data.map((item, index) => {
-                    this.initRecallTravelItem(item, index)
-                })
+                this.recallList=data
+                this.initRecall()
             }
         })
+    },
+
+    initRecall(){
+        if(!this.animationFinsh){
+            setTimeout(()=>{
+                this.initRecall()
+            })
+            return false
+        }
+
+        const data=this.recallList
+        for (let i = 0; i < data.length; i++) {
+            i<5?this.initRecallTravelItem(data[i], i):undefined
+        }
     },
 
     showInfo(item) {
@@ -102,7 +126,32 @@ cc.Class({
     },
 
 
+    onScrollingEvent(){
+        var offsetY = this.scroll.getComponent(cc.ScrollView).getScrollOffset().y;
+        const scrollHeight = this.scroll.height
+        const children= this.scrollContent.children;
+
+        const data=this.recallList;
+            data.map((item,i)=>{
+                const positionY=-(.5 + i) * 210 - 20;
+                if(-positionY>offsetY-100&&-positionY<offsetY+scrollHeight+100){
+                    if(children&&children[i]){
+                        children[i].opacity!==255?children[i].opacity=255:undefined
+                    }else{
+                        this.initRecallTravelItem(item,i)
+                    }
+                }else{
+                    if(children&&children[i]){
+                        children[i].opacity=0
+                    }
+                }
+            })
+    },
+
     setTouch() {
+        this.scroll.on("scrolling", (event) => {
+            this.onScrollingEvent(event)
+        })
         this.warp.on(cc.Node.EventType.TOUCH_START, (event) => {
             event.stopPropagation();
         })

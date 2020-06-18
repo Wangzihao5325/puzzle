@@ -16,6 +16,7 @@ cc.Class({
         modal:cc.Node,
         warp:cc.Node,
         content:cc.Node,
+        scroll:cc.Node,
         scrollContent:cc.Node,
         travelItem:cc.Prefab,
         // racallInfo:cc.Prefab,
@@ -30,7 +31,15 @@ cc.Class({
         },
         type1New: cc.Node,
         type2New: cc.Node,
-        type3New: cc.Node
+        type3New: cc.Node,
+        backpackList:{
+            type:cc.Array,
+            default:[]
+        },
+        animationFinsh:{
+            type:cc.Boolean,
+            default:false
+        }
 
     },
 
@@ -51,6 +60,9 @@ cc.Class({
         cc.tween(this.warp)
         .to(.3,{scale:1.2})
         .to(0.15,{scale:1})
+        .call(()=>{
+            this.animationFinsh=true
+        })
         .start()
         this.getBackpack(0)
 
@@ -58,6 +70,7 @@ cc.Class({
 
 
     handleClose(){
+        this.scrollContent.destroy()
         cc.tween(this.warp)
         .to(.1,{scale:1.2})
         .to(0.3,{scale:.2,opacity:0})
@@ -71,6 +84,7 @@ cc.Class({
         Api.backpack(type||this.currentType,res=>{
             if(res.code===0){
                 const data=res.data;
+                this.backpackList=data
                 this.initBackpack(data)
 
             }
@@ -80,26 +94,33 @@ cc.Class({
 
 
 
-    initBackpack(data){
-        // currentPageContent.parent=this.pageContent
+    initBackpack(){
+        //等待动画执行完成后渲染
+        if(!this.animationFinsh){
+            setTimeout(()=>{
+                this.initBackpack()
+            })
+            return false
+        }
         this.scrollContent.children&&this.scrollContent.children.map(item=>{
             item.destroy()
         })
+        const data=this.backpackList
         for (let i = 0; i < data.length; i++) {
-            let newNode = cc.instantiate(this.travelItem)
-
-            let obj = newNode.getComponent('travelItem')
-            const item=data[i]
-            obj.init(item)
-            newNode.parent = this.scrollContent
-            const indexX = (i)%4
-            const indexY = Math.ceil((i + 1) / 4)
-            this.scrollContent.height=180*indexY
-            let position = cc.v2(( 125* (indexX + .5)), (-(160 * (-0.5 + indexY))) - 10);
-            newNode.setPosition(position)
-            cc.tween(newNode)
-                .to(.3,)
+            i<20?this.initBackPackItem(data[i],i):undefined
         }
+    },
+
+    initBackPackItem(item,i){
+        let newNode = cc.instantiate(this.travelItem)
+        let obj = newNode.getComponent('travelItem')
+        obj.init(item)
+        newNode.parent = this.scrollContent
+        const indexX = (i)%4
+        const indexY = Math.ceil((i + 1) / 4)
+        this.scrollContent.height=180*indexY
+        let position = cc.v2(( 125* (indexX + .5)), (-(160 * (-0.5 + indexY))) - 10);
+        newNode.setPosition(position)
     },
 
     changeType(type){
@@ -113,8 +134,35 @@ cc.Class({
     },
 
 
+    onScrollingEvent(){
+        var offsetY = this.scroll.getComponent(cc.ScrollView).getScrollOffset().y;
+        const scrollHeight = this.scroll.height
+        const children= this.scrollContent.children;
+
+        const data=this.backpackList;
+            data.map((item,i)=>{
+                const indexY = Math.ceil((i + 1) / 4)
+                const positionY=(-(160 * (-0.5 + indexY))) - 10;
+                if(-positionY>offsetY-100&&-positionY<offsetY+scrollHeight+100){
+                    if(children&&children[i]){
+                        children[i].opacity!==255?children[i].opacity=255:undefined
+                    }else{
+                        this.initBackPackItem(item,i)
+                    }
+                }else{
+                    if(children&&children[i]){
+                        children[i].opacity=0
+                    }
+                }
+            })
+    },
+
+
 
     setTouch() {
+        this.scroll.on("scrolling", (event) => {
+            this.onScrollingEvent()
+        })
         this.warp.on(cc.Node.EventType.TOUCH_START, (event) => {
             event.stopPropagation();
         })
