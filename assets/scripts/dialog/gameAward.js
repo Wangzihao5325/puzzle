@@ -94,7 +94,7 @@ cc.Class({
                     let node = cc.find(`icon_${i}`, rootNode);
                     cc.tween(node)
                         .delay(0.1 * i)
-                        .to(0.1, { position: cc.v2(-250, 550) })
+                        .to(0.2, { position: cc.v2(-250, 550), scale: 1 })
                         .call(() => {
                             node.active = false;
                         })

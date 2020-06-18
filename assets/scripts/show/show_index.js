@@ -139,19 +139,14 @@ cc.Class({
         footer.name = 'footer_navi';
         let obj = footer.getComponent('navi_footer');
         obj.initWithScene(CACHE.scene);
-        footer.parent = this.root;
-        footer.setPosition(0, -500);
+        footer.parent = cc.find('Canvas');
         footer.zIndex = 10;
     },
 
     headerInit() {
         let header = cc.instantiate(this.header);
         let obj = header.getComponent('header_warp_index');
-        let headerWidgrt = header.getComponent(cc.Widget);
-        headerWidgrt.isAlignTop = true;
-        headerWidgrt.top = 110;
-        header.parent = this.root;
-        //header.setPosition(0, 528);
+        header.parent = cc.find('Canvas');;
         header.zIndex = 10;
         this.headerObj = obj;
         this.headerObj.initShowScene();
