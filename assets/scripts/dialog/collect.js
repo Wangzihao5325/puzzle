@@ -43,12 +43,16 @@ cc.Class({
         lackNew: cc.Node,
         scroll:cc.Node,
         scenicList:{
-            type:cc.Boolean,
+            type:cc.Array,
             default:[]
         },
         souvenirList:{
-            type:cc.Boolean,
+            type:cc.Array,
             default:[]
+        },
+        animationFinsh:{
+            type:cc.Boolean,
+            default:false
         }
     },
 
@@ -69,6 +73,9 @@ cc.Class({
         cc.tween(this.warp)
         .to(.3,{scale:1.2})
         .to(0.15,{scale:1})
+        .call(()=>{
+            this.animationFinsh=true
+        })
         .start()
         this.getCollect(0,0)
 
@@ -76,6 +83,7 @@ cc.Class({
 
 
     handleClose(){
+        this.scrollContent.destroy()
         cc.tween(this.warp)
         .to(.1,{scale:1.2})
         .to(0.3,{scale:.2,opacity:0})
@@ -133,11 +141,18 @@ cc.Class({
         this.lackNew.active = this.currentType === 0 && this.goodsQuality === 0 && CACHE.btnTips.lack
     },
 
-    initBackpack(data){
+    initBackpack(){
+        if(!this.animationFinsh){
+            setTimeout(()=>{
+                this.initBackpack()
+            },500)
+            return false
+        }
         //清除原来的
         this.scrollContent.children.map(item=>{
             item.destroy()
         })
+        const data=this.souvenirList;
         this.count = 0;
         for (let i = 0; i < data.length; i++) {
             const item=data[i]
