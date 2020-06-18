@@ -15,12 +15,15 @@ cc.Class({
         scroll_content: {
             type: cc.Node,
             default: null
-        }
+        },
+        guideNode: cc.Node,
     },
 
     initWithArr(arr, missionItemClickCallback) {
         let totalHeight = (Math.floor((arr.length - 1) / 2) + 1) * 380;
         this.scroll_content.height = totalHeight;
+        this.guideNode.height = totalHeight;
+        let locationPosition = null;
         arr.forEach((item, index) => {
             let cloumn = Math.floor(index / 2);
             let row = index % 2;
@@ -34,7 +37,15 @@ cc.Class({
             missionItemNode.name = `mission_item-${item.hurdleId}`;
             missionItemNode.parent = this.scroll_content;
             missionItemNode.setPosition(cc.v2(positionX, positionY));
+
+            if (item.lock == false && item.star == 0) {
+                locationPosition = cc.v2(positionX, positionY);
+            }
         });
+        if (locationPosition) {
+            this.scroll_view.scrollTo(locationPosition, 2);
+        }
+        this.guideNode._private_location = locationPosition;
     },
 
     // LIFE-CYCLE CALLBACKS:
