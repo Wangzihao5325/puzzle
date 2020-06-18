@@ -249,7 +249,7 @@ cc.Class({
     //判断完成，并调用完成动画
     checkComplate() {
         if (SIZES[CACHE.hard_level].length == GAME_CACHE.complateIndex.length) {
-            Toast.show("拼图完成", 1000);
+            Toast.show("拼图完成", {timer:1000});
             this.doComplate()
             GAME_CACHE.complateIndex = []
             GAME_CACHE.isComplate = true

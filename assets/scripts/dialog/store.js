@@ -140,7 +140,12 @@ cc.Class({
     },
 
     start () {
-
+        if(CACHE.platform.isIphoneX){
+            this.header.height=this.header.height*1.8
+            const headerBg=cc.find('headerBg',this.header)
+            headerBg.height=headerBg.height*1.8
+            // cc.find('headerBg',this.header).scaleY=1.5
+        }
     },
 
     handleClose(){
