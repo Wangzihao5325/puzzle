@@ -26,6 +26,8 @@ cc.Class({
         signClose: cc.Node,
         signGetGoods: cc.Node,
         taskIcon: cc.Node,
+        taskPop:cc.Node,
+        taskPopText:cc.Label,
         taskDialog: cc.Prefab,
         signNew: cc.Node,
         taskNew: cc.Node,
@@ -382,6 +384,8 @@ cc.Class({
                     ...CACHE.btnTips,
                     ...res.data
                 }
+                this.taskPop.active=res.data.taskDescribe?true:false
+                this.taskPopText.string=res.data.taskDescribe?res.data.taskDescribe:''
                 this.updateTaskTips()
             } else {
                 //请求异常处理
