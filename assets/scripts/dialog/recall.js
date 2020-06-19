@@ -78,7 +78,6 @@ cc.Class({
         Api.memory_list(res => {
             if (res.code === 0) {
                 const data = res.data;
-                this.count = 0
                 this.recallList=data
                 this.initRecall()
             }
@@ -93,10 +92,10 @@ cc.Class({
             return false
         }
 
+        this.count = 0
         const data=this.recallList
         for (let i = 0; i < data.length; i++) {
             i<5?this.initRecallTravelItem(data[i], i):undefined
-            this.count += item.novel ? 1 : 0
         }
     },
 
@@ -119,6 +118,7 @@ cc.Class({
         recall.name = `recall_item_${index}`;
         let obj = recall.getComponent('recallItem');
         recall.info = item
+        this.count += item.novel ? 1 : 0
         obj.init(item, index)
         recall.parent = this.scrollContent;
         this.scrollContent.height = 210 * (index + 1)

@@ -121,7 +121,6 @@ cc.Class({
         if (this.count > 0) {
             this.count -= 1
         }
-        console.log(this.count)
         if (this.currentType === 1) {
             CACHE.btnTips.scenic = !!this.count
             CACHE.btnTips.collect = CACHE.btnTips.souvenir || CACHE.btnTips.scenic
@@ -160,7 +159,6 @@ cc.Class({
             this.count += item.novel ? 1 : 0;
             i<12?this.initBackpackItem(item,i):undefined
         }
-        console.log(this.count)
         //计数是否有未读
         CACHE.btnTips[!this.goodsQuality ? 'normal' : 'lack'] = !!this.count
         CACHE.btnTips.souvenir = CACHE.btnTips.normal || CACHE.btnTips.lack
@@ -190,7 +188,6 @@ cc.Class({
             this.count += item.collect ? 1 : 0;
             i<4?this.initScenicItem(item,i):undefined
         }
-        console.log(this.count)
         CACHE.btnTips.scenic = !!this.count
         CACHE.btnTips.collect = CACHE.btnTips.souvenir || CACHE.btnTips.scenic
     },
