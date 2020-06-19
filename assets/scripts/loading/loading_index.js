@@ -17,7 +17,7 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
-
+        soundNode:cc.Node,
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -25,6 +25,9 @@ cc.Class({
     // onLoad () {},
 
     start() {
+        //设置常驻节点
+        cc.game.addPersistRootNode(this.soundNode);
+
         /*加载背景图片*/
         cc.loader.load(BG_ASSET_URL, (errs, results) => {
             if (errs) cc.error(errs);

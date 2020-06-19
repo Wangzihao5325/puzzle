@@ -170,7 +170,10 @@ cc.Class({
         this.node.on(cc.Node.EventType.TOUCH_END, (event) => {
             if (this.isMove) {
                 this.item_node._offsetY = 0;
+            }else{
+                cc.find("sound").getComponent("sound").tap()
             }
+
             if (hardLevel == LEVEL.HARD && !this.isMove) {
                 //第三级难度点击旋转
                 // this.item_node.angle = (this.item_node.angle - 90) % 360;

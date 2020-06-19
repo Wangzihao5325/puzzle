@@ -250,6 +250,8 @@ cc.Class({
     checkComplate() {
         if (SIZES[CACHE.hard_level].length == GAME_CACHE.complateIndex.length) {
             Toast.show("拼图完成", {timer:1000});
+            cc.find("sound").getComponent("sound").stop()
+            cc.find("sound").getComponent("sound").missionSuccess()
             this.doComplate()
             GAME_CACHE.complateIndex = []
             GAME_CACHE.isComplate = true
@@ -279,6 +281,7 @@ cc.Class({
         Api.missionComplete(data, (res => {
             if (res.code === 0) {
                 setTimeout(() => {
+                    cc.find("sound").getComponent("sound").gameSettlement()
                     this.showAward(res.data.list, CACHE.hard_level + 1);
                 }, 1000)
             } else {
@@ -323,6 +326,8 @@ cc.Class({
         if (this._guideGameRebornCallback) {
             this._guideGameRebornCallback();
         }
+        cc.find("sound").getComponent("sound").gameFail()
+
         let game_fail = cc.instantiate(this.game_fail);
         game_fail.parent = this.root_warp;
     },
