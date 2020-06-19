@@ -96,6 +96,7 @@ cc.Class({
         const data=this.recallList
         for (let i = 0; i < data.length; i++) {
             i<5?this.initRecallTravelItem(data[i], i):undefined
+            this.count += item.novel ? 1 : 0
         }
     },
 
@@ -122,7 +123,6 @@ cc.Class({
         recall.parent = this.scrollContent;
         this.scrollContent.height = 210 * (index + 1)
         recall.setPosition(cc.v2(0, -(.5 + index) * 210 - 20))
-        this.count += item.novel ? 1 : 0
     },
 
 

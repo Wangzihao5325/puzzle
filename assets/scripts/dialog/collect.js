@@ -121,6 +121,7 @@ cc.Class({
         if (this.count > 0) {
             this.count -= 1
         }
+        console.log(this.count)
         if (this.currentType === 1) {
             CACHE.btnTips.scenic = !!this.count
             CACHE.btnTips.collect = CACHE.btnTips.souvenir || CACHE.btnTips.scenic
@@ -156,9 +157,10 @@ cc.Class({
         this.count = 0;
         for (let i = 0; i < data.length; i++) {
             const item=data[i]
-            i<12?this.initBackpackItem(item,i):undefined
             this.count += item.novel ? 1 : 0;
+            i<12?this.initBackpackItem(item,i):undefined
         }
+        console.log(this.count)
         //计数是否有未读
         CACHE.btnTips[!this.goodsQuality ? 'normal' : 'lack'] = !!this.count
         CACHE.btnTips.souvenir = CACHE.btnTips.normal || CACHE.btnTips.lack
@@ -169,7 +171,6 @@ cc.Class({
         let newNode = cc.instantiate(this.collectItem)
 
         let obj = newNode.getComponent('collectItem')
-        this.count += item.novel ? 1 : 0;
         obj.init(item)
         newNode.parent = this.scrollContent
         const indexX = (i)%3
@@ -189,6 +190,7 @@ cc.Class({
             this.count += item.collect ? 1 : 0;
             i<4?this.initScenicItem(item,i):undefined
         }
+        console.log(this.count)
         CACHE.btnTips.scenic = !!this.count
         CACHE.btnTips.collect = CACHE.btnTips.souvenir || CACHE.btnTips.scenic
     },
@@ -197,7 +199,6 @@ cc.Class({
         let newNode = cc.instantiate(this.scenicItem)
 
         let obj = newNode.getComponent('scenicItem')
-        this.count += item.collect ? 1 : 0;
         obj.init(item)
         newNode.parent = this.scrollContent
         const indexX = (i)%2
@@ -240,7 +241,7 @@ cc.Class({
         const children= this.scrollContent.children;
 
         if(this.currentType===0){
-            
+
 
             data.map((item,i)=>{
                 const indexY = Math.ceil((i + 1) / 3)
