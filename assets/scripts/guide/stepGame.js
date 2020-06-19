@@ -194,6 +194,18 @@ cc.Class({
                 this.node.on(cc.Node.EventType.TOUCH_START, this.onTouchStart, this);
             }
         } else if (CACHE.userInfo.stage == 99) {
+            //第一次进入难度大于12块的拼图,引导使用道具
+            if (CACHE.hard_level > 0 && CACHE.userInfo.firstTwoStarHurdle) {
+                this.guideToastNode = cc.instantiate(this.guideToast);
+                let obj = this.guideToastNode.getComponent('guideToast');
+                if (obj) {
+                    this.guideToastNode.item_obj = obj;
+                    obj.setContentStr("<color=#887160>恭喜你获得了旅游物品\n可以用它来<color=#e37974>[展览]</color>，赚小钱钱</color>");
+                }
+                this.guideToastNode.parent = this.node;
+                this.guideToastNode.setPosition(0, -300);
+
+            }
             //未导航时长时间不操作处理
             this.node.zIndex = 10000;
             this.timer = setTimeout(() => {

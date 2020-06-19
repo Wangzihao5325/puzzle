@@ -9,7 +9,8 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
-        richText: cc.RichText
+        richText: cc.RichText,
+        txtBg:cc.Node,
     },
 
     setContentStr(string) {

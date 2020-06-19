@@ -48,7 +48,8 @@ const CACHE = {
         stage: 1,
         firstPetBackHomeEnded: false,
         firstRecallEnded: false,
-        firstRewardTaskEnded: false
+        firstRewardTaskEnded: false,
+        firstTwoStarHurdle: true,
     },
     dragonBoneAnimateName: '',
     lastBagTypeLength: 0,
