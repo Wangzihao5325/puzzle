@@ -19,7 +19,11 @@ cc.Class({
                 this.handNode.scaleX = 0.7;
                 this.handNode.scaleY = 0.7;
                 this.handNode.parent = this.node;
-                this.handNode.setPosition(cc.v2(-160, 60));
+                let handPosition = cc.v2(-160, 60);
+                if (CACHE.platform.isIphoneX) {
+                    handPosition = cc.v2(-160, 160);
+                }
+                this.handNode.setPosition(handPosition);
                 let obj = this.handNode.getComponent('guideHand');
                 if (obj) {
                     obj.handAnimate();
@@ -36,7 +40,11 @@ cc.Class({
                 this.handNode.scaleX = 0.7;
                 this.handNode.scaleY = 0.7;
                 this.handNode.parent = this.node;
-                this.handNode.setPosition(cc.v2(160, 60));
+                let handPosition = cc.v2(160, 60);
+                if (CACHE.platform.isIphoneX) {
+                    handPosition = cc.v2(160, 160);
+                }
+                this.handNode.setPosition(handPosition);
                 let obj = this.handNode.getComponent('guideHand');
                 if (obj) {
                     obj.handAnimate();
@@ -53,7 +61,11 @@ cc.Class({
                 this.handNode.scaleX = 0.7;
                 this.handNode.scaleY = 0.7;
                 this.handNode.parent = this.node;
-                this.handNode.setPosition(cc.v2(-160, -300));
+                let handPosition = cc.v2(-160, -300);
+                if (CACHE.platform.isIphoneX) {
+                    handPosition = cc.v2(-160, -200);
+                }
+                this.handNode.setPosition(handPosition);
                 let obj = this.handNode.getComponent('guideHand');
                 if (obj) {
                     obj.handAnimate();
