@@ -1777,8 +1777,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 80.09,
-      "height": 30.24
+      "width": 77.04,
+      "height": 24
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -1833,8 +1833,10 @@
     "_fontSize": 24,
     "_lineHeight": 24,
     "_enableWrapText": true,
-    "_N$file": null,
-    "_isSystemFontUsed": true,
+    "_N$file": {
+      "__uuid__": "276b8d68-767a-4fea-a51d-4c0e74037850"
+    },
+    "_isSystemFontUsed": false,
     "_spacingX": 0,
     "_batchAsBitmap": false,
     "_styleFlags": 0,
@@ -1843,7 +1845,7 @@
     "_N$verticalAlign": 1,
     "_N$fontFamily": "Arial",
     "_N$overflow": 0,
-    "_N$cacheMode": 0,
+    "_N$cacheMode": 2,
     "_id": ""
   },
   {
@@ -2246,8 +2248,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 80.09,
-      "height": 30.24
+      "width": 77.04,
+      "height": 24
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -2302,8 +2304,10 @@
     "_fontSize": 24,
     "_lineHeight": 24,
     "_enableWrapText": true,
-    "_N$file": null,
-    "_isSystemFontUsed": true,
+    "_N$file": {
+      "__uuid__": "276b8d68-767a-4fea-a51d-4c0e74037850"
+    },
+    "_isSystemFontUsed": false,
     "_spacingX": 0,
     "_batchAsBitmap": false,
     "_styleFlags": 0,
@@ -2312,7 +2316,7 @@
     "_N$verticalAlign": 1,
     "_N$fontFamily": "Arial",
     "_N$overflow": 0,
-    "_N$cacheMode": 0,
+    "_N$cacheMode": 2,
     "_id": ""
   },
   {
@@ -3727,7 +3731,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 232.85,
+      "width": 233.15,
       "height": 27.72
     },
     "_anchorPoint": {
@@ -3783,8 +3787,10 @@
     "_fontSize": 22,
     "_lineHeight": 22,
     "_enableWrapText": true,
-    "_N$file": null,
-    "_isSystemFontUsed": true,
+    "_N$file": {
+      "__uuid__": "276b8d68-767a-4fea-a51d-4c0e74037850"
+    },
+    "_isSystemFontUsed": false,
     "_spacingX": 0,
     "_batchAsBitmap": false,
     "_styleFlags": 0,
@@ -3793,7 +3799,7 @@
     "_N$verticalAlign": 1,
     "_N$fontFamily": "Arial",
     "_N$overflow": 0,
-    "_N$cacheMode": 0,
+    "_N$cacheMode": 1,
     "_id": ""
   },
   {
@@ -4217,6 +4223,12 @@
     "content": {
       "__id__": 76
     },
+    "scroll": {
+      "__id__": 78
+    },
+    "scrollContent": {
+      "__id__": 80
+    },
     "list": {
       "__id__": 80
     },
@@ -4224,6 +4236,8 @@
       "__uuid__": "5e1f87ed-9bba-4182-babb-0d3f5ea43118"
     },
     "isShowPop": false,
+    "goodsList": [],
+    "animationFinsh": false,
     "_id": ""
   },
   {

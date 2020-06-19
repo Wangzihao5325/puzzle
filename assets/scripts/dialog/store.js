@@ -19,10 +19,20 @@ cc.Class({
         coin:cc.Label,
         gem:cc.Label,
         content:cc.Node,
+        scroll:cc.Node,
+        scrollContent:cc.Node,
         list:cc.Node,
         goods:cc.Prefab,
         isShowPop:{
             type:Boolean,
+            default:false
+        },
+        goodsList:{
+            type:cc.Array,
+            default:[]
+        },
+        animationFinsh:{
+            type:cc.Boolean,
             default:false
         }
     },
@@ -37,6 +47,7 @@ cc.Class({
         .to(.2,{position:cc.v2(0,-118)},{ easing: 'fade'})
         .call(()=>{
             //动画执行结束后再渲染列表避免卡顿
+            this.animationFinsh=true
         })
         .start()
 
@@ -50,6 +61,8 @@ cc.Class({
         cc.tween(this.header)
         .delay(.4)
         .to(.4,{position:cc.v2(0,headerY)},{ easing: 'sineIn'})
+        .call(()=>{
+        })
         .start()
 
         //宠物从下往上动画
@@ -105,39 +118,51 @@ cc.Class({
 
     },
 
-    getGoods(refresh){
+    getGoods(){
         Api.storeGoods(res=>{
             if(res.code===0){
                 const data=res.data.records
-                data.map((item,index)=>{
-                    //更新前销毁旧的元素
-                    if(refresh){
-                        this.list.children.map(item=>{
-                            item.destroy()
-                        })
-                    }
-                    this.initGoods(item,index)
-                })
+                this.goodsList=data
+                this.initGoods()
             }
         })
     },
 
-    initGoods(item,index){
+
+    initGoods(){
+        //等待动画执行完成后渲染
+        if(!this.animationFinsh){
+            setTimeout(()=>{
+                this.initGoods()
+            },500)
+            return false
+        }
+        const data=this.goodsList
+        this.list.children&&this.list.children.map(item=>{
+            item.destroy()
+        })
+        for (let i = 0; i < data.length; i++) {
+            if(i<5){
+                this.initGoodsItem(data[i],i)
+            }
+        }
+    },
+
+    initGoodsItem(item,index){
         let goods = cc.instantiate(this.goods);
-        goods.opacity=0
         let obj = goods.getComponent('storeGood');
         goods.info=item
         obj.init(item)
         goods.parent = this.list;
         this.list.height=210*(index+1)
         const positionY = -(.5+index)*210
-        goods.setPosition(cc.v2(0,positionY-100))
-
-        cc.tween(goods)
-            .delay(.2+.2*(index+1))
-            .to(.4,{position:cc.v2(0,positionY),opacity:255},)
-        .start()
+        goods.setPosition(cc.v2(0,positionY))
+        // cc.tween(goods)
+        //     .delay(.2)
+        //     .to(.4,{position:cc.v2(0,positionY),opacity:255},)
+        // .start()
     },
+
 
     start () {
         if(CACHE.platform.isIphoneX){
@@ -149,6 +174,7 @@ cc.Class({
     },
 
     handleClose(){
+        this.scrollContent.destroy()
         cc.tween(this.modal)
         .to(.4,{position:cc.v2(0,-1000),opacity:0},{ easing: 'fade'})
         .start()
@@ -157,7 +183,33 @@ cc.Class({
         },500)
     },
 
+
+    onScrollingEvent(){
+        var offsetY = this.scroll.getComponent(cc.ScrollView).getScrollOffset().y;
+        const scrollHeight = this.scroll.height
+        const children= this.scrollContent.children;
+
+        const data=this.goodsList;
+            data.map((item,i)=>{
+                const positionY=-(.5+i)*210
+                if(-positionY>offsetY-120&&-positionY<offsetY+scrollHeight+120){
+                    if(children&&children[i]){
+                        children[i].opacity!==255?children[i].opacity=255:undefined
+                    }else{
+                        this.initGoodsItem(item,i)
+                    }
+                }else{
+                    if(children&&children[i]){
+                        children[i].opacity=0
+                    }
+                }
+            })
+    },
+
     setTouch() {
+        this.scroll.on("scrolling", (event) => {
+            this.onScrollingEvent()
+        })
         this.close.on(cc.Node.EventType.TOUCH_END, (event) => {
             this.handleClose(event)
             event.stopPropagation();

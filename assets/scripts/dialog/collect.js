@@ -156,8 +156,8 @@ cc.Class({
         this.count = 0;
         for (let i = 0; i < data.length; i++) {
             const item=data[i]
-            i<12?this.initBackpackItem(item,i):undefined
             this.count += item.novel ? 1 : 0;
+            i<12?this.initBackpackItem(item,i):undefined
         }
         //计数是否有未读
         CACHE.btnTips[!this.goodsQuality ? 'normal' : 'lack'] = !!this.count
@@ -169,7 +169,6 @@ cc.Class({
         let newNode = cc.instantiate(this.collectItem)
 
         let obj = newNode.getComponent('collectItem')
-        this.count += item.novel ? 1 : 0;
         obj.init(item)
         newNode.parent = this.scrollContent
         const indexX = (i)%3
@@ -197,7 +196,6 @@ cc.Class({
         let newNode = cc.instantiate(this.scenicItem)
 
         let obj = newNode.getComponent('scenicItem')
-        this.count += item.collect ? 1 : 0;
         obj.init(item)
         newNode.parent = this.scrollContent
         const indexX = (i)%2
@@ -240,7 +238,7 @@ cc.Class({
         const children= this.scrollContent.children;
 
         if(this.currentType===0){
-            
+
 
             data.map((item,i)=>{
                 const indexY = Math.ceil((i + 1) / 3)
