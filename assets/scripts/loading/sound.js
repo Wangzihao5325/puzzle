@@ -82,27 +82,27 @@ cc.Class({
     },
     tap(){
         if(CACHE.isBGM){
-            this.BGM = cc.audioEngine.play(this.tapAudio, false, 1);
+            cc.audioEngine.play(this.tapAudio, false, 1);
         }
     },
     gameSuccess(){
         if(CACHE.isBGM){
-            this.BGM = cc.audioEngine.play(this.gameSuccessAudio, false, 1);
+            cc.audioEngine.play(this.gameSuccessAudio, false, 1);
         }
     },
     gameFail(){
         if(CACHE.isBGM){
-            this.BGM = cc.audioEngine.play(this.gameFailAudio, false, 1);
+            cc.audioEngine.play(this.gameFailAudio, false, 1);
         }
     },
     missionSuccess(){
         if(CACHE.isBGM){
-            this.BGM = cc.audioEngine.play(this.missionSuccessAudio, false, 1)
+            cc.audioEngine.play(this.missionSuccessAudio, false, 1)
         }
     },
     gameSettlement(){
         if(CACHE.isBGM){
-            this.BGM = cc.audioEngine.play(this.settlementAudio, false, 1);
+            cc.audioEngine.play(this.settlementAudio, false, 1);
         }
     },
     stop(){

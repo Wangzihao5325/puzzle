@@ -177,16 +177,16 @@
     "tapAudio": {
       "__uuid__": "d3b4183c-19fa-458c-baf7-42b48cb3004c"
     },
-    "gameSuccess": {
+    "gameSuccessAudio": {
       "__uuid__": "0924615d-47fb-4119-b7e8-2581677ae260"
     },
-    "gameFail": {
+    "gameFailAudio": {
       "__uuid__": "2a72d98f-8e75-4b34-ad4a-16e50fd57d8b"
     },
-    "missionSuccess": {
+    "missionSuccessAudio": {
       "__uuid__": "18af6f44-7cdd-4944-94e5-5cdf204d037b"
     },
-    "settlement": {
+    "settlementAudio": {
       "__uuid__": "3e305dd0-a19f-4444-af5c-51e50be5063e"
     },
     "_id": "4d5hevS39B77S+ho73cMPj"
@@ -305,7 +305,7 @@
       "array": [
         0,
         0,
-        517.8831914630944,
+        521.347293078232,
         0,
         0,
         0,
