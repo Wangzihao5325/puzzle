@@ -1,6 +1,6 @@
 import { CACHE } from '../global/usual_cache';
 import Api from '../api/api_index';
-
+import { footerNaviPosition } from '../utils/utils';
 
 cc.Class({
     extends: cc.Component,
@@ -259,7 +259,7 @@ cc.Class({
                 this.guideToastNode.active = true;
                 this.guideStep++;
                 setTimeout(() => {
-                    this.handNode.setPosition(cc.v2(0, -500));
+                    this.handNode.setPosition(footerNaviPosition('travel'));
                 }, 500);
             }
             return false;

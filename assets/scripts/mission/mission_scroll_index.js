@@ -1,3 +1,4 @@
+import { CACHE } from '../global/usual_cache';
 cc.Class({
     extends: cc.Component,
 
@@ -42,7 +43,7 @@ cc.Class({
                 locationPosition = cc.v2(positionX, positionY);
             }
         });
-        if (locationPosition) {
+        if (locationPosition && CACHE.userInfo.stage == 99) {
             this.scroll_view.scrollTo(locationPosition, 2);
         }
         this.guideNode._private_location = locationPosition;
