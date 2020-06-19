@@ -9,6 +9,16 @@ cc.Class({
         guideToastArrow: cc.Prefab
     },
 
+    setPliceAnimateCallback(callback) {
+        let gameTestNode = cc.find('Canvas');
+        if (gameTestNode) {
+            let gameTest = gameTestNode.getComponent('game_test');
+            if (gameTest) {
+                gameTest._setPliceAnimationCallback(callback);
+            }
+        }
+    },
+
     awardDone() {
         this.guideStep++;
 
@@ -141,6 +151,10 @@ cc.Class({
         this.node._touchListener.setSwallowTouches(false);
     },
 
+    onTouchStartToolsGuide() {
+
+    },
+
     guideHandShow() {
         if (this.handNode) {
             this.handNode.active = true;
@@ -165,14 +179,12 @@ cc.Class({
         if (!CACHE.isShowGuide) {
             return;
         }
+
+        this.node.zIndex = 10000;
+        this.guideStep = 1;
+
         if (CACHE.userInfo && CACHE.userInfo.stage !== 99) {
             if (CACHE.userInfo.stage == 1 || CACHE.userInfo.stage == 3 || CACHE.userInfo.stage == 6) {
-                this.isSetTouch = true;
-                this.node.zIndex = 10000;
-                this.guideStep = 1;
-
-                // this.guideHandShow();
-
                 //设置callback
                 let conraol = cc.find('Canvas/root/menuWarp');
                 if (conraol) {
@@ -183,44 +195,41 @@ cc.Class({
                 }
 
                 //设置掉落结束的callback
-                let gameTestNode = cc.find('Canvas');
-                if (gameTestNode) {
-                    let gameTest = gameTestNode.getComponent('game_test');
-                    if (gameTest) {
-                        gameTest._setPliceAnimationCallback(() => this.guideHandShow());
-                    }
-                }
-                // 触摸监听
+                this.setPliceAnimateCallback(() => this.guideHandShow());
                 this.node.on(cc.Node.EventType.TOUCH_START, this.onTouchStart, this);
             }
         } else if (CACHE.userInfo.stage == 99) {
             //第一次进入难度大于12块的拼图,引导使用道具
             if (CACHE.hard_level > 0 && CACHE.userInfo.firstTwoStarHurdle) {
-                this.guideToastNode = cc.instantiate(this.guideToast);
-                let obj = this.guideToastNode.getComponent('guideToast');
-                if (obj) {
-                    this.guideToastNode.item_obj = obj;
-                    obj.setContentStr("<color=#887160>恭喜你获得了旅游物品\n可以用它来<color=#e37974>[展览]</color>，赚小钱钱</color>");
-                }
-                this.guideToastNode.parent = this.node;
-                this.guideToastNode.setPosition(0, -300);
+                // this.guideToastNode = cc.instantiate(this.guideToast);
+                // let obj = this.guideToastNode.getComponent('guideToast');
+                // if (obj) {
+                //     this.guideToastNode.item_obj = obj;
+                //     obj.setContentStr("<color=#887160>将直边拼图排列在\n前快试试效果吧!</color>");
+                // }
+                // this.guideToastNode.parent = this.node;
+                // this.guideToastNode.setPosition(180, 380);
 
+                // this.setPliceAnimateCallback(() => setTimeout(() => { this.isInitDone = true }, 1000));
+                // this.node.on(cc.Node.EventType.TOUCH_START, this.onTouchStartToolsGuide, this);
+
+                this.node.zIndex = 10000;
+                this.timer = setTimeout(() => {
+                    this.guideHandShow();
+                }, 10000);
+
+                this.setPliceAnimateCallback(() => setTimeout(() => { this.isInitDone = true }, 1000));
+                this.node.on(cc.Node.EventType.TOUCH_START, this.onTouchStartWithoutGuide, this);
+            } else {
+                //正常拼图，处理未导航时长时间不操作处理
+                this.node.zIndex = 10000;
+                this.timer = setTimeout(() => {
+                    this.guideHandShow();
+                }, 10000);
+
+                this.setPliceAnimateCallback(() => setTimeout(() => { this.isInitDone = true }, 1000));
+                this.node.on(cc.Node.EventType.TOUCH_START, this.onTouchStartWithoutGuide, this);
             }
-            //未导航时长时间不操作处理
-            this.node.zIndex = 10000;
-            this.timer = setTimeout(() => {
-                this.guideHandShow();
-            }, 10000);
-
-            let gameTestNode = cc.find('Canvas');
-            if (gameTestNode) {
-                let gameTest = gameTestNode.getComponent('game_test');
-                if (gameTest) {
-                    gameTest._setPliceAnimationCallback(() => { setTimeout(() => { this.isInitDone = true }, 1000) });
-                }
-            }
-
-            this.node.on(cc.Node.EventType.TOUCH_START, this.onTouchStartWithoutGuide, this);
         }
     },
 

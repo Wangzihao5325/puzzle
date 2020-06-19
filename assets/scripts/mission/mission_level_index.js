@@ -75,8 +75,6 @@ cc.Class({
                 }
             });
         }
-        console.log('kkkk');
-        console.log(hardLevel);
         CACHE.hard_level = hardLevel
     },
 
