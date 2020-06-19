@@ -799,7 +799,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 209.37,
+      "width": 224.92,
       "height": 39.28
     },
     "_anchorPoint": {
@@ -850,8 +850,8 @@
       }
     ],
     "_useOriginalSize": false,
-    "_string": "30分钟--4个小时",
-    "_N$string": "30分钟--4个小时",
+    "_string": "15分钟 -- 2个小时",
+    "_N$string": "15分钟 -- 2个小时",
     "_fontSize": 28,
     "_lineHeight": 28,
     "_enableWrapText": true,
@@ -940,7 +940,7 @@
       "ctor": "Float64Array",
       "array": [
         -241.129,
-        -21.801,
+        -14.686,
         0,
         0,
         0,

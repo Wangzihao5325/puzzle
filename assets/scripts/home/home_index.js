@@ -93,6 +93,9 @@ cc.Class({
 
     //限制猫咪提示气泡
     showCatPop() {
+        if(HOME_CACHE.pet_info.outward){
+            return false
+        }
         const poptext = catPopList[Math.round(Math.random() * (catPopList.length - 1))]
         this.catPopText.string = poptext
 
@@ -107,7 +110,7 @@ cc.Class({
     },
 
 
-    setOUtUi() {
+    setOUtUi(showHanger=true) {
         var outside_item = cc.find(`Canvas/rootWarp/my_home/outside`)
         var catItem = cc.find(`Canvas/rootWarp/my_home/cat/catItem`)
         let { outward } = HOME_CACHE.pet_info
@@ -130,7 +133,7 @@ cc.Class({
         }
 
         //食物吃完了弹窗
-        if (HOME_CACHE.pet_info.currentHungry === 0 && CACHE.userInfo && typeof CACHE.userInfo.stage == 'number' && CACHE.userInfo.stage === 99) {
+        if (showHanger&&HOME_CACHE.pet_info.currentHungry === 0 && CACHE.userInfo && typeof CACHE.userInfo.stage == 'number' && CACHE.userInfo.stage === 99) {
             const canvas = cc.find('Canvas')
             const FoodLackInstant = cc.find('Canvas/FoodLack')
             if (FoodLackInstant) {
@@ -251,7 +254,7 @@ cc.Class({
             const data = res.data;
             if (res.code === 0) {
                 HOME_CACHE.cat_food = res.data;
-                this.resetUI()
+                this.resetUI(false)
                 if (callBack) {
                     callBack()
                 }
@@ -259,7 +262,7 @@ cc.Class({
         });
     },
 
-    resetUI() {
+    resetUI(showHanger) {
         var hungry_warp = cc.find(`processText`, this.hungry_bar)
         hungry_warp.getComponent(cc.Label).string = `${HOME_CACHE.pet_info.currentHungry} \\ ${HOME_CACHE.pet_info.hungryUpperLimit}`
         this.hungry_bar.width = 200 * HOME_CACHE.pet_info.currentHungry / HOME_CACHE.pet_info.hungryUpperLimit
@@ -285,7 +288,7 @@ cc.Class({
             this.bowl0.active = true
         }
 
-        this.setOUtUi()
+        this.setOUtUi(showHanger)
 
 
     },
