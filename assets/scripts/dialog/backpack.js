@@ -99,7 +99,7 @@ cc.Class({
         if(!this.animationFinsh){
             setTimeout(()=>{
                 this.initBackpack()
-            })
+            },500)
             return false
         }
         this.scrollContent.children&&this.scrollContent.children.map(item=>{

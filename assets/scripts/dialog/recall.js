@@ -89,7 +89,7 @@ cc.Class({
         if(!this.animationFinsh){
             setTimeout(()=>{
                 this.initRecall()
-            })
+            },500)
             return false
         }
 
