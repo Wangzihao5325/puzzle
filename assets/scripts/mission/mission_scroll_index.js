@@ -17,14 +17,20 @@ cc.Class({
             type: cc.Node,
             default: null
         },
+        scrollMask: cc.Node,
         guideNode: cc.Node,
     },
 
     initWithArr(arr, missionItemClickCallback) {
+        if (CACHE.platform.isIphoneX) {
+            this.scroll_view.height = 1000;
+            this.scrollMask.height = 1000;
+        }
         let totalHeight = (Math.floor((arr.length - 1) / 2) + 1) * 380;
         this.scroll_content.height = totalHeight;
         this.guideNode.height = totalHeight;
         let locationPosition = null;
+        let locationIndex = 0;
         arr.forEach((item, index) => {
             let cloumn = Math.floor(index / 2);
             let row = index % 2;
@@ -41,10 +47,13 @@ cc.Class({
 
             if (item.lock == false && item.star == 0) {
                 locationPosition = cc.v2(positionX, positionY);
+                locationIndex = index;
             }
         });
-        if (locationPosition && CACHE.userInfo.stage == 99) {
-            this.scroll_view.scrollTo(locationPosition, 2);
+        if ((locationPosition && CACHE.userInfo.stage == 99) || !CACHE.isShowGuide) {
+            let srcollPercent = (Math.floor(locationIndex / 2)) / Math.ceil(arr.length / 2);
+            this.scroll_view.scrollToPercentVertical(1 - srcollPercent, 2)
+            //this.scroll_view.scrollTo(locationPosition, 2);
         }
         this.guideNode._private_location = locationPosition;
     },
