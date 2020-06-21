@@ -94,6 +94,7 @@ cc.Class({
 
     onTouchStart(event) {
         if (!this.isInitDone) {
+            this.node._touchListener.setSwallowTouches(true);
             return;
         }
         if (this.guideStep == 1) {
@@ -133,6 +134,7 @@ cc.Class({
 
     onTouchStartWithoutGuide() {
         if (!this.isInitDone) {
+            this.node._touchListener.setSwallowTouches(true);
             return;
         }
         if (this.handNode) {
@@ -152,7 +154,37 @@ cc.Class({
     },
 
     onTouchStartToolsGuide() {
+        if (!this.isInitDone) {
+            this.node._touchListener.setSwallowTouches(true);
+            return;
+        }
 
+        if (this.guideStep == 1) {
+            if (this.guideToastNode) {
+                this.guideToastNode.active = false;
+            }
+            if (this.handPressNode) {
+                this.handPressNode.active = false;
+            }
+            this.guideStep++;
+        }
+
+        if (this.handNode) {
+            this.handNode.active = false;
+        }
+
+        if (!this.timer) {
+            this.timer = setTimeout(() => {
+                this.guideHandShow();
+            }, 10000);
+        } else {
+            clearTimeout(this.timer);
+            this.timer = setTimeout(() => {
+                this.guideHandShow();
+            }, 10000);
+        }
+        console.log('kkkkk');
+        this.node._touchListener.setSwallowTouches(false);
     },
 
     guideHandShow() {
@@ -201,25 +233,34 @@ cc.Class({
         } else if (CACHE.userInfo.stage == 99) {
             //第一次进入难度大于12块的拼图,引导使用道具
             if (CACHE.hard_level > 0 && CACHE.userInfo.firstTwoStarHurdle) {
-                // this.guideToastNode = cc.instantiate(this.guideToast);
-                // let obj = this.guideToastNode.getComponent('guideToast');
-                // if (obj) {
-                //     this.guideToastNode.item_obj = obj;
-                //     obj.setContentStr("<color=#887160>将直边拼图排列在\n前快试试效果吧!</color>");
-                // }
-                // this.guideToastNode.parent = this.node;
-                // this.guideToastNode.setPosition(180, 380);
-
-                // this.setPliceAnimateCallback(() => setTimeout(() => { this.isInitDone = true }, 1000));
-                // this.node.on(cc.Node.EventType.TOUCH_START, this.onTouchStartToolsGuide, this);
-
-                this.node.zIndex = 10000;
                 this.timer = setTimeout(() => {
                     this.guideHandShow();
                 }, 10000);
 
-                this.setPliceAnimateCallback(() => setTimeout(() => { this.isInitDone = true }, 1000));
-                this.node.on(cc.Node.EventType.TOUCH_START, this.onTouchStartWithoutGuide, this);
+                this.setPliceAnimateCallback(() => setTimeout(() => {
+                    //设置手势提示
+                    this.handPressNode = cc.instantiate(this.hand);
+                    this.handPressNode.scaleX = 0.4;
+                    this.handPressNode.scaleY = 0.4;
+                    this.handPressNode.parent = this.node;
+                    this.handPressNode.setPosition(-30, 530);
+                    let handObj = this.handPressNode.getComponent('guideHand');
+                    if (handObj) {
+                        handObj.handAnimate();
+                    }
+                    //设置文字提示
+                    this.guideToastNode = cc.instantiate(this.guideToast);
+                    let obj = this.guideToastNode.getComponent('guideToast');
+                    if (obj) {
+                        this.guideToastNode.item_obj = obj;
+                        obj.setContentStr("<color=#887160>将直边拼图排列在\n前快试试效果吧!</color>");
+                    }
+                    this.guideToastNode.parent = this.node;
+                    this.guideToastNode.setPosition(180, 380);
+
+                    this.isInitDone = true;
+                }, 1000));
+                this.node.on(cc.Node.EventType.TOUCH_START, this.onTouchStartToolsGuide, this);
             } else {
                 //正常拼图，处理未导航时长时间不操作处理
                 this.node.zIndex = 10000;
