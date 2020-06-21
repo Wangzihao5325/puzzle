@@ -273,28 +273,44 @@ cc.Class({
             return false;
         } else if (CACHE.userInfo.stage == 7 && this.guideStep == 1) {
             if (isEnd) {
+                this.waitting = true;
                 this.animateNode.active = true;
                 this.handNode.active = false;
                 setTimeout(() => {
                     cc.tween(this.animateNode)
                         .to(1, { opacity: 0 })
+                        .call(() => {
+                            this.handNode.active = false;
+                            this.guideToastNode.setPosition(cc.v2(0, 0));
+                            this.guideToastNode.item_obj.setContentStr("<color=#887160>通关<color=#e37974>[三星难度]</color>景点，\n会有<color=#e37974>[稀有]</color>物品掉落！</color>")
+                            this.guideToastNode.active = true;
+                        })
+                        .delay(2)
+                        .call(() => {
+                            this.handNode.setPosition(cc.v2(150, 350));
+                            this.handNode.active = true;
+                            this.guideToastNode.active = false;
+                            this.waitting = false;
+                        })
                         .start()
-                    this.handNode.setPosition(cc.v2(150, 350));
-                    this.handNode.active = true;
                 }, 3000);
                 this.guideStep++;
             }
             return false;
         } else if (CACHE.userInfo.stage == 7 && this.guideStep == 2) {
             if (isEnd) {
-                this.guideStep++;
+                this.guideToastNode.setPosition(cc.v2(0, 100));
+                this.guideToastNode.item_obj.setContentStr("<color=#887160>旅游过的景点都在这里</color>")
+                this.guideToastNode.active = true;
                 this.handNode.setPosition(cc.v2(260, 460));
+                this.guideStep++;
             }
             return false;
         } else if (CACHE.userInfo.stage == 7 && this.guideStep == 3) {
             if (isEnd) {
+                this.guideToastNode.active = false;
+                this.handNode.setPosition(footerNaviPosition('travel'));
                 this.guideStep++;
-                this.handNode.setPosition(cc.v2(0, -500));
             }
             return false;
         } else if (CACHE.userInfo.stage == 7 && this.guideStep == 4) {
@@ -332,7 +348,7 @@ cc.Class({
         } else if (CACHE.userInfo.stage == 99 && !CACHE.userInfo.firstRecallEnded && this.guideStep == 5) {
             if (isEnd) {
                 this.guideStep++;
-                this.handNode.setPosition(cc.v2(0, -500));
+                this.handNode.setPosition(footerNaviPosition('travel'));
             }
             return false;
         } else if (CACHE.userInfo.stage == 99 && !CACHE.userInfo.firstRecallEnded && this.guideStep == 6) {
@@ -345,6 +361,10 @@ cc.Class({
     },
 
     onTouchStart(event) {
+        if (this.waitting) {
+            this.node._touchListener.setSwallowTouches(true);
+            return;
+        }
         if (this.isUserPressIn(event)) {
             this.node._touchListener.setSwallowTouches(this.guide());
         } else {
@@ -357,6 +377,10 @@ cc.Class({
     },
 
     onTouchEnd(event) {
+        if (this.waitting) {
+            this.node._touchListener.setSwallowTouches(true);
+            return;
+        }
         if (this.isUserPressIn(event)) {
             this.node._touchListener.setSwallowTouches(this.guide(true));
         } else {

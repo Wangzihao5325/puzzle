@@ -88,13 +88,14 @@ cc.Class({
 
                                         Api.guideState((res) => {
                                             if (res.data) {
-                                                CACHE.userInfo.stage = res.data.stage;
+                                                //CACHE.userInfo.stage = res.data.stage;
+                                                CACHE.userInfo.stage = 7;
                                                 CACHE.userInfo.firstPetBackHomeEnded = res.data.firstPetBackHomeEnded;
                                                 CACHE.userInfo.firstRecallEnded = res.data.firstRecallEnded;
                                                 CACHE.userInfo.firstRewardTaskEnded = res.data.firstRewardTaskEnded;
                                                 cc.director.loadScene("travel");
                                             }
-                                            if(CACHE.platform.isWachat){
+                                            if (CACHE.platform.isWachat) {
                                                 WxApi.loadUserInfo();
                                             }
                                         });
