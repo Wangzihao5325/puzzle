@@ -26,8 +26,8 @@ cc.Class({
         signClose: cc.Node,
         signGetGoods: cc.Node,
         taskIcon: cc.Node,
-        taskPop:cc.Node,
-        taskPopText:cc.Label,
+        taskPop: cc.Node,
+        taskPopText: cc.Label,
         taskDialog: cc.Prefab,
         signNew: cc.Node,
         taskNew: cc.Node,
@@ -46,7 +46,7 @@ cc.Class({
         let item = null,
             x = 0,
             y = 0;
-        if (CACHE.isShowGuide && typeof CACHE.userInfo.stage !== 99) {
+        if (CACHE.isShowGuide && CACHE.userInfo.stage !== 99) {
             item = cityStateArr[0];
         } else {
             cityStateArr.every((innerItem, index) => {
@@ -384,8 +384,8 @@ cc.Class({
                     ...CACHE.btnTips,
                     ...res.data
                 }
-                this.taskPop.active=res.data.taskDescribe?true:false
-                this.taskPopText.string=res.data.taskDescribe?res.data.taskDescribe:''
+                this.taskPop.active = res.data.taskDescribe ? true : false
+                this.taskPopText.string = res.data.taskDescribe ? res.data.taskDescribe : ''
                 this.updateTaskTips()
             } else {
                 //请求异常处理
