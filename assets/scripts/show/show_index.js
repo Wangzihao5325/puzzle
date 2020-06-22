@@ -54,6 +54,10 @@ cc.Class({
 
         speedUpSelectMaskRoot: cc.Node,
 
+        festivalInfo: cc.Node,
+        festivalInfoBtn1: cc.Node,
+        festivalInfoBtn2: cc.Node,
+
         audio: {
             default: null,
             type: cc.AudioClip
@@ -482,6 +486,37 @@ cc.Class({
         })
         this.bagMask.on(cc.Node.EventType.TOUCH_END, (event) => {
             this.bagRoot.active = false;
+            event.stopPropagation();
+        })
+
+        //festivalinfo touch
+        this.festivalInfoBtn1.on(cc.Node.EventType.TOUCH_START, (event) => {
+            event.stopPropagation();
+        })
+        this.festivalInfoBtn1.on(cc.Node.EventType.TOUCH_MOVE, (event) => {
+            event.stopPropagation();
+        })
+        this.festivalInfoBtn1.on(cc.Node.EventType.TOUCH_END, (event) => {
+            let infoNode = cc.find('Canvas/festivalInfo');
+            let infoObj = infoNode.getComponent('festivalInfo');
+            if (infoObj) {
+                infoObj.show();
+            }
+            event.stopPropagation();
+        })
+
+        this.festivalInfoBtn2.on(cc.Node.EventType.TOUCH_START, (event) => {
+            event.stopPropagation();
+        })
+        this.festivalInfoBtn2.on(cc.Node.EventType.TOUCH_MOVE, (event) => {
+            event.stopPropagation();
+        })
+        this.festivalInfoBtn2.on(cc.Node.EventType.TOUCH_END, (event) => {
+            let infoNode = cc.find('Canvas/festivalInfo');
+            let infoObj = infoNode.getComponent('festivalInfo');
+            if (infoObj) {
+                infoObj.show();
+            }
             event.stopPropagation();
         })
     },
