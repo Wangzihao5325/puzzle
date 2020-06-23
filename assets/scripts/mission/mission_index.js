@@ -98,6 +98,7 @@ cc.Class({
             event.stopPropagation();
         });
         this.back.node.on(cc.Node.EventType.TOUCH_END, (event) => {
+            cc.find("sound").getComponent("sound").tap()
             event.stopPropagation();
             this.goBack();
         });
@@ -110,6 +111,7 @@ cc.Class({
             event.stopPropagation();
         });
         this.detail.node.on(cc.Node.EventType.TOUCH_END, (event) => {
+            cc.find("sound").getComponent("sound").tap()
             this.introduceRoot.active = true;
             event.stopPropagation();
         });
@@ -121,6 +123,7 @@ cc.Class({
             event.stopPropagation();
         })
         this.introduceClose.on(cc.Node.EventType.TOUCH_END, (event) => {
+            cc.find("sound").getComponent("sound").tap()
             this.introduceRoot.active = false;
             event.stopPropagation();
         })
@@ -143,6 +146,7 @@ cc.Class({
             event.stopPropagation();
         })
         this.goodDetailClose.node.on(cc.Node.EventType.TOUCH_END, (event) => {
+            cc.find("sound").getComponent("sound").tap()
             this.goodDetailRoot.active = false;
             event.stopPropagation();
         })
