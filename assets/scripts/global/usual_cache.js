@@ -54,6 +54,7 @@ const CACHE = {
     dragonBoneAnimateName: '',
     lastBagTypeLength: 0,
     isBGM: true,
+    currentBGM:undefined,
     power: {
         num: 0,
         time: 0
@@ -69,7 +70,7 @@ const CACHE = {
         isIphoneX: false,
         visibleSize: null
     },
-    isShowGuide: true,
+    isShowGuide: false,
     btnTips: {
         task: false, //旅行页任务
         dailyTask: false, //日常任务

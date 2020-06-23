@@ -286,9 +286,7 @@ cc.Class({
     // LIFE-CYCLE CALLBACKS:
 
     onLoad() {
-        if (CACHE.isBGM && !this.currentBGM) {
-            this.currentBGM = cc.audioEngine.play(this.audio, true, 1);
-        }
+        cc.find("sound").getComponent("sound").playBg()
     },
 
     start() {
@@ -296,9 +294,6 @@ cc.Class({
     },
 
     onDestroy() {
-        if (this.currentBGM) {
-            cc.audioEngine.stop(this.currentBGM);
-        }
     }
     // update (dt) {},
 });

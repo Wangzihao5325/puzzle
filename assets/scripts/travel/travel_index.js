@@ -357,21 +357,21 @@ cc.Class({
     // LIFE-CYCLE CALLBACKS:
 
     onLoad() {
-        if (CACHE.isBGM && !this.currentBGM) {
-            this.currentBGM = cc.audioEngine.play(this.audio, true, 1);
-        }
+        setTimeout(()=>{
+            cc.find("sound").getComponent("sound").playBg(true)
+        },100)
+
         //设置红点显示或隐藏
         this.loadTaskTips();
     },
 
     start() {
+
         this.init();
+
     },
 
     onDestroy() {
-        if (this.currentBGM) {
-            cc.audioEngine.stop(this.currentBGM);
-        }
         if (this.powerTimerReg) {
             this.powerTimerReg();
             this.powerTimerReg = null;

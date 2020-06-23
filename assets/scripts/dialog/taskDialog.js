@@ -60,6 +60,11 @@ cc.Class({
     start () {
     
     },
+
+    tapSound(){
+        cc.find("sound").getComponent("sound").tap()
+    },
+
     init(type){
         this.warp.setScale(0.2)
         cc.tween(this.warp)
@@ -224,32 +229,39 @@ cc.Class({
             event.stopPropagation();
         })
         this.warp.on(cc.Node.EventType.TOUCH_END, (event) => {
+            this.tapSound()
             event.stopPropagation();
         })
 
         this.close.on(cc.Node.EventType.TOUCH_END, (event) => {
+            this.tapSound()
             this.handleClose()
             event.stopPropagation();
         })
 
         this.type1.on(cc.Node.EventType.TOUCH_END, (event) => {
             this.changeType(0)
+            this.tapSound()
             event.stopPropagation();
         })
         this.type2.on(cc.Node.EventType.TOUCH_END, (event) => {
             this.changeType(1)
+            this.tapSound()
             event.stopPropagation();
         })
         this.git1.on(cc.Node.EventType.TOUCH_END, (event) => {
             this.receiveActive(1)
+            this.tapSound()
             event.stopPropagation();
         })
         this.git2.on(cc.Node.EventType.TOUCH_END, (event) => {
             this.receiveActive(2)
+            this.tapSound()
             event.stopPropagation();
         })
         this.git3.on(cc.Node.EventType.TOUCH_END, (event) => {
             this.receiveActive(3)
+            this.tapSound()
             event.stopPropagation();
         })
 

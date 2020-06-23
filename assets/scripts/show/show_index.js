@@ -702,9 +702,6 @@ cc.Class({
 
     onLoad() {
         this.init();
-        if (CACHE.isBGM && !this.currentBGM) {
-            this.currentBGM = cc.audioEngine.play(this.audio, true, 1);
-        }
     },
 
     onDestroy() {
@@ -714,9 +711,6 @@ cc.Class({
         }
         if (this.vistorTimer) {
             clearInterval(this.vistorTimer);
-        }
-        if (this.currentBGM) {
-            cc.audioEngine.stop(this.currentBGM);
         }
         CACHE.isShouwSpeedUp = false;
     }

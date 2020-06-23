@@ -32,16 +32,14 @@ cc.Class({
 
     onLoad() {
         this.init();
-        if (CACHE.isBGM && !this.currentBGM) {
-            this.currentBGM = cc.audioEngine.play(this.audio, true, 1);
-        }
+        cc.find("sound").getComponent("sound").stop()
+        cc.find("sound").getComponent("sound").playGameBg()
+
     },
 
 
     onDestroy() {
-        if (this.currentBGM) {
-            cc.audioEngine.stop(this.currentBGM);
-        }
+
     },
 
 

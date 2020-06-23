@@ -44,10 +44,12 @@ cc.Class({
     setTouch(callback) {
         this.getBtn.on(cc.Node.EventType.TOUCH_END, (event) => {
             this.receiveReword()
+            cc.find("sound").getComponent("sound").tap()
             event.stopPropagation();
         })
         this.goBtn.on(cc.Node.EventType.TOUCH_END, (event) => {
             this.handleGo()
+            cc.find("sound").getComponent("sound").tap()
             event.stopPropagation();
         })
     },
@@ -83,6 +85,7 @@ cc.Class({
                 this.done.setPosition(180,0)
                 this.done.setScale(2)
                 this.done.opacity=0
+                cc.find("sound").getComponent("sound").missionSuccess()
                 cc.tween(this.done)
                 .to(.3,{scale:1,opacity:255,position:cc.v2(180,0)})
                 .delay(.5)
