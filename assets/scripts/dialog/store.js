@@ -211,6 +211,8 @@ cc.Class({
             this.onScrollingEvent()
         })
         this.close.on(cc.Node.EventType.TOUCH_END, (event) => {
+            cc.find("sound").getComponent("sound").tap()
+
             this.handleClose(event)
             event.stopPropagation();
         })

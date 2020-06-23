@@ -130,10 +130,14 @@ cc.Class({
 
     setTouch() {
         this.close.on(cc.Node.EventType.TOUCH_END, (event) => {
+            cc.find("sound").getComponent("sound").tap()
+
             this.handleClose()
             event.stopPropagation();
         })
         this.actionBtn.on(cc.Node.EventType.TOUCH_END, (event) => {
+            cc.find("sound").getComponent("sound").tap()
+
             this.handleAction()
             event.stopPropagation();
         })

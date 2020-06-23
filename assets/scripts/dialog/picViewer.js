@@ -134,10 +134,14 @@ cc.Class({
         //     event.stopPropagation();
         // })
         this.download.on(cc.Node.EventType.TOUCH_END, (event) => {
+            cc.find("sound").getComponent("sound").tap()
+
             this.handleDownload()
             event.stopPropagation();
         })
         this.warp.on(cc.Node.EventType.TOUCH_END, (event) => {
+            cc.find("sound").getComponent("sound").tap()
+
             this.handleBack()
             event.stopPropagation();
         })

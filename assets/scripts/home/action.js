@@ -201,22 +201,26 @@ cc.Class({
 
     setTouch() {
         this.Feed.on(cc.Node.EventType.TOUCH_END, (event) => {
+            cc.find("sound").getComponent("sound").tap()
             this.show_feed()
             event.stopPropagation();
 
         })
         this.Dress.on(cc.Node.EventType.TOUCH_END, (event) => {
+            cc.find("sound").getComponent("sound").tap()
             this.show_dress()
             event.stopPropagation();
 
         })
         this.Goout.on(cc.Node.EventType.TOUCH_END, (event) => {
+            cc.find("sound").getComponent("sound").tap()
             this.handleGoout()
             event.stopPropagation();
 
         })
 
         this.Action_warp.on(cc.Node.EventType.TOUCH_END, (event) => {
+            cc.find("sound").getComponent("sound").tap()
             this.handleClose()
             event.stopPropagation();
         })

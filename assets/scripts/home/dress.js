@@ -208,10 +208,12 @@ cc.Class({
         })
 
         this.close.on(cc.Node.EventType.TOUCH_START, (event) => {
+            cc.find("sound").getComponent("sound").tap()
             this.handleClose(2)
             event.stopPropagation();
         })
         this.save.on(cc.Node.EventType.TOUCH_START, (event) => {
+            cc.find("sound").getComponent("sound").tap()
             this.handleSave(2)
             event.stopPropagation();
         })

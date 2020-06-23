@@ -175,19 +175,27 @@ cc.Class({
         })
 
         this.close.on(cc.Node.EventType.TOUCH_END, (event) => {
+            cc.find("sound").getComponent("sound").tap()
+
             this.handleClose()
             event.stopPropagation();
         })
 
         this.type1.on(cc.Node.EventType.TOUCH_END, (event) => {
+            cc.find("sound").getComponent("sound").tap()
+
             this.changeType(0)
             event.stopPropagation();
         })
         this.type2.on(cc.Node.EventType.TOUCH_END, (event) => {
+            cc.find("sound").getComponent("sound").tap()
+
             this.changeType(1)
             event.stopPropagation();
         })
         this.type3.on(cc.Node.EventType.TOUCH_END, (event) => {
+            cc.find("sound").getComponent("sound").tap()
+
             this.changeType(2)
             event.stopPropagation();
         })

@@ -56,6 +56,8 @@ cc.Class({
             event.stopPropagation();
         })
         this.item.on(cc.Node.EventType.TOUCH_END, () => {
+            cc.find("sound").getComponent("sound").tap()
+
             this.showDetail()
             event.stopPropagation();
         })

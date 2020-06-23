@@ -35,7 +35,6 @@ cc.Class({
             return false
         }
         const prefabList=[this.energeTip,this.luckyTip]
-        const parentsList=[this.energeItem,this.luckyItem]
         let newNode = cc.instantiate(prefabList[type])
         newNode.parent=this.headerWarp
     },
@@ -66,10 +65,14 @@ cc.Class({
         }
 
         this.energeItem.on(cc.Node.EventType.TOUCH_END, (event) => {
+            cc.find("sound").getComponent("sound").tap()
+            
             this.showTip(0)
             event.stopPropagation();
         })
         this.luckyItem.on(cc.Node.EventType.TOUCH_END, (event) => {
+            cc.find("sound").getComponent("sound").tap()
+            
             this.showTip(1)
             event.stopPropagation();
         })

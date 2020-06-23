@@ -32,6 +32,8 @@ cc.Class({
             event.stopPropagation();
         })
         this.good_bg.node.on(cc.Node.EventType.TOUCH_END, () => {
+            cc.find("sound").getComponent("sound").tap()
+
             if (callback && this.item) {
                 callback(this.item);
             }

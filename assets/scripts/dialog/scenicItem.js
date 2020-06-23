@@ -76,6 +76,8 @@ cc.Class({
             event.stopPropagation();
         })
         this.imageWarp.on(cc.Node.EventType.TOUCH_END, (event) => {
+            cc.find("sound").getComponent("sound").tap()
+
             this.showPic()
             event.stopPropagation();
         })

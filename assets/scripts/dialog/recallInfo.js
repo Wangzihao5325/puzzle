@@ -140,27 +140,33 @@ cc.Class({
             event.stopPropagation();
         })
         this.imageContent.on(cc.Node.EventType.TOUCH_END, (event) => {
+            cc.find("sound").getComponent("sound").tap()
             this.showPic()
             event.stopPropagation();
         })
         this.like.on(cc.Node.EventType.TOUCH_END, (event) => {
+            cc.find("sound").getComponent("sound").tap()
             this.isLike=!this.isLike
             this.touchAnimation(0,event)
             event.stopPropagation();
         })
         this.comment.on(cc.Node.EventType.TOUCH_END, (event) => {
+            cc.find("sound").getComponent("sound").tap()
+
             this.isComment=!this.isComment
             this.touchAnimation(1,event)
             this.toggleComment()
             event.stopPropagation();
         })
         this.share.on(cc.Node.EventType.TOUCH_END, (event) => {
+            cc.find("sound").getComponent("sound").tap()
             this.touchAnimation(2,event)
             this.shareAppMsg()
             event.stopPropagation();
         })
 
         this.closeBtn.on(cc.Node.EventType.TOUCH_END, (event) => {
+            cc.find("sound").getComponent("sound").tap()
             this.handleClose()
             event.stopPropagation();
         })
