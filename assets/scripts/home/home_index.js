@@ -114,6 +114,7 @@ cc.Class({
         var outside_item = cc.find(`Canvas/rootWarp/my_home/outside`)
         var catItem = cc.find(`Canvas/rootWarp/my_home/cat/catItem`)
         let { outward } = HOME_CACHE.pet_info
+        this.cat.active=!outward
         this.showBowl(!outward)
 
         if (outside_item) {
