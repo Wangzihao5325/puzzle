@@ -43,6 +43,8 @@ cc.Class({
             event.stopPropagation();
         })
         this.revive.on(cc.Node.EventType.TOUCH_END, () => {
+            cc.find("sound").getComponent("sound").tap()
+
             this.handleRevive()
             event.stopPropagation();
         })
@@ -54,6 +56,8 @@ cc.Class({
             event.stopPropagation();
         })
         this.noRevive.on(cc.Node.EventType.TOUCH_END, () => {
+            cc.find("sound").getComponent("sound").tap()
+
             this.handleNoRevive()
             event.stopPropagation();
         })

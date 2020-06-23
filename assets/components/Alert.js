@@ -33,7 +33,7 @@
  * neeCancel:       取消点击事件回调  function 类型.
  * duration:        动画速度 default = 0.3.
 */
-window.Alert.show = function (detailString,{title, confirmText, confirmCallBack, showCancel=false, cancelText, cancelCallBack=()=>{},radioValue, animSpeed}) {
+window.Alert.show = function (detailString,{title, confirmText, confirmCallBack, radioValue, animSpeed}) {
 
     // 引用
     var self = this;
@@ -66,21 +66,18 @@ window.Alert.show = function (detailString,{title, confirmText, confirmCallBack,
 
         // // 获取子节点
         Alert._detailLabel = cc.find("contentWarp/alertText", alert).getComponent(cc.Label);
-        Alert._cancelButton = cc.find("cancelButton", alert);
         Alert._confirmButton = cc.find("confirmButton", alert);
         Alert._alertTitle = cc.find("alertTitle", alert).getComponent(cc.Label);
         
         Alert._closeBtn = cc.find("close", alert);
 
 
-        Alert._cancelText = cc.find("cancelButton/Background/cancelText", alert).getComponent(cc.Label);
         Alert._radio = cc.find("contentWarp/tip/radio", alert);
         Alert._checkNode = cc.find("contentWarp/tip/radio/Background/check", alert);
 
         Alert._confirmText = cc.find("confirmButton/Background/confirmText", alert).getComponent(cc.Label);
         // // 添加点击事件
         Alert._confirmButton.on('click', self.onConfirmClick, self);
-        Alert._cancelButton.on('click', self.onCancelClicked, self);
         Alert._closeBtn.on('click',self.onCancelClicked,self)
         Alert._radio.on('click',self.radioClick,self)
 
@@ -91,12 +88,12 @@ window.Alert.show = function (detailString,{title, confirmText, confirmCallBack,
         self.startFadeIn();
 
         // 参数
-        self.configAlert(detailString,title, confirmText, confirmCallBack, showCancel,cancelText, cancelCallBack, animSpeed);
+        self.configAlert(detailString,title, confirmText, confirmCallBack,  animSpeed);
         
     });
 
     // 参数
-    self.configAlert = function (detailString,title, confirmText,confirmCallBack, showCancel, cancletext, cancelCallBack, animSpeed,radioValue) {
+    self.configAlert = function (detailString,title, confirmText,confirmCallBack,animSpeed,radioValue) {
 
         // 回调
         Alert._confirmCallBack = confirmCallBack;
@@ -107,16 +104,6 @@ window.Alert.show = function (detailString,{title, confirmText, confirmCallBack,
         Alert._detailLabel.string = detailString;
         Alert._confirmText.string =confirmText;
 
-        // 是否需要取消按钮
-        if (showCancel || showCancel === undefined) { // 显示
-            Alert._cancelText.string =cancletext;
-            Alert._cancelButton.active = true;
-            Alert._cancelCallBack= cancelCallBack
-        } else {  // 隐藏取消
-            Alert._cancelButton.active = false;
-            Alert._cancelCallBack= cancelCallBack
-            Alert._confirmButton.x = 0;
-        }
     };
 
     // 执行弹进动画
@@ -147,6 +134,8 @@ window.Alert.show = function (detailString,{title, confirmText, confirmCallBack,
 
     // 按钮点击确认事件
     self.onConfirmClick = function(event){
+        cc.find("sound").getComponent("sound").tap()
+
         if(self._confirmCallBack){
             self._confirmCallBack(self._check);
         }
@@ -155,6 +144,8 @@ window.Alert.show = function (detailString,{title, confirmText, confirmCallBack,
 
     // 点击单选框
     self.radioClick = function(event){
+        cc.find("sound").getComponent("sound").tap()
+
         self._check=!self._check;
         console.log("self._check",self._check)
         if(self._check){
@@ -165,6 +156,8 @@ window.Alert.show = function (detailString,{title, confirmText, confirmCallBack,
     };
     // 按钮点击取消事件
     self.onCancelClicked = function(event){
+        cc.find("sound").getComponent("sound").tap()
+
         if(self._cancelCallBack){
             self._cancelCallBack();
         }

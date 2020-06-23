@@ -290,23 +290,33 @@ cc.Class({
         })
 
         this.close.on(cc.Node.EventType.TOUCH_END, (event) => {
+            cc.find("sound").getComponent("sound").tap()
+
             this.handleClose()
             event.stopPropagation();
         })
 
         this.type1.on(cc.Node.EventType.TOUCH_END, (event) => {
+            cc.find("sound").getComponent("sound").tap()
+
             this.changeType(0)
             event.stopPropagation();
         })
         this.type2.on(cc.Node.EventType.TOUCH_END, (event) => {
+            cc.find("sound").getComponent("sound").tap()
+
             this.changeType(1)
             event.stopPropagation();
         })
         this.normalBtn.on(cc.Node.EventType.TOUCH_END, (event) => {
+            cc.find("sound").getComponent("sound").tap()
+
             this.changeRare(0)
             event.stopPropagation();
         })
         this.lackBtn.on(cc.Node.EventType.TOUCH_END, (event) => {
+            cc.find("sound").getComponent("sound").tap()
+
             this.changeRare(1)
             event.stopPropagation();
         })

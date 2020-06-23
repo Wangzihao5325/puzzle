@@ -12,6 +12,7 @@ cc.Class({
         good_name: cc.Node,
         good_pic: cc.Sprite,
         good_bg: cc.Sprite,
+        num:cc.Label,
         root: cc.Node
     },
 
@@ -31,6 +32,8 @@ cc.Class({
             event.stopPropagation();
         })
         this.good_bg.node.on(cc.Node.EventType.TOUCH_END, () => {
+            cc.find("sound").getComponent("sound").tap()
+
             if (callback && this.item) {
                 callback(this.item);
             }
@@ -42,6 +45,7 @@ cc.Class({
         this.item = item;
         this.good_name.getComponent(cc.Label).node.active = true;
         this.good_name.getComponent(cc.Label).string = item.name;
+        this.num.string=`x ${item.num}`
         cc.loader.load(item.icon, (err, texture) => {
             this.good_pic.spriteFrame = new cc.SpriteFrame(texture)
         });

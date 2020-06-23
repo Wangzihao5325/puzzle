@@ -359,29 +359,34 @@ cc.Class({
 
     setTouch(hardLevel) {
         this.cat.on(cc.Node.EventType.TOUCH_END, (event) => {
+            cc.find("sound").getComponent("sound").tap()
             this.showCatAction()
             event.stopPropagation();
         })
         this.store_icon.on(cc.Node.EventType.TOUCH_END, (event) => {
+            cc.find("sound").getComponent("sound").tap()
             this.showStore()
             event.stopPropagation();
         })
         this.recall_icon.on(cc.Node.EventType.TOUCH_END, (event) => {
+            cc.find("sound").getComponent("sound").tap()
             this.showRecall()
             event.stopPropagation();
         })
         this.backpack_icon.on(cc.Node.EventType.TOUCH_END, (event) => {
             console.log("点击背包")
-
+            cc.find("sound").getComponent("sound").tap()
             this.showBackpack()
             event.stopPropagation();
         })
         this.collectIcon.on(cc.Node.EventType.TOUCH_END, (event) => {
+            cc.find("sound").getComponent("sound").tap()
             this.showCollect()
             event.stopPropagation();
         })
         this.bowlWarp.on(cc.Node.EventType.TOUCH_END, (event) => {
             console.log("点击猫盆")
+            cc.find("sound").getComponent("sound").tap()
             this.show_feed()
             event.stopPropagation();
         })

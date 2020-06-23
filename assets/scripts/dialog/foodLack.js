@@ -48,10 +48,14 @@ cc.Class({
 
     setTouch() {
         this.closeBtn.on(cc.Node.EventType.TOUCH_START, (event) => {
+            cc.find("sound").getComponent("sound").tap()
+
             this.handleClose()
             event.stopPropagation();
         })
         this.confirmBtn.on(cc.Node.EventType.TOUCH_START, (event) => {
+            cc.find("sound").getComponent("sound").tap()
+
             this.handleConfirm()
             event.stopPropagation();
         })

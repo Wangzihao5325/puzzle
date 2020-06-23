@@ -185,18 +185,26 @@ cc.Class({
 
     setTouch() {
         this.back.on(cc.Node.EventType.TOUCH_END, (event) => {
+            cc.find("sound").getComponent("sound").tap()
+
             this.handleBack()
             event.stopPropagation();
         })
         this.shareBtn.on(cc.Node.EventType.TOUCH_END, (event) => {
+            cc.find("sound").getComponent("sound").tap()
+
             this.handleShare()
             event.stopPropagation();
         })
         this.download.on(cc.Node.EventType.TOUCH_END, (event) => {
+            cc.find("sound").getComponent("sound").tap()
+
             this.handleDownload()
             event.stopPropagation();
         })
         this.travelBtn.on(cc.Node.EventType.TOUCH_END, (event) => {
+            cc.find("sound").getComponent("sound").tap()
+
             this.handleContinue()
             event.stopPropagation();
         })

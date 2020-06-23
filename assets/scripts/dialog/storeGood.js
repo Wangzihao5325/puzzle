@@ -129,6 +129,8 @@ cc.Class({
 
     setTouch() {
         this.buy.on(cc.Node.EventType.TOUCH_END, (event) => {
+            cc.find("sound").getComponent("sound").tap()
+
             this.handleBuy(event)
             event.stopPropagation();
         })

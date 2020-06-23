@@ -125,18 +125,22 @@ cc.Class({
 
     setTouch() {
         this.cat_food.on(cc.Node.EventType.TOUCH_END, (event) => {
+            cc.find("sound").getComponent("sound").tap()
             this.feed(0)
             event.stopPropagation();
         })
         this.hiq_cat_food.on(cc.Node.EventType.TOUCH_END, (event) => {
+            cc.find("sound").getComponent("sound").tap()
             this.feed(1)
             event.stopPropagation();
         })
         this.catnip.on(cc.Node.EventType.TOUCH_END, (event) => {
+            cc.find("sound").getComponent("sound").tap()
             this.feed(2)
             event.stopPropagation();
         })
         this.close.on(cc.Node.EventType.TOUCH_END, (event) => {
+            cc.find("sound").getComponent("sound").tap()
             this.handleClose(2)
             event.stopPropagation();
         })

@@ -209,6 +209,7 @@ cc.Class({
     setTouch() {
         this.dress_item.on(cc.Node.EventType.TOUCH_END, (event) => {
             // this.handleDressItem()
+            cc.find("sound").getComponent("sound").tap()
             this.setSelect(event)
             event.stopPropagation();
 
