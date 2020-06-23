@@ -47,7 +47,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 644,
-      "height": 1136
+      "height": 1385
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -1772,9 +1772,9 @@
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
-      "r": 255,
-      "g": 255,
-      "b": 255,
+      "r": 250,
+      "g": 185,
+      "b": 91,
       "a": 255
     },
     "_contentSize": {
@@ -2180,7 +2180,7 @@
   {
     "__type__": "cc.Node",
     "_name": "Background",
-    "_objFlags": 512,
+    "_objFlags": 0,
     "_parent": {
       "__id__": 56
     },
@@ -2251,7 +2251,7 @@
   {
     "__type__": "cc.Node",
     "_name": "Label",
-    "_objFlags": 512,
+    "_objFlags": 0,
     "_parent": {
       "__id__": 57
     },
@@ -2290,8 +2290,8 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        0,
-        0,
+        -1.845,
+        7.381,
         0,
         0,
         0,
@@ -5472,7 +5472,7 @@
     "_layoutSize": {
       "__type__": "cc.Size",
       "width": 644,
-      "height": 1136
+      "height": 1385
     },
     "_resize": 0,
     "_N$layoutType": 0,
