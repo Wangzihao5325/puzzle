@@ -18,15 +18,23 @@ cc.Class({
 
     properties: {
         soundNode: cc.Node,
+        loadingBg: cc.Sprite,
+        loadingMask: cc.Sprite
     },
 
     // LIFE-CYCLE CALLBACKS:
 
     // onLoad () {},
+    loadingProgressAdd(nowStep, totalStep, totalWidth) {
+        let nowWidth = Math.floor(nowStep / totalStep * totalWidth);
+        this.loadingMask.node.width = nowWidth
+    },
 
     start() {
         //设置常驻节点
         cc.game.addPersistRootNode(this.soundNode);
+        let totalWidth = this.loadingBg.node.width;
+        let totalStep = 9;
 
         /*加载背景图片*/
         cc.loader.load(BG_ASSET_URL, (errs, results) => {
@@ -35,6 +43,7 @@ cc.Class({
                 return results.getContent(item);
             });
             CACHE.assets.bg = resArr;
+            this.loadingProgressAdd(1, totalStep, totalWidth);
             /*加载城市icon*/
             cc.loader.load(CITY_ICON_URL, (errs, results) => {
                 if (errs) cc.error(errs);
@@ -42,7 +51,7 @@ cc.Class({
                     return results.getContent(item);
                 });
                 CACHE.assets.cityIcon = resArr;
-
+                this.loadingProgressAdd(2, totalStep, totalWidth);
                 /*vister资源*/
                 cc.loader.load(MAN_VISTER, (errs, results) => {
                     if (errs) cc.error(errs);
@@ -50,35 +59,35 @@ cc.Class({
                         return results.getContent(item);
                     });
                     CACHE.assets.manVistor = resArr;
-
+                    this.loadingProgressAdd(3, totalStep, totalWidth);
                     cc.loader.load(WOMAN_VISTER, (errs, results) => {
                         if (errs) cc.error(errs);
                         let resArr = WOMAN_VISTER.map((item) => {
                             return results.getContent(item);
                         });
                         CACHE.assets.womenVistor = resArr;
-
+                        this.loadingProgressAdd(4, totalStep, totalWidth);
                         cc.loader.load(OLD_MAN_VISTER, (errs, results) => {
                             if (errs) cc.error(errs);
                             let resArr = OLD_MAN_VISTER.map((item) => {
                                 return results.getContent(item);
                             });
                             CACHE.assets.oldManVistor = resArr;
-
+                            this.loadingProgressAdd(5, totalStep, totalWidth);
                             cc.loader.load(YOUNG_WOMAN_VISTER, (errs, results) => {
                                 if (errs) cc.error(errs);
                                 let resArr = YOUNG_WOMAN_VISTER.map((item) => {
                                     return results.getContent(item);
                                 });
                                 CACHE.assets.youngWomenVistor = resArr;
-
+                                this.loadingProgressAdd(6, totalStep, totalWidth);
                                 cc.loader.load(VISTER_ATTITUDE, (errs, results) => {
                                     if (errs) cc.error(errs);
                                     let resArr = VISTER_ATTITUDE.map((item) => {
                                         return results.getContent(item);
                                     });
                                     CACHE.assets.vistorAttitude = resArr;
-
+                                    this.loadingProgressAdd(7, totalStep, totalWidth);
                                     /*加载导航资源 */
                                     cc.loader.load(NAVI_ASSETS, (errs, results) => {
                                         if (errs) cc.error(errs);
@@ -86,6 +95,7 @@ cc.Class({
                                             return results.getContent(item);
                                         });
                                         CACHE.assets.naviAssets = resArr;
+                                        this.loadingProgressAdd(8, totalStep, totalWidth);
                                         /**获取新手引导进度 */
                                         // cc.director.loadScene("travel");
 
@@ -95,6 +105,7 @@ cc.Class({
                                                 CACHE.userInfo.firstPetBackHomeEnded = res.data.firstPetBackHomeEnded;
                                                 CACHE.userInfo.firstRecallEnded = res.data.firstRecallEnded;
                                                 CACHE.userInfo.firstRewardTaskEnded = res.data.firstRewardTaskEnded;
+                                                this.loadingProgressAdd(9, totalStep, totalWidth);
                                                 cc.director.loadScene("travel");
                                             }
                                             if (CACHE.platform.isWachat) {
