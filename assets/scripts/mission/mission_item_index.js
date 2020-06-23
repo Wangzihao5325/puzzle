@@ -112,6 +112,7 @@ cc.Class({
         });
 
         this.missionBg.on(cc.Node.EventType.TOUCH_END, (event) => {
+            cc.find("sound").getComponent("sound").tap()
             cc.tween(this.root)
                 .to(0.1, { scale: 1 })
                 .start();

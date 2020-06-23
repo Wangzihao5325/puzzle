@@ -175,6 +175,7 @@ cc.Class({
             event.stopPropagation();
         });
         this.signBtn.node.on(cc.Node.EventType.TOUCH_END, (event) => {
+            cc.find("sound").getComponent("sound").tap()
             event.stopPropagation();
             this.signRoot.active = true;
         });
@@ -186,10 +187,12 @@ cc.Class({
             event.stopPropagation();
         });
         this.signClose.on(cc.Node.EventType.TOUCH_END, (event) => {
+            cc.find("sound").getComponent("sound").tap()
             event.stopPropagation();
             this.signRoot.active = false;
         });
         this.taskIcon.on(cc.Node.EventType.TOUCH_END, (event) => {
+            cc.find("sound").getComponent("sound").tap()
             this.showTask()
             event.stopPropagation();
         });
@@ -203,6 +206,7 @@ cc.Class({
             event.stopPropagation();
         });
         this.signGetGoods.on(cc.Node.EventType.TOUCH_END, (event) => {
+            cc.find("sound").getComponent("sound").tap()
             event.stopPropagation();
             if (CACHE.signData.todaySign) {
                 Toast.show('您今天已经签到过!');

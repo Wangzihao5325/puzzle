@@ -38,6 +38,10 @@ const missionComplete = (payload = { hurdleId: 101001, star: 1 }, callback, fail
     if (stage) {
         payload.stage = stage;
     }
+    if (payload.star > 1 && CACHE.userInfo.firstTwoStarHurdle) {
+        payload.firstTwoStarHurdle = true;
+        CACHE.userInfo.firstTwoStarHurdle = false;
+    }
     new CusHttp().Post(`${API_DOMAIN}/travel/complete`, payload, callback, failedCallback);
 };
 
@@ -194,7 +198,7 @@ const memory_comment = (callback, failedCallback) => new CusHttp().Get(`${API_DO
 
 
 /**
- * 回忆景点点赞&喂食
+ * 回忆景点点赞
  * @param {Object} payload {null:null}
  * @param {Function} callback
  * @param {Function} failedCallback

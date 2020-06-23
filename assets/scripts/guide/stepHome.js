@@ -323,25 +323,73 @@ cc.Class({
             return false;
         } else if (CACHE.userInfo.stage == 99 && !CACHE.userInfo.firstRecallEnded && this.guideStep == 1) {
             if (isEnd) {
+                this.waitting = true;
                 this.guideStep++;
                 this.handNode.setPosition(cc.v2(0, 200));
+                //展示引导文字
+                this.guideToastNode = cc.instantiate(this.guideToast);
+                let guideToastObj = this.guideToastNode.getComponent('guideToast');
+                if (guideToastObj) {
+                    this.guideToastNode.item_obj = guideToastObj;
+                    guideToastObj.setContentStr("<color=#887160>旅行日志记录者满满的回忆</color>");
+                }
+                this.guideToastNode.parent = this.node;
+                this.guideToastNode.setPosition(0, 0);
+                this.guideToastTimer = setTimeout(() => {
+                    cc.tween(this.guideToastNode)
+                        .to(0.5, { opacity: 0 })
+                        .call(() => {
+                            this.guideToastTimer = null;
+                            this.guideToastNode.active = false;
+                            this.waitting = false;
+                        })
+                        .start();
+                }, 1500);
             }
             return false;
         } else if (CACHE.userInfo.stage == 99 && !CACHE.userInfo.firstRecallEnded && this.guideStep == 2) {
             if (isEnd) {
+                this.waitting = true;
                 this.guideStep++;
                 this.handNode.setPosition(cc.v2(-260, -450));
+
+                let guideToastObj = this.guideToastNode.getComponent('guideToast');
+                if (guideToastObj) {
+                    this.guideToastNode.item_obj = guideToastObj;
+                    guideToastObj.setContentStr("<color=#887160>旅行中遇到的每一个人，每\n一件事,每一个美景，都有\n可能成为一生中最难忘的</color>", true);
+                }
+                this.guideToastNode.setPosition(0, 0);
+                this.guideToastNode.opacity = 255;
+                this.guideToastNode.active = true;
+
+                this.guideToastTimer = setTimeout(() => {
+                    cc.tween(this.guideToastNode)
+                        .to(0.5, { opacity: 0 })
+                        .delay(0.5)
+                        .call(() => {
+                            this.guideToastNode.item_obj.setContentStr("<color=#887160>不要吝啬喜欢\n这里可以点赞!</color>");
+                            this.guideToastNode.setPosition(-100, -300);
+                            this.guideToastNode.opacity = 255;
+
+                            this.guideToastTimer = null;
+                            this.waitting = false;
+                        })
+                        .start();
+                }, 1000);
             }
             return false;
         } else if (CACHE.userInfo.stage == 99 && !CACHE.userInfo.firstRecallEnded && this.guideStep == 3) {
             if (isEnd) {
                 this.guideStep++;
+                this.guideToastNode.item_obj.setContentStr("<color=#887160>去更多的地方旅行,\n留下美好的回忆吧!</color>");
+                this.guideToastNode.setPosition(100, 0);
                 this.handNode.setPosition(cc.v2(280, 460));
             }
             return false;
         } else if (CACHE.userInfo.stage == 99 && !CACHE.userInfo.firstRecallEnded && this.guideStep == 4) {
             if (isEnd) {
                 this.guideStep++;
+                this.guideToastNode.active = false;
                 this.handNode.setPosition(cc.v2(250, 430));
             }
             return false;

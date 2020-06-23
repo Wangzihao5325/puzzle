@@ -27,7 +27,9 @@ cc.Class({
             this.timer = null;
             this.isGameOver = true;
         }
-        this.handNode.active = false;
+        if (this.handNode) {
+            this.handNode.active = false;
+        }
 
         //第一次需要增加提示
         if (CACHE.userInfo && CACHE.userInfo.stage == 1) {
@@ -55,6 +57,10 @@ cc.Class({
     showDone() {
         this.isGameOver = true;
         this.showAppear = true;
+        if (this.timer) {
+            clearTimeout(this.timer);
+            this.timer = null;
+        }
         if (this.guideToastNode) {
             this.guideToastNode.active = false;
         }
@@ -62,14 +68,16 @@ cc.Class({
             this.guideToastArrowNode.active = false;
         }
 
-        this.handPressNode = cc.instantiate(this.hand);
-        this.handPressNode.scaleX = 0.7;
-        this.handPressNode.scaleY = 0.7;
-        this.handPressNode.parent = this.node;
-        this.handPressNode.setPosition(-230, 480);
-        let obj = this.handPressNode.getComponent('guideHand');
-        if (obj) {
-            obj.handAnimate();
+        if (CACHE.userInfo.stage !== 99) {
+            this.handPressNode = cc.instantiate(this.hand);
+            this.handPressNode.scaleX = 0.7;
+            this.handPressNode.scaleY = 0.7;
+            this.handPressNode.parent = this.node;
+            this.handPressNode.setPosition(-230, 480);
+            let obj = this.handPressNode.getComponent('guideHand');
+            if (obj) {
+                obj.handAnimate();
+            }
         }
     },
 
@@ -79,15 +87,15 @@ cc.Class({
             clearTimeout(this.timer);
             this.timer = null;
         }
-        this.handNode.active = false;
+        if (this.handNode) {
+            this.handNode.active = false;
+        }
     },
 
     rebornDone() {
         this.isGameOver = false;
         this.timer = setTimeout(() => {
-            if (this.handNode) {
-                this.handNode.active = true;
-            }
+            this.guideHandShow();
         }, 10000);
     },
 
@@ -140,15 +148,17 @@ cc.Class({
         if (this.handNode) {
             this.handNode.active = false;
         }
-        if (!this.timer) {
-            this.timer = setTimeout(() => {
-                this.guideHandShow();
-            }, 10000);
-        } else {
-            clearTimeout(this.timer);
-            this.timer = setTimeout(() => {
-                this.guideHandShow();
-            }, 10000);
+        if (!this.isGameOver) {
+            if (!this.timer) {
+                this.timer = setTimeout(() => {
+                    this.guideHandShow();
+                }, 10000);
+            } else {
+                clearTimeout(this.timer);
+                this.timer = setTimeout(() => {
+                    this.guideHandShow();
+                }, 10000);
+            }
         }
         this.node._touchListener.setSwallowTouches(false);
     },
@@ -173,17 +183,18 @@ cc.Class({
             this.handNode.active = false;
         }
 
-        if (!this.timer) {
-            this.timer = setTimeout(() => {
-                this.guideHandShow();
-            }, 10000);
-        } else {
-            clearTimeout(this.timer);
-            this.timer = setTimeout(() => {
-                this.guideHandShow();
-            }, 10000);
+        if (!this.isGameOver) {
+            if (!this.timer) {
+                this.timer = setTimeout(() => {
+                    this.guideHandShow();
+                }, 10000);
+            } else {
+                clearTimeout(this.timer);
+                this.timer = setTimeout(() => {
+                    this.guideHandShow();
+                }, 10000);
+            }
         }
-        console.log('kkkkk');
         this.node._touchListener.setSwallowTouches(false);
     },
 
@@ -215,17 +226,17 @@ cc.Class({
         this.node.zIndex = 10000;
         this.guideStep = 1;
 
+        //设置callback
+        let conraol = cc.find('Canvas/root/menuWarp');
+        if (conraol) {
+            let conraolComponent = conraol.getComponent('conraol');
+            if (conraolComponent) {
+                conraolComponent._guideCallbackSetting(() => this.awardDone(), () => this.showDone(), () => this.failedDone(), () => this.rebornDone());
+            }
+        }
+
         if (CACHE.userInfo && CACHE.userInfo.stage !== 99) {
             if (CACHE.userInfo.stage == 1 || CACHE.userInfo.stage == 3 || CACHE.userInfo.stage == 6) {
-                //设置callback
-                let conraol = cc.find('Canvas/root/menuWarp');
-                if (conraol) {
-                    let conraolComponent = conraol.getComponent('conraol');
-                    if (conraolComponent) {
-                        conraolComponent._guideCallbackSetting(() => this.awardDone(), () => this.showDone(), () => this.failedDone(), () => this.rebornDone());
-                    }
-                }
-
                 //设置掉落结束的callback
                 this.setPliceAnimateCallback(() => this.guideHandShow());
                 this.node.on(cc.Node.EventType.TOUCH_START, this.onTouchStart, this);

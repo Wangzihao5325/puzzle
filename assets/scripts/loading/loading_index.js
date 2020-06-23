@@ -17,7 +17,7 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
-        soundNode:cc.Node,
+        soundNode: cc.Node,
     },
 
     // LIFE-CYCLE CALLBACKS:
