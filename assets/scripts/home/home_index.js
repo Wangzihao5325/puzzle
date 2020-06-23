@@ -70,14 +70,14 @@ cc.Class({
         feedWarpInstan.name = 'feedWarp';
         var warp_parent = cc.find(`Canvas`)
         feedWarpInstan.parent = warp_parent
-        feedWarpInstan.setPosition(0, -1000);
+        // feedWarpInstan.setPosition(0, 0);
 
-        cc.tween(feedWarpInstan)
-            .to(.2, { position: cc.v2(0, -268) })
-            .to(.1, { position: cc.v2(0, -388) })
-            .start()
-        const feed = feedWarpInstan.getComponent('feed')
-        feed.resetUI()
+        // cc.tween(feedWarpInstan)
+        //     .to(.2, { position: cc.v2(0, -268) })
+        //     .to(.1, { position: cc.v2(0, -388) })
+        //     .start()
+        // const feed = feedWarpInstan.getComponent('feed')
+        // feed.resetUI()
     },
 
     showBowl(show = true) {
@@ -110,7 +110,7 @@ cc.Class({
     },
 
 
-    setOUtUi(showHanger=true) {
+    setOUtUi(showHanger=false) {
         var outside_item = cc.find(`Canvas/rootWarp/my_home/outside`)
         var catItem = cc.find(`Canvas/rootWarp/my_home/cat/catItem`)
         let { outward } = HOME_CACHE.pet_info
@@ -193,7 +193,7 @@ cc.Class({
         });
     },
 
-    getPetHunger(callBack) {
+    getPetHunger(callBack,showHunger=false) {
         Api.petHungry((res) => {
             const data = res.data;
             if (res.code === 0) {
@@ -203,7 +203,7 @@ cc.Class({
                 }
                 this.setHungerTimer(data.refreshTime)
 
-                this.resetUI()
+                this.resetUI(showHunger)
                 if (callBack) {
                     callBack()
                 }
@@ -319,7 +319,7 @@ cc.Class({
     init() {
         this.getPetInfo()
         this.getFoodRemain()
-        this.getPetHunger()
+        this.getPetHunger(undefined,true)
         // this.initDress()
         this.getBackNotice()
         this.initCat()

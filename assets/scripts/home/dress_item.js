@@ -14,6 +14,7 @@ cc.Class({
     properties: {
         dress_item: cc.Node,
         bg: cc.Sprite,
+        bgWarp:cc.Node,
         type: cc.Sprite,
         iconWarp:cc.Node,
         iconWarpContent:cc.Node,
@@ -56,6 +57,13 @@ cc.Class({
 
     init(item){
         cc.loader.load(item.iconImg, (err, texture)=> {
+            const width=texture.width;
+            const height=texture.height;
+            if(width>=height){
+                this.bgWarp.height=90*height/width
+            }else{
+                this.bgWarp.width=90*width/heigh
+            }
             this.bg.spriteFrame=new cc.SpriteFrame(texture)
         });
         this.iconName=item.iconName;

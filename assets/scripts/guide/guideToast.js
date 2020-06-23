@@ -15,8 +15,9 @@ cc.Class({
         tail: cc.Node,
     },
 
-    setContentStr(string) {
+    setContentStr(string, isHeightFit) {
         let biggerSize = 120;//margin*2
+        let biggerHeight = 30;
         this.richText.node.opacity = 1;
         this.richText.string = string;
         setTimeout(() => {
@@ -24,6 +25,11 @@ cc.Class({
               确保富文本的渲染执行完毕*/
             let bgWidth = this.richText.node.width + biggerSize;
             this.txtBg.width = bgWidth;
+            if (isHeightFit) {
+                this.txtBg.height = this.richText.node.height + biggerHeight * 2;
+            } else {
+                this.txtBg.height = 120;
+            }
             this.tail.x = -bgWidth / 2;
             this.richText.node.opacity = 255;
         }, 0);

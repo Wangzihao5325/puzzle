@@ -127,21 +127,26 @@ cc.Class({
             case 2:
                 //完成宠物外出
                 cc.director.loadScene("my_home");
-                setTimeout(()=>{
-                    const obj=cc.find('Canvas').getComponent('home_index')
-                    obj.showCatAction(true)
-                },3000)
+                // setTimeout(()=>{
+                //     const obj=cc.find('Canvas').getComponent('home_index')
+                //     obj.showCatAction(true)
+                // },3000)
                 break;
             case 3:
                 //宠物喂养
                 cc.director.loadScene("my_home");
-                setTimeout(()=>{
-                    const obj=cc.find('Canvas').getComponent('home_index')
-                    obj.show_feed()
-                },3000)
+                // setTimeout(()=>{
+                //     const obj=cc.find('Canvas').getComponent('home_index')
+                //     obj.show_feed()
+                // },3000)
                 break;
             case 4:
                 //签到
+                const taskDialog=cc.find('Canvas/task')
+                const taskDialogobj=taskDialog.getComponent('taskDialog')
+                taskDialogobj.handleClose()
+                const obj=cc.find('Canvas').getComponent('travel_index')
+                obj.showSignDialog()
                 break;
         }
 

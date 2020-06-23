@@ -38,6 +38,10 @@ const missionComplete = (payload = { hurdleId: 101001, star: 1 }, callback, fail
     if (stage) {
         payload.stage = stage;
     }
+    if (payload.star > 1 && CACHE.userInfo.firstTwoStarHurdle) {
+        payload.firstTwoStarHurdle = true;
+        CACHE.userInfo.firstTwoStarHurdle = false;
+    }
     new CusHttp().Post(`${API_DOMAIN}/travel/complete`, payload, callback, failedCallback);
 };
 

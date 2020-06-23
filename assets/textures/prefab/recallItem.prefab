@@ -1911,6 +1911,9 @@
     "time": {
       "__id__": 46
     },
+    "weatherIconContent": {
+      "__id__": 41
+    },
     "weatherIcon": {
       "__id__": 42
     },

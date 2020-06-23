@@ -14,6 +14,7 @@ cc.Class({
         pic: cc.Sprite,
         new:cc.Node,
         time:cc.Label,
+        weatherIconContent:cc.Node,
         weatherIcon:cc.Sprite,
         item:{
             type:Object,
@@ -65,11 +66,20 @@ cc.Class({
 
 
         cc.loader.load(item.picUrl, (err, texture) => {
+
+
             this.pic.spriteFrame = new cc.SpriteFrame(texture)
         });
 
         const weatherIcon=this.weatherIcon
         cc.loader.load(item.weatherUrl, (err, texture)=> {
+            const width=texture.width;
+            const height=texture.height;
+            if(width>=height){
+                this.weatherIconContent.height=Math.ceil(30*height/width)
+            }else{
+                this.weatherIconContent.width=Math.ceil(20*width/height)
+            }
             weatherIcon.spriteFrame=new cc.SpriteFrame(texture)
         });
 
