@@ -85,12 +85,16 @@ window.DebrisLack.show = function (_confirmCallBack=()=>{},animSpeed ) {
 
     };
     self.close = function (){
+        cc.find("sound").getComponent("sound").tap()
+
         self.startFadeOut();
 
     }
 
     // 按钮点击事件
     self.onButtonClicked = function(event){
+        cc.find("sound").getComponent("sound").tap()
+
         if(event.target.name == "confirm"){
             if(self._confirmButton){
                 self._confirmButton();

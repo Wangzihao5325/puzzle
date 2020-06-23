@@ -134,6 +134,8 @@ window.Alert.show = function (detailString,{title, confirmText, confirmCallBack,
 
     // 按钮点击确认事件
     self.onConfirmClick = function(event){
+        cc.find("sound").getComponent("sound").tap()
+
         if(self._confirmCallBack){
             self._confirmCallBack(self._check);
         }
@@ -142,6 +144,8 @@ window.Alert.show = function (detailString,{title, confirmText, confirmCallBack,
 
     // 点击单选框
     self.radioClick = function(event){
+        cc.find("sound").getComponent("sound").tap()
+
         self._check=!self._check;
         console.log("self._check",self._check)
         if(self._check){
@@ -152,6 +156,8 @@ window.Alert.show = function (detailString,{title, confirmText, confirmCallBack,
     };
     // 按钮点击取消事件
     self.onCancelClicked = function(event){
+        cc.find("sound").getComponent("sound").tap()
+
         if(self._cancelCallBack){
             self._cancelCallBack();
         }
