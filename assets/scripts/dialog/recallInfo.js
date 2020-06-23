@@ -69,7 +69,12 @@ cc.Class({
         Api.memory_travelInfo({hurdleId:item.hurdleId},res=>{
             if(res.code===0){
                 const data=res.data;
-
+                this.recallInfo = data
+                //初始化点赞
+                if (this.recallInfo.praise) {
+                    this.isLike=true
+                    this.touchAnimation(0,event)
+                }
                 // this.item = item;
                 // this.time.string = dateFormat((new Date()),'yyyy-MM-dd');
                 // if(index===0){
@@ -146,9 +151,15 @@ cc.Class({
         })
         this.like.on(cc.Node.EventType.TOUCH_END, (event) => {
             cc.find("sound").getComponent("sound").tap()
-            this.isLike=!this.isLike
-            this.touchAnimation(0,event)
-            event.stopPropagation();
+            if (!this.isLike) {
+                this.isLike=true
+                Api.memory_praise({"hurdleId": this.recallInfo.hurdleId}, (res) => {
+                    if (res.code === 0) {
+                        this.touchAnimation(0,event)
+                    }
+                })
+                event.stopPropagation();
+            }
         })
         this.comment.on(cc.Node.EventType.TOUCH_END, (event) => {
             cc.find("sound").getComponent("sound").tap()
@@ -183,7 +194,6 @@ cc.Class({
     },
 
     init(item,index) {
-
         this.getRecallInfo(item)
         this.position.string=`${item.chapterName} · ${item.hurdleName}`
         this.time.string = dateFormat((new Date(item.createTime)),'yyyy-MM-dd');

@@ -64,20 +64,20 @@ cc.Class({
     playBg(foce){
         if (CACHE.isBGM && CACHE.currentBGM===undefined) {
             console.log("播放音乐")
-            CACHE.currentBGM = cc.audioEngine.play(this.audio, true, 0.6);
+            CACHE.currentBGM = cc.audioEngine.play(this.audio, true, 0.1);
             console.log("开始",CACHE.currentBGM)
 
         }else if(foce){
             cc.audioEngine.stop(CACHE.currentBGM);
-            CACHE.currentBGM = cc.audioEngine.play(this.audio, true, 0.6);
+            CACHE.currentBGM = cc.audioEngine.play(this.audio, true, 0.1);
         }
     },
     playGameBg(){
         if (CACHE.isBGM&&CACHE.currentBGM===undefined) {
-            CACHE.currentBGM = cc.audioEngine.play(this.gameBg, true, 0.6);
+            CACHE.currentBGM = cc.audioEngine.play(this.gameBg, true, 0.1);
         }else if(CACHE.currentBGM){
             cc.audioEngine.stop(CACHE.currentBGM);
-            CACHE.currentBGM = cc.audioEngine.play(this.gameBg, true, 0.6);
+            CACHE.currentBGM = cc.audioEngine.play(this.gameBg, true, 0.1);
         }
     },
     tap(){

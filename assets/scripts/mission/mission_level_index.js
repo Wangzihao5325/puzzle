@@ -60,6 +60,7 @@ cc.Class({
         });
 
         this.backBtn.node.on(cc.Node.EventType.TOUCH_END, (event) => {
+            cc.find("sound").getComponent("sound").tap()
             if (this.item_node) {
                 this.item_node.active = false;
             }
@@ -106,6 +107,7 @@ cc.Class({
             event.stopPropagation();
         });
         this.startBtn.node.on(cc.Node.EventType.TOUCH_END, (event) => {
+            cc.find("sound").getComponent("sound").tap()
             event.stopPropagation();
             if (!isNaN(CACHE.hard_level)) {
                 this.handleTravel()//调用拼图

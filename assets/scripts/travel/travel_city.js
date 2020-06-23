@@ -55,6 +55,7 @@ cc.Class({
         })
 
         this.city_image.node.on(cc.Node.EventType.TOUCH_END, (event) => {
+            cc.find("sound").getComponent("sound").tap()
             if (this.itemObj.isLocked) {
                 Toast.show('该城市尚未解锁')
             } else {
