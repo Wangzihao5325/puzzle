@@ -143,8 +143,8 @@ cc.Class({
             case 4:
                 //签到
                 const taskDialog=cc.find('Canvas/task')
-                const obj=taskDialog.getComponent('taskDialog')
-                obj.handleClose()
+                const taskDialogobj=taskDialog.getComponent('taskDialog')
+                taskDialogobj.handleClose()
                 const obj=cc.find('Canvas').getComponent('travel_index')
                 obj.showSignDialog()
                 break;
