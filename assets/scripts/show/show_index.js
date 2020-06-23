@@ -109,17 +109,20 @@ cc.Class({
         })
         /**关闭btn */
         this.speedUpPopClose.node.on(cc.Node.EventType.TOUCH_END, (event) => {
+            cc.find("sound").getComponent("sound").tap()
             this.speedUpPopRoot.active = false;
             event.stopPropagation();
         })
         /**看视频 */
         this.speedUpPopVideo.node.on(cc.Node.EventType.TOUCH_END, (event) => {
+            cc.find("sound").getComponent("sound").tap()
             //to do:增加观看视频全部减速的处理
             Toast.show('视频功能尚未开放哦!');
             event.stopPropagation()
         })
         /**不看视频 */
         this.speedUpPopNoVideo.node.on(cc.Node.EventType.TOUCH_END, (event) => {
+            cc.find("sound").getComponent("sound").tap()
             CACHE.isShouwSpeedUp = true;
             this.speedUpPopRoot.active = false;
             Toast.show('请选择一个正在展览中的展台');
@@ -412,6 +415,7 @@ cc.Class({
             event.stopPropagation();
         })
         this.bagBtn0.node.on(cc.Node.EventType.TOUCH_END, (event) => {
+            cc.find("sound").getComponent("sound").tap()
             this.label0.node.opacity = 255;
             this.label1.node.opacity = 100;
             this.label2.node.opacity = 100;
@@ -431,6 +435,7 @@ cc.Class({
             event.stopPropagation();
         })
         this.bagBtn1.node.on(cc.Node.EventType.TOUCH_END, (event) => {
+            cc.find("sound").getComponent("sound").tap()
             this.label0.node.opacity = 100;
             this.label1.node.opacity = 255;
             this.label2.node.opacity = 100;
@@ -450,6 +455,7 @@ cc.Class({
             event.stopPropagation();
         })
         this.bagBtn2.node.on(cc.Node.EventType.TOUCH_END, (event) => {
+            cc.find("sound").getComponent("sound").tap()
             this.label0.node.opacity = 100;
             this.label1.node.opacity = 100;
             this.label2.node.opacity = 255;
@@ -469,6 +475,7 @@ cc.Class({
             event.stopPropagation();
         })
         this.bagBtn3.node.on(cc.Node.EventType.TOUCH_END, (event) => {
+            cc.find("sound").getComponent("sound").tap()
             this.label0.node.opacity = 100;
             this.label1.node.opacity = 100;
             this.label2.node.opacity = 100;
@@ -488,6 +495,7 @@ cc.Class({
             event.stopPropagation();
         })
         this.bagMask.on(cc.Node.EventType.TOUCH_END, (event) => {
+            cc.find("sound").getComponent("sound").tap()
             this.bagRoot.active = false;
             event.stopPropagation();
         })
@@ -500,6 +508,7 @@ cc.Class({
             event.stopPropagation();
         })
         this.festivalInfoBtn1.on(cc.Node.EventType.TOUCH_END, (event) => {
+            cc.find("sound").getComponent("sound").tap()
             let infoNode = cc.find('Canvas/festivalInfo');
             let infoObj = infoNode.getComponent('festivalInfo');
             if (infoObj) {
@@ -515,6 +524,7 @@ cc.Class({
             event.stopPropagation();
         })
         this.festivalInfoBtn2.on(cc.Node.EventType.TOUCH_END, (event) => {
+            cc.find("sound").getComponent("sound").tap()
             let infoNode = cc.find('Canvas/festivalInfo');
             let infoObj = infoNode.getComponent('festivalInfo');
             if (infoObj) {
@@ -587,6 +597,7 @@ cc.Class({
             event.stopPropagation();
         });
         this.catBtn.node.on(cc.Node.EventType.TOUCH_END, (event) => {
+            cc.find("sound").getComponent("sound").tap()
             const showData = CACHE.showData;
             Api.festivalReceive({ festivalId: showData.festivalInfo.festivalId }, (res) => {
                 if (res.message) {
@@ -663,6 +674,7 @@ cc.Class({
             event.stopPropagation();
         })
         this.heartMask.node.on(cc.Node.EventType.TOUCH_END, (event) => {
+            cc.find("sound").getComponent("sound").tap()
             if (CACHE.showData.heartEnergy == 100) {
                 if (CACHE.isShowOn[0] || CACHE.isShowOn[1] || CACHE.isShowOn[2]) {
                     this.speedUpPopRoot.zIndex = 1000;

@@ -180,7 +180,7 @@
       "array": [
         0,
         0,
-        350.74028853269766,
+        404.4338635673329,
         0,
         0,
         0,
@@ -400,7 +400,7 @@
       "__id__": 6
     },
     "_children": [],
-    "_active": true,
+    "_active": false,
     "_components": [],
     "_prefab": null,
     "_opacity": 255,

@@ -124,6 +124,7 @@ cc.Class({
 
         })
         this.header.on(cc.Node.EventType.TOUCH_END, (event) => {
+            cc.find("sound").getComponent("sound").tap()
             if (this.timer && CACHE.isShouwSpeedUp) {
                 Api.showSpeedUp({ placeId: this.data_item.placeId }, (res) => {
                     CACHE.isShouwSpeedUp = false;
@@ -202,6 +203,7 @@ cc.Class({
 
         })
         this.receiveBtn.on(cc.Node.EventType.TOUCH_END, (event) => {
+            cc.find("sound").getComponent("sound").tap()
             if (receiveCallback) {
                 receiveCallback(this.data_item);
             }
@@ -218,6 +220,7 @@ cc.Class({
 
         })
         this.lockNode.on(cc.Node.EventType.TOUCH_END, (event) => {
+            cc.find("sound").getComponent("sound").tap()
             if (this.data_item.standId == 1) {
                 Toast.show('到达北京解锁');
             } else if (this.data_item.standId == 2) {
