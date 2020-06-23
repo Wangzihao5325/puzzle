@@ -257,7 +257,10 @@ cc.Class({
 
 
     randomCreateVistor() {
-        let randomY = -420 - Math.floor((50 * Math.random()));
+        //根据机型适配游客出现的位置
+        let originY = -(CACHE.platform.visibleSize.height / 2 - 148);
+        originY = originY >= -420 ? -420 : originY;
+        let randomY = originY - Math.floor((50 * Math.random()));
         let startX = (Math.random() - 0.5) > 0 ? 450 : -450;
         let pauseX = (Math.floor(Math.random() * 400)) - 200;
         let payload = {

@@ -55,6 +55,10 @@ cc.Class({
     showDone() {
         this.isGameOver = true;
         this.showAppear = true;
+        if (this.timer) {
+            clearTimeout(this.timer);
+            this.timer = null;
+        }
         if (this.guideToastNode) {
             this.guideToastNode.active = false;
         }
@@ -79,15 +83,15 @@ cc.Class({
             clearTimeout(this.timer);
             this.timer = null;
         }
-        this.handNode.active = false;
+        if (this.handNode) {
+            this.handNode.active = false;
+        }
     },
 
     rebornDone() {
         this.isGameOver = false;
         this.timer = setTimeout(() => {
-            if (this.handNode) {
-                this.handNode.active = true;
-            }
+            this.guideHandShow();
         }, 10000);
     },
 
@@ -140,15 +144,17 @@ cc.Class({
         if (this.handNode) {
             this.handNode.active = false;
         }
-        if (!this.timer) {
-            this.timer = setTimeout(() => {
-                this.guideHandShow();
-            }, 10000);
-        } else {
-            clearTimeout(this.timer);
-            this.timer = setTimeout(() => {
-                this.guideHandShow();
-            }, 10000);
+        if (!this.isGameOver) {
+            if (!this.timer) {
+                this.timer = setTimeout(() => {
+                    this.guideHandShow();
+                }, 10000);
+            } else {
+                clearTimeout(this.timer);
+                this.timer = setTimeout(() => {
+                    this.guideHandShow();
+                }, 10000);
+            }
         }
         this.node._touchListener.setSwallowTouches(false);
     },
@@ -173,17 +179,18 @@ cc.Class({
             this.handNode.active = false;
         }
 
-        if (!this.timer) {
-            this.timer = setTimeout(() => {
-                this.guideHandShow();
-            }, 10000);
-        } else {
-            clearTimeout(this.timer);
-            this.timer = setTimeout(() => {
-                this.guideHandShow();
-            }, 10000);
+        if (!this.isGameOver) {
+            if (!this.timer) {
+                this.timer = setTimeout(() => {
+                    this.guideHandShow();
+                }, 10000);
+            } else {
+                clearTimeout(this.timer);
+                this.timer = setTimeout(() => {
+                    this.guideHandShow();
+                }, 10000);
+            }
         }
-        console.log('kkkkk');
         this.node._touchListener.setSwallowTouches(false);
     },
 
