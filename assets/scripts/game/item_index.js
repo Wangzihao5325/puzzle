@@ -50,6 +50,7 @@ cc.Class({
 
         })
         this.node.on(cc.Node.EventType.TOUCH_END, () => {
+            cc.find("sound").getComponent("sound").tap()
             this.item_node.zIndex= 1//恢复z-index
             // this.item_node.setScale(0.25)
 

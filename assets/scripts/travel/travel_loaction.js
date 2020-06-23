@@ -21,6 +21,7 @@ cc.Class({
 
     setTouch() {
         this.bg.node.on(cc.Node.EventType.TOUCH_START, (event) => {
+            cc.find("sound").getComponent("sound").tap()
             event.stopPropagation();
             let cityStateArr = CITIES;
             cityStateArr.every((item) => {

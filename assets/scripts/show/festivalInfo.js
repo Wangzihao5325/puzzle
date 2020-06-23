@@ -36,6 +36,7 @@ cc.Class({
             event.stopPropagation();
         })
         this.closeBtn.on(cc.Node.EventType.TOUCH_END, (event) => {
+            cc.find("sound").getComponent("sound").tap()
             this.node.active = false;
             event.stopPropagation();
         })

@@ -79,6 +79,7 @@ cc.Class({
             event.stopPropagation();
         });
         this.mainBg.node.on(cc.Node.EventType.TOUCH_END, (event) => {
+            cc.find("sound").getComponent("sound").tap()
             event.stopPropagation();
             this.setClicked(hardLevel, callback);
         });

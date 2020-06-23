@@ -229,18 +229,22 @@ cc.Class({
 
     setTouch() {
         this.magnet.on(cc.Node.EventType.TOUCH_START, (event) => {
+            cc.find("sound").getComponent("sound").tap()
             this.handleClidkMagnet()
             event.stopPropagation();
         })
         this.sort.on(cc.Node.EventType.TOUCH_START, (event) => {
+            cc.find("sound").getComponent("sound").tap()
             this.handleClickSort()
             event.stopPropagation();
         })
         this.viewIcon.on(cc.Node.EventType.TOUCH_START, (event) => {
+            cc.find("sound").getComponent("sound").tap()
             this.handleView()
             event.stopPropagation();
         })
         this.pauseBtn.on(cc.Node.EventType.TOUCH_START, (event) => {
+            cc.find("sound").getComponent("sound").tap()
             this.gamePause()
             event.stopPropagation();
         })

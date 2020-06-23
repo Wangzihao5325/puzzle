@@ -56,18 +56,22 @@ cc.Class({
 
     setTouch(hardLevel) {
         this.close.on(cc.Node.EventType.TOUCH_START, (event) => {
+            cc.find("sound").getComponent("sound").tap()
             this.closeDialog()
             event.stopPropagation();
         })
         this.back.on(cc.Node.EventType.TOUCH_START, (event) => {
+            cc.find("sound").getComponent("sound").tap()
             this.goBack()
             event.stopPropagation();
         })
         this.continue.on(cc.Node.EventType.TOUCH_START, (event) => {
+            cc.find("sound").getComponent("sound").tap()
             this.continueGame()
             event.stopPropagation();
         })
         this.sound.on(cc.Node.EventType.TOUCH_START, (event) => {
+            cc.find("sound").getComponent("sound").tap()
             this.toglleSound()
             event.stopPropagation();
         })
