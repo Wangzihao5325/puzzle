@@ -152,6 +152,10 @@ cc.Class({
         task.parent = cc.find('Canvas');
     },
 
+    showSignDialog(){
+        this.signRoot.active = true;
+    },
+
     signSetTouch() {//signBg
 
         this.signBg.on(cc.Node.EventType.TOUCH_START, (event) => {

@@ -5,6 +5,7 @@
 // Learn life-cycle callbacks:
 //  - https://docs.cocos.com/creator/manual/en/scripting/life-cycle-callbacks.html
 import { CAR_FOOD,HOME_CACHE } from "../global/home_global"
+import {CACHE} from '../global/usual_cache'
 import Api from '../api/api_index'
 
 
@@ -14,6 +15,7 @@ cc.Class({
     properties: {
         feedWarp:cc.Node,
         container:cc.Node,
+        content:cc.Node,
         cat_food:cc.Node,
         hiq_cat_food:cc.Node,
         hiq_cat_food_icon:cc.Node,
@@ -30,9 +32,16 @@ cc.Class({
     init(){
         this.setTouch()
 
+        const screenHeight=cc.view.getVisibleSize().height
+        this.container.height=CACHE.platform.isIphoneX?this.container.height+50:this.container.height;
+        this.content.height=CACHE.platform.isIphoneX?this.content.height+50:this.content.height;
+        const headerY=-screenHeight/2+this.container.height/2
+        
+        this.container.setPosition(cc.v2(0,-1000))
         this.feedWarp.active=true
         cc.tween(this.container)
-        .to(.2, { position: cc.v2(0, -408) },{ easing: 'sineOutIn'})
+        .to(.2, { position: cc.v2(0, headerY+100) })
+        .to(.1, { position: cc.v2(0, headerY) })
         .start()
 
         this.getFoodRemain()

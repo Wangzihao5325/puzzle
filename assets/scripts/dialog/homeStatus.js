@@ -43,16 +43,14 @@ cc.Class({
     addAnimation(type,num){
         const node=type===1?this.luckyAdd:this.energeAdd;
         node.getComponent(cc.Label).string=`+ ${num}`
-        const positionY=node.y
         const positionX=node.x
         node.opacity=0
-        node.setPosition(cc.v2(positionX,positionY-30))
+        node.setPosition(cc.v2(positionX,-30))
         cc.tween(node)
-        .to(.2,{position:cc.v2(positionX,positionY),opacity:255})
-        .to(.4,{opacity:200})
-        .to(.3,{position:cc.v2(positionX,positionY+30),opacity:0})
+        .to(.2,{position:cc.v2(positionX,0),opacity:255})
+        .to(.8,{position:cc.v2(positionX,60),opacity:0})
         .call(()=>{
-            node.setPosition(cc.v2(positionX,positionY))
+            node.setPosition(cc.v2(positionX,0))
         })
         .start()
 

@@ -15,6 +15,7 @@ cc.Class({
     properties: {
         modal:cc.Node,
         close: cc.Node,
+        dress_content:cc.Node,
         pageContent: cc.Node,
         fragment:cc.Label,
         pageItem1: cc.Node,
@@ -29,13 +30,20 @@ cc.Class({
     },
     show_dress() {
         this.modal.opacity=0
+
+        const screenHeight=cc.view.getVisibleSize().height
+        this.dress_warp.height=CACHE.platform.isIphoneX?this.dress_warp.height+50:this.dress_warp.height;
+        this.dress_content.height=CACHE.platform.isIphoneX?this.dress_content.height+50:this.dress_content.height;
+        const headerY=-screenHeight/2+this.dress_warp.height/2
+
         cc.tween(this.modal)
             .to(.2,{opacity:255})
             .start()
         this.dress_warp.setPosition=cc.v2(0,-1000)
+
         cc.tween(this.dress_warp)
-            .to(.2, { position: cc.v2(0,-248) })
-            .to(.1, { position: cc.v2(0,-318) }, { easing: 'sineOutIn' })
+            .to(.2, { position: cc.v2(0,headerY+40) })
+            .to(.1, { position: cc.v2(0,headerY) }, { easing: 'sineOutIn' })
             .start()
     },
 
