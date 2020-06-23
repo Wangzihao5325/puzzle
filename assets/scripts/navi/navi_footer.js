@@ -81,18 +81,21 @@ cc.Class({
     },
 
     goToPlay() {
+        cc.find("sound").getComponent("sound").tap()
         if (CACHE.scene !== SCENE.TRAVEL) {
             cc.director.loadScene("travel");
         }
     },
 
     goToMyHome() {
+        cc.find("sound").getComponent("sound").tap()
         if (CACHE.scene !== SCENE.HOME) {
             cc.director.loadScene("my_home");
         }
     },
 
     goToShow() {
+        cc.find("sound").getComponent("sound").tap()
         if (CACHE.scene !== SCENE.SHOW) {
             cc.director.loadScene("show");
         }
