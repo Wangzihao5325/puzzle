@@ -44,7 +44,6 @@ cc.Class({
     setTouch(callback) {
         this.getBtn.on(cc.Node.EventType.TOUCH_END, (event) => {
             this.receiveReword()
-            cc.find("sound").getComponent("sound").tap()
             event.stopPropagation();
         })
         this.goBtn.on(cc.Node.EventType.TOUCH_END, (event) => {
@@ -156,7 +155,7 @@ cc.Class({
         // obj.handleClose()
     },
 
-   
+
 
     // update (dt) {},
 });
