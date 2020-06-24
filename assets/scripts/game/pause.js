@@ -29,7 +29,7 @@ cc.Class({
     },
     goBack() {
         this.dialog.active = false;
-        const contralObj=cc.find('Canvas/root/menuWarp').getComponent('conraol')
+        const contralObj=cc.find('Canvas/menuWarp').getComponent('conraol')
         contralObj.gameOver()
         cc.director.loadScene("travel");
     },
@@ -37,7 +37,7 @@ cc.Class({
     closeDialog() {
         this.dialog.active = false;
         GAME_CACHE.pause = false;
-        const contralObj=cc.find('Canvas/root/menuWarp').getComponent('conraol')
+        const contralObj=cc.find('Canvas/menuWarp').getComponent('conraol')
         contralObj.gameContinue()
 
     },
@@ -45,7 +45,7 @@ cc.Class({
     continueGame() {
         this.dialog.active = false;
         GAME_CACHE.pause = false;
-        const contralObj=cc.find('Canvas/root/menuWarp').getComponent('conraol')
+        const contralObj=cc.find('Canvas/menuWarp').getComponent('conraol')
         contralObj.gameContinue()
     },
 

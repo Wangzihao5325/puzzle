@@ -26,7 +26,8 @@ cc.Class({
         spliceList: {
             type: cc.Array,
             default: []
-        }
+        },
+        footerWarp:cc.Node,
 
     },
 
@@ -52,6 +53,22 @@ cc.Class({
 
         const hardLevel = CACHE.hard_level;
         const missionObj = CACHE.mission_press;
+
+        if(CACHE.platform.isIphoneX){
+            //改变底部高度
+            const iphoneXAddHeight=40;
+            this.footerWarp.height=this.footerWarp.height+iphoneXAddHeight
+            const spliceWarp=cc.find('spliceWarp',this.footerWarp)
+            spliceWarp.height=spliceWarp.height+iphoneXAddHeight
+            const boxbg=cc.find('boxbg',this.footerWarp)
+            boxbg.height=boxbg.height+iphoneXAddHeight
+            // const spliceScrollView=cc.find('spliceWarp/spliceScrollView',this.footerWarp)
+            // spliceScrollView.height=spliceScrollView.height+iphoneXAddHeight
+            // const spliceScrollViewView=cc.find('spliceWarp/spliceScrollView/view',this.footerWarp)
+            // spliceScrollViewView.height=spliceScrollViewView.height+iphoneXAddHeight
+            // const spliceScrollViewContent=cc.find('spliceWarp/spliceScrollView/view/content',this.footerWarp)
+            // spliceScrollViewContent.height=spliceScrollViewContent.height+iphoneXAddHeight
+        }
 
         this.puzzle_name.string = `${CACHE.chapterData.hurdleName} `
         Api.missionDetails(missionObj.hurdleId, (res) => {
@@ -112,13 +129,13 @@ cc.Class({
 
     initSpliceWarp(hardLevel = LEVEL.EASY, imagePath) {
         /*初始化底部栏*/
-        let spliceWarp_node = cc.instantiate(this.splice_warp);
-        let sizeArr = [...SIZES[hardLevel]];
-        spliceWarp_node.width = sizeArr.length * PUZZLE_FOOTER.itemWidth + PUZZLE_FOOTER.itemWidthMargin;
-        spliceWarp_node.height = PUZZLE_FOOTER.height;
-        spliceWarp_node.parent = this.game_root;
-        spliceWarp_node.setPosition(PUZZLE_FOOTER.position[0], PUZZLE_FOOTER.position[1]);
-        let obj = spliceWarp_node.getComponent('game_splice');
+    
+        // let sizeArr = [...SIZES[hardLevel]];
+        // spliceWarp_node.width = sizeArr.length * PUZZLE_FOOTER.itemWidth + PUZZLE_FOOTER.itemWidthMargin;
+        // spliceWarp_node.height = PUZZLE_FOOTER.height;
+        // spliceWarp_node.parent = this.game_root;
+        // spliceWarp_node.setPosition(PUZZLE_FOOTER.position[0], PUZZLE_FOOTER.position[1]);
+        let obj = this.footerWarp.getComponent('game_splice');
         if (obj) {
             obj.init(hardLevel, imagePath);
         }
@@ -186,8 +203,10 @@ cc.Class({
         if (data.length) {
             let name = `item_puzzle_splice-${data[0][6]}`
             let node = cc.find(`Canvas/root/puzzleWarp/puzzleBg/${name}`)
-            let newNode = cc.find(`Canvas/root/spliceWarp/${name}`)
-            let layout_warp = cc.find(`Canvas/root/spliceWarp`)
+            // let newNode = cc.find(`Canvas/footerWarp/spliceWarp/spliceScrollView/view/content/${name}`)
+            var newNode = cc.find(`Canvas/footerWarp/spliceWarp/spliceScrollView/view/content/${name}`)
+
+            let layout_warp = cc.find(`Canvas/root/spliceScrollView/view/content`)
             const olodPosition = [newNode.x, newNode.y]
             let contentNode = cc.find('content', node)
             let shadowNode = cc.find('shadow', node)
@@ -230,7 +249,7 @@ cc.Class({
                 .start();
 
             newNode.setScale(scalLeavel / 1)
-            newNode.setPosition(cc.v2(node.x, 0))
+            // newNode.setPosition(cc.v2(node.x+320, 0))
             newNode.opacity = 0
 
             cc.tween(newNode)
@@ -244,8 +263,8 @@ cc.Class({
                 .start()
         } else {
             clearTimeout(this.fallTimer)
-            let game_splice_obj = cc.find(`Canvas/root/spliceWarp`).getComponent('game_splice')
-            game_splice_obj.setLayoutType(false)
+            // let game_splice_obj = cc.find(`Canvas/footerWarp/spliceWarp/spliceScrollView/view/content`).getComponent('game_splice')
+            // game_splice_obj.setLayoutType(false)
 
             //加载切块蒙版
             this.initItem(hardLevel);

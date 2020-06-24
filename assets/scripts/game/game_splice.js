@@ -8,7 +8,7 @@ cc.Class({
     properties: {
         game_bg: cc.Node,
         pre_item: cc.Prefab,
-        splice_layout:cc.Node,
+        // splice_layout:cc.Node,
         spframe_puzzle: cc.SpriteFrame,
     },
 
@@ -18,25 +18,25 @@ cc.Class({
         });
     },
 
-    setLayoutType(auto){
-        const current_layout=this.splice_layout.getComponent(cc.Layout)
+    // setLayoutType(auto){
+    //     const current_layout=this.splice_layout.getComponent(cc.Layout)
     
-        if(auto){
-            // current_layout.type=cc.Layout.HORIZONTAL
-            // current_layout.resizeMode=cc.Layout.CONTAINER
-            // current_layout.horizontalDirection =cc.Layout.RIGHT_TO_LEFT
-            // current_layout.type=GAME_CACHE.layout.type
-            // current_layout.resizeMode=GAME_CACHE.layout.resizeMode
-            // current_layout.horizontalDirection=GAME_CACHE.layout.type
-            // current_layout.type=GAME_CACHE.layout.type
-            // current_layout.updateLayout();
-        }else{
-            GAME_CACHE.layout=current_layout;
-            setTimeout(()=>{
-                current_layout.type=cc.Layout.NONE
-            },500)
-        }
-    },
+    //     if(auto){
+    //         // current_layout.type=cc.Layout.HORIZONTAL
+    //         // current_layout.resizeMode=cc.Layout.CONTAINER
+    //         // current_layout.horizontalDirection =cc.Layout.RIGHT_TO_LEFT
+    //         // current_layout.type=GAME_CACHE.layout.type
+    //         // current_layout.resizeMode=GAME_CACHE.layout.resizeMode
+    //         // current_layout.horizontalDirection=GAME_CACHE.layout.type
+    //         // current_layout.type=GAME_CACHE.layout.type
+    //         // current_layout.updateLayout();
+    //     }else{
+    //         GAME_CACHE.layout=current_layout;
+    //         setTimeout(()=>{
+    //             current_layout.type=cc.Layout.NONE
+    //         },500)
+    //     }
+    // },
 
     init(hardLevel, imagePath) {
 
@@ -48,10 +48,10 @@ cc.Class({
                 let delta = event.touch.getDelta();
                 if ((this.game_bg.x + delta.x <= PUZZLE_FOOTER.position[0]) && (this.game_bg.x + delta.x >= PUZZLE_SCENE.width / 2 - this.game_bg.width)) {
                     let newPositin = cc.v2(this.game_bg.x + delta.x, this.game_bg.y)
-                    PUZZLE_FOOTER.truePosition = [this.game_bg.x + delta.x, this.game_bg.y]
-                    this.game_bg.setPosition(newPositin);
+                    PUZZLE_FOOTER.truePosition = [this.game_bg.x + delta.x+100, this.game_bg.y]
+                    // this.game_bg.setPosition(newPositin);
 
-                    //根据当前视图判断显示和隐藏子节点
+                    // //根据当前视图判断显示和隐藏子节点
                     const spliceWarpX=this.game_bg.x
                     if(this.game_bg&&this.game_bg.children){
                         this.game_bg.children.map(item=>{

@@ -227,7 +227,7 @@ cc.Class({
         this.guideStep = 1;
 
         //设置callback
-        let conraol = cc.find('Canvas/root/menuWarp');
+        let conraol = cc.find('Canvas/menuWarp');
         if (conraol) {
             let conraolComponent = conraol.getComponent('conraol');
             if (conraolComponent) {

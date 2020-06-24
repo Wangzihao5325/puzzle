@@ -25,6 +25,10 @@ cc.Class({
         isMove: cc.boolean,
         shadow:cc.Node,
         pre_item: cc.Prefab,
+        removeOutDistance:{
+            type:cc.Boolean,
+            defaulty:90
+        }
 
     },
 
@@ -36,6 +40,9 @@ cc.Class({
                 this.splice(index, 1);
             }
         };
+        if(CACHE.platform.isIphoneX){
+            this.removeOutDistance=120
+        }
     },
 
     setSpItem(spt) {
@@ -118,12 +125,10 @@ cc.Class({
                 // const newNode=cc.instantiate(this.item_node);
                 // newNode.parent = puzzleBg;
 
-                let game_splice_obj  = cc.find(`Canvas/root/spliceWarp`).getComponent('game_splice')
-                game_splice_obj.setLayoutType(true)
 
                 /*依据计算拼底部栏坐标计算其在拼图区域的坐标*/
                 let bgX = Math.ceil(this.item_node.x - (PUZZLE_FOOTER.position[0] - PUZZLE_FOOTER.truePosition[0])) - PUZZLE_SCENE.width / 2;
-                const resetPostion = cc.v2(bgX, this.item_node.y + delta.y - 540 + 180);
+                const resetPostion = cc.v2(bgX, this.item_node.y + delta.y - 540 + this.item_node.height);
                 this.item_node.setPosition(resetPostion);
                 GAME_CACHE.underwayIndex.push(this.item_node.defaultIndex);
                 this.removeSpliceNode(this.item_node.defaultIndex);
@@ -138,8 +143,10 @@ cc.Class({
             }
             /*移回盒子*/
             else if (outList && this.item_node.y + delta.y < -428.5) {
-                var spliceWarp = cc.find(`Canvas/root/spliceWarp`)
-                this.item_node.parent = spliceWarp
+                var spliceWarp = cc.find(`Canvas/footerWarp/spliceWarp/spliceScrollView/view/content`)
+                var spliceWarpContent = cc.find(`Canvas/footerWarp/spliceWarp/spliceScrollView/view/content`)
+
+                this.item_node.parent = spliceWarpContent
                 this.item_node.setScale(1)
                 const resetPostion = cc.v2(this.item_node.x + delta.x, 0)
                 this.item_node.setPosition(resetPostion);
@@ -196,8 +203,6 @@ cc.Class({
                 .to(.1,{position:cc.v2(0,0)})
                 .start()
 
-                let game_splice_obj  = cc.find(`Canvas/root/spliceWarp`).getComponent('game_splice')
-                game_splice_obj.setLayoutType(true)
             /*
             不禁止事件传递,让底部栏可以滑动，提升体验
             event.stopPropagation();
@@ -232,8 +237,7 @@ cc.Class({
                 .to(.1,{position:cc.v2(0,0)})
                 .start()
 
-                let game_splice_obj  = cc.find(`Canvas/root/spliceWarp`).getComponent('game_splice')
-                game_splice_obj.setLayoutType(true)
+
             /*
             不禁止事件传递,让底部栏可以滑动，提升体验
             event.stopPropagation();
@@ -312,7 +316,7 @@ cc.Class({
     },
 
     checkSuccess() {
-        const contralObj = cc.find(`Canvas/root/menuWarp`).getComponent('conraol')
+        const contralObj = cc.find(`Canvas/menuWarp`).getComponent('conraol')
         contralObj.checkComplate()
     },
 

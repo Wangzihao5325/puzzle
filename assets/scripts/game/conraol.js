@@ -69,8 +69,14 @@ cc.Class({
         this.resetUI()
         GAME_CACHE.isComplate = false
         GAME_CACHE.coutnDown = GAME_CACHE.gameTime
-        this.timer(GAME_CACHE.coutnDown);
+        // this.timer(GAME_CACHE.coutnDown);
         CACHE.mission_press.picId
+
+        if(CACHE.platform.isIphoneX){
+            //改变底部高度
+            const menuContent=cc.find('menuContent',this.menuWarp)
+            menuContent.height=menuContent.height+50
+        }
     },
 
 
@@ -122,7 +128,7 @@ cc.Class({
 
         } else {
             //磁铁吸引在底部框内的切块
-            var spliceWarp = cc.find(`Canvas/root/spliceWarp`);
+            var spliceWarp = cc.find(`Canvas/footerWarp/spliceWarp/spliceScrollView/view/content`);
             const spliceWarpChildren = spliceWarp.children[0];
             const currentNode = spliceWarpChildren;
             var puzzleBg = cc.find(`Canvas/root/puzzleWarp/puzzleBg`);
@@ -259,8 +265,15 @@ cc.Class({
             this.doComplate()
             GAME_CACHE.complateIndex = []
             GAME_CACHE.isComplate = true
-            const spliceWarp_node = cc.find(`Canvas/root/spliceWarp`);
-            spliceWarp_node.active = false;
+            
+            let headerBg = cc.find(`Canvas/root/headerBg`);
+            let footerBg = cc.find(`Canvas/root/footerBg`);
+
+            headerBg.active=true
+            footerBg.active=true
+
+            let footerWarp = cc.find(`Canvas/footerWarp`);
+            footerWarp.active = false;
             this.menuWarp.active = false;
             this.name.color = cc.color(255, 255, 255)
             cc.tween(this.flash)

@@ -306,7 +306,7 @@ const PUZZLE_FOOTER = {
 }
 
 const PUZZLE_SCENE = {
-  width: 644
+  width: 500
 }
 
 export default {

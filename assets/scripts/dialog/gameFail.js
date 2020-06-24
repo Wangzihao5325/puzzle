@@ -76,7 +76,7 @@ cc.Class({
 
     handleRevive() {
         this.failWarp.destroy()
-        const menu = cc.find('Canvas/root/menuWarp').getComponent('conraol')
+        const menu = cc.find('Canvas/menuWarp').getComponent('conraol')
         menu.revive()
     },
 
