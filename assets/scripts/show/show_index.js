@@ -53,6 +53,7 @@ cc.Class({
         speedUpPopVideo: cc.Sprite,
 
         speedUpSelectMaskRoot: cc.Node,
+        speedUpSelectMaskTouch: cc.Node,
 
         festivalInfo: cc.Node,
         festivalInfoBtn1: cc.Node,
@@ -65,7 +66,8 @@ cc.Class({
     },
 
     speedUpSelectMaskInit() {
-        this.speedUpSelectMaskRoot.on(cc.Node.EventType.TOUCH_START, (event) => {
+        this.speedUpSelectMaskTouch.zIndex = 10000;
+        this.speedUpSelectMaskTouch.on(cc.Node.EventType.TOUCH_START, (event) => {
             let originNode1 = cc.find('Canvas/selectMask/item_showcase_1');
             let originNode2 = cc.find('Canvas/selectMask/item_showcase_2');
             let originNode3 = cc.find('Canvas/selectMask/item_showcase_3');
@@ -108,14 +110,13 @@ cc.Class({
                 originNode3.parent = table;
                 originNode3.setPosition(newPosition);
             }
+            this.speedUpSelectMaskRoot.active = false;
             if (isClick) {
-                this.speedUpSelectMaskRoot.active = false;
-                this.speedUpSelectMaskRoot._touchListener.setSwallowTouches(false);
+                this.speedUpSelectMaskTouch._touchListener.setSwallowTouches(false);
             } else {
                 CACHE.isShouwSpeedUp = false;
-                this.speedUpSelectMaskRoot.active = false;
                 Toast.show('您已经取消加速！');
-                this.speedUpSelectMaskRoot._touchListener.setSwallowTouches(true);
+                this.speedUpSelectMaskTouch._touchListener.setSwallowTouches(true);
             }
         })
     },
