@@ -56,6 +56,7 @@ window.Toast.show = function (detailString,info={timer:2000,icon:undefined,iconS
       }
       // 父视图
       Toast._toast.parent = cc.find("Canvas");
+      Toast._toast.zIndex = cc.macro.MAX_ZINDEX;
 
       // 展现 Toast
       self.startFadeIn();

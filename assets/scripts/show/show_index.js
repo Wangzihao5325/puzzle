@@ -53,6 +53,7 @@ cc.Class({
         speedUpPopVideo: cc.Sprite,
 
         speedUpSelectMaskRoot: cc.Node,
+        speedUpSelectMaskTouch: cc.Node,
 
         festivalInfo: cc.Node,
         festivalInfoBtn1: cc.Node,
@@ -65,33 +66,57 @@ cc.Class({
     },
 
     speedUpSelectMaskInit() {
-        this.speedUpSelectMaskRoot.on(cc.Node.EventType.TOUCH_START, (event) => {
-            let originNode1 = cc.find('Canvas/root/table/item_showcase_1');
-            let originNode2 = cc.find('Canvas/root/table/item_showcase_2');
-            let originNode3 = cc.find('Canvas/root/table/item_showcase_3');
+        this.speedUpSelectMaskTouch.zIndex = 10000;
+        this.speedUpSelectMaskTouch.on(cc.Node.EventType.TOUCH_START, (event) => {
+            let originNode1 = cc.find('Canvas/selectMask/item_showcase_1');
+            let originNode2 = cc.find('Canvas/selectMask/item_showcase_2');
+            let originNode3 = cc.find('Canvas/selectMask/item_showcase_3');
+            let table = cc.find('Canvas/root/table');
+            let isClick = false;
+            if (originNode1) {
+                //先判断是否点击
+                let pos = originNode1.convertToNodeSpaceAR(event.getLocation());
+                let btn = cc.find('Canvas/selectMask/item_showcase_1/putongzhan');
+                let rect = btn.getBoundingBox();
+                isClick = isClick || rect.contains(pos);
+                //移动item showcase
+                let originPosition = originNode1.position;
+                let worldPosition = originNode1.parent.convertToWorldSpaceAR(originPosition);
+                let newPosition = table.convertToNodeSpaceAR(worldPosition);
+                originNode1.parent = table;
+                originNode1.setPosition(newPosition);
+            }
+            if (originNode2) {
+                let pos = originNode2.convertToNodeSpaceAR(event.getLocation());
+                let btn = cc.find('Canvas/selectMask/item_showcase_2/putongzhan');
+                let rect = btn.getBoundingBox();
+                isClick = isClick || rect.contains(pos);
 
-            let pos1 = originNode1.convertToNodeSpaceAR(event.getLocation());
-            let pos2 = originNode2.convertToNodeSpaceAR(event.getLocation());
-            let pos3 = originNode3.convertToNodeSpaceAR(event.getLocation());
+                let originPosition = originNode2.position;
+                let worldPosition = originNode2.parent.convertToWorldSpaceAR(originPosition);
+                let newPosition = table.convertToNodeSpaceAR(worldPosition);
+                originNode2.parent = table;
+                originNode2.setPosition(newPosition);
+            }
+            if (originNode3) {
+                let pos = originNode3.convertToNodeSpaceAR(event.getLocation());
+                let btn = cc.find('Canvas/selectMask/item_showcase_3/putongzhan');
+                let rect = btn.getBoundingBox();
+                isClick = isClick || rect.contains(pos);
 
-            let btn1 = cc.find('Canvas/root/table/item_showcase_1/putongzhan');
-            let btn2 = cc.find('Canvas/root/table/item_showcase_2/putongzhan');
-            let btn3 = cc.find('Canvas/root/table/item_showcase_3/putongzhan');
-
-            let rect1 = btn1.getBoundingBox();
-            let rect2 = btn2.getBoundingBox();
-            let rect3 = btn3.getBoundingBox();
-
-            let isOne = rect1.contains(pos1);
-            let isTwo = rect2.contains(pos2);
-            let isThree = rect3.contains(pos3);
-
-            if ((isOne && originNode1.getComponent('showcase_index').timer) || (isTwo && originNode2.getComponent('showcase_index').timer) || (isThree && originNode3.getComponent('showcase_index').timer)) {
-                this.speedUpSelectMaskRoot._touchListener.setSwallowTouches(false);
-                this.speedUpSelectMaskRoot.active = false;
+                let originPosition = originNode3.position;
+                let worldPosition = originNode3.parent.convertToWorldSpaceAR(originPosition);
+                let newPosition = table.convertToNodeSpaceAR(worldPosition);
+                originNode3.parent = table;
+                originNode3.setPosition(newPosition);
+            }
+            this.speedUpSelectMaskRoot.active = false;
+            if (isClick) {
+                this.speedUpSelectMaskTouch._touchListener.setSwallowTouches(false);
             } else {
-                Toast.show('请选择可以进行加速的展台');
-                this.speedUpSelectMaskRoot._touchListener.setSwallowTouches(true);
+                CACHE.isShouwSpeedUp = false;
+                Toast.show('您已经取消加速！');
+                this.speedUpSelectMaskTouch._touchListener.setSwallowTouches(true);
             }
         })
     },
@@ -122,12 +147,46 @@ cc.Class({
         })
         /**不看视频 */
         this.speedUpPopNoVideo.node.on(cc.Node.EventType.TOUCH_END, (event) => {
-            cc.find("sound").getComponent("sound").tap()
-            CACHE.isShouwSpeedUp = true;
-            this.speedUpPopRoot.active = false;
-            Toast.show('请选择一个正在展览中的展台');
-            this.speedUpSelectMaskRoot.zIndex = 1000;
-            this.speedUpSelectMaskRoot.active = true;
+            cc.find("sound").getComponent("sound").tap();
+            let originNode1 = cc.find('Canvas/root/table/item_showcase_1');
+            let originNode2 = cc.find('Canvas/root/table/item_showcase_2');
+            let originNode3 = cc.find('Canvas/root/table/item_showcase_3');
+
+            let isOneDisplay = Boolean(originNode1.getComponent('showcase_index').timer);
+            let isTwoDisplay = Boolean(originNode2.getComponent('showcase_index').timer);
+            let isThreeDisplay = Boolean(originNode3.getComponent('showcase_index').timer);
+
+            if (isOneDisplay || isTwoDisplay || isThreeDisplay) {
+                CACHE.isShouwSpeedUp = true;
+                this.speedUpPopRoot.active = false;
+                Toast.show('请选择一个正在展览中的展台');
+
+                this.speedUpSelectMaskRoot.zIndex = 1000;
+                this.speedUpSelectMaskRoot.active = true;
+                if (isOneDisplay) {
+                    let originPosition = originNode1.position;
+                    let worldPosition = originNode1.parent.convertToWorldSpaceAR(originPosition);
+                    let newPosition = this.speedUpSelectMaskRoot.convertToNodeSpaceAR(worldPosition);
+                    originNode1.parent = this.speedUpSelectMaskRoot;
+                    originNode1.setPosition(newPosition);
+                }
+                if (isTwoDisplay) {
+                    let originPosition = originNode2.position;
+                    let worldPosition = originNode2.parent.convertToWorldSpaceAR(originPosition);
+                    let newPosition = this.speedUpSelectMaskRoot.convertToNodeSpaceAR(worldPosition);
+                    originNode2.parent = this.speedUpSelectMaskRoot;
+                    originNode2.setPosition(newPosition);
+                }
+                if (isThreeDisplay) {
+                    let originPosition = originNode3.position;
+                    let worldPosition = originNode3.parent.convertToWorldSpaceAR(originPosition);
+                    let newPosition = this.speedUpSelectMaskRoot.convertToNodeSpaceAR(worldPosition);
+                    originNode3.parent = this.speedUpSelectMaskRoot;
+                    originNode3.setPosition(newPosition);
+                }
+            } else {
+                Toast.show('暂时没有需要加速的展台');
+            }
             event.stopPropagation();
         })
     },
