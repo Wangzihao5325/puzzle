@@ -199,10 +199,12 @@ cc.Class({
         if (this.fallTimer) {
             clearTimeout(this.fallTimer)
         }
+        const footerWarpPositionY=this.footerWarp.y
         const scalLeavel = SCALELEAVEL[CACHE.hard_level]
         if (data.length) {
             let name = `item_puzzle_splice-${data[0][6]}`
-            let node = cc.find(`Canvas/root/puzzleWarp/puzzleBg/${name}`)
+            // let node = cc.find(`Canvas/root/puzzleWarp/puzzleBg/${name}`)
+            let node = cc.find(`Canvas/${name}`)
             // let newNode = cc.find(`Canvas/footerWarp/spliceWarp/spliceScrollView/view/content/${name}`)
             var newNode = cc.find(`Canvas/footerWarp/spliceWarp/spliceScrollView/view/content/${name}`)
 
@@ -240,7 +242,7 @@ cc.Class({
                 .start()
             cc.tween(node)
                 .to(0.2, { position: cc.v2(node.x, node.y + 50) })
-                .to(fallTime, { position: cc.v2(node.x, -440), opacity: 200 })
+                .to(fallTime, { position: cc.v2(node.x, footerWarpPositionY), opacity: 200 })
                 .to(.2, { scale: scalLeavel, opacity: 0 })
                 // .to(.2, { opacity:255 })
                 .call(() => {
@@ -263,8 +265,6 @@ cc.Class({
                 .start()
         } else {
             clearTimeout(this.fallTimer)
-            // let game_splice_obj = cc.find(`Canvas/footerWarp/spliceWarp/spliceScrollView/view/content`).getComponent('game_splice')
-            // game_splice_obj.setLayoutType(false)
 
             //加载切块蒙版
             this.initItem(hardLevel);

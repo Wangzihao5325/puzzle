@@ -76,6 +76,8 @@ cc.Class({
             //改变底部高度
             const menuContent=cc.find('menuContent',this.menuWarp)
             menuContent.height=menuContent.height+50
+            const height=Math.ceil(CACHE.platform.visibleSize.height/2-857/2-10)
+            this.menuWarp.height=height>240?240:height
         }
     },
 

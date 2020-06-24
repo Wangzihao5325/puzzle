@@ -60,7 +60,7 @@ function initItem(SIZES, hardLevel, sortType = 0, pre_item, game_bg, spframe_puz
             item_node.height = item[3] * scalLeavel+5+hardLevel;
             item_node.name = `item_puzzle_splice-${item[6]}`
             item_node.defaultIndex = `${item[6]}`
-            item_node.defaultPostion = [item[4], item[5]]
+            item_node.defaultPostion = [item[4], item[5]-10]
 
             cc.find('content',item_node).width = item[2] * scalLeavel;
             cc.find('content',item_node).height = item[3] * scalLeavel;
@@ -75,10 +75,11 @@ function initItem(SIZES, hardLevel, sortType = 0, pre_item, game_bg, spframe_puz
                 //第一次进入执行掉落动画
                 var puzzleBg = cc.find(`Canvas/root/puzzleWarp/puzzleBg`);
                 const newNode=cc.instantiate(item_node)
-                newNode.parent = puzzleBg;
+                // newNode.parent = puzzleBg;
+                newNode.parent = cc.find('Canvas');
                 newNode.setScale(1/scalLeavel)
                 newNode.zIndex=11+index
-                const position = cc.v2(item[4],item[5])
+                const position = cc.v2(item[4],item[5]-10)
                 newNode.setPosition(position);
                 newNode.defaulSpliceX=(index+0.5)*160                
                 let obj = newNode.getComponent('splice_item_index');

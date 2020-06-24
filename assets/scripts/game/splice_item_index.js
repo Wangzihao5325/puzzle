@@ -28,7 +28,7 @@ cc.Class({
         removeOutDistance:{
             type:cc.Boolean,
             defaulty:90
-        }
+        },
 
     },
 
@@ -104,7 +104,7 @@ cc.Class({
         this.node.on(cc.Node.EventType.TOUCH_MOVE, (event) => {
             this.isMove = true;
             let delta = event.touch.getDelta();
-            const outList = this.item_node.parent.name === 'puzzleBg';
+            const outList = this.item_node.parent.name !== 'content';
             let newPositin = cc.v2(this.item_node.x + delta.x, this.item_node.y + delta.y>430?430:this.item_node.y + delta.y);
             //在拼图盒子内移动
             if (!outList && this.item_node._offsetY + delta.y < 90) {
@@ -121,7 +121,8 @@ cc.Class({
                 /*移除范围内修改父级节点*/
                 var puzzleBg = cc.find(`Canvas/root/puzzleWarp/puzzleBg`);
                 this.item_node.removeFromParent(false);
-                this.item_node.parent = puzzleBg;
+                // this.item_node.parent = puzzleBg;
+                this.item_node.parent = cc.find('Canvas');
                 // const newNode=cc.instantiate(this.item_node);
                 // newNode.parent = puzzleBg;
 
@@ -141,30 +142,7 @@ cc.Class({
                     initItem(GAME_CACHE.spliceArr, CACHE.hard_level, 2, this.pre_item, game_bg, new cc.SpriteFrame(), true, true);
                 }
             }
-            /*移回盒子*/
-            else if (outList && this.item_node.y + delta.y < -428.5) {
-                var spliceWarp = cc.find(`Canvas/footerWarp/spliceWarp/spliceScrollView/view/content`)
-                var spliceWarpContent = cc.find(`Canvas/footerWarp/spliceWarp/spliceScrollView/view/content`)
 
-                this.item_node.parent = spliceWarpContent
-                this.item_node.setScale(1)
-                const resetPostion = cc.v2(this.item_node.x + delta.x, 0)
-                this.item_node.setPosition(resetPostion);
-                GAME_CACHE.underwayIndex.remove(this.item_node.defaultIndex);
-                this.pushSpliceNode(this.item_node.defaultIndex, hardLevel);
-                //重新排列底部块的位置
-                let game_bg = cc.find('Canvas/root/puzzleWarp/puzzleBg');
-                if (game_bg) {
-                    initItem(GAME_CACHE.spliceArr, CACHE.hard_level, 2, this.pre_item, game_bg, new cc.SpriteFrame(), true, true);
-                }
-
-                //去除拿起阴影
-                this.shadow.active=false
-                cc.tween(this.contentNode)
-                    .to(.1,{position:cc.v2(0,0)})
-                    .start()
-
-            }
             else {
                 this.item_node.setPosition(newPositin);
             }
@@ -181,6 +159,33 @@ cc.Class({
                 cc.find("sound").getComponent("sound").tap()
             }
 
+            const outList = this.item_node.parent.name !== 'content';
+
+            /*移回盒子*/
+             if (outList && this.item_node.y  < -428.5) {
+                var spliceWarpContent = cc.find(`Canvas/footerWarp/spliceWarp/spliceScrollView/view/content`)
+
+                this.item_node.parent = spliceWarpContent
+                this.item_node.setScale(1)
+                const resetPostion = cc.v2(this.item_node.x, 0)
+                this.item_node.setPosition(resetPostion);
+                GAME_CACHE.underwayIndex.remove(this.item_node.defaultIndex);
+                this.pushSpliceNode(this.item_node.defaultIndex, hardLevel);
+                //重新排列底部块的位置
+                let game_bg = cc.find('Canvas/root/puzzleWarp/puzzleBg');
+                if (game_bg) {
+                    initItem(GAME_CACHE.spliceArr, CACHE.hard_level, 2, this.pre_item, game_bg, new cc.SpriteFrame(), true, true);
+                }
+
+                //去除拿起阴影
+                this.shadow.active=false
+                cc.tween(this.contentNode)
+                    .to(.1,{position:cc.v2(0,0)})
+                    .start()
+
+            }
+
+
             if (hardLevel == LEVEL.HARD && !this.isMove) {
                 //第三级难度点击旋转
                 // this.item_node.angle = (this.item_node.angle - 90) % 360;
@@ -188,7 +193,6 @@ cc.Class({
                     .to(.1,{angle: (this.item_node.angle - 90) % 360})
                     .start()
             }
-            const outList = this.item_node.parent.name === 'puzzleBg';
             if (outList) {
                 //在盒子外计算
                 let delta = event.touch.getDelta();
@@ -221,7 +225,7 @@ cc.Class({
                 .to(.1,{angle: (this.item_node.angle - 90) % 360})
                 .start()
             }
-            const outList = this.item_node.parent.name === 'puzzleBg';
+            const outList = this.item_node.parent.name !== 'content';
             if (outList) {
                 //在盒子外计算
                 let delta = event.touch.getDelta();
@@ -279,7 +283,7 @@ cc.Class({
         let minDistance = Number.MAX_VALUE;
         let minItem = null;
         reg.forEach((item,index) => {
-            let distance = Math.pow((item[4] - x), 2) + Math.pow((item[5] - y), 2)
+            let distance = Math.pow((item[4] - x), 2) + Math.pow((item[5]-10 - y), 2)
             if (distance <= minDistance) {
                 minDistance = distance;
                 minItem = item;
@@ -309,7 +313,7 @@ cc.Class({
             } else {
                 // this.item_node.setPosition(cc.v2(minItem[4], minItem[5]));
                 cc.tween(this.item_node)
-                .to(.2,{position:cc.v2(minItem[4], minItem[5])})
+                .to(.2,{position:cc.v2(minItem[4], minItem[5]-10)})
                 .start()
             }
         }
