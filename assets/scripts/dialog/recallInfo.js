@@ -73,7 +73,7 @@ cc.Class({
                 //初始化点赞
                 if (this.recallInfo.praise) {
                     this.isLike=true
-                    this.touchAnimation(0,event)
+                    this.touchAnimation(0)
                 }
                 // this.item = item;
                 // this.time.string = dateFormat((new Date()),'yyyy-MM-dd');
@@ -101,7 +101,7 @@ cc.Class({
         })
     },
 
-    touchAnimation(type,event){
+    touchAnimation(type){
         const nodeList=[this.like,this.comment,this.share]
         const spriteFrameList=[[this.likeIconO,this.likeIcon],[this.commentIconO,this.commentIcon],[this.shareIcon,this.shareIcon]]
         const isActive=[this.isLike,this.isComment,0]
@@ -155,7 +155,7 @@ cc.Class({
                 this.isLike=true
                 Api.memory_praise({"hurdleId": this.recallInfo.hurdleId}, (res) => {
                     if (res.code === 0) {
-                        this.touchAnimation(0,event)
+                        this.touchAnimation(0)
                     }
                 })
                 event.stopPropagation();
@@ -165,13 +165,13 @@ cc.Class({
             cc.find("sound").getComponent("sound").tap()
 
             this.isComment=!this.isComment
-            this.touchAnimation(1,event)
+            this.touchAnimation(1)
             this.toggleComment()
             event.stopPropagation();
         })
         this.share.on(cc.Node.EventType.TOUCH_END, (event) => {
             cc.find("sound").getComponent("sound").tap()
-            this.touchAnimation(2,event)
+            this.touchAnimation(2)
             this.shareAppMsg()
             event.stopPropagation();
         })
