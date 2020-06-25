@@ -84,7 +84,7 @@ cc.Class({
             //稀有样式
             // this.icon.color=cc.color(247,248,201,255)
 
-            this.warp.getComponent(cc.Sprite).spriteFrame=this.propBg
+            this.warp.color=cc.color(244,235,218,255)
             this.iconContent.getComponent(cc.Sprite).spriteFrame=this.rareBg
             this.icon.width=60
             this.icon.height=60
@@ -92,8 +92,8 @@ cc.Class({
             this.rareName.getComponent(cc.Label).string=item.name
         }else {
             //物品
-            this.warp.getComponent(cc.Sprite).spriteFrame=this.propBg 
-            this.iconContent.getComponent(cc.Sprite).spriteFrame=this.propBg
+            // this.warp.getComponent(cc.Sprite).spriteFrame=this.propBg 
+            this.iconContent.color=cc.color(244,235,218,255)
             this.normalName.active=true
             this.normalName.getComponent(cc.Label).string=item.name
 
