@@ -68,7 +68,7 @@ cc.Class({
         this.node.on(cc.Node.EventType.TOUCH_START, (event) => {
             /*拿起增加z-index*/
             const current_node = this.item_node || this.splice_item;
-            current_node.zIndex = 100;
+            current_node.zIndex = 11;
             // console.log('current_node',current_node)
 
             // const puzzleItem= cc.find('content',this.item_node)
@@ -198,7 +198,7 @@ cc.Class({
                 let delta = event.touch.getDelta();
                 this.calPostion(this.item_node.x + delta.x, this.item_node.y + delta.y, this.item_node.angle, hardLevel);
             }
-            this.item_node.zIndex = 100;//恢复z-index
+            this.item_node.zIndex = 10;//恢复z-index
             this.isMove = false;
             // cc.find('shadow',this.item_node).active=false
             // const puzzleItem= cc.find('content',this.item_node)
@@ -231,7 +231,7 @@ cc.Class({
                 let delta = event.touch.getDelta();
                 this.calPostion(this.item_node.x + delta.x, this.item_node.y + delta.y, this.item_node.angle, hardLevel);
             }
-            this.item_node.zIndex = 100;//恢复z-index
+            this.item_node.zIndex = 10;//恢复z-index
             this.isMove = false;
             // cc.find('shadow',this.item_node).active=false
             // const puzzleItem= cc.find('content',this.item_node)
@@ -290,7 +290,9 @@ cc.Class({
             }
         });
         if (minItem) {
-            if (minItem[4] == defaultx && minItem[5] == defaulty && rotation == 0) {
+            console.log("minItem",minItem,defaultPostion)
+            if (minItem[4] == defaultx && minItem[5]-10 == defaulty && rotation == 0) {
+                console.log("拼图成功")
                 let newPositin = cc.v2(defaultx, defaulty);
                 // this.item_node.setPosition(newPositin);
                 cc.tween(this.item_node)

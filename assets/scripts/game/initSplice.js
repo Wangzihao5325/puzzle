@@ -102,7 +102,7 @@ function initItem(SIZES, hardLevel, sortType = 0, pre_item, game_bg, spframe_puz
 
 
             item_node.parent = spliceWarpContent;
-            item_node.zIndex=10+index
+            item_node.zIndex=10
 
             // spliceWarp.addChild(item_node, index);
             
