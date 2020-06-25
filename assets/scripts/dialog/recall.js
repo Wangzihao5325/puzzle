@@ -122,7 +122,7 @@ cc.Class({
         obj.init(item, index)
         recall.parent = this.scrollContent;
         this.scrollContent.height = 210 * (index + 1)
-        recall.setPosition(cc.v2(0, -(.5 + index) * 210 - 20))
+        recall.setPosition(cc.v2(0, -(.5 + index) * 210))
     },
 
 

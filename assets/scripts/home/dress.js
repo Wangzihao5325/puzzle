@@ -136,7 +136,7 @@ cc.Class({
         const data = {
             goodsId: HOME_CACHE.selectDecorations.goodsId
         }
-        const status = HOME_CACHE.selectDecorations.info.status
+        const status = HOME_CACHE.selectDecorations.status
         const api = status === 0 ? Api.petBuyEquip : Api.petEquip
         api(data, (res) => {
             if (res.code === 0) {

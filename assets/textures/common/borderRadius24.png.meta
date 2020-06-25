@@ -11,7 +11,7 @@
   "height": 170,
   "platformSettings": {},
   "subMetas": {
-    "borderw": {
+    "borderRadius24": {
       "ver": "1.0.4",
       "uuid": "87551db6-35f1-4678-8344-510c4cfaa7f3",
       "rawTextureUuid": "7717d8aa-cfc7-41d8-96da-205aabddd4f5",
@@ -26,10 +26,10 @@
       "height": 170,
       "rawWidth": 170,
       "rawHeight": 170,
-      "borderTop": 0,
-      "borderBottom": 0,
-      "borderLeft": 0,
-      "borderRight": 0,
+      "borderTop": 25,
+      "borderBottom": 26,
+      "borderLeft": 23,
+      "borderRight": 24,
       "subMetas": {}
     }
   }

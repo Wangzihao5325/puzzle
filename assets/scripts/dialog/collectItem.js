@@ -38,6 +38,9 @@ cc.Class({
         this.setTouch(0)
     },
     showDetail(){
+        if(this.info.owned===false){
+            return false
+        }
         console.log("showDetail",this.info)
         let good_detail = cc.instantiate(this.good_detail)
         let obj = good_detail.getComponent('goodsDetail')
@@ -89,8 +92,11 @@ cc.Class({
 
         }else if(item.goodsQuality===1){
             console.log("稀有物品")
-            this.warp.getComponent(cc.Sprite).spriteFrame=this.propBg
-            this.iconContent.getComponent(cc.Sprite).spriteFrame=this.rareBg
+            this.warp.color=cc.color(254,249,207,255)
+            this.iconContent.color=cc.color(254,249,207,255)
+            cc.find('skech',this.sketch_mask).color=cc.color(130,92,63,255)
+
+            
             // this.icon.width=60
             // this.icon.height=60
             this.rareName.active=true
