@@ -366,7 +366,7 @@ cc.Class({
 
     onLoad() {
         setTimeout(()=>{
-            cc.find("sound").getComponent("sound").playBg(true)
+            cc.find("sound").getComponent("sound").playBg()
         },100)
 
         //设置红点显示或隐藏
