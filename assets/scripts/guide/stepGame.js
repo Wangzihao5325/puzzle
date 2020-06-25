@@ -255,7 +255,8 @@ cc.Class({
                     this.handPressNode.scaleX = 0.4;
                     this.handPressNode.scaleY = 0.4;
                     this.handPressNode.parent = this.node;
-                    this.handPressNode.setPosition(-30, 530);
+                    let handPosition = CACHE.platform.isIphoneX ? cc.v2(-30, 600) : cc.v2(-30, 530);
+                    this.handPressNode.setPosition(handPosition);
                     let handObj = this.handPressNode.getComponent('guideHand');
                     if (handObj) {
                         handObj.handAnimate();
