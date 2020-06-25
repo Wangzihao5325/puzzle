@@ -207,7 +207,8 @@ cc.Class({
                 this.handNode.scaleX = 0.7;
                 this.handNode.scaleY = 0.7;
                 this.handNode.parent = this.node;
-                this.handNode.setPosition(cc.v2(-250, -500));
+                let handPosition = CACHE.platform.isIphoneX ? cc.v2(-160, -600) : cc.v2(-160, -500);
+                this.handNode.setPosition(handPosition);
                 let obj = this.handNode.getComponent('pluzzeGuide');
                 if (obj) {
                     obj.handAnimate();
