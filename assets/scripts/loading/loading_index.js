@@ -101,7 +101,8 @@ cc.Class({
 
                                         Api.guideState((res) => {
                                             if (res.data) {
-                                                CACHE.userInfo.stage = res.data.stage;
+                                                //CACHE.userInfo.stage = res.data.stage;
+                                                CACHE.userInfo.stage = 4;
                                                 CACHE.userInfo.firstPetBackHomeEnded = res.data.firstPetBackHomeEnded;
                                                 CACHE.userInfo.firstRecallEnded = res.data.firstRecallEnded;
                                                 CACHE.userInfo.firstRewardTaskEnded = res.data.firstRewardTaskEnded;

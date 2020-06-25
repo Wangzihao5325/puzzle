@@ -74,7 +74,7 @@ cc.Class({
         }
     },
 
-    isUserPressIn(event) {
+    isUserPressIn(event, isEnd) {
         let originNode;
         let pos;
         let btn;
@@ -117,8 +117,13 @@ cc.Class({
             originNode = cc.find(`Canvas/speedUpPop/bg`);
             btn = cc.find(`Canvas/speedUpPop/bg/label3`);
         } else if (CACHE.userInfo.stage == 4 && this.guideStep == 5) {
-            originNode = cc.find(`Canvas/root/table`);
-            btn = cc.find(`Canvas/root/table/item_showcase_3/putongzhan`);
+            if (isEnd) {
+                originNode = cc.find(`Canvas/root/table/item_showcase_3`);
+                btn = cc.find(`Canvas/root/table/item_showcase_3/putongzhan`);
+            } else {
+                originNode = cc.find(`Canvas/selectMask/item_showcase_3`);
+                btn = cc.find(`Canvas/selectMask/item_showcase_3/putongzhan`);
+            }
         } else if (CACHE.userInfo.stage == 4 && this.guideStep == 6) {
             originNode = cc.find(`Canvas/root/table/item_showcase_3`);
             btn = cc.find(`Canvas/root/table/item_showcase_3/anniulan`);
@@ -298,7 +303,7 @@ cc.Class({
     },
 
     onTouchEnd(event) {
-        if (this.isUserPressIn(event)) {
+        if (this.isUserPressIn(event, true)) {
             this.node._touchListener.setSwallowTouches(this.guide(true));
         }
         else {

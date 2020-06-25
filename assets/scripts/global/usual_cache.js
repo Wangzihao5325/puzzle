@@ -54,7 +54,7 @@ const CACHE = {
     dragonBoneAnimateName: '',
     lastBagTypeLength: 0,
     isBGM: true,
-    currentBGM:undefined,
+    currentBGM: undefined,
     power: {
         num: 0,
         time: 0
