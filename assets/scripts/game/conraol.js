@@ -79,6 +79,7 @@ cc.Class({
             const height=Math.ceil(CACHE.platform.visibleSize.height/2-857/2-10)
             this.menuWarp.height=height>240?240:height
         }
+
     },
 
 
@@ -322,7 +323,7 @@ cc.Class({
         setTimeout(() => {
             game_award.destroy();
             this.showShare(item, leavel - 1);
-        }, 2000)
+        }, 3000)
 
     },
 

@@ -164,11 +164,11 @@ cc.Class({
             this.goodsWarp.active = false
 
         } else {
-            arr2.map(item => {
+            arr2.map((item,index) => {
                 var node = cc.instantiate(this.goods_item);
                 node.parent = this.goodsContent;
                 let obj = node.getComponent('gameAwardItem')
-                obj.init(item)
+                obj.init(item,index)
             })
         }
         this.setAnimation(leavel, list)
