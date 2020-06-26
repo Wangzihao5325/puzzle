@@ -22,8 +22,22 @@ function initItem(SIZES, hardLevel, sortType = 0, pre_item, game_bg, spframe_puz
     if (resort) {
         var spliceWarpContent = cc.find(`Canvas/footerWarp/spliceWarp/spliceScrollView/view/content`)
 
+        /*同步底部栏长度*/
+        let reallyWidth = (PUZZLE_FOOTER.itemWidth * reSortSizeArr.length + PUZZLE_FOOTER.itemWidthMargin);
+        if (spliceWarpContent.width + PUZZLE_FOOTER.truePosition[0] <= PUZZLE_SCENE.width) {
+            let newPositionX = Math.min(PUZZLE_FOOTER.truePosition[0] + PUZZLE_FOOTER.itemWidth, PUZZLE_FOOTER.position[0]);
+            spliceWarpContent.x = newPositionX;
+            PUZZLE_FOOTER.truePosition[0] = newPositionX;
+        }
+        spliceWarpWidth=(reSortSizeArr.length-0.5)*120+60;
+        spliceWarpContent.width =spliceWarpWidth
+
+
         const spliceWarpX=spliceWarpContent.x
         var children = spliceWarpContent.children
+        if(spliceWarpWidth<510){
+            const spliceWarpX=-spliceWarpWidth/2
+        }
         children.map(item => {
             let index;
             reSortSizeArr.map((reitem, i) => {
@@ -31,8 +45,10 @@ function initItem(SIZES, hardLevel, sortType = 0, pre_item, game_bg, spframe_puz
                     index = i
                 }
             })
-            const positionX=(index+0.5)*160
+            const positionX=(index+.5)*120
             let position = cc.v2(positionX, 0);
+            let onViewr=positionX+spliceWarpContent.x>-400&&positionX+spliceWarpContent.x<600
+            item.opacity=onViewr?255:0
             if (isAnimate) {
                 cc.tween(item)
                     .to(0.5, { position: position,opacity:255 })
@@ -41,17 +57,12 @@ function initItem(SIZES, hardLevel, sortType = 0, pre_item, game_bg, spframe_puz
                 item.setPosition(position);
             }
         })
-        /*同步底部栏长度*/
-        let reallyWidth = (PUZZLE_FOOTER.itemWidth * reSortSizeArr.length + PUZZLE_FOOTER.itemWidthMargin);
-        spliceWarpContent.width = Math.max(reallyWidth, PUZZLE_SCENE.width);
-        if (spliceWarpContent.width + PUZZLE_FOOTER.truePosition[0] <= PUZZLE_SCENE.width) {
-            let newPositionX = Math.min(PUZZLE_FOOTER.truePosition[0] + PUZZLE_FOOTER.itemWidth, PUZZLE_FOOTER.position[0]);
-            spliceWarpContent.x = newPositionX;
-            PUZZLE_FOOTER.truePosition[0] = newPositionX;
-        }
+
+        // spliceWarpContent.setPosition(cc.v2(0,115))
+
     } else {
         var spliceWarpContent = cc.find(`Canvas/footerWarp/spliceWarp/spliceScrollView/view/content`)
-        spliceWarpContent.width =(reSortSizeArr.length-0.5)*160+40
+        spliceWarpContent.width =(reSortSizeArr.length-0.5)*120+60
 
         // spliceWarp.width = 640;
         reSortSizeArr.forEach((item, index) => {
@@ -81,7 +92,7 @@ function initItem(SIZES, hardLevel, sortType = 0, pre_item, game_bg, spframe_puz
                 newNode.zIndex=11+index
                 const position = cc.v2(item[4],item[5]-10)
                 newNode.setPosition(position);
-                newNode.defaulSpliceX=(index+0.5)*160                
+                newNode.defaulSpliceX=(index+0.5)*120                
                 let obj = newNode.getComponent('splice_item_index');
                 if (obj) {
                     /*保存引用*/
@@ -107,7 +118,7 @@ function initItem(SIZES, hardLevel, sortType = 0, pre_item, game_bg, spframe_puz
             // spliceWarp.addChild(item_node, index);
             
 
-            let position = cc.v2((index+0.5)*160, 0);
+            let position = cc.v2((index+0.5)*120, 0);
             item_node.setPosition(position);
 
             //设置显示隐藏提高性能

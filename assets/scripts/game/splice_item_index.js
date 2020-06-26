@@ -290,7 +290,6 @@ cc.Class({
             }
         });
         if (minItem) {
-            console.log("minItem",minItem,defaultPostion)
             if (minItem[4] == defaultx && minItem[5]-10 == defaulty && rotation == 0) {
                 console.log("拼图成功")
                 let newPositin = cc.v2(defaultx, defaulty);

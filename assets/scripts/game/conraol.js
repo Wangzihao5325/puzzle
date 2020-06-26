@@ -399,7 +399,7 @@ cc.Class({
         const tiemNode = cc.find('sortTimes', this.magnet)
         const num = cc.find('time', tiemNode).getComponent(cc.Label)
         const adNode = cc.find('free', this.magnet)
-        const currentNum = userData.strongMagnet > 99 ? '99+' : userData.strongMagnet
+        const currentNum = userData.strongMagnet > 99 ? '99' : userData.strongMagnet
         num.string = currentNum
         setTimeout(() => {
             if (userData.strongMagnet > 0) {
@@ -420,7 +420,7 @@ cc.Class({
         const tiemNode = cc.find('sortTimes', this.sort)
         const num = cc.find('time', tiemNode).getComponent(cc.Label)
         const adNode = cc.find('free', this.sort)
-        const currentNum = userData.frame > 99 ? '99+' : userData.frame
+        const currentNum = userData.frame > 99 ? '99' : userData.frame
         num.string = currentNum
         setTimeout(() => {
             if (userData.frame > 0) {
@@ -442,7 +442,7 @@ cc.Class({
         let tiemNode = cc.find('sortTimes', this.viewIcon)
         let num = cc.find('time', tiemNode).getComponent(cc.Label)
         let adNode = cc.find('free', this.viewIcon)
-        let currentNum = userData.showProp > 99 ? '99+' : userData.showProp
+        let currentNum = userData.showProp > 99 ? '99' : userData.showProp
         num.string = currentNum
         setTimeout(() => {
             if (userData.showProp > 0) {
