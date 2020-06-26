@@ -18,6 +18,7 @@ cc.Class({
         dress_content:cc.Node,
         pageContent: cc.Node,
         fragment:cc.Label,
+        diamond:cc.Label,
         pageItem1: cc.Node,
         pageItem2: cc.Node,
         pageItem3: cc.Node,
@@ -110,6 +111,7 @@ cc.Class({
 
     resetUI() {
         this.fragment.string=`${CACHE.userData.fragment}`
+        this.diamond.string=`${CACHE.userData.gem}`
     },
 
 
@@ -142,6 +144,8 @@ cc.Class({
             if (res.code === 0) {
                 Toast.show(status === 0 ? "购买成功" : '装扮成功')
                 this.getDecorations()
+                cc.find("sound").getComponent("sound").updateAssets()
+
             } else {
                 Toast.show(res.message || (status === 0 ? "购买失败'" : '装扮失败'))
             }
