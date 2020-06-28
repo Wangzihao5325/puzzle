@@ -50,6 +50,7 @@ cc.Class({
         //重置参数
         GAME_CACHE.complateIndex = []
         GAME_CACHE.isComplate = true
+        GAME_CACHE.puzzleAnimation=false
 
         const hardLevel = CACHE.hard_level;
         const missionObj = CACHE.mission_press;

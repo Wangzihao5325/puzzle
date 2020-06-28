@@ -290,7 +290,8 @@ var GAME_CACHE = {
   currentLeavel: 2,
   underwayIndex: [],
   spliceArr: [],
-  layout: {}
+  layout: {},
+  puzzleAnimation:false
 }
 
 const PUZZLE_FOOTER = {

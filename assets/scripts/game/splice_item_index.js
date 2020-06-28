@@ -292,7 +292,8 @@ cc.Class({
         });
         if (minItem) {
             if (minItem[4] == defaultx && minItem[5] - 10 == defaulty && rotation == 0) {
-                console.log("拼图成功")
+                // console.log("拼图成功")
+
                 let newPositin = cc.v2(defaultx, defaulty);
                 // this.item_node.setPosition(newPositin);
                 cc.tween(this.item_node)
@@ -306,7 +307,8 @@ cc.Class({
                 GAME_CACHE.complateIndex.push(this.item_node.defaultIndex);
                 GAME_CACHE.underwayIndex.remove(this.item_node.defaultIndex)
                 this.checkSuccess();
-                if (GAME_CACHE.complateIndex.length >= reg.length * 0.3) {
+                if (GAME_CACHE.complateIndex.length >= reg.length * 0.3&&GAME_CACHE.puzzleAnimation===false) {
+                    GAME_CACHE.puzzleAnimation=true
                     let dragonBonesNode = cc.find('Canvas/root/puzzleWarp/puzzleBg');
                     let animate = dragonBonesNode.getComponent(dragonBones.ArmatureDisplay)
                     animate.playAnimation(CACHE.dragonBoneAnimateName, 0);

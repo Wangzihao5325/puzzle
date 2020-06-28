@@ -157,7 +157,8 @@ cc.Class({
                 this.checkComplate();
             }, 400)
         }
-        if (GAME_CACHE.complateIndex.length >= SIZES[CACHE.hard_level].length * 0.3) {
+        if (GAME_CACHE.complateIndex.length >= SIZES[CACHE.hard_level].length * 0.3&&GAME_CACHE.puzzleAnimation===false) {
+            GAME_CACHE.puzzleAnimation=true
             let dragonBonesNode = cc.find('Canvas/root/puzzleWarp/puzzleBg');
             let animate = dragonBonesNode.getComponent(dragonBones.ArmatureDisplay)
             animate.playAnimation(CACHE.dragonBoneAnimateName, 0);
@@ -262,7 +263,7 @@ cc.Class({
     //判断完成，并调用完成动画
     checkComplate() {
         if (SIZES[CACHE.hard_level].length == GAME_CACHE.complateIndex.length) {
-            Toast.show("拼图完成", {timer:1000});
+            // Toast.show("拼图完成", {timer:1000});
             cc.find("sound").getComponent("sound").stop()
             cc.find("sound").getComponent("sound").missionSuccess()
             this.doComplate()
@@ -301,9 +302,13 @@ cc.Class({
         Api.missionComplete(data, (res => {
             if (res.code === 0) {
                 setTimeout(() => {
-                    cc.find("sound").getComponent("sound").gameSettlement()
+                    
+                    cc.find("sound").getComponent("sound").gameSuccess()
+                    setTimeout(()=>{
+                        cc.find("sound").getComponent("sound").gameSettlement()
+                    },3000)
                     this.showAward(res.data.list, CACHE.hard_level + 1);
-                }, 1000)
+                }, 0)
             } else {
                 Toast.show(res.meeage)
             }
