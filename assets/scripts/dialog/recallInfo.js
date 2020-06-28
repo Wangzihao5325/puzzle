@@ -40,6 +40,10 @@ cc.Class({
         recallInfo:{
             type:cc.Object,
             destroy:{}
+        },
+        recallPic:{
+            type:cc.String,
+            destroy:''
         }
     },
 
@@ -60,12 +64,13 @@ cc.Class({
     showPic(item){
         let picView = cc.instantiate(this.picView);
         let obj = picView.getComponent('picViewer');
-        obj.init(0,this.recallInfo.picUrl,this.recallInfo.hurdleName)
+        obj.init(0,this.recallPic,this.recallInfo.hurdleName)
         picView.parent = cc.find('Canvas');
     },
 
     getRecallInfo(item){
         this.recallInfo=item
+        this.recallPic=item.picUrl
         Api.memory_travelInfo({hurdleId:item.hurdleId},res=>{
             if(res.code===0){
                 const data=res.data;

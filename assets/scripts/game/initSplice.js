@@ -29,7 +29,7 @@ function initItem(SIZES, hardLevel, sortType = 0, pre_item, game_bg, spframe_puz
             spliceWarpContent.x = newPositionX;
             PUZZLE_FOOTER.truePosition[0] = newPositionX;
         }
-        spliceWarpWidth=(reSortSizeArr.length-0.5)*120+60;
+        const spliceWarpWidth=(reSortSizeArr.length-0.5)*120+60;
         spliceWarpContent.width =spliceWarpWidth
 
 
