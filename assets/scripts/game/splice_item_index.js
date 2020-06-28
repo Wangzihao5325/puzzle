@@ -17,17 +17,17 @@ cc.Class({
 
     properties: {
         sp_item: cc.Sprite,
-        content:cc.Mask,
-        contentNode:cc.Node,
+        content: cc.Mask,
+        contentNode: cc.Node,
         mask_item: cc.Mask,
         splice_item: cc.Node,
-        item_node:cc.Node,
+        item_node: cc.Node,
         isMove: cc.boolean,
-        shadow:cc.Node,
+        shadow: cc.Node,
         pre_item: cc.Prefab,
-        removeOutDistance:{
-            type:cc.Boolean,
-            defaulty:90
+        removeOutDistance: {
+            type: cc.Boolean,
+            defaulty: 90
         },
 
     },
@@ -40,8 +40,8 @@ cc.Class({
                 this.splice(index, 1);
             }
         };
-        if(CACHE.platform.isIphoneX){
-            this.removeOutDistance=120
+        if (CACHE.platform.isIphoneX) {
+            this.removeOutDistance = 120
         }
     },
 
@@ -57,8 +57,9 @@ cc.Class({
                 cc.error(err);
                 return;
             }
+            self._item_index = index;
             self.content.spriteFrame = assets;
-            self.shadow.getComponent(cc.Mask).spriteFrame=assets
+            self.shadow.getComponent(cc.Mask).spriteFrame = assets
         });
     },
 
@@ -74,25 +75,25 @@ cc.Class({
             // const puzzleItem= cc.find('content',this.item_node)
             //根据旋转角度计算阴影显示的坐标
             let angle = this.item_node.angle % 360;
-            let angleAbs=angle>=0?angle:360+angle
+            let angleAbs = angle >= 0 ? angle : 360 + angle
             let shadowPostion;
-            switch (angleAbs){
+            switch (angleAbs) {
                 case 0:
-                    shadowPostion=cc.v2(-5,3)
+                    shadowPostion = cc.v2(-5, 3)
                     break;
                 case 90:
-                    shadowPostion=cc.v2(3,5)
+                    shadowPostion = cc.v2(3, 5)
                     break;
                 case 180:
-                    shadowPostion=cc.v2(5,-3)
+                    shadowPostion = cc.v2(5, -3)
                     break;
                 case 270:
-                    shadowPostion=cc.v2(-3,-5)
+                    shadowPostion = cc.v2(-3, -5)
                     break;
             }
-            this.shadow.active=true
+            this.shadow.active = true
             cc.tween(this.contentNode)
-                .to(.1,{position:shadowPostion})
+                .to(.1, { position: shadowPostion })
                 .start()
             /*
             不禁止事件传递,让底部栏可以滑动，提升体验
@@ -105,7 +106,7 @@ cc.Class({
             this.isMove = true;
             let delta = event.touch.getDelta();
             const outList = this.item_node.parent.name !== 'content';
-            let newPositin = cc.v2(this.item_node.x + delta.x, this.item_node.y + delta.y>430?430:this.item_node.y + delta.y);
+            let newPositin = cc.v2(this.item_node.x + delta.x, this.item_node.y + delta.y > 430 ? 430 : this.item_node.y + delta.y);
             //在拼图盒子内移动
             if (!outList && this.item_node._offsetY + delta.y < 90) {
                 /*积累偏移量*/
@@ -155,14 +156,14 @@ cc.Class({
         this.node.on(cc.Node.EventType.TOUCH_END, (event) => {
             if (this.isMove) {
                 this.item_node._offsetY = 0;
-            }else{
+            } else {
                 cc.find("sound").getComponent("sound").tap()
             }
 
             const outList = this.item_node.parent.name !== 'content';
 
             /*移回盒子*/
-             if (outList && this.item_node.y  < -428.5) {
+            if (outList && this.item_node.y < -428.5) {
                 var spliceWarpContent = cc.find(`Canvas/footerWarp/spliceWarp/spliceScrollView/view/content`)
 
                 this.item_node.parent = spliceWarpContent
@@ -178,9 +179,9 @@ cc.Class({
                 }
 
                 //去除拿起阴影
-                this.shadow.active=false
+                this.shadow.active = false
                 cc.tween(this.contentNode)
-                    .to(.1,{position:cc.v2(0,0)})
+                    .to(.1, { position: cc.v2(0, 0) })
                     .start()
 
             }
@@ -190,7 +191,7 @@ cc.Class({
                 //第三级难度点击旋转
                 // this.item_node.angle = (this.item_node.angle - 90) % 360;
                 cc.tween(this.item_node)
-                    .to(.1,{angle: (this.item_node.angle - 90) % 360})
+                    .to(.1, { angle: (this.item_node.angle - 90) % 360 })
                     .start()
             }
             if (outList) {
@@ -204,7 +205,7 @@ cc.Class({
             // const puzzleItem= cc.find('content',this.item_node)
             //去除拿起阴影
             cc.tween(this.contentNode)
-                .to(.1,{position:cc.v2(0,0)})
+                .to(.1, { position: cc.v2(0, 0) })
                 .start()
 
             /*
@@ -222,8 +223,8 @@ cc.Class({
                 //第三级难度点击旋转
                 // this.item_node.angle = (this.item_node.angle - 90) % 360;
                 cc.tween(this.item_node)
-                .to(.1,{angle: (this.item_node.angle - 90) % 360})
-                .start()
+                    .to(.1, { angle: (this.item_node.angle - 90) % 360 })
+                    .start()
             }
             const outList = this.item_node.parent.name !== 'content';
             if (outList) {
@@ -236,9 +237,9 @@ cc.Class({
             // cc.find('shadow',this.item_node).active=false
             // const puzzleItem= cc.find('content',this.item_node)
             //去除拿起阴影
-            this.shadow.active=false
+            this.shadow.active = false
             cc.tween(this.contentNode)
-                .to(.1,{position:cc.v2(0,0)})
+                .to(.1, { position: cc.v2(0, 0) })
                 .start()
 
 
@@ -282,21 +283,21 @@ cc.Class({
         let reg = SIZES[hardLevel];
         let minDistance = Number.MAX_VALUE;
         let minItem = null;
-        reg.forEach((item,index) => {
-            let distance = Math.pow((item[4] - x), 2) + Math.pow((item[5]-10 - y), 2)
+        reg.forEach((item, index) => {
+            let distance = Math.pow((item[4] - x), 2) + Math.pow((item[5] - 10 - y), 2)
             if (distance <= minDistance) {
                 minDistance = distance;
                 minItem = item;
             }
         });
         if (minItem) {
-            if (minItem[4] == defaultx && minItem[5]-10 == defaulty && rotation == 0) {
+            if (minItem[4] == defaultx && minItem[5] - 10 == defaulty && rotation == 0) {
                 console.log("拼图成功")
                 let newPositin = cc.v2(defaultx, defaulty);
                 // this.item_node.setPosition(newPositin);
                 cc.tween(this.item_node)
-                .to(.2,{position:newPositin})
-                .start()
+                    .to(.2, { position: newPositin })
+                    .start()
                 var item_puzzle_warp = cc.find(`Canvas/root/puzzleWarp/puzzleBg/item_puzzle_warp-${this.item_node.defaultIndex}`);
                 item_puzzle_warp.active = false;
                 // var item_puzzle_splice = cc.find(`Canvas/root/puzzleWarp/puzzleBg/item_puzzle_splice-${this.item_node.defaultIndex}`);
@@ -310,12 +311,13 @@ cc.Class({
                     let animate = dragonBonesNode.getComponent(dragonBones.ArmatureDisplay)
                     animate.playAnimation(CACHE.dragonBoneAnimateName, 0);
                 }
-                setTimeout(() => { item_puzzle_warp.destroy();}, 100)
+                setTimeout(() => { item_puzzle_warp.destroy(); }, 100)
             } else {
+                let regItem = reg[this._item_index];
                 // this.item_node.setPosition(cc.v2(minItem[4], minItem[5]));
                 cc.tween(this.item_node)
-                .to(.2,{position:cc.v2(minItem[4], minItem[5]-10)})
-                .start()
+                    .to(.2, { position: cc.v2(minItem[4] - minItem[7] + regItem[7], minItem[5] - minItem[8] + regItem[8] - 10) })
+                    .start()
             }
         }
     },
