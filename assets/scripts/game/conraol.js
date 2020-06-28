@@ -186,7 +186,7 @@ cc.Class({
     gamePause() {
         let pauseWarp = cc.instantiate(this.pause);
         GAME_CACHE.pause = true;
-        pauseWarp.parent = this.game_root;
+        pauseWarp.parent = cc.find('Canvas');
         pauseWarp.setPosition(0, 0);
     },
 
