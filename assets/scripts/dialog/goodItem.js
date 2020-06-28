@@ -12,7 +12,6 @@ cc.Class({
         good_name: cc.Node,
         good_pic: cc.Sprite,
         good_bg: cc.Sprite,
-        num:cc.Label,
         root: cc.Node
     },
 
@@ -44,8 +43,7 @@ cc.Class({
     init(item) {
         this.item = item;
         this.good_name.getComponent(cc.Label).node.active = true;
-        this.good_name.getComponent(cc.Label).string = item.name;
-        this.num.string=`x ${item.num}`
+        this.good_name.getComponent(cc.Label).string = `${item.name} x${item.num}`;
         cc.loader.load(item.icon, (err, texture) => {
             this.good_pic.spriteFrame = new cc.SpriteFrame(texture)
         });

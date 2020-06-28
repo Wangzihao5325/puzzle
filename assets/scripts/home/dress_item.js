@@ -40,6 +40,10 @@ cc.Class({
         select:{
             type:Boolean,
             default:false
+        },
+        info:{
+            type:cc.Object,
+            default:{}
         }
 
         // ske_anim: {
@@ -56,6 +60,7 @@ cc.Class({
     },
 
     init(item){
+        this.info=item
         cc.loader.load(item.iconImg, (err, texture)=> {
             const width=texture.width;
             const height=texture.height;
@@ -104,39 +109,45 @@ cc.Class({
         }
     },
     
-    setSelect(event){
-        console.log("event",event)
+    setSelect(){
+        console.log("item",this.info)
+
         const node=this.iconWarp.getComponent(cc.Sprite)
         const contentNode=this.iconWarpContent.getComponent(cc.Sprite)
        
             if(HOME_CACHE.selectDecorations){
-                const setlect=HOME_CACHE.selectDecorations.info
+                const setlect=HOME_CACHE.selectDecorations
                 //清除其它选中
                 var feedWarpContent = cc.find(`Canvas/dressModal/dressWarp/feedContent/NewPageView/view/content`)
                 const oldSelectNode= feedWarpContent.children[setlect.pagesIndex].children[setlect.itemIndex]
                 this.removeSelect(oldSelectNode)
             }
             //设置选中
-            HOME_CACHE.selectDecorations=event.currentTarget
+            HOME_CACHE.selectDecorations=this.info
             node.spriteFrame=this.selectBorder
             contentNode.spriteFrame=this.selectBorder
-            contentNode.color=new cc.color(254, 248, 212)
+            
+            this.iconWarpContent.color=new cc.color(255,255,255,255)
+            
             this.select=!this.select;
             this.handleDressItem()
             var feedWarpSave = cc.find(`Canvas/dressModal/dressWarp/save/saveText`).getComponent(cc.Label)
-            feedWarpSave.string=(HOME_CACHE.selectDecorations.info.status===0?'购买并装扮':'保存装扮')
+            feedWarpSave.string=(HOME_CACHE.selectDecorations.status===0?'购买并装扮':'保存装扮')
 
         
 
     },
 
     removeSelect(node){
-        const warpNode=cc.find('iconWarp',node).getComponent(cc.Sprite)
-        const contentNode= cc.find('iconWarp/content',node).getComponent(cc.Sprite)
-        console.log("warpNode",warpNode,contentNode)
-        warpNode.spriteFrame=this.defaultPanle
-        contentNode.spriteFrame=this.defaultPanle
-        contentNode.color=new cc.color(236,236,236)
+        console.log("node",node)
+        const warpNode=cc.find('iconWarp',node)
+        const contentNode= cc.find('iconWarp/content',node)
+        console.log("warpNode",warpNode)
+        // node.active=false
+        warpNode.getComponent(cc.Sprite).spriteFrame=this.defaultPanle
+        contentNode.getComponent(cc.Sprite).spriteFrame=this.defaultPanle
+        warpNode.color=new cc.color(236,236,236,255)
+        contentNode.color=new cc.color(236,236,236,255)
     },
 
     start () {
@@ -218,7 +229,7 @@ cc.Class({
         this.dress_item.on(cc.Node.EventType.TOUCH_END, (event) => {
             // this.handleDressItem()
             cc.find("sound").getComponent("sound").tap()
-            this.setSelect(event)
+            this.setSelect()
             event.stopPropagation();
 
         })

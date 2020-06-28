@@ -117,10 +117,8 @@ cc.Class({
         Api.storeGoodsBuy(data,res=>{
             if(res.code===0){
                 Toast.show(`${info.name}购买成功`)
-                User.BalanceUpdate(()=>{
-                    const store= cc.find('Canvas/store').getComponent('store')
-                    store.resetUI()
-                })
+                cc.find("sound").getComponent("sound").updateAssets()
+
             }else{
                 Toast.show(res.message)
             }

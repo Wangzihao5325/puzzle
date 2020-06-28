@@ -24,7 +24,7 @@ cc.Class({
         goodDetailType: cc.Sprite,
         goodDetailTypeName: cc.Label,
         goodDetails: cc.Label,
-        goodDetailsContent: cc.Sprite,
+        goodDetailsContent: cc.Node,
         goodDetailMask: cc.Sprite,
         goodDetailBg: cc.Sprite,
         goodLessReg: cc.Sprite,
@@ -160,24 +160,25 @@ cc.Class({
         this.info=item
         const type=item.goodsQuality
         this.info.type=type
+        this.goodDetailName.string = `${item.name}`;
 
         if(type===0){
             this.goodDetails.node.color = cc.color(141, 141, 141);
-            this.goodDetailsContent.node.color = cc.color(255,255,255);
+            this.goodDetailsContent.color = cc.color(255,255,255);
             this.goodDetailBg.node.color = cc.color(234,234,234);
             this.goodLessReg.node.active = false;
             this.actionWarp.active=true&&this.canSell
         }
         else if (type == 1) {//稀有物品
             this.goodDetails.node.color = cc.color(255, 255, 255);
-            this.goodDetailsContent.node.color = cc.color(212, 181, 156);
+            this.goodDetailsContent.color = cc.color(212, 181, 156);
             this.goodDetailBg.node.color = cc.color(255, 247, 206);
             this.goodLessReg.node.active = true;
             this.actionWarp.active=true&&this.canSell
         } else if(type===3){
             //普通 宠物
             this.goodDetails.node.color = cc.color(141, 141, 141);
-            this.goodDetailsContent.node.color = cc.color(255, 255, 255);
+            this.goodDetailsContent.color = cc.color(255, 255, 255);
             this.goodDetailBg.node.color = cc.color(244,235,218);
             this.goodLessReg.node.active = false;
             this.actionWarp.active=true&&this.canSell
@@ -187,13 +188,12 @@ cc.Class({
             this.actionText.string='使 用'
         } else {//道具
             this.goodDetails.node.color = cc.color(141, 141, 141);
-            this.goodDetailsContent.node.color = cc.color(255, 255, 255);
+            this.goodDetailsContent.color = cc.color(255, 255, 255);
             this.goodDetailBg.node.color = cc.color(234, 234, 234);
             this.goodLessReg.node.active = false;
             this.actionWarp.active=false&&this.canSell
 
         }
-        this.goodDetailName.string = item.name;
         if(!comsumption){
             this.typeWarp.active=true
             this.goodSellNum.string = item.sellAmount;
@@ -237,8 +237,8 @@ cc.Class({
         });
 
 
-        this.goodDetails.node.width = 220;
-        this.goodDetails.string = item.introduce;
+        // this.goodDetails.node.width = 220;
+        this.goodDetails.string = `    ${item.introduce}`;
         // this.goodDetailRoot.active = true;
     },
 

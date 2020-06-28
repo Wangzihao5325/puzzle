@@ -29,6 +29,8 @@ cc.Class({
         taskPop: cc.Node,
         taskPopText: cc.Label,
         taskDialog: cc.Prefab,
+        storeIcon:cc.Node,
+        store:cc.Prefab,
         signNew: cc.Node,
         taskNew: cc.Node,
 
@@ -156,6 +158,12 @@ cc.Class({
         this.signRoot.active = true;
     },
 
+    showStore() {
+        let store = cc.instantiate(this.store);
+        const canvas = cc.find('Canvas')
+        store.parent = canvas
+    },
+
     signSetTouch() {//signBg
 
         this.signBg.on(cc.Node.EventType.TOUCH_START, (event) => {
@@ -194,6 +202,11 @@ cc.Class({
         this.taskIcon.on(cc.Node.EventType.TOUCH_END, (event) => {
             cc.find("sound").getComponent("sound").tap()
             this.showTask()
+            event.stopPropagation();
+        });
+        this.storeIcon.on(cc.Node.EventType.TOUCH_END, (event) => {
+            cc.find("sound").getComponent("sound").tap()
+            this.showStore()
             event.stopPropagation();
         });
 
