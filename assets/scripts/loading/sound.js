@@ -54,6 +54,11 @@ cc.Class({
             default: null,
             type: cc.AudioClip
         },
+        guideAudio:{
+            default: null,
+            type: cc.AudioClip
+        },
+
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -62,7 +67,13 @@ cc.Class({
 
     start () {
     },
+    playGuide(){
+        this.guideBGM = cc.audioEngine.play(this.guideAudio, true, 0.3);
+    },
     playBg(foce){
+        if(this.playGuide!==undefined){
+            cc.audioEngine.stop(this.guideBGM);
+        }
         if (CACHE.isBGM && CACHE.currentBGM===undefined) {
             console.log("播放音乐")
             CACHE.currentBGM = cc.audioEngine.play(this.audio, true, 0.1);

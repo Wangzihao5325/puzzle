@@ -19,7 +19,7 @@ cc.Class({
     properties: {
         soundNode: cc.Node,
         loadingBg: cc.Sprite,
-        loadingMask: cc.Sprite
+        loadingMask: cc.Sprite,
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -31,10 +31,14 @@ cc.Class({
     },
 
     start() {
+        
         //设置常驻节点
         cc.game.addPersistRootNode(this.soundNode);
         let totalWidth = this.loadingBg.node.width;
         let totalStep = 9;
+        //播放引导页背景音
+        this.soundNode.getComponent("sound").playGuide()
+
 
         /*加载背景图片*/
         cc.loader.load(BG_ASSET_URL, (errs, results) => {
