@@ -416,13 +416,16 @@ cc.Class({
     },
 
     bagReceive(itemDate) {
-        let payload = { placeId: itemDate.placeId };
+        //todo:观看广告双倍
+        let payload = { placeId: itemDate.placeId,isDouble:false };
         let stage = (CACHE.userInfo && typeof CACHE.userInfo.stage == 'number' && CACHE.userInfo.stage !== 99) ? CACHE.userInfo.stage : null;
         if (stage) {
             payload.userGuideStage = stage;
         }
         Api.getShowReceive(payload, (res) => {
             Toast.show(`获得${res.data.name} x${res.data.num}`);
+            //获取奖励音效
+            cc.find("sound").getComponent("sound").missionSuccess()
             let showcaseNode = cc.find(`Canvas/root/table/item_showcase_${itemDate.standId}`);
             if (showcaseNode) {
                 let obj = showcaseNode.getComponent('showcase_index');

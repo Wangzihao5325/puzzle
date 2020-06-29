@@ -37,7 +37,7 @@ cc.Class({
         let totalWidth = this.loadingBg.node.width;
         let totalStep = 9;
         //播放引导页背景音
-        this.soundNode.getComponent("sound").playGuide()
+        // this.soundNode.getComponent("sound").playGuide()
 
 
         /*加载背景图片*/

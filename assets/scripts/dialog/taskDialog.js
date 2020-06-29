@@ -44,6 +44,7 @@ cc.Class({
         dailyNew: cc.Node,
         mainNew: cc.Node,
         scroll:cc.Node,
+        adAward:cc.Prefab
 
     },
 
@@ -282,7 +283,7 @@ cc.Class({
         else if(data.activity>=data.levelOne&&type===1){
             if(!data.levelOneReceive){
                 console.log("可以领取")
-                this.doTaskActivyRecevie(leavel)
+                this.doTaskActivyRecevie(leavel,data.listOne)
                 return true
             }else{
                 return false
@@ -290,13 +291,13 @@ cc.Class({
         }
         else if(data.activity>=data.levelTwo&&type===2){
             if(!data.levelTwoReceive){
-                this.doTaskActivyRecevie(leavel)
+                this.doTaskActivyRecevie(leavel,data.listTow)
             }else{
                 return false
             }
         }else if(data.activity>=data.levelThree&&type===3){
             if(!data.levelThreeReceive){
-                this.doTaskActivyRecevie(leavel)
+                this.doTaskActivyRecevie(leavel,data.listThree)
             }else{
                 return false
             }
@@ -305,35 +306,25 @@ cc.Class({
 
     },
 
-    doTaskActivyRecevie(leavel){
-        //领取动画
-        const nodelist=[this.git1,this.git2,this.git3]
-        const newNode=cc.instantiate(nodelist[leavel-1])
-        // const newNode=nodelist[leavel-1]
-        newNode.parent=cc.find('Canvas')
-        newNode.setPosition(cc.v2(0,-400))
-        newNode.opacity=0
-        cc.tween(newNode)
-            .to(1,{position:cc.v2(0,0),scale:2,opacity:255})
-            .delay(1)
-            .to(.5,{opacity:0})
-            .call(()=>{newNode.destroy()})
-            .start()
-        let halo= cc.find('halo',newNode )
-        halo.active=true
-        cc.tween(halo)
-            .to(2,{angle:190})
-            .start()
+    doTaskActivyRecevie(leavel,list){
+        let adAward = cc.instantiate(this.adAward)
+        let obj = adAward.getComponent('adAward')
+        obj.init(list,this.awardCallBack,leavel)
+        adAward.parent = cc.find('Canvas')
+    },
 
+    awardCallBack(type,data){
         //领取接口
-        Api.task_activity_receive({level:leavel},res=>{
+        Api.task_activity_receive({level:data,advertise:type},res=>{
             if(res.code===0){
                 const data=res.data
                 data.map(item=>{
-                    Toast.show(`${item.name} +${item.amount}`)
+                    Toast.show(`领取成功`)
                 })
-
                 this.getActive()
+            }else{
+                Toast.show(res.message||'领取失败')
+
             }
         })
     },
@@ -343,67 +334,65 @@ cc.Class({
             this.info=res.data
             if(res.code===0){
                 const data=res.data;
-                const processlist=[160,260,400,500]
                 this.activeNum.string=data.activity
                 this.process_bar.width=500*data.activity/100
-                if(data.activity<data.levelOne){
+                if(data.levelOneReceive===true){
+                    cc.find('giftIcon',this.git1).getComponent(cc.Sprite).spriteFrame=this.gift1Open
+                }else{
                     cc.find('giftIcon',this.git1).getComponent(cc.Sprite).spriteFrame=this.gift1Close
+                    if(data.activity>data.levelOne){
+                        let halo= cc.find('halo',this.git1)
+                        this.haloAnimation(halo)
+                        this.jumpAnimation(cc.find('giftIcon',this.git1))
+                    }
+                }
+                if(data.levelTwoReceive===true){
+                    cc.find('giftIcon',this.git2).getComponent(cc.Sprite).spriteFrame=this.gift1Open
+                }else{
                     cc.find('giftIcon',this.git2).getComponent(cc.Sprite).spriteFrame=this.gift1Close
+                    if(data.activity>data.levelTwo){
+                        let halo= cc.find('halo',this.git2)
+                        this.haloAnimation(halo)
+                        this.jumpAnimation(this.git2)
+                    }
+                }
+                if(data.levelThreeReceive===true){
+                    cc.find('giftIcon',this.git3).getComponent(cc.Sprite).spriteFrame=this.gift2Open
+                }else{
                     cc.find('giftIcon',this.git3).getComponent(cc.Sprite).spriteFrame=this.gift2Close
-                }
-                if(data.activity>=data.levelOne){
-                    let halo= cc.find('halo',this.git1)
-                    if(!data.levelOneReceive){
-                        cc.find('giftIcon',this.git1).getComponent(cc.Sprite).spriteFrame=this.gift1Close
-                        cc.find('giftIcon',this.git2).getComponent(cc.Sprite).spriteFrame=this.gift1Close
-                        cc.find('giftIcon',this.git3).getComponent(cc.Sprite).spriteFrame=this.gift2Close
-                        halo.active=true
-                        cc.tween(halo)
-                        .to(10,{angle:190})
-                        .repeatForever()
-                        .start()
-                    }else{
-                        cc.find('giftIcon',this.git1).getComponent(cc.Sprite).spriteFrame=this.gift1Open
-                        cc.find('giftIcon',this.git2).getComponent(cc.Sprite).spriteFrame=this.gift1Close
-                        cc.find('giftIcon',this.git3).getComponent(cc.Sprite).spriteFrame=this.gift2Close
-                        halo.active=false
-                    }
-                }
-                if(data.activity>=data.levelTwo){
-                    let halo= cc.find('halo',this.git2)
-                    if(!data.levelTwoReceive){
-                        cc.find('giftIcon',this.git2).getComponent(cc.Sprite).spriteFrame=this.gift1Close
-                        cc.find('giftIcon',this.git3).getComponent(cc.Sprite).spriteFrame=this.gift2Close
-                        halo.active=true
-                        cc.tween(halo)
-                        .to(10,{angle:190})
-                        .repeatForever()
-                        .start()
-                    }else{
-                        halo.active=false
-                        cc.find('giftIcon',this.git1).getComponent(cc.Sprite).spriteFrame=this.gift1Open
-                        cc.find('giftIcon',this.git2).getComponent(cc.Sprite).spriteFrame=this.gift1Open
-                        cc.find('giftIcon',this.git3).getComponent(cc.Sprite).spriteFrame=this.gift2Close
-                    }
-                }if(data.activity>=data.levelThree){
-                    let halo= cc.find('halo',this.git3)
-                    if(!data.levelThreeReceive){
-                        cc.find('giftIcon',this.git3).getComponent(cc.Sprite).spriteFrame=this.gift2Close
-                        halo.active=true
-                        cc.tween(halo)
-                        .to(10,{angle:190})
-                        .repeatForever()
-                        .start()
-                    }else{
-                        halo.active=false
-                        cc.find('giftIcon',this.git1).getComponent(cc.Sprite).spriteFrame=this.gift1Open
-                        cc.find('giftIcon',this.git2).getComponent(cc.Sprite).spriteFrame=this.gift1Open
-                        cc.find('giftIcon',this.git3).getComponent(cc.Sprite).spriteFrame=this.gift2Open
+                    if(data.activity>data.levelThree){
+                        let halo= cc.find('halo',this.git3)
+                        this.haloAnimation(halo)
+                        this.jumpAnimation(this.git3)
                     }
                 }
 
+            
             }
         })
+    },
+
+    jumpAnimation(node){
+        const positionX=node.x
+        const positionY=node.y
+        cc.tween(node)
+            .to(.15,{position:cc.v2(positionX,positionY+15)})
+            .to(.15,{position:cc.v2(positionX,positionY)})
+            .delay(.1)
+            .to(.1,{position:cc.v2(positionX,positionY+20)})
+            .to(.1,{position:cc.v2(positionX,positionY)})
+            .delay(2)
+            .union()
+            .repeatForever()
+            .start()
+    },
+    haloAnimation(halo){
+        halo.active=true
+        cc.tween(halo)
+            .to(10,{angle:190})
+            .union()
+            .repeatForever()
+            .start()
     },
 
     // update (dt) {},
