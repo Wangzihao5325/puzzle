@@ -10,6 +10,21 @@ cc.Class({
         guideToast: cc.Prefab
     },
 
+    showTaskCallback() {
+        this.isTaskShowMode = true;
+        this.guideStep = 1;
+
+        this.handNode = cc.instantiate(this.hand);
+        this.handNode.scaleX = 0.7;
+        this.handNode.scaleY = 0.7;
+        this.handNode.parent = this.node;
+        this.handNode.setPosition(cc.v2(150, 340));
+        let obj = this.handNode.getComponent('guideHand');
+        if (obj) {
+            obj.handAnimate();
+        }
+    },
+
     onLoad() {
         if (!CACHE.isShowGuide) {
             return;
@@ -115,7 +130,15 @@ cc.Class({
         } else {
             this.node.zIndex = 1000;
             this.normalTouchGuide(true);
+            if (CACHE.userInfo.firstTask) {//如果是第一次打开任务，需要特殊处理
+                let travel_obj = cc.find('Canvas').getComponent('travel_index');
+                if (travel_obj) {
+                    travel_obj._showTaskCallbackSet(() => this.showTaskCallback());
+                }
+            }
             this.node.on(cc.Node.EventType.TOUCH_START, this.onNormalTouchStart, this);
+            this.node.on(cc.Node.EventType.TOUCH_MOVE, this.onNormalTouchMove, this);
+            this.node.on(cc.Node.EventType.TOUCH_END, this.onNormalTouchEnd, this);
         }
     },
 
@@ -132,9 +155,64 @@ cc.Class({
         }
     },
 
-    onNormalTouchStart() {
-        this.normalTouchGuide(false);
-        this.node._touchListener.setSwallowTouches(false);
+    onNormalIsUserPressIn(event) {
+        let originNode;
+        let pos;
+        let btn;
+        if (this.guideStep == 1) {
+            originNode = cc.find('Canvas/taskDialog/warp/header/tabContent');
+            btn = cc.find('Canvas/taskDialog/warp/header/tabContent/btn1');
+        } else {
+            return true;
+        }
+        if (!originNode || !btn) {
+            return false;
+        }
+        pos = originNode.convertToNodeSpaceAR(event.getLocation());
+        let rect = btn.getBoundingBox();
+        return rect.contains(pos);
+    },
+
+    onNormalTouchStart(event) {
+        if (this.isTaskShowMode) {
+            if (this.onNormalIsUserPressIn(event)) {
+                this.node._touchListener.setSwallowTouches(false);
+            } else {
+                this.node._touchListener.setSwallowTouches(true);
+            }
+        } else {
+            this.normalTouchGuide(false);
+            this.node._touchListener.setSwallowTouches(false);
+        }
+    },
+
+    onNormalTouchMove(event) {
+        if (this.isTaskShowMode) {
+            this.node._touchListener.setSwallowTouches(true);
+        } else {
+            this.node._touchListener.setSwallowTouches(false);
+        }
+    },
+
+    onNormalTouchEnd(event) {
+        if (this.isTaskShowMode) {
+            if (this.onNormalIsUserPressIn(event)) {
+                if (this.guideStep == 1) {
+                    this.handNode.setPosition(cc.v2(180, 190));
+                    this.guideStep++;
+                } else if (this.guideStep == 2) {
+                    this.handNode.active = false;
+                    this.guideStep++;
+                    this.isTaskShowMode = false;
+                    CACHE.userInfo.firstTask = false;
+                }
+                this.node._touchListener.setSwallowTouches(false);
+            } else {
+                this.node._touchListener.setSwallowTouches(true);
+            }
+        } else {
+            this.node._touchListener.setSwallowTouches(false);
+        }
     },
 
     normalTouchGuide(isInit) {

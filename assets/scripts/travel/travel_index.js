@@ -29,8 +29,8 @@ cc.Class({
         taskPop: cc.Node,
         taskPopText: cc.Label,
         taskDialog: cc.Prefab,
-        storeIcon:cc.Node,
-        store:cc.Prefab,
+        storeIcon: cc.Node,
+        store: cc.Prefab,
         signNew: cc.Node,
         taskNew: cc.Node,
 
@@ -148,13 +148,24 @@ cc.Class({
         CACHE.travel_city_press = itemObj;//在cache中存储点击选项，新场景加载后读取，获得传值
         cc.director.loadScene("mission");
     },
-    showTask() {
-        let task = cc.instantiate(this.taskDialog);
-        // let obj = header.getComponent('task');
-        task.parent = cc.find('Canvas');
+
+    _showTaskCallbackSet(showTaskCallback) {
+        if (showTaskCallback) {
+            this.showTaskCallback = showTaskCallback;
+        }
     },
 
-    showSignDialog(){
+    showTask() {
+        let task = cc.instantiate(this.taskDialog);
+        task.name = 'taskDialog';
+        // let obj = header.getComponent('task');
+        task.parent = cc.find('Canvas');
+        if (this.showTaskCallback) {
+            this.showTaskCallback();
+        }
+    },
+
+    showSignDialog() {
         this.signRoot.active = true;
     },
 
@@ -378,9 +389,9 @@ cc.Class({
     // LIFE-CYCLE CALLBACKS:
 
     onLoad() {
-        setTimeout(()=>{
+        setTimeout(() => {
             cc.find("sound").getComponent("sound").playBg()
-        },100)
+        }, 100)
 
         //设置红点显示或隐藏
         this.loadTaskTips();
