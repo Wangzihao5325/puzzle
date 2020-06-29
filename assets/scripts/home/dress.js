@@ -26,6 +26,7 @@ cc.Class({
         dress_item: cc.Prefab,
         dress_warp: cc.Node,
         save: cc.Node,
+        discountDia:cc.Prefab
 
 
     },
@@ -134,16 +135,27 @@ cc.Class({
         let homeIndeObj = cc.find('Canvas').getComponent('home_index')
         homeIndeObj.showBowl(true)
     },
+
+
     handleSave() {
+        let discountDia = cc.instantiate(this.discountDia)
+        const obj = discountDia.getComponent('adDreesDiscount')
+        discountDia.parent=cc.find("Canvas")
+        obj.init(HOME_CACHE.selectDecorations,this.saveDrees)
+    },
+
+    saveDrees(isDiscount){
+        const that=this;
         const data = {
-            goodsId: HOME_CACHE.selectDecorations.goodsId
+            goodsId: HOME_CACHE.selectDecorations.goodsId,
+            isDiscount:isDiscount
         }
         const status = HOME_CACHE.selectDecorations.status
         const api = status === 0 ? Api.petBuyEquip : Api.petEquip
         api(data, (res) => {
             if (res.code === 0) {
                 Toast.show(status === 0 ? "购买成功" : '装扮成功')
-                this.getDecorations()
+                cc.find('Canvas/dressModal').getComponent('dress').getDecorations()
                 cc.find("sound").getComponent("sound").updateAssets()
 
             } else {

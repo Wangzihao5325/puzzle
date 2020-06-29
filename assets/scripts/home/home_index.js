@@ -231,9 +231,9 @@ cc.Class({
         })
     },
 
-    NoticeClear(id) {
+    NoticeClear(id,isDouble=false) {
         //消息已读
-        Api.backNoticeView({ noticeId: id }, res => {
+        Api.backNoticeView({ noticeId: id,isDouble:isDouble }, res => {
             console.log('kkkkkkk');
             console.log(res);
         })

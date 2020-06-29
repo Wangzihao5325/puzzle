@@ -11,6 +11,7 @@ window.ComeBack = {
     _goodItem: null,
     _close: null,
     _confirmButton: null,   // 取消按钮
+    _adButton:null,
     _confirmCallBack: null,//确认回调
     _animSpeed: 300
 
@@ -61,6 +62,7 @@ window.ComeBack.show = function (goods, _confirmCallBack = () => { }, animSpeed)
 
 
         ComeBack._confirmButton = cc.find("dialogContainer/footer/confirm", alert);
+        ComeBack._adButton = cc.find("dialogContainer/footer/adButtonWarp", alert);
         ComeBack._close = cc.find("dialogContainer/header/close", alert);
 
         // 添加点击事件
@@ -68,6 +70,11 @@ window.ComeBack.show = function (goods, _confirmCallBack = () => { }, animSpeed)
         ComeBack._close.on('click', self.close, self);
         ComeBack._confirmCallBack = _confirmCallBack;
 
+
+        ComeBack._adButton.on(cc.Node.EventType.TOUCH_MOVE, (event) => {
+            self.adplay()
+            event.stopPropagation();
+        })
         // 父视图
         ComeBack._alert.parent = cc.find("Canvas");
 
@@ -116,6 +123,9 @@ window.ComeBack.show = function (goods, _confirmCallBack = () => { }, animSpeed)
 
         self.startFadeOut();
 
+    }
+    self.adplay=function(){
+        Toast.show('广告暂未开放')
     }
 
     // 按钮点击事件

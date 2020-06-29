@@ -131,8 +131,14 @@ cc.Class({
             
             this.select=!this.select;
             this.handleDressItem()
-            var feedWarpSave = cc.find(`Canvas/dressModal/dressWarp/save/saveText`).getComponent(cc.Label)
-            feedWarpSave.string=(HOME_CACHE.selectDecorations.status===0?'购买并装扮':'保存装扮')
+            cc.find(`Canvas/dressModal/dressWarp/save`).active=true
+            if(HOME_CACHE.selectDecorations.status===0){
+                cc.find(`Canvas/dressModal/dressWarp/save/saveWarp`).active=false
+                cc.find(`Canvas/dressModal/dressWarp/save/buySave`).active=true
+            }else{
+                cc.find(`Canvas/dressModal/dressWarp/save/saveWarp`).active=true
+                cc.find(`Canvas/dressModal/dressWarp/save/buySave`).active=false
+            }
 
         
 
