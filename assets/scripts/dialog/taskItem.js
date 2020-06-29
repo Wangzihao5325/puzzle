@@ -53,7 +53,7 @@ cc.Class({
         })
     },
 
-    init(item) {
+    init(item,index) {
         this.info=item
         this.times=item.times
         this.title.string = item.target;
@@ -63,7 +63,7 @@ cc.Class({
             this.done.active=true
         }else if(item.complete&&!item.receive){
             this.getBtn.active=true
-        }else if(!item.mainTask){
+        }else if(!item.mainTask||index===0){
             this.goBtn.active=true
         }
         this.processText.string=`${item.process} / ${item.times}`
@@ -115,6 +115,9 @@ cc.Class({
 
         const type=this.info.jump;
         switch (type){
+            case null:
+                this.getCurrentCity()
+                break;
             case 0:
                 //完成游戏,跳转到关卡选择（完成两次三星关卡，包含使用道具）
                 this.getCurrentCity()
