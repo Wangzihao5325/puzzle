@@ -62,7 +62,10 @@ cc.Class({
         audio: {
             default: null,
             type: cc.AudioClip
-        }
+        },
+
+        adAward: cc.Prefab
+
     },
 
     speedUpSelectMaskInit() {
@@ -415,9 +418,13 @@ cc.Class({
         })
     },
 
+    awardCallBack() {
+        Toast.show('尚未开放视频观看功能');
+    },
+
     bagReceive(itemDate) {
         //todo:观看广告双倍
-        let payload = { placeId: itemDate.placeId,isDouble:false };
+        let payload = { placeId: itemDate.placeId, isDouble: false };
         let stage = (CACHE.userInfo && typeof CACHE.userInfo.stage == 'number' && CACHE.userInfo.stage !== 99) ? CACHE.userInfo.stage : null;
         if (stage) {
             payload.userGuideStage = stage;
@@ -440,6 +447,13 @@ cc.Class({
             Action.User.BalanceUpdate(() => {
                 this.headerObj.renderShowScene();
             })
+            //双倍奖励
+            /*
+            let adAward = cc.instantiate(this.adAward)
+            let obj = adAward.getComponent('adAward')
+            obj.init([{ name: res.data.name, amount: res.data.num, iconUrl: null }], this.awardCallBack, null)
+            adAward.parent = cc.find('Canvas')
+            */
         })
     },
 

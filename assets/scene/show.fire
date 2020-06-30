@@ -8361,6 +8361,9 @@
     "audio": {
       "__uuid__": "f4166aea-554b-4068-aa9c-448afed40be1"
     },
+    "adAward": {
+      "__uuid__": "21bcecaa-ec32-47d5-8277-8d4df5f850c2"
+    },
     "_id": "03cw94xZ5AEp464qurywOn"
   }
 ]
