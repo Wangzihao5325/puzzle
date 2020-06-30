@@ -185,16 +185,18 @@ cc.Class({
             return true;
         } else if (CACHE.userInfo.stage == 5 && this.guideStep == 2) {
             if (isEnd) {
+                this.waitting = true;
                 this.handNode.active = false;
                 this.guideToastNode.setPosition(cc.v2(0, -150));
-                this.guideToastNode.item_obj.setContentStr("<color=#887160><color=#e37974>[高级猫粮]</color>可以大量增加<color=#e37974>饱食度</color>\n同时还可以增加<color=#e37974>幸运值</color>哦</color>")
                 this.guideToastNode.active = true;
+                this.guideToastNode.item_obj.textAnimate1(() => { this.waitting = false });
                 this.guideStep++;
             }
             return false;
         } else if (CACHE.userInfo.stage == 5 && this.guideStep == 3) {
             if (isEnd) {
-                this.guideToastNode.item_obj.setContentStr("<color=#887160><color=#e37974>幸运值</color>越高,猫咪外出获得\n物品的几率越大</color>")
+                this.waitting = true;
+                this.guideToastNode.item_obj.textAnimate2(() => { this.waitting = false });
                 this.guideStep++;
             }
             return true;
