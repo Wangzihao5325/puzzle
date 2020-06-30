@@ -419,6 +419,10 @@ cc.Class({
     },
 
     awardCallBack(isDouble, itemDate) {
+        if (isDouble) {
+            Toast.show('视频加速功能尚未开放');
+            return;
+        }
         let payload = { placeId: itemDate.placeId, isDouble };
         let stage = (CACHE.userInfo && typeof CACHE.userInfo.stage == 'number' && CACHE.userInfo.stage !== 99) ? CACHE.userInfo.stage : null;
         if (stage) {
@@ -447,8 +451,21 @@ cc.Class({
 
     bagReceive(itemDate) {
         let adAward = cc.instantiate(this.adAward)
-        let obj = adAward.getComponent('adAward')
-        obj.init([{ name: '钻石', amount: itemDate.awardNum, iconUrl: itemDate.awardIcon }], this.awardCallBack.bind(this), itemDate)
+        let obj = adAward.getComponent('adAward');
+        let rewardName = '';
+        switch (itemDate.standId) {
+            case 1:
+                rewardName = '金币';
+                break;
+            case 3:
+                rewardName = '猫粮';
+                break;
+            case 2:
+                rewardName = '钻石';
+                break;
+
+        }
+        obj.init([{ name: rewardName, amount: itemDate.awardNum, iconUrl: itemDate.awardIcon }], this.awardCallBack.bind(this), itemDate)
         adAward.parent = cc.find('Canvas');
         adAward.zIndex = 10;
     },

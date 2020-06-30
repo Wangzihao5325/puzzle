@@ -126,7 +126,7 @@ cc.Class({
         this.header.on(cc.Node.EventType.TOUCH_END, (event) => {
             cc.find("sound").getComponent("sound").tap()
             if (this.timer && CACHE.isShouwSpeedUp) {
-                Api.showSpeedUp({ placeId: this.data_item.placeId }, (res) => {
+                Api.showSpeedUp({ placeId: this.data_item.placeId, isAll: false }, (res) => {
                     CACHE.isShouwSpeedUp = false;
                     const data = res.data
                     if (data) {
