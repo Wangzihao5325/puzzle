@@ -418,13 +418,8 @@ cc.Class({
         })
     },
 
-    awardCallBack() {
-        Toast.show('尚未开放视频观看功能');
-    },
-
-    bagReceive(itemDate) {
-        //todo:观看广告双倍
-        let payload = { placeId: itemDate.placeId, isDouble: false };
+    awardCallBack(isDouble, itemDate) {
+        let payload = { placeId: itemDate.placeId, isDouble };
         let stage = (CACHE.userInfo && typeof CACHE.userInfo.stage == 'number' && CACHE.userInfo.stage !== 99) ? CACHE.userInfo.stage : null;
         if (stage) {
             payload.userGuideStage = stage;
@@ -447,14 +442,15 @@ cc.Class({
             Action.User.BalanceUpdate(() => {
                 this.headerObj.renderShowScene();
             })
-            //双倍奖励
-            /*
-            let adAward = cc.instantiate(this.adAward)
-            let obj = adAward.getComponent('adAward')
-            obj.init([{ name: res.data.name, amount: res.data.num, iconUrl: null }], this.awardCallBack, null)
-            adAward.parent = cc.find('Canvas')
-            */
         })
+    },
+
+    bagReceive(itemDate) {
+        let adAward = cc.instantiate(this.adAward)
+        let obj = adAward.getComponent('adAward')
+        obj.init([{ name: '钻石', amount: itemDate.awardNum, iconUrl: itemDate.awardIcon }], this.awardCallBack.bind(this), itemDate)
+        adAward.parent = cc.find('Canvas');
+        adAward.zIndex = 10;
     },
 
     bagGoodsClick(item) {
