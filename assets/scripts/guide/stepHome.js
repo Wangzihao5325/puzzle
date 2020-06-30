@@ -207,7 +207,8 @@ cc.Class({
         } else if (CACHE.userInfo.stage == 5 && this.guideStep == 5) {
             if (isEnd) {
                 this.guideToastNode.active = false;
-                this.handNode.setPosition(cc.v2(0, -400));
+                let pos = CACHE.platform.isIphoneX ? cc.v2(0, -450) : cc.v2(0, -400);
+                this.handNode.setPosition(pos);
                 this.handNode.active = true;
                 this.guideStep++;
             }
@@ -226,7 +227,8 @@ cc.Class({
                     this.guideToastNode.active = false;
                     this.guideToastTimer = null;
                 }, 2000);
-                this.handNode.setPosition(cc.v2(270, -230));
+                let pos = CACHE.platform.isIphoneX ? cc.v2(270, -280) : cc.v2(270, -230);
+                this.handNode.setPosition(pos);
                 this.guideStep++;
             }
             return false;
