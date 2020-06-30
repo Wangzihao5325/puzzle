@@ -467,6 +467,7 @@ cc.Class({
         }
         obj.init([{ name: rewardName, amount: itemDate.awardNum, iconUrl: itemDate.awardIcon }], this.awardCallBack.bind(this), itemDate)
         adAward.parent = cc.find('Canvas');
+        adAward.name = 'adAward';
         adAward.zIndex = 10;
     },
 

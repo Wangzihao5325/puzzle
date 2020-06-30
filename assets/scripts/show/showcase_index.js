@@ -128,7 +128,10 @@ cc.Class({
             if (this.timer && CACHE.isShouwSpeedUp) {
                 Api.showSpeedUp({ placeId: this.data_item.placeId, isAll: false }, (res) => {
                     CACHE.isShouwSpeedUp = false;
-                    const data = res.data
+                    let filterData = res.data.filter((item) => {
+                        return item.placeId === this.data_item.placeId
+                    });
+                    const data = filterData[0];
                     if (data) {
                         //一套缩减时间动画
                         if (data.goodReceiveRemainTime > 0) {//大于0缩减时间
