@@ -160,7 +160,6 @@ cc.Class({
 
     showTask() {
         let task = cc.instantiate(this.taskDialog);
-        task.name = 'taskDialog';
         // let obj = header.getComponent('task');
         task.parent = cc.find('Canvas');
         if (this.showTaskCallback) {
