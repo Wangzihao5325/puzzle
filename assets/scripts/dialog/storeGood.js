@@ -86,11 +86,13 @@ cc.Class({
             this.old_price.string=`x ${item.price}`
             this.tagText.string=item.endTimestamp?`限时 ${item.discount}折`:`${item.discount} 折`
         }
-        if(item.currency===0){
+        if(item.video===true){
             this.old_price_Warp.active=false;
-            this.price_warp.active=false
+            this.price_warp.active=true
             this.adButton.active=true
             this.buy.active=false
+            this.adTime.string=`(${item.maxCount-item.currentCount}/${item.maxCount})`
+            this.price.string=`x ${item.price}`
         }
     },
     handleBuy(event){
