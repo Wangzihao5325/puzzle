@@ -27,6 +27,8 @@ cc.Class({
         tag:cc.Node,
         tagText:cc.Label,
         buy:cc.Node,
+        adButton:cc.Node,
+        adTime:cc.Label,
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -84,6 +86,12 @@ cc.Class({
             this.old_price.string=`x ${item.price}`
             this.tagText.string=item.endTimestamp?`限时 ${item.discount}折`:`${item.discount} 折`
         }
+        if(item.currency===0){
+            this.old_price_Warp.active=false;
+            this.price_warp.active=false
+            this.adButton.active=true
+            this.buy.active=false
+        }
     },
     handleBuy(event){
         //物品
@@ -132,8 +140,20 @@ cc.Class({
             this.handleBuy(event)
             event.stopPropagation();
         })
+        this.adButton.on(cc.Node.EventType.TOUCH_END, (event) => {
+            cc.find("sound").getComponent("sound").tap()
+            cc.tween(this.adButton)
+            .to(.1,{scale:1.2})
+            .to(0.1,{scale:1})
+            .start()
+            this.handlePlayAd()
+            // this.handleBuy(event)
+            event.stopPropagation();
+        })
     },
-
+    handlePlayAd(){
+        Toast.show("广告暂未开放")
+    },
     onDestroy(){
         clearTimeout(this.timer)
     }

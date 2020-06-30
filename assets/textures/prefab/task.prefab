@@ -2793,8 +2793,8 @@
     "horizontal": false,
     "vertical": true,
     "inertia": true,
-    "brake": 0.75,
-    "elastic": true,
+    "brake": 0.95,
+    "elastic": false,
     "bounceDuration": 0.23,
     "scrollEvents": [],
     "cancelInnerEvents": true,
@@ -4792,6 +4792,7 @@
     "adAward": {
       "__uuid__": "21bcecaa-ec32-47d5-8277-8d4df5f850c2"
     },
+    "onViewIndexs": [],
     "_id": ""
   },
   {

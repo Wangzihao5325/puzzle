@@ -44,7 +44,11 @@ cc.Class({
         dailyNew: cc.Node,
         mainNew: cc.Node,
         scroll:cc.Node,
-        adAward:cc.Prefab
+        adAward:cc.Prefab,
+        onViewIndexs:{
+            type:cc.Array,
+            default:[]
+        }
 
     },
 
@@ -142,6 +146,8 @@ cc.Class({
                 // this.onScrollingEvent()
             }
         }
+        // this.onScrollingEvent()
+
         //判断当前tab和旅行页图标是否显示
         CACHE.btnTips[!this.currentType ? 'dailyTask' : 'mainTask'] = !!count
         CACHE.btnTips.task = CACHE.btnTips.dailyTask || CACHE.btnTips.mainTask
@@ -152,7 +158,7 @@ cc.Class({
         item.mainTask=this.currentType
         let newNode = cc.instantiate(this.taskItem)
         let obj = newNode.getComponent('taskItem')
-        obj.init(item)
+        obj.init(item,index)
         newNode.parent = this.scrollContent
         // newNode.opacity=i<=4?255:0
         let position = cc.v2(0, (-(140 * (-0.5 + index+1))) - 10);
@@ -181,6 +187,7 @@ cc.Class({
         this.tip.active=!type
         cc.find('tabTitle',this.current).getComponent(cc.Label).string=['日常任务','主线任务'][type]
         this.getTask()
+        // this.scroll.scrollToTop(0.1)
     },
 
     /**
@@ -193,6 +200,7 @@ cc.Class({
         const children= this.scrollContent.children;
 
         const data=this.taskList;
+        const onViewIndexs=[]
             data.map((item,i)=>{
                 const positionY=(-(140 * (-0.5 + i+1))) - 10;
                 if(-positionY>offsetY-100&&-positionY<offsetY+scrollHeight+100){
@@ -204,6 +212,7 @@ cc.Class({
                         //�ڵ㲻���ڣ������ڵ�
                         this.renderTaskItem(item,i)
                     }
+                    onViewIndexs.push(i)
                 }else{
                     //���ڿ��ӷ�λ������
                     if(children&&children[i]){
@@ -211,17 +220,24 @@ cc.Class({
                     }
                 }
             })
+            this.onViewIndexs=onViewIndexs
     },
 
     refresh(){
-        this.scroll.getComponent(cc.ScrollView).setContentPosition(cc.v2(0,340));
+        // this.scroll.getComponent(cc.ScrollView).setContentPosition(cc.v2(0,340));
         this.getTask()
         this.getActive()
     },
 
     setTouch() {
-        this.scroll.on("scrolling", (event) => {
+        // this.scroll.on("scrolling", (event) => {
+        //     console.log("scrolling")
+        //     this.onScrollingEvent(event)
+        // })
+        this.scroll.on(cc.Node.EventType.TOUCH_MOVE, (event) => {
             this.onScrollingEvent(event)
+
+            event.stopPropagation();
         })
         this.warp.on(cc.Node.EventType.TOUCH_START, (event) => {
             event.stopPropagation();

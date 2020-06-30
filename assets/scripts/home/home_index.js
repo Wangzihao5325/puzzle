@@ -49,7 +49,6 @@ cc.Class({
         recallNew: cc.Node,
         backpackNew: cc.Node,
         collectNew: cc.Node,
-
     },
 
     stateUpdate() {
@@ -231,9 +230,9 @@ cc.Class({
         })
     },
 
-    NoticeClear(id) {
+    NoticeClear(id,isDouble=false) {
         //消息已读
-        Api.backNoticeView({ noticeId: id }, res => {
+        Api.backNoticeView({ noticeId: id,isDouble:isDouble }, res => {
             console.log('kkkkkkk');
             console.log(res);
         })
@@ -292,6 +291,38 @@ cc.Class({
         this.setOUtUi(showHanger)
 
 
+    },
+
+    engerAnimation(){
+        const node=cc.find('Canvas/headerWarp/enegerItem')
+        cc.tween(node)
+            .to(.3, { scale:1.2 })
+            .to(.3, { scale:1 })
+            .to(.3, { scale:1.2 })
+            .to(.3, { scale:1 })
+            .start()
+    },
+
+    luckyAnimation(){
+        const node=cc.find('Canvas/headerWarp/luckyItem')
+        cc.tween(node)
+            .to(.3, { scale:1.2 })
+            .to(.3, { scale:1 })
+            .to(.3, { scale:1.2 })
+            .to(.3, { scale:1 })
+            .start()
+    },
+
+    maocaoAnimation(){
+        const node=cc.find('Canvas/feedWarp/container/feedContent/feedItem_3')
+        if(node){
+            cc.tween(node)
+            .to(.3, { scale:1.2 })
+            .to(.3, { scale:1 })
+            .to(.3, { scale:1.2 })
+            .to(.3, { scale:1 })
+            .start()
+        }
     },
 
     onLoad() {

@@ -40,7 +40,8 @@ cc.Class({
         audio: {
             default: null,
             type: cc.AudioClip
-        }
+        },
+        adButton:cc.Node,
     },
 
     locationCity() {
@@ -221,7 +222,14 @@ cc.Class({
             event.stopPropagation();
         });
 
-
+        this.adButton.on(cc.Node.EventType.TOUCH_END, (event) => {
+            Toast.show("广告暂未开放")
+            cc.tween(this.adButton)
+            .to(.1,{scale:.8})
+            .to(0.1,{scale:.6})
+            .start()
+            event.stopPropagation();
+        });
 
         this.signGetGoods.on(cc.Node.EventType.TOUCH_START, (event) => {
             event.stopPropagation();
@@ -229,6 +237,7 @@ cc.Class({
         this.signGetGoods.on(cc.Node.EventType.TOUCH_MOVE, (event) => {
             event.stopPropagation();
         });
+
         this.signGetGoods.on(cc.Node.EventType.TOUCH_END, (event) => {
             cc.find("sound").getComponent("sound").tap()
             event.stopPropagation();
