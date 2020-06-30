@@ -18,6 +18,7 @@ cc.Class({
         header: cc.Prefab,
         layout_root: cc.Node,
 
+        signMask: cc.Node,
         signBtn: cc.Sprite,
         signItem: cc.Prefab,
         signDaySeven: cc.Prefab,
@@ -41,7 +42,7 @@ cc.Class({
             default: null,
             type: cc.AudioClip
         },
-        adButton:cc.Node,
+        adButton: cc.Node,
     },
 
     locationCity() {
@@ -130,6 +131,7 @@ cc.Class({
         let obj = footer.getComponent('navi_footer');
         obj.initWithScene(CACHE.scene);
         footer.parent = cc.find('Canvas');
+        footer.zIndex = 0;
         // footer.setPosition(0, -500);
     },
 
@@ -178,13 +180,13 @@ cc.Class({
 
     signSetTouch() {//signBg
 
-        this.signBg.on(cc.Node.EventType.TOUCH_START, (event) => {
+        this.signMask.on(cc.Node.EventType.TOUCH_START, (event) => {
             event.stopPropagation();
         });
-        this.signBg.on(cc.Node.EventType.TOUCH_MOVE, (event) => {
+        this.signMask.on(cc.Node.EventType.TOUCH_MOVE, (event) => {
             event.stopPropagation();
         });
-        this.signBg.on(cc.Node.EventType.TOUCH_END, (event) => {
+        this.signMask.on(cc.Node.EventType.TOUCH_END, (event) => {
             event.stopPropagation();
         });
 
@@ -225,9 +227,9 @@ cc.Class({
         this.adButton.on(cc.Node.EventType.TOUCH_END, (event) => {
             Toast.show("广告暂未开放")
             cc.tween(this.adButton)
-            .to(.1,{scale:.8})
-            .to(0.1,{scale:.6})
-            .start()
+                .to(.1, { scale: .8 })
+                .to(0.1, { scale: .6 })
+                .start()
             event.stopPropagation();
         });
 
@@ -245,7 +247,7 @@ cc.Class({
                 Toast.show('您今天已经签到过!');
             } else {
                 Api.doSign({ key: 1 }, (res) => {
-                    let dayNode = cc.find(`Canvas/layoutRoot/signPop/sign_item${res.data.day}`);
+                    let dayNode = cc.find(`Canvas/signPop/sign_item${res.data.day}`);
                     let obj = dayNode.getComponent('sign_item_index') || dayNode.getComponent('sign_item_seven');
                     if (obj) {
                         obj.todaySign();
@@ -263,6 +265,8 @@ cc.Class({
     },
 
     signInfo() {
+        //设置zIndex 设置蒙版手势
+        this.signRoot.zIndex = 10;
         Action.Sign.SignInfoUpdate((res) => {
             if (!CACHE.signData.todaySign) {
                 this.signNew.active = true;

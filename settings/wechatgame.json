@@ -1,7 +1,7 @@
 {
   "appid": "wxd788865b83b6aa83",
   "orientation": "portrait",
-  "separate_engine": false,
+  "separate_engine": true,
   "REMOTE_SERVER_ROOT": "https://puzzle.oss-cn-beijing.aliyuncs.com",
   "subContext": ""
 }

@@ -128,6 +128,9 @@ cc.Class({
             originNode = cc.find(`Canvas/root/table/item_showcase_3`);
             btn = cc.find(`Canvas/root/table/item_showcase_3/anniulan`);
         } else if (CACHE.userInfo.stage == 4 && this.guideStep == 7) {
+            originNode = cc.find(`Canvas/adAward/content/New Layout`);
+            btn = cc.find(`Canvas/adAward/content/New Layout/New Label`);
+        } else if (CACHE.userInfo.stage == 4 && this.guideStep == 8) {
             originNode = cc.find(`Canvas/footer_navi`);
             btn = cc.find(`Canvas/footer_navi/button_home`);
         }
@@ -267,6 +270,15 @@ cc.Class({
             return false;
         } else if (CACHE.userInfo.stage == 4 && this.guideStep == 6) {
             if (isEnd) {
+                this.handNode.x = 0;
+                this.handNode.y = -200;
+                this.handNode.active = true;
+                this.guideToastNode.active = false;
+                this.guideStep++;
+            }
+            return false
+        } else if (CACHE.userInfo.stage == 4 && this.guideStep == 7) {
+            if (isEnd) {
                 let homePosition = footerNaviPosition('home');
                 this.handNode.x = homePosition.x;
                 this.handNode.y = homePosition.y;
@@ -278,7 +290,7 @@ cc.Class({
                 this.guideStep++;
             }
             return false;
-        } else if (CACHE.userInfo.stage == 4 && this.guideStep == 7) {
+        } else if (CACHE.userInfo.stage == 4 && this.guideStep == 8) {
             if (isEnd) {
                 this.guideStep++;
                 CACHE.userInfo.stage++
