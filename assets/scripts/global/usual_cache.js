@@ -50,6 +50,7 @@ const CACHE = {
         firstRecallEnded: false,
         firstRewardTaskEnded: false,
         firstTwoStarHurdle: true,
+        firstTask: true,
     },
     dragonBoneAnimateName: '',
     lastBagTypeLength: 0,
