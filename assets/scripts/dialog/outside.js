@@ -9,14 +9,14 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
-        catAvatar:cc.Node
+        catAvatar: cc.Node
     },
 
     // LIFE-CYCLE CALLBACKS:
 
     // onLoad () {},
 
-    start () {
+    start() {
         this.initCat()
     },
     initCat() {
@@ -58,9 +58,6 @@ cc.Class({
                     skeleton.animation = currentPost;
                     skeleton._updateSkeletonData();
 
-                    setTimeout(() => {
-                        this.getDecorations()
-                    }, 0)
                 });
             });
         });
