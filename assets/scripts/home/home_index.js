@@ -92,14 +92,14 @@ cc.Class({
 
     //限制猫咪提示气泡
     showCatPop() {
-        if(HOME_CACHE.pet_info.outward){
+        if (HOME_CACHE.pet_info.outward) {
             return false
         }
         const poptext = catPopList[Math.round(Math.random() * (catPopList.length - 1))]
         this.catPopText.string = poptext
 
         const postType = HOME_CACHE.cat_post;
-        popPostion = [[65, 340], [-40, 300], [65, 360]]
+        let popPostion = [[65, 340], [-40, 300], [65, 360]];
         this.catPop.setPosition(cc.v2(popPostion[postType][0], popPostion[postType][1] - 40))
         cc.tween(this.catPop)
             .to(.4, { position: cc.v2(popPostion[postType][0], popPostion[postType][1]), opacity: 255 })
@@ -109,11 +109,11 @@ cc.Class({
     },
 
 
-    setOUtUi(showHanger=false) {
+    setOUtUi(showHanger = false) {
         var outside_item = cc.find(`Canvas/rootWarp/my_home/outside`)
         var catItem = cc.find(`Canvas/rootWarp/my_home/cat/catItem`)
         let { outward } = HOME_CACHE.pet_info
-        this.cat.active=!outward
+        this.cat.active = !outward
         this.showBowl(!outward)
 
         if (outside_item) {
@@ -133,7 +133,7 @@ cc.Class({
         }
 
         //食物吃完了弹窗
-        if (showHanger&&HOME_CACHE.pet_info.currentHungry === 0 && CACHE.userInfo && typeof CACHE.userInfo.stage == 'number' && CACHE.userInfo.stage === 99) {
+        if (showHanger && HOME_CACHE.pet_info.currentHungry === 0 && CACHE.userInfo && typeof CACHE.userInfo.stage == 'number' && CACHE.userInfo.stage === 99) {
             const canvas = cc.find('Canvas')
             const FoodLackInstant = cc.find('Canvas/FoodLack')
             if (FoodLackInstant) {
@@ -193,7 +193,7 @@ cc.Class({
         });
     },
 
-    getPetHunger(callBack,showHunger=false) {
+    getPetHunger(callBack, showHunger = false) {
         Api.petHungry((res) => {
             const data = res.data;
             if (res.code === 0) {
@@ -230,9 +230,9 @@ cc.Class({
         })
     },
 
-    NoticeClear(id,isDouble=false) {
+    NoticeClear(id, isDouble = false) {
         //消息已读
-        Api.backNoticeView({ noticeId: id,isDouble:isDouble }, res => {
+        Api.backNoticeView({ noticeId: id, isDouble: isDouble }, res => {
             console.log('kkkkkkk');
             console.log(res);
         })
@@ -293,35 +293,35 @@ cc.Class({
 
     },
 
-    engerAnimation(){
-        const node=cc.find('Canvas/headerWarp/enegerItem')
+    engerAnimation() {
+        const node = cc.find('Canvas/headerWarp/enegerItem')
         cc.tween(node)
-            .to(.3, { scale:1.2 })
-            .to(.3, { scale:1 })
-            .to(.3, { scale:1.2 })
-            .to(.3, { scale:1 })
+            .to(.3, { scale: 1.2 })
+            .to(.3, { scale: 1 })
+            .to(.3, { scale: 1.2 })
+            .to(.3, { scale: 1 })
             .start()
     },
 
-    luckyAnimation(){
-        const node=cc.find('Canvas/headerWarp/luckyItem')
+    luckyAnimation() {
+        const node = cc.find('Canvas/headerWarp/luckyItem')
         cc.tween(node)
-            .to(.3, { scale:1.2 })
-            .to(.3, { scale:1 })
-            .to(.3, { scale:1.2 })
-            .to(.3, { scale:1 })
+            .to(.3, { scale: 1.2 })
+            .to(.3, { scale: 1 })
+            .to(.3, { scale: 1.2 })
+            .to(.3, { scale: 1 })
             .start()
     },
 
-    maocaoAnimation(){
-        const node=cc.find('Canvas/feedWarp/container/feedContent/feedItem_3')
-        if(node){
+    maocaoAnimation() {
+        const node = cc.find('Canvas/feedWarp/container/feedContent/feedItem_3')
+        if (node) {
             cc.tween(node)
-            .to(.3, { scale:1.2 })
-            .to(.3, { scale:1 })
-            .to(.3, { scale:1.2 })
-            .to(.3, { scale:1 })
-            .start()
+                .to(.3, { scale: 1.2 })
+                .to(.3, { scale: 1 })
+                .to(.3, { scale: 1.2 })
+                .to(.3, { scale: 1 })
+                .start()
         }
     },
 
@@ -351,13 +351,13 @@ cc.Class({
     init() {
         this.getPetInfo()
         this.getFoodRemain()
-        this.getPetHunger(undefined,true)
+        this.getPetHunger(undefined, true)
         // this.initDress()
         this.getBackNotice()
         this.initCat()
     },
 
-    showCatAction(goOut=false) {
+    showCatAction(goOut = false) {
         let { outward } = HOME_CACHE.pet_info
         if (outward) {
             Toast.show('宠物已经外出')
@@ -367,7 +367,7 @@ cc.Class({
         catActionInstan.name = 'cat_action';
         catActionInstan.parent = this.home_root
         catActionInstan.setPosition(0, 80);
-        if(goOut){
+        if (goOut) {
             catActionInstan.getComponent('action').handleGoout()
             catActionInstan.destroy()
         }
