@@ -10,7 +10,6 @@ cc.Class({
     properties: {
         game_bg: cc.Node,
         pre_item: cc.Prefab,
-        splice_warp: cc.Prefab,
         game_root: cc.Node,
         puzzle_name: cc.Label,
         puzzleColor: cc.Node,

@@ -160,8 +160,8 @@ cc.Class({
         let pos;
         let btn;
         if (this.guideStep == 1) {
-            originNode = cc.find('Canvas/taskDialog/warp/header/tabContent');
-            btn = cc.find('Canvas/taskDialog/warp/header/tabContent/btn1');
+            originNode = cc.find('Canvas/task/warp/header/tabContent');
+            btn = cc.find('Canvas/task/warp/header/tabContent/btn1');
         } else {
             return true;
         }
