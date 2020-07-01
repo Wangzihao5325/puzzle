@@ -179,7 +179,7 @@ export function setTimeOutWithStartEnd(startTime, endTime, middleCallback, final
         clearInterval(timer);
         timer = null;
       }
-    }, 20);
+    }, 100);
   }
   return () => {
     if (timer) {

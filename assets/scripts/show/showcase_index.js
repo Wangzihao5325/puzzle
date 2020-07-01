@@ -163,7 +163,7 @@ cc.Class({
                                 this.timer();
                                 this.timer = null;
                             }
-                            this.timerLabel.color = cc.color(255, 0, 0);
+                            this.timerLabel.node.color = cc.color(255, 0, 0);
                             this.timerBg.node.color = cc.color(252, 241, 181);
                             this.timerBg.node.opacity = 255;
                             this.shortTimer = setTimeOutWithStartEnd(this.timeLeft, Math.floor(data.goodReceiveRemainTime / 1000), (res) => {
@@ -174,7 +174,7 @@ cc.Class({
                                     this.shortTimer = null;
                                 }
                             }, () => {
-                                this.timerLabel.color = cc.color(255, 255, 255);
+                                this.timerLabel.node.color = cc.color(255, 255, 255);
                                 this.timerBg.node.color = cc.color(0, 0, 0);
                                 this.timerBg.node.opacity = 100;
                                 this.turnToReceive();

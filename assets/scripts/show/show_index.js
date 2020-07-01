@@ -291,7 +291,8 @@ cc.Class({
             .delay(0.7)
             .call(() => {
                 let isAdd = obj.attitudeShow();
-                if (isAdd) {
+                let isHaveShow = CACHE.isShowOn[0] || CACHE.isShowOn[1] || CACHE.isShowOn[2];
+                if (isAdd && isHaveShow) {
                     this.addHeart();
                 }
             })
