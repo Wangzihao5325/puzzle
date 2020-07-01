@@ -31,7 +31,7 @@ cc.Class({
     },
 
     start() {
-        
+
         //设置常驻节点
         cc.game.addPersistRootNode(this.soundNode);
         let totalWidth = this.loadingBg.node.width;

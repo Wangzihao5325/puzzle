@@ -26,7 +26,7 @@ cc.Class({
             type: cc.Array,
             default: []
         },
-        footerWarp:cc.Node,
+        footerWarp: cc.Node,
 
     },
 
@@ -49,19 +49,19 @@ cc.Class({
         //重置参数
         GAME_CACHE.complateIndex = []
         GAME_CACHE.isComplate = true
-        GAME_CACHE.puzzleAnimation=false
+        GAME_CACHE.puzzleAnimation = false
 
         const hardLevel = CACHE.hard_level;
         const missionObj = CACHE.mission_press;
 
-        if(CACHE.platform.isIphoneX){
+        if (CACHE.platform.isIphoneX) {
             //改变底部高度
-            const iphoneXAddHeight=40;
-            this.footerWarp.height=this.footerWarp.height+iphoneXAddHeight
-            const spliceWarp=cc.find('spliceWarp',this.footerWarp)
-            spliceWarp.height=spliceWarp.height+iphoneXAddHeight
-            const boxbg=cc.find('boxbg',this.footerWarp)
-            boxbg.height=boxbg.height+iphoneXAddHeight
+            const iphoneXAddHeight = 40;
+            this.footerWarp.height = this.footerWarp.height + iphoneXAddHeight
+            const spliceWarp = cc.find('spliceWarp', this.footerWarp)
+            spliceWarp.height = spliceWarp.height + iphoneXAddHeight
+            const boxbg = cc.find('boxbg', this.footerWarp)
+            boxbg.height = boxbg.height + iphoneXAddHeight
             // const spliceScrollView=cc.find('spliceWarp/spliceScrollView',this.footerWarp)
             // spliceScrollView.height=spliceScrollView.height+iphoneXAddHeight
             // const spliceScrollViewView=cc.find('spliceWarp/spliceScrollView/view',this.footerWarp)
@@ -129,7 +129,7 @@ cc.Class({
 
     initSpliceWarp(hardLevel = LEVEL.EASY, imagePath) {
         /*初始化底部栏*/
-    
+
         // let sizeArr = [...SIZES[hardLevel]];
         // spliceWarp_node.width = sizeArr.length * PUZZLE_FOOTER.itemWidth + PUZZLE_FOOTER.itemWidthMargin;
         // spliceWarp_node.height = PUZZLE_FOOTER.height;
@@ -199,7 +199,7 @@ cc.Class({
         if (this.fallTimer) {
             clearTimeout(this.fallTimer)
         }
-        const footerWarpPositionY=this.footerWarp.y
+        const footerWarpPositionY = this.footerWarp.y
         const scalLeavel = SCALELEAVEL[CACHE.hard_level]
         if (data.length) {
             let name = `item_puzzle_splice-${data[0][6]}`
