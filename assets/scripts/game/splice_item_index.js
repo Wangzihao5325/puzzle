@@ -123,6 +123,8 @@ cc.Class({
             let newPositin = cc.v2(this.item_node.x + delta.x, this.item_node.y + delta.y > 430 ? 430 : this.item_node.y + delta.y);
             //在拼图盒子内移动
             if (!outList && this.item_node._offsetY + delta.y < 90) {
+                // this.item_node.parent = cc.find('Canvas');
+
                 /*积累偏移量*/
                 this.item_node._offsetY = this.item_node._offsetY + delta.y;
                 /*
@@ -163,6 +165,7 @@ cc.Class({
             }
 
             else {
+                this.item_node.parent = cc.find('Canvas');
                 this.item_node.setPosition(newPositin);
             }
             /*
@@ -179,6 +182,8 @@ cc.Class({
             }
 
             const outList = this.item_node.parent.name !== 'content';
+            this.item_node.parent = cc.find('Canvas/root/puzzleWarp/puzzleBg');
+
 
             /*移回盒子*/
             if (outList && this.item_node.y < -428.5) {
@@ -335,7 +340,7 @@ cc.Class({
             } else {
                 console.log("els minItem",minItem)
                 cc.tween(this.item_node)
-                    .to(.2, { position: cc.v2(minItem[4], minItem[5]-8) })
+                    .to(.2, { position: cc.v2(minItem[4], minItem[5]-4) })
                     .start()
             }
         }
