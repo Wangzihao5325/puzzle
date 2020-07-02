@@ -182,8 +182,10 @@ cc.Class({
             }
 
             const outList = this.item_node.parent.name !== 'content';
-            this.item_node.parent = cc.find('Canvas/root/puzzleWarp/puzzleBg');
 
+            if(outList){
+                this.item_node.parent = cc.find('Canvas/root/puzzleWarp/puzzleBg');
+            }
 
             /*移回盒子*/
             if (outList && this.item_node.y < -428.5) {
