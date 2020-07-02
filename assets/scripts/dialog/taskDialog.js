@@ -28,6 +28,8 @@ cc.Class({
             type:Number,
             default:0
         },
+        dailyContent:cc.Node,
+        mainContent:cc.Node,
         git1:cc.Node,
         git2:cc.Node,
         git3:cc.Node,
@@ -44,9 +46,18 @@ cc.Class({
         dailyNew: cc.Node,
         mainNew: cc.Node,
         scroll:cc.Node,
+        mainScroll:cc.Node,
         adAward:cc.Prefab,
         onViewIndexs:{
             type:cc.Array,
+            default:[]
+        },
+        taskList:{
+            type:cc.Array,
+            default:[]
+        },
+        mainTaksList:{
+            type:Array,
             default:[]
         }
 
@@ -110,13 +121,18 @@ cc.Class({
     // task_activity,
     // task_activity_receive,
 
-    getTask(type){
+    getTask(){
         const apiList=[Api.task_daily,Api.task_main]
         apiList[this.currentType](res=>{
             if(res.code===0){
                 const data=res.data;
-                this.taskList=data
-                this.initTask(data)
+                if(this.currentType===1){
+                    this.mainTaksList=data
+                }else{
+                    this.taskList=data
+
+                }
+                this.initTask()
             }
         })
     },
@@ -130,12 +146,19 @@ cc.Class({
             },100)
             return false
         }
-        const data=this.taskList
+        const data= this.currentType===1?this.mainTaksList: this.taskList
+        // if(data.length===)
+
+        const currentContent=this.currentType===1?this.mainContent:this.dailyContent
+        const scrollContent=cc.find('ScrollView/view/content',currentContent)
+        const scroll=cc.find('ScrollView',currentContent)
+
+
         // currentPageContent.parent=this.pageContent
-        this.scrollContent.children&&this.scrollContent.children.map(item=>{
+        scrollContent.children&&scrollContent.children.map(item=>{
             item.destroy()
         })
-        this.scrollContent.height=140*(data.length+1)+20
+        scrollContent.height=140*(data.length+1)+20
 
         const dataFirstlyRender=data.slice(0,5)
         let count = 0;
@@ -147,7 +170,9 @@ cc.Class({
             }
         }
         // this.onScrollingEvent()
-
+        setTimeout(()=>{
+            this.onScrollingEvent()
+        },20)
         //判断当前tab和旅行页图标是否显示
         CACHE.btnTips[!this.currentType ? 'dailyTask' : 'mainTask'] = !!count
         CACHE.btnTips.task = CACHE.btnTips.dailyTask || CACHE.btnTips.mainTask
@@ -155,11 +180,15 @@ cc.Class({
 
 
     renderTaskItem(item,index){
+        const currentContent=this.currentType===1?this.mainContent:this.dailyContent
+        const scrollContent=cc.find('ScrollView/view/content',currentContent)
+        const scroll=cc.find('ScrollView',currentContent)
+
         item.mainTask=this.currentType
         let newNode = cc.instantiate(this.taskItem)
         let obj = newNode.getComponent('taskItem')
         obj.init(item,index)
-        newNode.parent = this.scrollContent
+        newNode.parent = scrollContent
         // newNode.opacity=i<=4?255:0
         let position = cc.v2(0, (-(140 * (-0.5 + index+1))) - 10);
         newNode.setPosition(position)
@@ -171,14 +200,28 @@ cc.Class({
         if(this.currentType===type){
             return false;
         }
+        if(type===1){
+            this.mainContent.active=true
+            this.dailyContent.active=false
+
+        }else{
+            this.dailyContent.active=true
+            this.mainContent.active=false
+        }
+
+        const currentContent=type===1?this.mainContent:this.dailyContent
+        const scrollContent=cc.find('ScrollView/view/content',currentContent)
+        const scroll=cc.find('ScrollView',currentContent)
+
+
         this.currentType=type
         this.dailyNew.active = CACHE.btnTips.dailyTask
         this.mainNew.active = CACHE.btnTips.mainTask
 
-        this.scrollContent.children.map(item=>{
-            item.destroy()
-        })
-        this.scroll.getComponent(cc.ScrollView).setContentPosition(cc.v2(0,-340));
+        // scrollContent.children.map(item=>{
+        //     item.destroy()
+        // })
+        // scroll.getComponent(cc.ScrollView).setContentPosition(cc.v2(0,-340));
 
 
         this.footerWarp.active=!type
@@ -195,11 +238,18 @@ cc.Class({
      * @param {any} event
      */
     onScrollingEvent(event){
-        var offsetY = this.scroll.getComponent(cc.ScrollView).getScrollOffset().y;
-        const scrollHeight = this.scroll.height
-        const children= this.scrollContent.children;
 
-        const data=this.taskList;
+        const currentContent=this.currentType===1?this.mainContent:this.dailyContent
+        const scrollContent=cc.find('ScrollView/view/content',currentContent)
+        const scroll=cc.find('ScrollView',currentContent)
+    
+
+        var offsetY = scroll.getComponent(cc.ScrollView).getScrollOffset().y;
+        const scrollHeight = scroll.height
+        const children= scrollContent.children;
+
+        const data= this.currentType===1?this.mainTaksList: this.taskList
+
         const onViewIndexs=[]
             data.map((item,i)=>{
                 const positionY=(-(140 * (-0.5 + i+1))) - 10;
@@ -235,6 +285,12 @@ cc.Class({
         //     this.onScrollingEvent(event)
         // })
         this.scroll.on(cc.Node.EventType.TOUCH_MOVE, (event) => {
+            this.onScrollingEvent(event)
+
+            event.stopPropagation();
+        })
+        this.mainScroll.on(cc.Node.EventType.TOUCH_MOVE, (event) => {
+            console.log("mianscroll")
             this.onScrollingEvent(event)
 
             event.stopPropagation();
