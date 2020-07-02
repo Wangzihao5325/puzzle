@@ -162,7 +162,7 @@ cc.Class({
     setOUtUi() {
         this.handleClose()
         let OutSide = cc.instantiate(this.OutSide)
-        var catItem = cc.find(`Canvas/rootWarp/my_home/cat/catItem`)
+        var catItem = cc.find(`Canvas/rootWarp/my_home/cat`)
         var my_home = cc.find(`Canvas/rootWarp/my_home`)
         var bowlWarp = cc.find(`Canvas/rootWarp/my_home/bowlWarp`)
         catItem.active = false
