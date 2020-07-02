@@ -35,8 +35,8 @@ cc.Class({
 
         cc.tween(this.icon_warp)
             .delay(.5)
-            .to(.6, { position: cc.v2(positionx + 100, positionY), opacity: 255 },)
-            .to(.2, { position: cc.v2(positionx, positionY) },)
+            .to(.4, { position: cc.v2(positionx + 100, positionY), opacity: 255 },)
+            .to(.1, { position: cc.v2(positionx, positionY) },)
             .start()
     },
     init(item, index) {
@@ -54,7 +54,7 @@ cc.Class({
             this.good_rare.setPosition(cc.v2(-400, positionY))
             cc.tween(this.good_rare)
                 .delay(1.5)
-                .to(.3, { position: cc.v2(positionx, positionY), opacity: 255 },)
+                .to(.2, { position: cc.v2(positionx, positionY), opacity: 255 },)
                 .start()
         }
         if (item.exist === false) {
@@ -65,7 +65,7 @@ cc.Class({
             this.good_new.setPosition(cc.v2(-400, positionY))
             cc.tween(this.good_new)
                 .delay(1.5)
-                .to(.3, { position: cc.v2(positionx, positionY), opacity: 255 },)
+                .to(.2, { position: cc.v2(positionx, positionY), opacity: 255 },)
                 .start()
         }
     },
