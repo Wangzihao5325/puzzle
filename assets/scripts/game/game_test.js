@@ -104,10 +104,10 @@ cc.Class({
             let item_node = cc.instantiate(this.pre_item);
             /*设置节点属性*/
             item_node.name = `item_puzzle_warp-${item[6]}`
+            // item_node.width =174;
+            // item_node.height = 174;
             item_node.width = item[2];
             item_node.height = item[3];
-            item_node.getChildByName('item_puzzle').width = item[2];
-            item_node.getChildByName('item_puzzle').height = item[3];
             item_node.parent = this.game_bg;
             item_node.setPosition(item[4], item[5]);
             item_node.zIndex = 10;
@@ -243,20 +243,20 @@ cc.Class({
             cc.tween(node)
                 .to(0.2, { position: cc.v2(node.x, node.y + 50) })
                 .to(fallTime, { position: cc.v2(node.x, footerWarpPositionY), opacity: 200 })
-                .to(.2, { scale: scalLeavel, opacity: 0 })
+                .to(.2, { scale: 1, opacity: 0 })
                 // .to(.2, { opacity:255 })
                 .call(() => {
                     node.destroy()
                 })
                 .start();
 
-            newNode.setScale(scalLeavel / 1)
+            newNode.setScale(1)
             // newNode.setPosition(cc.v2(node.x+320, 0))
             newNode.opacity = 0
 
             cc.tween(newNode)
                 .delay(.4)
-                .to(.3, { scale: 1, opacity: 255 })
+                .to(.3, { scale: scalLeavel, opacity: 255 })
                 .call(() => {
                     if (newNode.x > (640 + 100)) {
                         newNode.opacity = 0

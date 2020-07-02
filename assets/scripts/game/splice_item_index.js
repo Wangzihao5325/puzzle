@@ -1,6 +1,7 @@
 import {
     MASK_RESOUSE,
     LEVEL,
+    TYPES,
     SCALELEAVEL,
     underwayIndex,
     spliceArr,
@@ -17,6 +18,7 @@ cc.Class({
 
     properties: {
         sp_item: cc.Sprite,
+        sp_item_Node: cc.Node,
         content: cc.Mask,
         contentNode: cc.Node,
         mask_item: cc.Mask,
@@ -45,8 +47,20 @@ cc.Class({
         }
     },
 
-    setSpItem(spt) {
+    setSpItem(spt,item) {
+        // console.log("item",item,spt)
         this.sp_item.spriteFrame = spt;
+        const index=item[6]
+        const indexXNum=TYPES[CACHE.hard_level][0]
+        const indexYNUM=TYPES[CACHE.hard_level][1]
+        const col=(index+1)%indexXNum===0?indexXNum:(index+1)%indexXNum-1
+        const row=Math.ceil((index+1)/indexXNum)-1
+        // this.contentNode.width=item[2]
+        // this.contentNode.width=item[2]
+        const x=-item[4]
+        const y=-item[5]
+        this.sp_item_Node.setPosition(cc.v2(x,y))
+
     },
 
     setMarsk(index, hardLevel) {
@@ -135,7 +149,7 @@ cc.Class({
                 GAME_CACHE.underwayIndex.push(this.item_node.defaultIndex);
                 this.removeSpliceNode(this.item_node.defaultIndex);
                 cc.tween(this.item_node)
-                    .to(0.2, { scale: 1 / SCALELEAVEL[hardLevel] })
+                    .to(0.2, { scale: 1  })
                     .start();
                 //重新排列底部块的位置
                 let game_bg = cc.find('Canvas/root/puzzleWarp/puzzleBg');
@@ -167,7 +181,7 @@ cc.Class({
                 var spliceWarpContent = cc.find(`Canvas/footerWarp/spliceWarp/spliceScrollView/view/content`)
 
                 this.item_node.parent = spliceWarpContent
-                this.item_node.setScale(1)
+                this.item_node.setScale(SCALELEAVEL[hardLevel])
                 const resetPostion = cc.v2(this.item_node.x, 0)
                 this.item_node.setPosition(resetPostion);
                 GAME_CACHE.underwayIndex.remove(this.item_node.defaultIndex);
@@ -315,10 +329,9 @@ cc.Class({
                 }
                 setTimeout(() => { item_puzzle_warp.destroy(); }, 100)
             } else {
-                let regItem = reg[this._item_index];
-                // this.item_node.setPosition(cc.v2(minItem[4], minItem[5]));
+                console.log("els minItem",minItem)
                 cc.tween(this.item_node)
-                    .to(.2, { position: cc.v2(minItem[4] - minItem[7] + regItem[7], minItem[5] - minItem[8] + regItem[8] - 10) })
+                    .to(.2, { position: cc.v2(minItem[4], minItem[5]-8) })
                     .start()
             }
         }

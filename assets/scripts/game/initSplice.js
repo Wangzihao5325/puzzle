@@ -67,20 +67,20 @@ function initItem(SIZES, hardLevel, sortType = 0, pre_item, game_bg, spframe_puz
         // spliceWarp.width = 640;
         reSortSizeArr.forEach((item, index) => {
             let item_node = cc.instantiate(pre_item);
-            item_node.width = item[2] * scalLeavel+5+hardLevel;
-            item_node.height = item[3] * scalLeavel+5+hardLevel;
+            item_node.width = item[2] ;
+            item_node.height = item[3] ;
             item_node.name = `item_puzzle_splice-${item[6]}`
             item_node.defaultIndex = `${item[6]}`
             item_node.defaultPostion = [item[4], item[5]-10]
 
-            cc.find('content',item_node).width = item[2] * scalLeavel;
-            cc.find('content',item_node).height = item[3] * scalLeavel;
-            cc.find('content/item_puzzle',item_node).width = item[2] * scalLeavel;
-            cc.find('content/item_puzzle',item_node).height = item[3] * scalLeavel;
-            cc.find('shadow/shadowLayout',item_node).width = item[2] * scalLeavel;
-            cc.find('shadow/shadowLayout',item_node).height = item[3] * scalLeavel;
-            cc.find('shadow',item_node).width = item[2] * scalLeavel;
-            cc.find('shadow',item_node).height = item[3] * scalLeavel;
+            cc.find('content',item_node).width = item[2] ;
+            cc.find('content',item_node).height = item[3] ;
+            // cc.find('content/item_puzzle',item_node).width = item[2] * scalLeavel;
+            // cc.find('content/item_puzzle',item_node).height = item[3] * scalLeavel;
+            cc.find('shadow/shadowLayout',item_node).width = item[2] ;
+            cc.find('shadow/shadowLayout',item_node).height = item[3] ;
+            cc.find('shadow',item_node).width = item[2] ;
+            cc.find('shadow',item_node).height = item[3] ;
             if(showAnimation){
 
                 //第一次进入执行掉落动画
@@ -88,7 +88,7 @@ function initItem(SIZES, hardLevel, sortType = 0, pre_item, game_bg, spframe_puz
                 const newNode=cc.instantiate(item_node)
                 // newNode.parent = puzzleBg;
                 newNode.parent = cc.find('Canvas');
-                newNode.setScale(1/scalLeavel)
+                // newNode.setScale(1)
                 newNode.zIndex=11+index
                 const position = cc.v2(item[4],item[5]-10)
                 newNode.setPosition(position);
@@ -100,7 +100,8 @@ function initItem(SIZES, hardLevel, sortType = 0, pre_item, game_bg, spframe_puz
                     //设置切片编号，便于测试
                     obj.init(item[6]);
                     /*底图切片*/
-                    obj.setSpItem(defaultRect(item, spframe_puzzle));
+                    // obj.setSpItem(defaultRect(item, spframe_puzzle));
+                    obj.setSpItem(spframe_puzzle,item);
                     /*添加蒙版*/
                     obj.setMarsk(item[6], hardLevel);
                     /*拖拽手势+高难度下的旋转手势*/
@@ -111,6 +112,7 @@ function initItem(SIZES, hardLevel, sortType = 0, pre_item, game_bg, spframe_puz
                 item_node.opacity=0
             }
 
+            item_node.setScale(scalLeavel)
 
             item_node.parent = spliceWarpContent;
             item_node.zIndex=10
@@ -134,7 +136,8 @@ function initItem(SIZES, hardLevel, sortType = 0, pre_item, game_bg, spframe_puz
                 //设置切片编号，便于测试
                 obj.init(item[6]);
                 /*底图切片*/
-                obj.setSpItem(defaultRect(item, spframe_puzzle));
+                // obj.setSpItem(defaultRect(item, spframe_puzzle));
+                obj.setSpItem(spframe_puzzle,item);
                 /*添加蒙版*/
                 obj.setMarsk(item[6], hardLevel);
                 /*拖拽手势+高难度下的旋转手势*/
