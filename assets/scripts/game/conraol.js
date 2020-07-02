@@ -143,7 +143,7 @@ cc.Class({
             var item_puzzle_warp = cc.find(`Canvas/root/puzzleWarp/puzzleBg/item_puzzle_warp-${currentNode.defaultIndex}`);
 
             cc.tween(currentNode)
-                .to(.4, { position: cc.v2(currentNode.defaultPostion[0], currentNode.defaultPostion[1]), scale: 1 / SCALELEAVEL[CACHE.hard_level], angle: 0 })
+                .to(.4, { position: cc.v2(currentNode.defaultPostion[0], currentNode.defaultPostion[1]), scale: 1 , angle: 0 })
                 .start()
 
             const index = currentNode.defaultIndex;
