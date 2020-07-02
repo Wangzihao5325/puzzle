@@ -545,7 +545,7 @@
       "ctor": "Float64Array",
       "array": [
         -100,
-        0,
+        -10,
         0,
         0,
         0,
@@ -639,7 +639,7 @@
       "ctor": "Float64Array",
       "array": [
         -97.993,
-        54.724,
+        44.724,
         0,
         0,
         0,
@@ -733,7 +733,7 @@
       "ctor": "Float64Array",
       "array": [
         -100,
-        60,
+        50,
         0,
         0,
         0,
@@ -826,15 +826,15 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        51.4,
-        39.538,
+        41.995,
+        38.943,
         0,
         0,
         0,
         0,
         1,
-        0.5,
-        0.5,
+        0.6,
+        0.6,
         1
       ]
     },
@@ -911,8 +911,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 62,
-      "height": 27.2
+      "width": 92,
+      "height": 39.8
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -923,8 +923,8 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        123.846,
-        36.933,
+        147.427,
+        29.749,
         0,
         0,
         0,
@@ -964,8 +964,8 @@
     "_useOriginalSize": false,
     "_string": "美食节",
     "_N$string": "美食节",
-    "_fontSize": 20,
-    "_lineHeight": 20,
+    "_fontSize": 30,
+    "_lineHeight": 30,
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
@@ -1035,8 +1035,8 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        139,
-        0,
+        154.599,
+        -10,
         0,
         0,
         0,
@@ -1130,7 +1130,7 @@
       "ctor": "Float64Array",
       "array": [
         53,
-        0,
+        -10,
         0,
         0,
         0,
@@ -1227,7 +1227,7 @@
       "ctor": "Float64Array",
       "array": [
         -101.948,
-        19.99,
+        9.99,
         0,
         0,
         0,
