@@ -145,7 +145,11 @@ cc.Class({
                 /*依据计算拼底部栏坐标计算其在拼图区域的坐标*/
                 let bgX = Math.ceil(this.item_node.x - (PUZZLE_FOOTER.position[0] - PUZZLE_FOOTER.truePosition[0])) - PUZZLE_SCENE.width / 2;
                 const resetPostion = cc.v2(bgX, this.item_node.y + delta.y - 540 + this.item_node.height);
-                this.item_node.setPosition(resetPostion);
+
+                let windowSize=cc.view.getVisibleSize();
+                // cc.log("width="+windowSize.width+",height="+windowSize.height);
+                const rightPositiot=cc.v2(event.touch.getLocation().x-windowSize.width/2,event.touch.getLocation().y-windowSize.height/2)
+                this.item_node.setPosition(rightPositiot);
                 GAME_CACHE.underwayIndex.push(this.item_node.defaultIndex);
                 this.removeSpliceNode(this.item_node.defaultIndex);
                 cc.tween(this.item_node)
