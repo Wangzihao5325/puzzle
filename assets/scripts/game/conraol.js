@@ -267,6 +267,9 @@ cc.Class({
             // Toast.show("拼图完成", {timer:1000});
             cc.find("sound").getComponent("sound").stop()
             cc.find("sound").getComponent("sound").missionSuccess()
+            if (cc.sys.platform === cc.sys.WECHAT_GAME) {
+                wx.vibrateLong()
+            }
             this.doComplate()
             GAME_CACHE.complateIndex = []
             GAME_CACHE.isComplate = true
