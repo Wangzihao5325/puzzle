@@ -39,7 +39,6 @@ cc.Class({
     },
 
     showPic(){
-        console.log("showPic")
         Api.missionDetails(this.info.hurdleId,res=>{
             if(res.code===0){
                 let picView = cc.instantiate(this.picView);

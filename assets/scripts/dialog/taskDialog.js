@@ -281,7 +281,6 @@ cc.Class({
 
     setTouch() {
         // this.scroll.on("scrolling", (event) => {
-        //     console.log("scrolling")
         //     this.onScrollingEvent(event)
         // })
         this.scroll.on(cc.Node.EventType.TOUCH_MOVE, (event) => {
@@ -290,9 +289,7 @@ cc.Class({
             event.stopPropagation();
         })
         this.mainScroll.on(cc.Node.EventType.TOUCH_MOVE, (event) => {
-            console.log("mianscroll")
             this.onScrollingEvent(event)
-
             event.stopPropagation();
         })
         this.warp.on(cc.Node.EventType.TOUCH_START, (event) => {
@@ -354,7 +351,6 @@ cc.Class({
         }
         else if(data.activity>=data.levelOne&&type===1){
             if(!data.levelOneReceive){
-                console.log("可以领取")
                 this.doTaskActivyRecevie(leavel,data.listOne)
                 return true
             }else{

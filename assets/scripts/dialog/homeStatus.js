@@ -23,7 +23,6 @@ cc.Class({
 
     // onLoad () {},
     showTip(type){
-        console.log("this.headerWarp.children",this.headerWarp.children)
         if(this.headerWarp.children.length>2){
             const current =this.headerWarp.children[2]
             cc.tween(current)
@@ -60,7 +59,6 @@ cc.Class({
     },
 
     start () {
-        console.log("CACHE.platform.isIphoneX",CACHE.platform.isIphoneX)
         if(CACHE.platform.isIphoneX){
             this.headerWarp.height=140
         }

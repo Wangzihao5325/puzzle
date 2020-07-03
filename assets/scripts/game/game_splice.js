@@ -56,7 +56,6 @@ cc.Class({
                     if(this.game_bg&&this.game_bg.children){
                         this.game_bg.children.map(item=>{
                             const positionX=item.x
-                            // console.log("positionX,spliceWarpX",positionX,spliceWarpX,positionX-spliceWarpX)
                             let onViewr=positionX+spliceWarpX>-400&&positionX+spliceWarpX<600
                             if(onViewr){
                                 item.opacity=255

@@ -21,7 +21,6 @@ cc.Class({
     onLoad () {
         const x=this.warp.x;
         const y=this.warp.y;
-        console.log("x,y",x,y)
         this.warp.setPosition(x,y+60)
         this.warp.opacity=0
         cc.tween(this.warp)

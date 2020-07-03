@@ -147,7 +147,6 @@ window.Alert.show = function (detailString,{title, confirmText, confirmCallBack,
         cc.find("sound").getComponent("sound").tap()
 
         self._check=!self._check;
-        console.log("self._check",self._check)
         if(self._check){
             self._checkNode.active=true
         }else{

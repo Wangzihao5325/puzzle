@@ -119,7 +119,6 @@ cc.Class({
 
 
     handleClose() {
-        console.log('dress warp')
         cc.tween(this.modal)
             .to(.2,{opacity:0})
             .call(()=>{

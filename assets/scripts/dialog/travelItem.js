@@ -39,7 +39,6 @@ cc.Class({
         this.setTouch(0)
     },
     showDetail(){
-        console.log("showDetail",this.info)
         let good_detail = cc.instantiate(this.good_detail)
         let obj = good_detail.getComponent('goodsDetail')
         obj.goodsItemClick(this.info)
@@ -71,7 +70,6 @@ cc.Class({
     },
 
     initType(item){
-        // console.log("type",type)
         if(item.goodsQuality===0){
             //普通
             this.warp.getComponent(cc.Sprite).spriteFrame=this.putongBg
@@ -80,7 +78,6 @@ cc.Class({
             this.tutongName.getComponent(cc.Label).string=item.name
 
         }else if(item.goodsQuality===1){
-            console.log("稀有物品")
             //稀有样式
             // this.icon.color=cc.color(247,248,201,255)
 

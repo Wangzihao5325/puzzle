@@ -54,7 +54,6 @@ cc.Class({
 
     },
     handleClose(){
-        console.log("handle close")
         cc.tween(this.content)
         .to(.1,{scale:1.2})
         .to(0.3,{scale:.2,opacity:0})
@@ -183,7 +182,6 @@ cc.Class({
             this.goodLessReg.node.active = false;
             this.actionWarp.active=true&&this.canSell
 
-            // console.log("setPost",this.goodDetailsContent)
             // this.goodDetailsContent.getComponent(cc.Node).setPosition(cc.v2(this.goodDetailsContent.node.x,this.goodDetailsContent.node.y+30))
             this.actionText.string='使 用'
         } else {//道具

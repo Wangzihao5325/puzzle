@@ -234,8 +234,6 @@ cc.Class({
     NoticeClear(id, isDouble = false) {
         //消息已读
         Api.backNoticeView({ noticeId: id, isDouble: isDouble }, res => {
-            console.log('kkkkkkk');
-            console.log(res);
         })
     },
 
@@ -409,7 +407,6 @@ cc.Class({
             event.stopPropagation();
         })
         this.backpack_icon.on(cc.Node.EventType.TOUCH_END, (event) => {
-            console.log("点击背包")
             cc.find("sound").getComponent("sound").tap()
             this.showBackpack()
             event.stopPropagation();
@@ -420,7 +417,6 @@ cc.Class({
             event.stopPropagation();
         })
         this.bowlWarp.on(cc.Node.EventType.TOUCH_END, (event) => {
-            console.log("点击猫盆")
             cc.find("sound").getComponent("sound").tap()
             this.show_feed()
             event.stopPropagation();

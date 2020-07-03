@@ -96,7 +96,6 @@ class CusHttp {
                     }
                 } else {
                     CACHE.logining = false;
-                    console.log("登录失败，" + response.message)
                 }
             }
         };

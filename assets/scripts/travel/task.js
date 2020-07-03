@@ -56,9 +56,6 @@ cc.Class({
 
     });
   },
-  // console.log('--this.coco--', this.coco)
-
-
 
   start() {
 
