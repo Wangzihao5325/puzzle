@@ -129,7 +129,6 @@ cc.Class({
         feed.resetUI()
     },
     handleClose() {
-        console.log("actionWarp")
         this.Action_warp.destroy()
     },
 

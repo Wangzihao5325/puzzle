@@ -110,8 +110,6 @@ cc.Class({
     },
     
     setSelect(){
-        console.log("item",this.info)
-
         const node=this.iconWarp.getComponent(cc.Sprite)
         const contentNode=this.iconWarpContent.getComponent(cc.Sprite)
        
@@ -145,10 +143,8 @@ cc.Class({
     },
 
     removeSelect(node){
-        console.log("node",node)
         const warpNode=cc.find('iconWarp',node)
         const contentNode= cc.find('iconWarp/content',node)
-        console.log("warpNode",warpNode)
         // node.active=false
         warpNode.getComponent(cc.Sprite).spriteFrame=this.defaultPanle
         contentNode.getComponent(cc.Sprite).spriteFrame=this.defaultPanle

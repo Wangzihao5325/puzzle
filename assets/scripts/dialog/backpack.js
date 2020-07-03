@@ -170,7 +170,6 @@ cc.Class({
             event.stopPropagation();
         })
         this.warp.on(cc.Node.EventType.TOUCH_END, (event) => {
-            console.log("backpack阻止冒泡")
             event.stopPropagation();
         })
 

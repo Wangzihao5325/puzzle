@@ -75,9 +75,7 @@ cc.Class({
             cc.audioEngine.stop(this.guideBGM);
         }
         if (CACHE.isBGM && CACHE.currentBGM===undefined) {
-            console.log("播放音乐")
             CACHE.currentBGM = cc.audioEngine.play(this.audio, true, 0.1);
-            console.log("开始",CACHE.currentBGM)
 
         }else if(foce){
             cc.audioEngine.stop(CACHE.currentBGM);
@@ -118,9 +116,7 @@ cc.Class({
         }
     },
     stop(){
-        console.log("停止",CACHE.currentBGM)
         if (CACHE.currentBGM!==undefined) {
-            console.log("停止音乐",CACHE.currentBGM)
             cc.audioEngine.stop(CACHE.currentBGM);
             CACHE.currentBGM=undefined
         }

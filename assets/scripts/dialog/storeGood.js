@@ -97,7 +97,6 @@ cc.Class({
     },
     handleBuy(event){
         //物品
-        console.log("CACHE.didAlert.buy",CACHE.didAlert.buy)
         if(CACHE.didAlert.buy){
             //是否提示
             window.Alert.show( `确认购买${this.buy.info.name}`,

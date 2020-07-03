@@ -95,7 +95,6 @@ cc.Class({
 
     getComment(){
         Api.memory_comment(res=>{
-            console.log('comment',res)
             if(res.code===0){
                 const data=res.data
                 const momentNodeList=[this.commentText1,this.commentText2,this.commentText3]
@@ -130,7 +129,6 @@ cc.Class({
     },
 
     handleClose(){
-        console.log('关闭')
         cc.tween(this.content)
         .to(.1,{scale:1.2})
         .to(0.3,{scale:.2,opacity:0})

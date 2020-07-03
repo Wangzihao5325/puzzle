@@ -41,7 +41,6 @@ cc.Class({
         if(this.info.owned===false){
             return false
         }
-        console.log("showDetail",this.info)
         let good_detail = cc.instantiate(this.good_detail)
         let obj = good_detail.getComponent('goodsDetail')
         obj.goodsItemClick(this.info,false)
@@ -91,7 +90,6 @@ cc.Class({
             this.normalName.getComponent(cc.Label).string=item.name
 
         }else if(item.goodsQuality===1){
-            console.log("稀有物品")
             this.warp.color=cc.color(254,249,207,255)
             this.iconContent.color=cc.color(254,249,207,255)
             cc.find('skech',this.sketch_mask).color=cc.color(130,92,63,255)
