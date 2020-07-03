@@ -35,7 +35,7 @@ cc.Class({
         //设置常驻节点
         cc.game.addPersistRootNode(this.soundNode);
         let totalWidth = this.loadingBg.node.width;
-        let totalStep = 9;
+        let totalStep = 12;
         //播放引导页背景音
         // this.soundNode.getComponent("sound").playGuide()
 
@@ -103,18 +103,30 @@ cc.Class({
                                         /**获取新手引导进度 */
                                         // cc.director.loadScene("travel");
 
-                                        Api.guideState((res) => {
-                                            if (res.data) {
-                                                CACHE.userInfo.stage = res.data.stage;
-                                                CACHE.userInfo.firstPetBackHomeEnded = res.data.firstPetBackHomeEnded;
-                                                CACHE.userInfo.firstRecallEnded = res.data.firstRecallEnded;
-                                                CACHE.userInfo.firstRewardTaskEnded = res.data.firstRewardTaskEnded;
-                                                this.loadingProgressAdd(9, totalStep, totalWidth);
-                                                cc.director.loadScene("travel");
-                                            }
-                                            if (CACHE.platform.isWachat) {
-                                                WxApi.loadUserInfo();
-                                            }
+                                        cc.loader.loadResDir('3x4/', cc.SpriteFrame, (err, spriteFrames) => {
+                                            this.loadingProgressAdd(9, totalStep, totalWidth);
+                                            // handle spriteFrames
+                                            cc.loader.loadResDir('4x6/', cc.SpriteFrame, (err, spriteFrames) => {
+                                                this.loadingProgressAdd(10, totalStep, totalWidth);
+                                                // handle spriteFrames
+                                                cc.loader.loadResDir('6x8/', cc.SpriteFrame, (err, spriteFrames) => {
+                                                    this.loadingProgressAdd(11, totalStep, totalWidth);
+                                                    // handle spriteFrames
+                                                    Api.guideState((res) => {
+                                                        if (res.data) {
+                                                            CACHE.userInfo.stage = res.data.stage;
+                                                            CACHE.userInfo.firstPetBackHomeEnded = res.data.firstPetBackHomeEnded;
+                                                            CACHE.userInfo.firstRecallEnded = res.data.firstRecallEnded;
+                                                            CACHE.userInfo.firstRewardTaskEnded = res.data.firstRewardTaskEnded;
+                                                            this.loadingProgressAdd(12, totalStep, totalWidth);
+                                                            cc.director.loadScene("travel");
+                                                        }
+                                                        if (CACHE.platform.isWachat) {
+                                                            WxApi.loadUserInfo();
+                                                        }
+                                                    });
+                                                });
+                                            });
                                         });
 
                                     })

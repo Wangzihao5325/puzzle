@@ -43,6 +43,11 @@ cc.Class({
                 this.node.on(cc.Node.EventType.TOUCH_MOVE, this.onTouchMove, this);
                 this.node.on(cc.Node.EventType.TOUCH_END, this.onTouchEnd, this);
             } else if (CACHE.userInfo.stage == 4) {
+                //向show_index注入回调函数
+                let showObj = cc.find('Canvas');
+                if (showObj) {
+
+                }
                 this.isSetTouch = true;
                 this.node.zIndex = 1000;
                 this.guideStep = 1;
@@ -261,11 +266,16 @@ cc.Class({
             }
             return false;
         } else if (CACHE.userInfo.stage == 4 && this.guideStep == 5) {
+            //在进行倒计时，倒计时结束才能允许点击
             if (isEnd) {
+                this.waiting = true;
                 this.handNode.x = 0;
                 this.handNode.y = -50;
                 this.handNode.active = true;
                 this.guideStep++;
+                setTimeout(() => {
+                    this.waiting = false;
+                }, 1000);
             }
             return false;
         } else if (CACHE.userInfo.stage == 4 && this.guideStep == 6) {
@@ -302,6 +312,10 @@ cc.Class({
     },
 
     onTouchStart(event) {
+        if (this.waiting) {
+            this.node._touchListener.setSwallowTouches(true);
+            return;
+        }
         if (this.isUserPressIn(event)) {
             this.node._touchListener.setSwallowTouches(this.guide());
         }
@@ -315,6 +329,10 @@ cc.Class({
     },
 
     onTouchEnd(event) {
+        if (this.waiting) {
+            this.node._touchListener.setSwallowTouches(true);
+            return;
+        }
         if (this.isUserPressIn(event, true)) {
             this.node._touchListener.setSwallowTouches(this.guide(true));
         }

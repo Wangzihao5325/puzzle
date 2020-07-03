@@ -225,9 +225,16 @@ cc.Class({
         })
     },
 
+    guideCallbackSet(callback) {
+        if (callback) {
+            this.heartClearCallback = callback;
+        }
+    },
+
     heartClear() {
         CACHE.showData.heartEnergy = 0;
         this.heartRender();
+        //如果处在引导阶段，还需要通知引导层加速已经结束
     },
 
     showcaseInit(standInfoList) {

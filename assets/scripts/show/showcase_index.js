@@ -172,6 +172,7 @@ cc.Class({
                                 } else {
                                     this.shortTimer();
                                     this.shortTimer = null;
+                                    //callback
                                 }
                             }, () => {
                                 this.timerLabel.node.color = cc.color(255, 255, 255);
