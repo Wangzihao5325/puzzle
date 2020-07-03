@@ -210,6 +210,7 @@ cc.Class({
             }
         });
     },
+
     getBackNotice() {
         Api.petBackNotice(res => {
             if (res.code === 0 && res.data) {
@@ -237,7 +238,6 @@ cc.Class({
             console.log(res);
         })
     },
-
 
     setHungerTimer(refreshTime) {
         const time = refreshTime - (new Date()).getTime()
@@ -289,7 +289,6 @@ cc.Class({
         }
 
         this.setOUtUi(showHanger)
-
 
     },
 
@@ -351,10 +350,14 @@ cc.Class({
     init() {
         this.getPetInfo()
         this.getFoodRemain()
-        this.getPetHunger(undefined, true)
-        // this.initDress()
-        this.getBackNotice()
-        this.initCat()
+        if (CACHE.isShowGuide && (CACHE.userInfo.stage == 5 || CACHE.userInfo.stage == 7 || (CACHE.userInfo.stage == 99 && !CACHE.userInfo.firstRecallEnded))) {
+            this.getPetHunger(undefined, false);
+            this.initCat();
+        } else {
+            this.getPetHunger(undefined, true);
+            this.getBackNotice();
+            this.initCat();
+        }
     },
 
     showCatAction(goOut = false) {
