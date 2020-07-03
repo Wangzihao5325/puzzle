@@ -101,7 +101,6 @@ cc.Class({
                                         CACHE.assets.naviAssets = resArr;
                                         this.loadingProgressAdd(8, totalStep, totalWidth);
                                         /**获取新手引导进度 */
-                                        // cc.director.loadScene("travel");
 
                                         cc.loader.loadResDir('3x4/', cc.SpriteFrame, (err, spriteFrames) => {
                                             this.loadingProgressAdd(9, totalStep, totalWidth);

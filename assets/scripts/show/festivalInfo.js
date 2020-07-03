@@ -72,7 +72,7 @@ cc.Class({
             case 70004://艺术品
                 typeName = '艺术品';
                 titleImagePath = 'show/jininapin';
-                titleText = '艺术品';
+                titleText = '艺术大师';
                 break;
             case 70005://博物展
                 typeName = '文物';
@@ -88,7 +88,7 @@ cc.Class({
         this.text_award.string = `<color=#000000>奖励：     ${awardGoodName}x<color=#88736c>${awardGoodNum}</color></c>`;
         this.text_condition.string = `<color=#000000>参加条件：展览<color=#88736c>【${typeName}】</color>相关物品</c>`;
 
-        this.titleText.sting = titleText;
+        this.titleText.string = titleText;
         cc.loader.loadRes(titleImagePath, cc.SpriteFrame, (err, asset) => {
             this.titleIcon.spriteFrame = asset;
         });
