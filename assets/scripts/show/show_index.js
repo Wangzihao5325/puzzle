@@ -234,6 +234,9 @@ cc.Class({
     heartClear() {
         CACHE.showData.heartEnergy = 0;
         this.heartRender();
+        if (this.heartClearCallback) {
+            this.heartClearCallback();
+        }
         //如果处在引导阶段，还需要通知引导层加速已经结束
     },
 
