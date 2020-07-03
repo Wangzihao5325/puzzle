@@ -47,7 +47,7 @@ function initItem(SIZES, hardLevel, sortType = 0, pre_item, game_bg, spframe_puz
             })
             const positionX=(index+.5)*120
             let position = cc.v2(positionX, 0);
-            let onViewr=positionX+spliceWarpContent.x>-400&&positionX+spliceWarpContent.x<600
+            let onViewr=positionX+spliceWarpContent.x>-400&&positionX+spliceWarpContent.x<400
             item.opacity=onViewr?255:0
             if (isAnimate) {
                 cc.tween(item)

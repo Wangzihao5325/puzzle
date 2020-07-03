@@ -12,6 +12,7 @@ import {
 } from '../global/piece_index';
 import { initItem } from './initSplice';
 import { CACHE } from '../global/usual_cache';
+import {throttle} from '../utils/utils'
 
 cc.Class({
     extends: cc.Component,
@@ -87,6 +88,16 @@ cc.Class({
             // console.log('current_node',current_node)
 
             // const puzzleItem= cc.find('content',this.item_node)
+
+            /*
+            不禁止事件传递,让底部栏可以滑动，提升体验
+            current_node.setPropagateTouchEvents = false;
+            event.stopPropagation();
+            */
+        })
+
+        this.node.on(cc.Node.EventType.TOUCH_MOVE, (event) => {
+
             //根据旋转角度计算阴影显示的坐标
             let angle = this.item_node.angle % 360;
             let angleAbs = angle >= 0 ? angle : 360 + angle
@@ -107,16 +118,9 @@ cc.Class({
             }
             this.shadow.active = true
             cc.tween(this.contentNode)
-                .to(.1, { position: shadowPostion })
+                .to(.2, { position: shadowPostion })
                 .start()
-            /*
-            不禁止事件传递,让底部栏可以滑动，提升体验
-            current_node.setPropagateTouchEvents = false;
-            event.stopPropagation();
-            */
-        })
 
-        this.node.on(cc.Node.EventType.TOUCH_MOVE, (event) => {
             this.isMove = true;
             let delta = event.touch.getDelta();
             const outList = this.item_node.parent.name !== 'content';
@@ -160,7 +164,7 @@ cc.Class({
                 //重新排列底部块的位置
                 let game_bg = cc.find('Canvas/root/puzzleWarp/puzzleBg');
                 if (game_bg) {
-                    initItem(GAME_CACHE.spliceArr, CACHE.hard_level, 2, this.pre_item, game_bg, new cc.SpriteFrame(), true, true);
+                    initItem(GAME_CACHE.spliceArr, CACHE.hard_level, 2, this.pre_item, game_bg, new cc.SpriteFrame(), true, false);
                 }
             }
 
@@ -178,7 +182,7 @@ cc.Class({
             if (this.isMove) {
                 this.item_node._offsetY = 0;
             } else {
-                cc.find("sound").getComponent("sound").tap()
+                throttle(cc.find("sound").getComponent("sound").tap(),500)
             }
 
             const outList = this.item_node.parent.name !== 'content';
@@ -215,9 +219,24 @@ cc.Class({
             if (hardLevel == LEVEL.HARD && !this.isMove) {
                 //第三级难度点击旋转
                 // this.item_node.angle = (this.item_node.angle - 90) % 360;
-                cc.tween(this.item_node)
-                    .to(.1, { angle: (this.item_node.angle - 90) % 360 })
-                    .start()
+                //添加节流
+                const angleNum=this.item_node.angleNum+1===4?0:this.item_node.angleNum+1%4
+
+                throttle(
+                        cc.tween(this.item_node)
+                        .to(.1, { angle: 0-(this.item_node.angleNum+1)*90 })
+                        .call(()=>{
+                            //解决旋转连续性
+                            this.item_node.angleNum=angleNum;
+                            if(angleNum===0){
+                                this.item_node.angle=0;
+                            }
+                            this.calPostion(this.item_node.x, this.item_node.y, 0-angleNum*90, hardLevel)
+                        })
+                        .start()
+                    // }
+               ,1000).bind(this)
+ 
             }
             if (outList) {
                 //在盒子外计算
@@ -247,9 +266,24 @@ cc.Class({
             if (hardLevel == LEVEL.HARD && !this.isMove) {
                 //第三级难度点击旋转
                 // this.item_node.angle = (this.item_node.angle - 90) % 360;
-                cc.tween(this.item_node)
-                    .to(.1, { angle: (this.item_node.angle - 90) % 360 })
-                    .start()
+                //添加节流
+                const angleNum=this.item_node.angleNum+1===4?0:this.item_node.angleNum+1%4
+
+                throttle(
+                        cc.tween(this.item_node)
+                        .to(.1, { angle: 0-(this.item_node.angleNum+1)*90 })
+                        .call(()=>{
+                            //解决旋转连续性
+                            this.item_node.angleNum=angleNum;
+                            if(angleNum===0){
+                                this.item_node.angle=0;
+                            }
+                            this.calPostion(this.item_node.x, this.item_node.y, this.item_node.angle, hardLevel)
+                        })
+                        .start()
+                    // }
+               ,1000).bind(this)
+ 
             }
             const outList = this.item_node.parent.name !== 'content';
             if (outList) {
@@ -354,8 +388,10 @@ cc.Class({
 
     setRandomRotation(hardLevel) {
         if (hardLevel == LEVEL.HARD) {
-            let randomNum = Math.floor(4 * Math.random()) * 90;
+            const angleNum=Math.floor(4 * Math.random());
+            let randomNum = angleNum * 90;
             this.item_node.angle = randomNum;
+            this.item_node.angleNum=angleNum
         }
     }
 
