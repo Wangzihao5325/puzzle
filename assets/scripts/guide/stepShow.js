@@ -44,9 +44,12 @@ cc.Class({
                 this.node.on(cc.Node.EventType.TOUCH_END, this.onTouchEnd, this);
             } else if (CACHE.userInfo.stage == 4) {
                 //向show_index注入回调函数
-                let showObj = cc.find('Canvas');
+                let showNode = cc.find('Canvas');
+                let showObj = showNode.getComponent('show_index');
                 if (showObj) {
-
+                    showObj.guideCallbackSet(() => {
+                        this.waiting = false;
+                    });
                 }
                 this.isSetTouch = true;
                 this.node.zIndex = 1000;
@@ -273,9 +276,6 @@ cc.Class({
                 this.handNode.y = -50;
                 this.handNode.active = true;
                 this.guideStep++;
-                setTimeout(() => {
-                    this.waiting = false;
-                }, 1000);
             }
             return false;
         } else if (CACHE.userInfo.stage == 4 && this.guideStep == 6) {
