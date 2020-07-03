@@ -114,7 +114,7 @@ cc.Class({
         if (GAME_CACHE.underwayIndex && GAME_CACHE.underwayIndex.length) {
             //磁铁吸引在拼图中的块
             const index = GAME_CACHE.underwayIndex[0]
-            var currentNode = cc.find(`Canvas/item_puzzle_splice-${index}`)
+            var currentNode = cc.find(`Canvas/root/puzzleWarp/puzzleBg/item_puzzle_splice-${index}`)
             var item_puzzle_warp = cc.find(`Canvas/root/puzzleWarp/puzzleBg/item_puzzle_warp-${index}`);
             /*动画*/
             cc.tween(currentNode)

@@ -19,6 +19,7 @@ cc.Class({
         cityBg: cc.Sprite,
         cityBgNode: cc.Node,
         starProgress: cc.Label,
+        headerWarp:cc.Node,
 
         introduceRoot: cc.Node,
         introduceTitleLabel: cc.Label,
@@ -291,6 +292,9 @@ cc.Class({
 
     onLoad() {
         cc.find("sound").getComponent("sound").playBg()
+        if(CACHE.platform.isIphoneX){
+            this.headerWarp.height=140
+        }
     },
 
     start() {

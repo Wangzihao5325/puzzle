@@ -41,7 +41,9 @@ cc.Class({
 
     //添加能量数字动画
     addAnimation(type,num){
-        const node=type===1?this.luckyAdd:this.energeAdd;
+        const currentnode=type===1?this.luckyAdd:this.energeAdd;
+        const node=cc.instantiate(currentnode)
+        node.parent=currentnode.parent
         node.getComponent(cc.Label).string=`+ ${num}`
         const positionX=node.x
         node.opacity=0
@@ -51,6 +53,7 @@ cc.Class({
         .to(.8,{position:cc.v2(positionX,60),opacity:0})
         .call(()=>{
             node.setPosition(cc.v2(positionX,0))
+            node.destroy()
         })
         .start()
 

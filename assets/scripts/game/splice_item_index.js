@@ -182,8 +182,10 @@ cc.Class({
             }
 
             const outList = this.item_node.parent.name !== 'content';
-            this.item_node.parent = cc.find('Canvas/root/puzzleWarp/puzzleBg');
 
+            if(outList){
+                this.item_node.parent = cc.find('Canvas/root/puzzleWarp/puzzleBg');
+            }
 
             /*移回盒子*/
             if (outList && this.item_node.y < -428.5) {
@@ -338,7 +340,6 @@ cc.Class({
                 }
                 setTimeout(() => { item_puzzle_warp.destroy(); }, 100)
             } else {
-                console.log("els minItem",minItem)
                 cc.tween(this.item_node)
                     .to(.2, { position: cc.v2(minItem[4], minItem[5]-4) })
                     .start()
