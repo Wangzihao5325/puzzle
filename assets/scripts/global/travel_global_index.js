@@ -6,7 +6,7 @@ const CITIES = [
     { index: 4, key: 501, name: '厦 · 门', missionNum: 10, missionDone: 0, imageUrl: 'city/xiamen', positionX: 405, positionY: -225, imageSizeH: 138, imageSizeW: 284, middleX: 480, middleY: -225, isRecommend: false, isLocked: false, banner: 'mission/xiamendi', bannerPosition: [-230, -120] },
     { index: 5, key: 601, name: '三 · 亚', missionNum: 10, missionDone: 0, imageUrl: 'city/sanya', positionX: 142.5, positionY: -510, imageSizeH: 312, imageSizeW: 250, middleX: 405, middleY: -510, isRecommend: false, isLocked: false, banner: 'mission/sanyadi', bannerPosition: [-250, -35] },
     // { index: 6, key: 701, name: '广 · 州', missionNum: 1, missionDone: 0, imageUrl: 'city/guangzhou', positionX: 95, positionY: -110, imageSizeH: 456, imageSizeW: 189, middleX: NaN, middleY: NaN, isRecommend: false,isLocked:false,banner: 'mission/guangzhoudi',bannerPosition: [0, 0]  },
-    { index: 7, key: 801, name: '西 ·藏', missionNum: 9, missionDone: 0, imageUrl: 'city/xizang', positionX: -450, positionY: 105, imageSizeH: 259, imageSizeW: 775, middleX: -450, middleY: -510, isRecommend: false, isLocked: false, banner: 'mission/xizangdi', bannerPosition: [-240, -135] },
+    { index: 7, key: 801, name: '西 ·藏', missionNum: 9, missionDone: 0, imageUrl: 'city/xizang', positionX: -450, positionY: 105, imageSizeH: 259, imageSizeW: 775, middleX: -450, middleY: -510, isRecommend: false, isLocked: false, banner: 'mission/xizangdi', bannerPosition: [-160, -90] },
 ];
 
 export default {
