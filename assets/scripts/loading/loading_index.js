@@ -114,8 +114,7 @@ cc.Class({
                                                     // handle spriteFrames
                                                     Api.guideState((res) => {
                                                         if (res.data) {
-                                                            //CACHE.userInfo.stage = res.data.stage;
-                                                            CACHE.userInfo.stage = 2;
+                                                            CACHE.userInfo.stage = res.data.stage;
                                                             CACHE.userInfo.firstPetBackHomeEnded = res.data.firstPetBackHomeEnded;
                                                             CACHE.userInfo.firstRecallEnded = res.data.firstRecallEnded;
                                                             CACHE.userInfo.firstRewardTaskEnded = res.data.firstRewardTaskEnded;
