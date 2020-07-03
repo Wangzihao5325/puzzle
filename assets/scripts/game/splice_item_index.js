@@ -49,7 +49,6 @@ cc.Class({
     },
 
     setSpItem(spt,item) {
-        // console.log("item",item,spt)
         this.sp_item.spriteFrame = spt;
         const index=item[6]
         const indexXNum=TYPES[CACHE.hard_level][0]
@@ -85,7 +84,6 @@ cc.Class({
             /*拿起增加z-index*/
             const current_node = this.item_node || this.splice_item;
             current_node.zIndex = 11;
-            // console.log('current_node',current_node)
 
             // const puzzleItem= cc.find('content',this.item_node)
 
@@ -351,8 +349,6 @@ cc.Class({
         });
         if (minItem) {
             if (minItem[4] == defaultx && minItem[5] - 10 == defaulty && rotation == 0) {
-                // console.log("拼图成功")
-
                 let newPositin = cc.v2(defaultx, defaulty);
                 // this.item_node.setPosition(newPositin);
                 cc.tween(this.item_node)

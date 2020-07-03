@@ -39,7 +39,6 @@ cc.Class({
     },
 
     showPic(){
-        console.log("showPic")
         Api.missionDetails(this.info.hurdleId,res=>{
             if(res.code===0){
                 let picView = cc.instantiate(this.picView);
@@ -59,7 +58,7 @@ cc.Class({
         this.secic_name.string=`${data.chapterName} ${data.hurdleName}`
         this.time.string = dateFormat((new Date(data.createTime)),'yyyy-MM-dd');
 
-        cc.loader.load(data.picUrl, (err, texture)=> {
+        cc.loader.load(data.picUrl+'?x-oss-process=style/25', (err, texture)=> {
             this.pic.spriteFrame=new cc.SpriteFrame(texture)
         });
         this.new.active = this.info.collect

@@ -72,9 +72,6 @@ cc.Class({
     },
 
     initSentence(types, text) {
-
-        console.log("types", types)
-
         let list, listL;
         if (types === 0) {
             list = [0, 20, 20, 20, 20]
@@ -97,7 +94,6 @@ cc.Class({
 
         //     if(newText.length<=item){
         //         lableNum=index*-1+listL.length-1
-        //         console.log("lableNum",lableNum)
         //     }
         // })
         lableList.map((item, index) => {

@@ -63,7 +63,7 @@ cc.Class({
         }
         this.title.string = item.hurdleName;
         this.hurdleId = item.hurdleId;
-        cc.loader.load({ url: item.logoUrl, type: 'png' }, (err, texture) => {
+        cc.loader.load({ url: item.logoUrl+'?x-oss-process=style/25', type: 'png' }, (err, texture) => {
             if (err) cc.error(err);
             this.missionPic.spriteFrame = new cc.SpriteFrame(texture);
         });

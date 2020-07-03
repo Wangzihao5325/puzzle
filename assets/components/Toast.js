@@ -14,13 +14,11 @@ window.Toast = {
 */
 window.Toast.show = function (detailString,info={timer:2000,icon:undefined,iconScale:1,color:undefined})  {
   const {timer,icon,color,iconScale=.6}=info
-  // console.log("v",timer)
   // 引用
   var self = this;
 
   // 判断
   if (Toast._toast != undefined) {
-    //   console.log("已有")
     cc.tween(Toast._toast)
         .to(0.4,{position: cc.v2(0, 200),opacity:0})
         .start()

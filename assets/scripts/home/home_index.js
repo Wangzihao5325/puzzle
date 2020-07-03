@@ -210,6 +210,7 @@ cc.Class({
             }
         });
     },
+
     getBackNotice() {
         Api.petBackNotice(res => {
             if (res.code === 0 && res.data) {
@@ -233,11 +234,8 @@ cc.Class({
     NoticeClear(id, isDouble = false) {
         //消息已读
         Api.backNoticeView({ noticeId: id, isDouble: isDouble }, res => {
-            console.log('kkkkkkk');
-            console.log(res);
         })
     },
-
 
     setHungerTimer(refreshTime) {
         const time = refreshTime - (new Date()).getTime()
@@ -289,7 +287,6 @@ cc.Class({
         }
 
         this.setOUtUi(showHanger)
-
 
     },
 
@@ -351,10 +348,14 @@ cc.Class({
     init() {
         this.getPetInfo()
         this.getFoodRemain()
-        this.getPetHunger(undefined, true)
-        // this.initDress()
-        this.getBackNotice()
-        this.initCat()
+        if (CACHE.isShowGuide && (CACHE.userInfo.stage == 5 || CACHE.userInfo.stage == 7 || (CACHE.userInfo.stage == 99 && !CACHE.userInfo.firstRecallEnded))) {
+            this.getPetHunger(undefined, false);
+            this.initCat();
+        } else {
+            this.getPetHunger(undefined, true);
+            this.getBackNotice();
+            this.initCat();
+        }
     },
 
     showCatAction(goOut = false) {
@@ -406,7 +407,6 @@ cc.Class({
             event.stopPropagation();
         })
         this.backpack_icon.on(cc.Node.EventType.TOUCH_END, (event) => {
-            console.log("点击背包")
             cc.find("sound").getComponent("sound").tap()
             this.showBackpack()
             event.stopPropagation();
@@ -417,7 +417,6 @@ cc.Class({
             event.stopPropagation();
         })
         this.bowlWarp.on(cc.Node.EventType.TOUCH_END, (event) => {
-            console.log("点击猫盆")
             cc.find("sound").getComponent("sound").tap()
             this.show_feed()
             event.stopPropagation();

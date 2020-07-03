@@ -11,6 +11,7 @@ cc.Class({
 
         titleIcon: cc.Sprite,
         titleText: cc.Label,
+        awardIcon: cc.Sprite,
 
         mask: cc.Node,
         closeBtn: cc.Node
@@ -91,6 +92,10 @@ cc.Class({
         this.titleText.string = titleText;
         cc.loader.loadRes(titleImagePath, cc.SpriteFrame, (err, asset) => {
             this.titleIcon.spriteFrame = asset;
+        });
+
+        cc.loader.load(showData.festivalInfo.awardIcon, (err, texture) => {
+            this.awardIcon.spriteFrame = new cc.SpriteFrame(texture)
         });
 
         this.node.active = true;
