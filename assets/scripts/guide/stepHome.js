@@ -405,14 +405,15 @@ cc.Class({
             return false;
         } else if (CACHE.userInfo.stage == 99 && !CACHE.userInfo.firstRecallEnded && this.guideStep == 6) {
             if (isEnd) {
-                Api.guideStageSpecialComplete({ event: 1 }, (res) => { });
                 CACHE.userInfo.firstRecallEnded = true;
-                //在最后调取猫咪回来接口，防止冲突
+                Api.guideStageSpecialComplete({ event: 1 }, (res) => { });
+                /*在最后调取猫咪回来接口，防止冲突
                 let homeNode = cc.find('Canvas');
                 let homeObj = homeNode.getComponent('home_index');
                 if (homeObj) {
                     homeObj.getBackNotice();
                 }
+                */
             }
             return false;
         }
