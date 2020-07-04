@@ -6,6 +6,8 @@ import { initItem } from './initSplice';
 import GLOBAL_VAR from '../global/index'
 import Api from '../api/api_index'
 import Action from '../api/api_action'
+import {throttle} from "../utils/utils"
+
 
 cc.Class({
     extends: cc.Component,
@@ -90,6 +92,7 @@ cc.Class({
     },
 
     handleClidkMagnet() {
+        console.log("handleClidkMagnet")
         if (this.checkComplate()) {
             return false
         } else if (CACHE.userData.strongMagnet > 0) {
@@ -119,16 +122,15 @@ cc.Class({
             /*动画*/
             cc.tween(currentNode)
                 .to(.4, { position: cc.v2(currentNode.defaultPostion[0], currentNode.defaultPostion[1]) })
+                .call(()=>{
+                    currentNode.destroy()
+                    item_puzzle_warp.destroy()
+                    initItem(GAME_CACHE.spliceArr, CACHE.hard_level, 2, this.pre_item, this.game_bg, new cc.SpriteFrame(), true, true);
+                    this.checkComplate()
+                })
                 .start()
-            GAME_CACHE.complateIndex.push(index)
-            GAME_CACHE.underwayIndex.remove(index)
-            setTimeout(() => {
-                currentNode.destroy()
-                item_puzzle_warp.destroy()
-                initItem(GAME_CACHE.spliceArr, CACHE.hard_level, 2, this.pre_item, this.game_bg, new cc.SpriteFrame(), true, true);
-                this.checkComplate()
-            }, 400)
-
+                GAME_CACHE.complateIndex.push(index)
+                GAME_CACHE.underwayIndex.remove(index)
         } else {
             //磁铁吸引在底部框内的切块
             var spliceWarp = cc.find(`Canvas/footerWarp/spliceWarp/spliceScrollView/view/content`);
@@ -237,24 +239,47 @@ cc.Class({
         this.viewPuaaleImg.active = this.isViewing
     },
 
+     Dthrottle(fun, delay) {
+        let last, deferTimer
+        return function () {
+            let that = this
+            //let _args = arguments
+            let now = +new Date()
+            if (last && now < last + delay) {
+                clearTimeout(deferTimer)
+                deferTimer = setTimeout(function () {
+                    last = now
+                    fun.apply(that)
+                }, delay)
+            }else {
+                last = now
+                fun.apply(that)
+            }
+        }
+    },
+    click(){
+        console.log("click")
+    },
 
     setTouch() {
-        this.magnet.on(cc.Node.EventType.TOUCH_START, (event) => {
+        let clidkMagnet = throttle(()=>this.handleClidkMagnet(),600)
+
+        this.magnet.on(cc.Node.EventType.TOUCH_END, (event) => {
             cc.find("sound").getComponent("sound").tap()
-            this.handleClidkMagnet()
+            clidkMagnet();
             event.stopPropagation();
         })
-        this.sort.on(cc.Node.EventType.TOUCH_START, (event) => {
+        this.sort.on(cc.Node.EventType.TOUCH_END, (event) => {
             cc.find("sound").getComponent("sound").tap()
             this.handleClickSort()
             event.stopPropagation();
         })
-        this.viewIcon.on(cc.Node.EventType.TOUCH_START, (event) => {
+        this.viewIcon.on(cc.Node.EventType.TOUCH_END, (event) => {
             cc.find("sound").getComponent("sound").tap()
             this.handleView()
             event.stopPropagation();
         })
-        this.pauseBtn.on(cc.Node.EventType.TOUCH_START, (event) => {
+        this.pauseBtn.on(cc.Node.EventType.TOUCH_END, (event) => {
             cc.find("sound").getComponent("sound").tap()
             this.gamePause()
             event.stopPropagation();

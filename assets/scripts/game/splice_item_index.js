@@ -261,33 +261,35 @@ cc.Class({
             if (this.isMove) {
                 this.item_node._offsetY = 0;
             }
-            if (hardLevel == LEVEL.HARD && !this.isMove) {
-                //第三级难度点击旋转
-                // this.item_node.angle = (this.item_node.angle - 90) % 360;
-                //添加节流
-                const angleNum=this.item_node.angleNum+1===4?0:this.item_node.angleNum+1%4
+            // if (hardLevel == LEVEL.HARD && !this.isMove) {
+            //     //第三级难度点击旋转
+            //     // this.item_node.angle = (this.item_node.angle - 90) % 360;
+            //     //添加节流
+            //     const angleNum=this.item_node.angleNum+1===4?0:this.item_node.angleNum+1%4
 
-                throttle(
-                        cc.tween(this.item_node)
-                        .to(.1, { angle: 0-(this.item_node.angleNum+1)*90 })
-                        .call(()=>{
-                            //解决旋转连续性
-                            this.item_node.angleNum=angleNum;
-                            if(angleNum===0){
-                                this.item_node.angle=0;
-                            }
-                            this.calPostion(this.item_node.x, this.item_node.y, this.item_node.angle, hardLevel)
-                        })
-                        .start()
-                    // }
-               ,1000).bind(this)
+            //     throttle(
+            //             cc.tween(this.item_node)
+            //             .to(.1, { angle: 0-(this.item_node.angleNum+1)*90 })
+            //             .call(()=>{
+            //                 //解决旋转连续性
+            //                 this.item_node.angleNum=angleNum;
+            //                 if(angleNum===0){
+            //                     this.item_node.angle=0;
+            //                 }
+            //                 this.calPostion(this.item_node.x, this.item_node.y, this.item_node.angle, hardLevel)
+            //             })
+            //             .start()
+            //         // }
+            //    ,1000).bind(this)
  
-            }
+            // }
             const outList = this.item_node.parent.name !== 'content';
             if (outList) {
                 //在盒子外计算
                 let delta = event.touch.getDelta();
                 this.calPostion(this.item_node.x + delta.x, this.item_node.y + delta.y, this.item_node.angle, hardLevel);
+            }else{
+                this.item_node.setScale(SCALELEAVEL[hardLevel])
             }
             this.item_node.zIndex = 10;//恢复z-index
             this.isMove = false;

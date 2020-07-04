@@ -137,6 +137,11 @@ cc.Class({
 
 
     handleSave() {
+        const status = HOME_CACHE.selectDecorations.status
+        if(status!==0){
+            this.saveDrees(false)
+            return false
+        }
         let discountDia = cc.instantiate(this.discountDia)
         const obj = discountDia.getComponent('adDreesDiscount')
         discountDia.parent=cc.find("Canvas")

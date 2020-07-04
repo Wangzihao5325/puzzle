@@ -3437,8 +3437,8 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        -196.404,
-        27.824,
+        -216.559,
+        16.307,
         0,
         0,
         0,
@@ -3546,8 +3546,8 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        -140,
-        40,
+        -157.844,
+        28.915,
         0,
         0,
         0,
@@ -5226,6 +5226,8 @@
       "__uuid__": "21bcecaa-ec32-47d5-8277-8d4df5f850c2"
     },
     "onViewIndexs": [],
+    "taskList": [],
+    "mainTaksList": [],
     "_id": ""
   },
   {

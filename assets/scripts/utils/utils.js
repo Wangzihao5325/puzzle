@@ -243,19 +243,19 @@ export function debounce(fun, delay) {
 //截流
 export function throttle(fun, delay) {
   let last, deferTimer
-  return function (args) {
+  return function () {
       let that = this
-      let _args = arguments
       let now = +new Date()
       if (last && now < last + delay) {
           clearTimeout(deferTimer)
           deferTimer = setTimeout(function () {
               last = now
-              fun.apply(that, _args)
+              fun.apply(that)
           }, delay)
       }else {
           last = now
-          fun.apply(that,_args)
+          fun.apply(that)
       }
   }
 }
+
