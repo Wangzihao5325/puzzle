@@ -65,17 +65,17 @@ window.Alert.show = function (detailString,{title, confirmText, confirmCallBack,
         self.actionFadeOut = cc.sequence(cc.spawn(cc.fadeTo(Alert._animSpeed, 0), cc.scaleTo(Alert._animSpeed, 2.0)), cbFadeOut);
 
         // // 获取子节点
-        Alert._detailLabel = cc.find("contentWarp/alertText", alert).getComponent(cc.Label);
-        Alert._confirmButton = cc.find("confirmButton", alert);
-        Alert._alertTitle = cc.find("alertTitle", alert).getComponent(cc.Label);
+        Alert._detailLabel = cc.find("AlertContent/contentWarp/alertText", alert).getComponent(cc.Label);
+        Alert._confirmButton = cc.find("AlertContent/confirmButton", alert);
+        Alert._alertTitle = cc.find("AlertContent/alertTitle", alert).getComponent(cc.Label);
         
-        Alert._closeBtn = cc.find("close", alert);
+        Alert._closeBtn = cc.find("AlertContent/close", alert);
 
 
-        Alert._radio = cc.find("contentWarp/tip/radio", alert);
-        Alert._checkNode = cc.find("contentWarp/tip/radio/Background/check", alert);
+        Alert._radio = cc.find("AlertContent/contentWarp/tip/radio", alert);
+        Alert._checkNode = cc.find("AlertContent/contentWarp/tip/radio/Background/check", alert);
 
-        Alert._confirmText = cc.find("confirmButton/Background/confirmText", alert).getComponent(cc.Label);
+        Alert._confirmText = cc.find("AlertContent/confirmButton/Background/confirmText", alert).getComponent(cc.Label);
         // // 添加点击事件
         Alert._confirmButton.on('click', self.onConfirmClick, self);
         Alert._closeBtn.on('click',self.onCancelClicked,self)
