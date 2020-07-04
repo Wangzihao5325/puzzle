@@ -256,7 +256,7 @@ const LEVEL = {
 const LEVEL_STAR = 3;
 
 const SCALELEAVEL = {
-  0: 0.25,
+  0: 0.35,
   1: 0.5,
   2: 0.6,
   3: 0.6

@@ -71,6 +71,8 @@ cc.Class({
         this.mainNew.active = CACHE.btnTips.mainTask
 
         this.setTouch()
+
+
     },
 
     start () {
@@ -158,7 +160,7 @@ cc.Class({
         scrollContent.children&&scrollContent.children.map(item=>{
             item.destroy()
         })
-        scrollContent.height=140*(data.length+1)+20
+        scrollContent.height=170*(data.length)+20+50
 
         const dataFirstlyRender=data.slice(0,5)
         let count = 0;
@@ -190,7 +192,7 @@ cc.Class({
         obj.init(item,index)
         newNode.parent = scrollContent
         // newNode.opacity=i<=4?255:0
-        let position = cc.v2(0, (-(140 * (-0.5 + index+1))) - 10);
+        let position = cc.v2(0, (-(170 * (-0.5 + index+1))) - 10);
         newNode.setPosition(position)
         item.opacity=255
     },
@@ -208,7 +210,9 @@ cc.Class({
             this.dailyContent.active=true
             this.mainContent.active=false
         }
-
+        if(type===0){
+            this.getActive()
+        }
         const currentContent=type===1?this.mainContent:this.dailyContent
         const scrollContent=cc.find('ScrollView/view/content',currentContent)
         const scroll=cc.find('ScrollView',currentContent)
@@ -252,7 +256,7 @@ cc.Class({
 
         const onViewIndexs=[]
             data.map((item,i)=>{
-                const positionY=(-(140 * (-0.5 + i+1))) - 10;
+                const positionY=(-(170 * (-0.5 + i+1))) - 10;
                 if(-positionY>offsetY-100&&-positionY<offsetY+scrollHeight+100){
                     //�ڿ��ӷ�λ��
                     if(children&&children[i]){
@@ -389,6 +393,8 @@ cc.Class({
                 data.map(item=>{
                     Toast.show(`领取成功`)
                 })
+                const list=['',this.jump1,this.jump2,this.jump3]
+                list[data].stop()
                 this.getActive()
             }else{
                 Toast.show(res.message||'领取失败')
@@ -406,32 +412,36 @@ cc.Class({
                 this.process_bar.width=500*data.activity/100
                 if(data.levelOneReceive===true){
                     cc.find('giftIcon',this.git1).getComponent(cc.Sprite).spriteFrame=this.gift1Open
+                    this.jump1&&this.jump1.stop()
                 }else{
                     cc.find('giftIcon',this.git1).getComponent(cc.Sprite).spriteFrame=this.gift1Close
                     if(data.activity>data.levelOne){
                         let halo= cc.find('halo',this.git1)
                         this.haloAnimation(halo)
-                        this.jumpAnimation(cc.find('giftIcon',this.git1))
+                        let giftIcon=cc.find('giftIcon',this.git1)
+                        this.jumpAnimation(cc.find('giftIcon',this.git1),'jump1')
                     }
                 }
                 if(data.levelTwoReceive===true){
                     cc.find('giftIcon',this.git2).getComponent(cc.Sprite).spriteFrame=this.gift1Open
+                    this.jump2&&this.jump2.stop()
                 }else{
                     cc.find('giftIcon',this.git2).getComponent(cc.Sprite).spriteFrame=this.gift1Close
                     if(data.activity>data.levelTwo){
                         let halo= cc.find('halo',this.git2)
                         this.haloAnimation(halo)
-                        this.jumpAnimation(this.git2)
+                        this.jumpAnimation(this.git2,'jump2')
                     }
                 }
                 if(data.levelThreeReceive===true){
                     cc.find('giftIcon',this.git3).getComponent(cc.Sprite).spriteFrame=this.gift2Open
+                    this.jump3&&this.jump3.stop()
                 }else{
                     cc.find('giftIcon',this.git3).getComponent(cc.Sprite).spriteFrame=this.gift2Close
                     if(data.activity>data.levelThree){
                         let halo= cc.find('halo',this.git3)
                         this.haloAnimation(halo)
-                        this.jumpAnimation(this.git3)
+                        this.jumpAnimation(this.git3,'jump3')
                     }
                 }
 
@@ -440,10 +450,11 @@ cc.Class({
         })
     },
 
-    jumpAnimation(node){
+    jumpAnimation(node,name){
         const positionX=node.x
         const positionY=node.y
-        cc.tween(node)
+
+        this[name]=cc.tween(node)
             .to(.15,{position:cc.v2(positionX,positionY+15)})
             .to(.15,{position:cc.v2(positionX,positionY)})
             .delay(.1)
