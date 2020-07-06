@@ -164,8 +164,6 @@ cc.Class({
             if (item.goodsType === 11) {//确定是金币
                 this.coinAdd = item.amount;
             }
-            console.log('dddd');
-            console.log(item);
 
         })
         if (arr2.length === 0) {

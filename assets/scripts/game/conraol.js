@@ -240,9 +240,6 @@ cc.Class({
         this.viewPuaaleImg.active = this.isViewing
     },
 
-<<<<<<< HEAD
-    Dthrottle(fun, delay) {
-=======
     closeView(){
         if(this.isViewing){
             this.isViewing=false
@@ -251,7 +248,6 @@ cc.Class({
     },
 
      Dthrottle(fun, delay) {
->>>>>>> temp
         let last, deferTimer
         return function () {
             let that = this
