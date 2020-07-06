@@ -5,7 +5,9 @@ cc.Class({
 
     properties: {
         bg: cc.Sprite,
+        bgNode:cc.Node,
         goods: cc.Sprite,
+        goodsNode:cc.Node,
         numberLabel: cc.Label,
         signReg: cc.Sprite,
         lessReg: cc.Sprite,
@@ -21,13 +23,14 @@ cc.Class({
         cc.loader.load(item.iconUrl, (err, texture) => {
             this.goods.spriteFrame = new cc.SpriteFrame(texture);
         });
+        if(item.day <= CACHE.signData.daySign){
+            this.goodsNode.opacity=80
+        }
         if (item.day > CACHE.signData.daySign) {
             this.signReg.node.active = false;
         }
-        cc.loader.loadRes("normal/xiyoudi", cc.SpriteFrame, (err, spriteFrame) => {
-            this.bg.spriteFrame = spriteFrame;
-            this.lessReg.node.active = true;
-        });
+        this.bgNode.color=new cc.color(254,249,207,255)
+        this.lessReg.node.active = true;
         if (index == 1 || index == 0) {
             this.goods.node.scaleX = 0.5;
             this.goods.node.scaleY = 0.5;
@@ -39,6 +42,9 @@ cc.Class({
         cc.loader.load(item.iconUrl, (err, texture) => {
             this.goods.spriteFrame = new cc.SpriteFrame(texture);
         });
+        if(item.day <= CACHE.signData.daySign){
+            this.goodsNode.opacity=80
+        }
         if (item.day > CACHE.signData.daySign) {
             this.signReg.node.active = false;
         }
@@ -52,10 +58,8 @@ cc.Class({
         }
         this.dayLabel.string = `第${index + 1}天`;
         if (index % 3 == 1) {
-            cc.loader.loadRes("normal/xiyoudi", cc.SpriteFrame, (err, spriteFrame) => {
-                this.bg.spriteFrame = spriteFrame;
-                this.lessReg.node.active = true;
-            });
+            this.lessReg.node.active = true;
+            this.bgNode.color=new cc.color(254,249,207,255)
         }
     },
 
@@ -66,14 +70,12 @@ cc.Class({
     todaySign() {
         this.node.zIndex = 10;
         if (this.regXY) {
-            this.signReg.node.x = -this.regXY[0];
-            this.signReg.node.y = -this.regXY[1];
-            this.signReg.node.scaleX = 1.6;
-            this.signReg.node.scaleY = 1.6;
+            this.signReg.setPosition(0,0);
+            this.signReg.setScale(1.6)
             this.signReg.node.active = true;
             cc.tween(this.signReg.node)
                 .delay(0.2)
-                .to(0.2, { position: cc.v2(0, 0), scale: 0.8 })
+                .to(0.2, { position: cc.v2(0, 0), scale: 0.7 })
                 .start();
         }
         cc.tween(this.animateRoot)
