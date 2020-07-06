@@ -186,7 +186,7 @@
       "array": [
         0,
         0,
-        385.3677730371411,
+        442.8366775663991,
         0,
         0,
         0,
@@ -284,7 +284,7 @@
       "array": [
         0,
         0,
-        385.3677730371411,
+        442.8366775663991,
         0,
         0,
         0,
@@ -433,7 +433,7 @@
         "__id__": 13
       }
     ],
-    "_active": true,
+    "_active": false,
     "_components": [],
     "_prefab": null,
     "_opacity": 255,
@@ -1111,7 +1111,7 @@
       }
     ],
     "_prefab": null,
-    "_opacity": 180,
+    "_opacity": 90,
     "_color": {
       "__type__": "cc.Color",
       "r": 255,
@@ -3886,9 +3886,7 @@
       "__id__": 23
     },
     "isViewing": false,
-    "header": {
-      "__uuid__": "96d2f5a9-b259-474b-aa7b-ef7be39cce99"
-    },
+    "header": null,
     "_id": "beE/p5mRZFGqqMdsfc94We"
   },
   {
