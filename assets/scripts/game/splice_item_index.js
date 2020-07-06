@@ -96,6 +96,10 @@ cc.Class({
 
         this.node.on(cc.Node.EventType.TOUCH_MOVE, (event) => {
 
+            //关闭查看图片
+            const contralObj = cc.find(`Canvas/menuWarp`).getComponent('conraol')
+            contralObj.closeView()
+
             //根据旋转角度计算阴影显示的坐标
             let angle = this.item_node.angle % 360;
             let angleAbs = angle >= 0 ? angle : 360 + angle
@@ -183,7 +187,7 @@ cc.Class({
                 throttle(cc.find("sound").getComponent("sound").tap(),500)
             }
 
-            const outList = this.item_node.parent.name !== 'content';
+            let outList = this.item_node.parent.name !== 'content';
 
             if(outList){
                 this.item_node.parent = cc.find('Canvas/root/puzzleWarp/puzzleBg');
@@ -202,7 +206,7 @@ cc.Class({
                 //重新排列底部块的位置
                 let game_bg = cc.find('Canvas/root/puzzleWarp/puzzleBg');
                 if (game_bg) {
-                    initItem(GAME_CACHE.spliceArr, CACHE.hard_level, 2, this.pre_item, game_bg, new cc.SpriteFrame(), true, true);
+                    initItem(GAME_CACHE.spliceArr, CACHE.hard_level, 2, this.pre_item, game_bg, new cc.SpriteFrame(), true, false);
                 }
 
                 //去除拿起阴影
@@ -213,8 +217,8 @@ cc.Class({
 
             }
 
-
-            if (hardLevel == LEVEL.HARD && !this.isMove) {
+            outList = this.item_node.parent.name !== 'content';
+            if (hardLevel == LEVEL.HARD && !this.isMove&&outList) {
                 //第三级难度点击旋转
                 // this.item_node.angle = (this.item_node.angle - 90) % 360;
                 //添加节流
@@ -258,6 +262,7 @@ cc.Class({
         })
 
         this.node.on(cc.Node.EventType.TOUCH_CANCEL, (event) => {
+            console.log("touchCancel")
             if (this.isMove) {
                 this.item_node._offsetY = 0;
             }
@@ -336,6 +341,7 @@ cc.Class({
 
     /*计算中心点距离*/
     calPostion(x, y, rotation, hardLevel) {
+        console.log("calPostion")
         const defaultPostion = this.item_node.defaultPostion;
         const defaultx = defaultPostion[0];
         const defaulty = defaultPostion[1];

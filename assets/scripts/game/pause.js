@@ -99,6 +99,9 @@ cc.Class({
 
 
     setTouch(hardLevel) {
+        this.dialog.on(cc.Node.EventType.TOUCH_START, (event) => {
+            event.stopPropagation();
+        })
         this.close.on(cc.Node.EventType.TOUCH_START, (event) => {
             cc.find("sound").getComponent("sound").tap()
             this.closeDialog()
