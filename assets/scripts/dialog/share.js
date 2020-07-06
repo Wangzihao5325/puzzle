@@ -7,6 +7,7 @@
 import { dateFormat } from '../utils/utils'
 import { GAME_CACHE } from '../global/piece_index'
 import { CACHE } from '../global/usual_cache';
+import { CITIES } from '../global/travel_global_index';
 import Api from '../api/api_index'
 import { SHARE_URL } from '../global/app_global_index'
 
@@ -280,8 +281,17 @@ cc.Class({
     },
 
     handleContinue() {
-        cc.director.loadScene("mission");
+        if ((CACHE.list[CACHE.list.length - 1] === CACHE.mission_press) && (CACHE.travel_city_press.index !== 7)) {
+            //城市的最后一关且不是西藏,7是西藏，最后一个城市没法往后跳
+            let newIndex = CACHE.travel_city_press.index + 1;
+            let newCityItem = CITIES[newIndex];
+            CACHE.travel_city_press = newCityItem;
+            cc.director.loadScene("mission");
+        } else {
+            cc.director.loadScene("mission");
+        }
     },
+
     handleChangeText() {
         Api.travelComment(res => {
             const text = res.data
