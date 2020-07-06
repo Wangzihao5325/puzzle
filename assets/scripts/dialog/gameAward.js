@@ -4,7 +4,7 @@
 //  - https://docs.cocos.com/creator/manual/en/scripting/reference/attributes.html
 // Learn life-cycle callbacks:
 //  - https://docs.cocos.com/creator/manual/en/scripting/life-cycle-callbacks.html
-// import { CHACH  } from '../global/usual_cache';
+import { CACHE } from '../global/usual_cache';
 
 
 cc.Class({
@@ -87,14 +87,17 @@ cc.Class({
 
         //金币动画
         setTimeout(() => {
+            let targetIconNode = cc.find('Canvas/headerWarp/coin/icon');
+            let targetWorld = targetIconNode.parent.convertToWorldSpaceAR(targetIconNode);
             let goodsItemWarp0 = cc.find('goodsItemWarp_0', this.goodsCoinWarp);
             if (goodsItemWarp0) {
                 let rootNode = cc.find("goodsItem/item/ainmateNode", goodsItemWarp0);
+                let targetRoot = rootNode.convertToNodeSpaceAR(targetWorld);
                 for (let i = 0; i < 9; i++) {
                     let node = cc.find(`icon_${i}`, rootNode);
                     cc.tween(node)
                         .delay(0.1 * i)
-                        .to(0.2, { position: cc.v2(-250, 550), scale: 1 })
+                        .to(0.2, { position: cc.v2(targetRoot.x, targetRoot.y), scale: 0.5 })//550
                         .call(() => {
                             node.active = false;
                         })
@@ -158,22 +161,40 @@ cc.Class({
             name.string = item.name
             node.parent = this.goodsCoinWarp
             node.setPosition(cc.v2(0, 0));
+            if (item.goodsType === 11) {//确定是金币
+                this.coinAdd = item.amount;
+            }
 
         })
         if (arr2.length === 0) {
             this.goodsWarp.active = false
 
         } else {
-            arr2.map((item,index) => {
+            arr2.map((item, index) => {
                 var node = cc.instantiate(this.goods_item);
                 node.parent = this.goodsContent;
                 let obj = node.getComponent('gameAwardItem')
-                obj.init(item,index)
+                obj.init(item, index)
             })
         }
         this.setAnimation(leavel, list)
 
-
+        if (this.coinAdd) {
+            let amount = this.coinAdd;
+            let time = 0;
+            let header = cc.find('Canvas/headerWarp');
+            let headerObj = header.getComponent('header_warp_index');
+            this.coinTimer = setInterval(() => {
+                if (time < amount) {
+                    CACHE.userData.coin++;
+                    time++;
+                    headerObj.renderShowScene();
+                } else {
+                    clearInterval(this.coinTimer);
+                }
+            }, 150)
+            this.coinAdd = 0;
+        }
     },
 
     // update (dt) {},
