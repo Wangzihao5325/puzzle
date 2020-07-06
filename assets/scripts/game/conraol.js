@@ -120,6 +120,7 @@ cc.Class({
             var currentNode = cc.find(`Canvas/root/puzzleWarp/puzzleBg/item_puzzle_splice-${index}`)
             var item_puzzle_warp = cc.find(`Canvas/root/puzzleWarp/puzzleBg/item_puzzle_warp-${index}`);
             /*动画*/
+            currentNode.zIndex=100;
             cc.tween(currentNode)
                 .to(.4, { position: cc.v2(currentNode.defaultPostion[0], currentNode.defaultPostion[1]) })
                 .call(() => {
@@ -136,8 +137,8 @@ cc.Class({
             var spliceWarp = cc.find(`Canvas/footerWarp/spliceWarp/spliceScrollView/view/content`);
             const spliceWarpChildren = spliceWarp.children[0];
             const currentNode = spliceWarpChildren;
-            var puzzleBg = cc.find(`Canvas/root/puzzleWarp/puzzleBg`);
-            currentNode.parent = puzzleBg;
+            // var puzzleBg = cc.find(`Canvas`);
+            currentNode.parent = cc.find(`Canvas`);;
             currentNode.zIndex = 100;
             let newPositin = cc.v2(0, -540);
             currentNode.setPosition(newPositin);
@@ -239,7 +240,18 @@ cc.Class({
         this.viewPuaaleImg.active = this.isViewing
     },
 
+<<<<<<< HEAD
     Dthrottle(fun, delay) {
+=======
+    closeView(){
+        if(this.isViewing){
+            this.isViewing=false
+            this.viewPuaaleImg.active = false
+        }
+    },
+
+     Dthrottle(fun, delay) {
+>>>>>>> temp
         let last, deferTimer
         return function () {
             let that = this
@@ -283,6 +295,10 @@ cc.Class({
             cc.find("sound").getComponent("sound").tap()
             this.gamePause()
             event.stopPropagation();
+        })
+        this.viewPuaaleImg.on(cc.Node.EventType.TOUCH_END, (event)=>{
+            cc.find("sound").getComponent("sound").tap()
+            this.closeView()
         })
     },
 
