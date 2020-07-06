@@ -381,7 +381,7 @@ cc.Class({
     doTaskActivyRecevie(leavel,list){
         let adAward = cc.instantiate(this.adAward)
         let obj = adAward.getComponent('adAward')
-        obj.init(list,this.awardCallBack,leavel)
+        obj.init(list,this.awardCallBack.bind(this),leavel)
         adAward.parent = cc.find('Canvas')
     },
 
@@ -393,9 +393,8 @@ cc.Class({
                 data.map(item=>{
                     Toast.show(`领取成功`)
                 })
-                const list=['',this.jump1,this.jump2,this.jump3]
-                list[data].stop()
                 this.getActive()
+                cc.find("sound").getComponent("sound").updateAssets()
             }else{
                 Toast.show(res.message||'领取失败')
 
@@ -413,35 +412,42 @@ cc.Class({
                 if(data.levelOneReceive===true){
                     cc.find('giftIcon',this.git1).getComponent(cc.Sprite).spriteFrame=this.gift1Open
                     this.jump1&&this.jump1.stop()
+                    let halo= cc.find('halo',this.git1)
+                    halo.active=false
+
                 }else{
                     cc.find('giftIcon',this.git1).getComponent(cc.Sprite).spriteFrame=this.gift1Close
-                    if(data.activity>data.levelOne){
+                    if(data.activity>=data.levelOne){
                         let halo= cc.find('halo',this.git1)
                         this.haloAnimation(halo)
                         let giftIcon=cc.find('giftIcon',this.git1)
-                        this.jumpAnimation(cc.find('giftIcon',this.git1),'jump1')
+                        this.jumpAnimation(cc.find('giftIcon',this.git1),this.jump1)
                     }
                 }
                 if(data.levelTwoReceive===true){
                     cc.find('giftIcon',this.git2).getComponent(cc.Sprite).spriteFrame=this.gift1Open
                     this.jump2&&this.jump2.stop()
+                    let halo= cc.find('halo',this.git2)
+                    halo.active=false
                 }else{
                     cc.find('giftIcon',this.git2).getComponent(cc.Sprite).spriteFrame=this.gift1Close
-                    if(data.activity>data.levelTwo){
+                    if(data.activity>=data.levelTwo){
                         let halo= cc.find('halo',this.git2)
                         this.haloAnimation(halo)
-                        this.jumpAnimation(this.git2,'jump2')
+                        this.jumpAnimation(this.git2,this.jump2)
                     }
                 }
                 if(data.levelThreeReceive===true){
                     cc.find('giftIcon',this.git3).getComponent(cc.Sprite).spriteFrame=this.gift2Open
                     this.jump3&&this.jump3.stop()
+                    let halo= cc.find('halo',this.git3)
+                    halo.active=false
                 }else{
                     cc.find('giftIcon',this.git3).getComponent(cc.Sprite).spriteFrame=this.gift2Close
-                    if(data.activity>data.levelThree){
+                    if(data.activity>=data.levelThree){
                         let halo= cc.find('halo',this.git3)
                         this.haloAnimation(halo)
-                        this.jumpAnimation(this.git3,'jump3')
+                        this.jumpAnimation(this.git3,this.jump3)
                     }
                 }
 
@@ -454,7 +460,7 @@ cc.Class({
         const positionX=node.x
         const positionY=node.y
 
-        this[name]=cc.tween(node)
+        name=cc.tween(node)
             .to(.15,{position:cc.v2(positionX,positionY+15)})
             .to(.15,{position:cc.v2(positionX,positionY)})
             .delay(.1)

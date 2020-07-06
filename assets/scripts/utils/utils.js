@@ -259,3 +259,27 @@ export function throttle(fun, delay) {
   }
 }
 
+export function vibrate(time=50){
+  if (cc.sys.platform !== cc.sys.WECHAT_GAME) {
+    return false
+  }
+ let count=time/15;
+
+ let index=0;
+
+ let interval=setInterval(function(){
+
+   wx.vibrateShort();
+
+   index++;
+
+   if(index>count){
+
+     clearTimeout(interval);
+
+     interval=null;
+
+   }
+
+ },15)
+}
