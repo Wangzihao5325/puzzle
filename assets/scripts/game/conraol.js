@@ -6,7 +6,7 @@ import { initItem } from './initSplice';
 import GLOBAL_VAR from '../global/index'
 import Api from '../api/api_index'
 import Action from '../api/api_action'
-import {throttle} from "../utils/utils"
+import { throttle } from "../utils/utils"
 
 
 cc.Class({
@@ -41,8 +41,8 @@ cc.Class({
         isViewing: {
             type: cc.Boolean,
             default: false
-        }
-
+        },
+        header: cc.Prefab,
     },
 
     /**
@@ -74,12 +74,12 @@ cc.Class({
         // this.timer(GAME_CACHE.coutnDown);
         CACHE.mission_press.picId
 
-        if(CACHE.platform.isIphoneX){
+        if (CACHE.platform.isIphoneX) {
             //改变底部高度
-            const menuContent=cc.find('menuContent',this.menuWarp)
-            menuContent.height=menuContent.height+50
-            const height=Math.ceil(CACHE.platform.visibleSize.height/2-857/2-10)
-            this.menuWarp.height=height>240?240:height
+            const menuContent = cc.find('menuContent', this.menuWarp)
+            menuContent.height = menuContent.height + 50
+            const height = Math.ceil(CACHE.platform.visibleSize.height / 2 - 857 / 2 - 10)
+            this.menuWarp.height = height > 240 ? 240 : height
         }
 
     },
@@ -122,15 +122,15 @@ cc.Class({
             /*动画*/
             cc.tween(currentNode)
                 .to(.4, { position: cc.v2(currentNode.defaultPostion[0], currentNode.defaultPostion[1]) })
-                .call(()=>{
+                .call(() => {
                     currentNode.destroy()
                     item_puzzle_warp.destroy()
                     initItem(GAME_CACHE.spliceArr, CACHE.hard_level, 2, this.pre_item, this.game_bg, new cc.SpriteFrame(), true, true);
                     this.checkComplate()
                 })
                 .start()
-                GAME_CACHE.complateIndex.push(index)
-                GAME_CACHE.underwayIndex.remove(index)
+            GAME_CACHE.complateIndex.push(index)
+            GAME_CACHE.underwayIndex.remove(index)
         } else {
             //磁铁吸引在底部框内的切块
             var spliceWarp = cc.find(`Canvas/footerWarp/spliceWarp/spliceScrollView/view/content`);
@@ -145,7 +145,7 @@ cc.Class({
             var item_puzzle_warp = cc.find(`Canvas/root/puzzleWarp/puzzleBg/item_puzzle_warp-${currentNode.defaultIndex}`);
 
             cc.tween(currentNode)
-                .to(.4, { position: cc.v2(currentNode.defaultPostion[0], currentNode.defaultPostion[1]), scale: 1 , angle: 0 })
+                .to(.4, { position: cc.v2(currentNode.defaultPostion[0], currentNode.defaultPostion[1]), scale: 1, angle: 0 })
                 .start()
 
             const index = currentNode.defaultIndex;
@@ -159,8 +159,8 @@ cc.Class({
                 this.checkComplate();
             }, 400)
         }
-        if (GAME_CACHE.complateIndex.length >= SIZES[CACHE.hard_level].length * 0.3&&GAME_CACHE.puzzleAnimation===false) {
-            GAME_CACHE.puzzleAnimation=true
+        if (GAME_CACHE.complateIndex.length >= SIZES[CACHE.hard_level].length * 0.3 && GAME_CACHE.puzzleAnimation === false) {
+            GAME_CACHE.puzzleAnimation = true
             let dragonBonesNode = cc.find('Canvas/root/puzzleWarp/puzzleBg');
             let animate = dragonBonesNode.getComponent(dragonBones.ArmatureDisplay)
             animate.playAnimation(CACHE.dragonBoneAnimateName, 0);
@@ -193,13 +193,13 @@ cc.Class({
         pauseWarp.setPosition(0, 0);
     },
 
-    gameContinue(){
+    gameContinue() {
         this.timer(GAME_CACHE.coutnDown);
     },
-    gameOver(){
+    gameOver() {
         GAME_CACHE.complateIndex = []
-        GAME_CACHE.underwayIndex=[]
-        GAME_CACHE.isComplate =false;
+        GAME_CACHE.underwayIndex = []
+        GAME_CACHE.isComplate = false;
     },
     updateUserInfo() {
         Action.User.BalanceUpdate(this.resetUI.bind(this))
@@ -239,7 +239,7 @@ cc.Class({
         this.viewPuaaleImg.active = this.isViewing
     },
 
-     Dthrottle(fun, delay) {
+    Dthrottle(fun, delay) {
         let last, deferTimer
         return function () {
             let that = this
@@ -251,18 +251,18 @@ cc.Class({
                     last = now
                     fun.apply(that)
                 }, delay)
-            }else {
+            } else {
                 last = now
                 fun.apply(that)
             }
         }
     },
-    click(){
+    click() {
         console.log("click")
     },
 
     setTouch() {
-        let clidkMagnet = throttle(()=>this.handleClidkMagnet(),600)
+        let clidkMagnet = throttle(() => this.handleClidkMagnet(), 600)
 
         this.magnet.on(cc.Node.EventType.TOUCH_END, (event) => {
             cc.find("sound").getComponent("sound").tap()
@@ -298,12 +298,12 @@ cc.Class({
             this.doComplate()
             GAME_CACHE.complateIndex = []
             GAME_CACHE.isComplate = true
-            
+
             let headerBg = cc.find(`Canvas/root/headerBg`);
             let footerBg = cc.find(`Canvas/root/footerBg`);
 
-            headerBg.active=true
-            footerBg.active=true
+            headerBg.active = true
+            footerBg.active = true
 
             let footerWarp = cc.find(`Canvas/footerWarp`);
             footerWarp.active = false;
@@ -331,11 +331,11 @@ cc.Class({
         Api.missionComplete(data, (res => {
             if (res.code === 0) {
                 setTimeout(() => {
-                    
+
                     cc.find("sound").getComponent("sound").gameSuccess()
-                    setTimeout(()=>{
+                    setTimeout(() => {
                         cc.find("sound").getComponent("sound").gameSettlement()
-                    },3000)
+                    }, 3000)
                     this.showAward(res.data.list, CACHE.hard_level + 1);
                 }, 0)
             } else {
@@ -346,6 +346,13 @@ cc.Class({
 
     //显示奖励弹窗
     showAward(item, leavel) {
+        let header = cc.instantiate(this.header);
+        let headerObj = header.getComponent('header_warp_index');
+        header.parent = cc.find('Canvas');;
+        header.zIndex = 10;
+        headerObj.initShowScene();
+        headerObj.renderShowScene();
+
         let game_award = cc.instantiate(this.game_award);
         game_award.parent = this.root_warp;
         let obj = game_award.getComponent('gameAward');
@@ -356,6 +363,7 @@ cc.Class({
         }
         setTimeout(() => {
             game_award.destroy();
+            header.destroy();
             this.showShare(item, leavel - 1);
         }, 3000)
 
