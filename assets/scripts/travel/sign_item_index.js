@@ -10,6 +10,7 @@ cc.Class({
         goodsNode:cc.Node,
         numberLabel: cc.Label,
         signReg: cc.Sprite,
+        signRegNode: cc.Node,
         lessReg: cc.Sprite,
         dayLabel: cc.Label,
         animateRoot: cc.Node,
@@ -70,15 +71,15 @@ cc.Class({
     todaySign() {
         this.node.zIndex = 10;
         if (this.regXY) {
-            this.signReg.setPosition(0,0);
-            this.signReg.setScale(1.6)
+            this.signRegNode.setPosition(0,0)
+            this.signRegNode.setScale(0.5)
             this.signReg.node.active = true;
-            cc.tween(this.signReg.node)
+            cc.tween(this.signRegNode)
                 .delay(0.2)
-                .to(0.2, { position: cc.v2(0, 0), scale: 0.7 })
+                .to(0.1, { position: cc.v2(0, 0), scale: 0.7 })
                 .start();
         }
-        cc.tween(this.animateRoot)
+        cc.tween(this.signRegNode)
             .to(0.02, { position: cc.v2(4, 4) })
             .to(0.04, { position: cc.v2(-4, -4) })
             .to(0.04, { position: cc.v2(4, 4) })

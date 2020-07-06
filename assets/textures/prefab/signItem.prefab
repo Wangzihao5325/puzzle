@@ -867,6 +867,9 @@
     "signReg": {
       "__id__": 20
     },
+    "signRegNode": {
+      "__id__": 19
+    },
     "lessReg": {
       "__id__": 17
     },
