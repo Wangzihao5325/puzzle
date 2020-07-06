@@ -28,7 +28,7 @@ cc.Class({
             let itemNode = cc.instantiate(this.item);
             this.nodes.push(itemNode);
             itemNode.parent = this.root;
-            let x = -150 + (index % 3) * 150;
+            let x = -175 + (index % 3) * 175;
             itemNode.setPosition(x, 0);
             let obj = itemNode.getComponent('sign_item_index');
             if (obj) {

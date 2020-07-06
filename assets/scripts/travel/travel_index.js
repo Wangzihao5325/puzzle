@@ -277,8 +277,8 @@ cc.Class({
                     itemNode.name = `sign_item${index + 1}`;
                     itemNode.parent = this.signRoot;
                     let line = Math.floor(index / 3);
-                    let y = 110 - line * 170;
-                    let x = -150 + (index % 3) * 150;
+                    let y = 140 - line * 175;
+                    let x = -180 + (index % 3) * 180;
                     itemNode.setPosition(x, y);
                     let obj = itemNode.getComponent('sign_item_index');
                     if (obj) {
