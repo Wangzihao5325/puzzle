@@ -485,6 +485,10 @@ cc.Class({
     bagGoodsClick(item) {
         if (item.goodsId) {
             Api.placeGoods({ goodId: item.goodsId, standId: CACHE.show_table_press.standId }, (res) => {
+                if (!res.success) {
+                    Toast.show(res.message);
+                    return;
+                }
                 let showcaseNode = cc.find(`Canvas/root/table/item_showcase_${CACHE.show_table_press.standId}`);
                 if (showcaseNode) {
                     let obj = showcaseNode.getComponent('showcase_index');
