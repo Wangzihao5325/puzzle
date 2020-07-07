@@ -139,10 +139,10 @@ cc.Class({
             const currentNode = spliceWarpChildren;
             // var puzzleBg = cc.find(`Canvas`);
             currentNode.parent = cc.find(`Canvas`);;
-            currentNode.zIndex = 100;
+            currentNode.zIndex = 10000;
+            currentNode.opacity = 255;
             let newPositin = cc.v2(0, -540);
             currentNode.setPosition(newPositin);
-            currentNode.zIndex = 1000;
             var item_puzzle_warp = cc.find(`Canvas/root/puzzleWarp/puzzleBg/item_puzzle_warp-${currentNode.defaultIndex}`);
 
             cc.tween(currentNode)
