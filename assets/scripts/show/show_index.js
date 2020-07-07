@@ -642,6 +642,15 @@ cc.Class({
     openBag(itemData) {
         this.bagRoot.zIndex = 1000;
         this.bagRoot.active = true;
+        this.label0.node.opacity = 255;
+        this.label1.node.opacity = 100;
+        this.label2.node.opacity = 100;
+        this.label3.node.opacity = 100;
+        this.bagBtn0.node.color = cc.color(255, 255, 255);
+        this.bagBtn1.node.color = cc.color(251, 229, 149);
+        this.bagBtn2.node.color = cc.color(251, 229, 149);
+        this.bagBtn3.node.color = cc.color(251, 229, 149);
+        this.bagInit(1);
         CACHE.show_table_press = itemData;
     },
 
