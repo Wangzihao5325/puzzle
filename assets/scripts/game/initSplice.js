@@ -51,7 +51,7 @@ function initItem(SIZES, hardLevel, sortType = 0, pre_item, game_bg, spframe_puz
             item.opacity=onViewr?255:0
             if (isAnimate) {
                 cc.tween(item)
-                    .to(0.5, { position: position,opacity:255 })
+                    .to(0.5, { position: position })
                     .start();
             } else {
                 item.setPosition(position);
