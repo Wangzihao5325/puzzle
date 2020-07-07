@@ -83,7 +83,7 @@ const CACHE = {
         lack: false, //稀有纪念品
         reCall: false, //回忆
     },
-    missionLocationHurdleId: 0
+    missionLocationHurdleId: 0,
 }
 
 export default {

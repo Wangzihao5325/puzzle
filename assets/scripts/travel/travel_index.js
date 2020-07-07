@@ -34,6 +34,8 @@ cc.Class({
         store: cc.Prefab,
         signNew: cc.Node,
         taskNew: cc.Node,
+        signDoubleButton: cc.Node,
+        signDoubleImage: cc.Node,
 
         map: cc.ScrollView,
         mapMask: cc.Node,
@@ -178,6 +180,9 @@ cc.Class({
     },
 
     signSetTouch() {//signBg
+        this.signDoubleButton.on(cc.Node.EventType.TOUCH_END, (event) => {
+            this.signDoubleImage.active = !this.signDoubleImage.active;
+        });
 
         this.signMask.on(cc.Node.EventType.TOUCH_START, (event) => {
             event.stopPropagation();
