@@ -104,15 +104,17 @@ cc.Class({
                         .start()
                 }
             }
-
+            let targetIconNode1 = cc.find('Canvas/headerWarp/gem/coinIcon');
+            let targetWorld1 = targetIconNode1.parent.convertToWorldSpaceAR(targetIconNode1);
             let goodsItemWarp1 = cc.find('goodsItemWarp_1', this.goodsCoinWarp);
             if (goodsItemWarp1) {
                 let rootNode = cc.find("goodsItem/item/ainmateNode", goodsItemWarp1);
+                let targetRoot1 = rootNode.convertToNodeSpaceAR(targetWorld1);
                 for (let i = 0; i < 9; i++) {
                     let node = cc.find(`icon_${i}`, rootNode);
                     cc.tween(node)
                         .delay(0.1 * i)
-                        .to(0.1, { position: cc.v2(-200, 550) })
+                        .to(0.2, { position: cc.v2(targetRoot1.x, targetRoot1.y), scale: 0.5 })
                         .call(() => {
                             node.active = false;
                         })
@@ -163,6 +165,8 @@ cc.Class({
             node.setPosition(cc.v2(0, 0));
             if (item.goodsType === 11) {//确定是金币
                 this.coinAdd = item.amount;
+            } else if (item.goodsType === 12) {//确定是钻石
+                this.diamondAdd = item.amount;
             }
 
         })
@@ -179,14 +183,21 @@ cc.Class({
         }
         this.setAnimation(leavel, list)
 
-        if (this.coinAdd) {
+        if (this.coinAdd || this.diamondAdd) {
             let amount = this.coinAdd;
+            let gemAmount = this.diamondAdd;
+            let maxAmount = Math.max(amount, gemAmount);
             let time = 0;
             let header = cc.find('Canvas/headerWarp');
             let headerObj = header.getComponent('header_warp_index');
             this.coinTimer = setInterval(() => {
-                if (time < amount) {
-                    CACHE.userData.coin++;
+                if (time < maxAmount) {
+                    if (time < amount) {
+                        CACHE.userData.coin++;
+                    }
+                    if (time < gemAmount) {
+                        CACHE.userData.gem++;
+                    }
                     time++;
                     headerObj.renderShowScene();
                 } else {
@@ -194,6 +205,7 @@ cc.Class({
                 }
             }, 150)
             this.coinAdd = 0;
+            this.diamondAdd = 0;
         }
     },
 
