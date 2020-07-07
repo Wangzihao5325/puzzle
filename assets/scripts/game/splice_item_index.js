@@ -166,7 +166,7 @@ cc.Class({
                 //重新排列底部块的位置
                 let game_bg = cc.find('Canvas/root/puzzleWarp/puzzleBg');
                 if (game_bg) {
-                    initItem(GAME_CACHE.spliceArr, CACHE.hard_level, 2, this.pre_item, game_bg, new cc.SpriteFrame(), true, false);
+                    initItem(GAME_CACHE.spliceArr, CACHE.hard_level, 2, this.pre_item, game_bg, new cc.SpriteFrame(), true, true);
                 }
             }
 
@@ -206,7 +206,7 @@ cc.Class({
                 //重新排列底部块的位置
                 let game_bg = cc.find('Canvas/root/puzzleWarp/puzzleBg');
                 if (game_bg) {
-                    initItem(GAME_CACHE.spliceArr, CACHE.hard_level, 2, this.pre_item, game_bg, new cc.SpriteFrame(), true, false);
+                    initItem(GAME_CACHE.spliceArr, CACHE.hard_level, 2, this.pre_item, game_bg, new cc.SpriteFrame(), true, true);
                 }
 
                 //去除拿起阴影
