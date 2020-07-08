@@ -53,7 +53,6 @@ cc.Class({
                 .to(0.2, { position: cc.v2(100, 0) })
                 .start();
             if (hardLevel == LEVEL.HARD) {
-                console.log('dddd');
                 this.circle.node.active = true;
                 this.circle.node.scale = 0.5;
                 cc.tween(this.circle.node)
