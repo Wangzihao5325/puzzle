@@ -18,7 +18,8 @@ const BalanceUpdate = (callback, failedCallback) => {
                                 strongMagnet: data.strongMagnet,
                                 showProp:data.showProp,
                                 frame: data.frame,
-                                catFood: catfood.count
+                                catFood: catfood.count,
+                                star:data.star
                             };
                             const powerData = {
                                 num: powerRes.data.power,
