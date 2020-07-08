@@ -10,6 +10,7 @@ cc.Class({
         starOne: cc.Sprite,
         starTwo: cc.Sprite,
         starThree: cc.Sprite,
+        starFour: cc.Sprite,
         title: cc.Label,
         backBtn: cc.Sprite,
         hardBtnOne: cc.Prefab,
@@ -30,6 +31,7 @@ cc.Class({
             this.starOne.spriteFrame = assets[1];
             this.starTwo.spriteFrame = assets[1];
             this.starThree.spriteFrame = assets[1];
+            this.starFour.spriteFrame = assets[1];
             switch (hardLevel) {
                 case LEVEL.EASY:
                     this.starOne.spriteFrame = assets[0];
@@ -38,10 +40,16 @@ cc.Class({
                     this.starOne.spriteFrame = assets[0];
                     this.starTwo.spriteFrame = assets[0];
                     break;
+                case LEVEL.HARD_WITHOUT_ROTATION:
+                    this.starOne.spriteFrame = assets[0];
+                    this.starTwo.spriteFrame = assets[0];
+                    this.starThree.spriteFrame = assets[0];
+                    break;
                 case LEVEL.HARD:
                     this.starOne.spriteFrame = assets[0];
                     this.starTwo.spriteFrame = assets[0];
                     this.starThree.spriteFrame = assets[0];
+                    this.starFour.spriteFrame = assets[0];
                     break;
                 default:
                     break;
@@ -83,10 +91,13 @@ cc.Class({
         let index = 0;
         this.btnObj = [];
         for (let key in LEVEL) {
+            if (key == 'CROSS') {
+                continue;
+            }
             let hard = LEVEL[key];
             let hardBtn = cc.instantiate(this.hardBtnOne);
             hardBtn.parent = this.root;
-            hardBtn.setPosition(0, 80 - (index * 80));
+            hardBtn.setPosition(0, 80 - (index * 53.33));
             let obj = hardBtn.getComponent('hard_btn');
             obj._hardLevel = hard;
             obj.initWithHard(hard, (hardLevel) => {
