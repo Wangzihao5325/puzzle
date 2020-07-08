@@ -43,6 +43,7 @@ cc.Class({
         text5: cc.Label,
         text6: cc.Label,
         random: cc.Label,
+        inputBg: cc.Prefab,
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -56,7 +57,20 @@ cc.Class({
     start() {
 
     },
+
+    inputDone(value) {
+        this.initSentence(CACHE.hard_level, value);
+    },
+
     init(type) {
+        this.input = cc.instantiate(this.inputBg);
+        let inputObj = this.input.getComponent('input');
+        if (inputObj) {
+            inputObj.setCallback(this.inputDone.bind(this));
+        }
+        this.input.parent = this.node;
+        this.input.active = false;
+
         this.content.setPosition(cc.v2(0, -700))
         cc.tween(this.content)
             .to(.4, { position: cc.v2(0, 100) })
@@ -181,6 +195,25 @@ cc.Class({
     },
 
     setTouch() {
+        this.text1.node.on(cc.Node.EventType.TOUCH_END, () => {
+            this.input.active = true;
+        });
+        this.text2.node.on(cc.Node.EventType.TOUCH_END, () => {
+            this.input.active = true;
+        });
+        this.text3.node.on(cc.Node.EventType.TOUCH_END, () => {
+            this.input.active = true;
+        });
+        this.text4.node.on(cc.Node.EventType.TOUCH_END, () => {
+            this.input.active = true;
+        });
+        this.text5.node.on(cc.Node.EventType.TOUCH_END, () => {
+            this.input.active = true;
+        });
+        this.text6.node.on(cc.Node.EventType.TOUCH_END, () => {
+            this.input.active = true;
+        });
+
         this.back.on(cc.Node.EventType.TOUCH_END, (event) => {
             cc.find("sound").getComponent("sound").tap()
 
