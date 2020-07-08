@@ -36,7 +36,7 @@ cc.Class({
         taskNew: cc.Node,
         signDoubleButton: cc.Node,
         signDoubleImage: cc.Node,
-
+        awardGameBtn:cc.Node,
         map: cc.ScrollView,
         mapMask: cc.Node,
 
@@ -234,6 +234,11 @@ cc.Class({
                 .to(.1, { scale: .8 })
                 .to(0.1, { scale: .6 })
                 .start()
+            event.stopPropagation();
+        });
+        this.awardGameBtn.on(cc.Node.EventType.TOUCH_END, (event) => {
+            cc.find("sound").getComponent("sound").tap()
+            cc.director.loadScene('awardGame');
             event.stopPropagation();
         });
 

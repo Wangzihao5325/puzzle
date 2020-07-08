@@ -10,7 +10,8 @@ const CACHE = {
         coin: 0,
         gem: 0,
         STAM: 0,
-        catFood: 0
+        catFood: 0,
+        star:0,
     },
     cityData: {//当前选择的城市
         chapterId: 0,
