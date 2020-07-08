@@ -15,6 +15,10 @@ cc.Class({
         awardGameBtn:cc.Node,
         startLack:cc.Prefab,
         backBtn:cc.Node,
+        canNext:{
+            type:cc.Boolean,
+            default:true
+        }
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -38,7 +42,7 @@ cc.Class({
             let startLack=cc.instantiate(this.startLack)
             startLack.parent=cc.find('Canvas')
         }else{
-
+            this.redirectPuzzle()
         }
     },
 
@@ -56,6 +60,29 @@ cc.Class({
     },
     back(){
         cc.director.loadScene("travel");
-    }
+    },
+    redirectPuzzle() {
+        if (this.canNext) {
+            const data={
+                chapterId: 801,
+                chapterName: "西藏",
+                hurdleId: 801001,
+                hurdleName: "布达拉宫",
+                lock: false,
+                logoUrl: "https://img.becabaking.xyz/city071.png",
+                picId: "city071",
+                showLock: true,
+                star: 4,
+            }
+            CACHE.mission_press = data;
+            CACHE.chapterData = data;
+            CACHE.hard_level=4
+            cc.director.loadScene("puzzle");
+
+        } else {
+            this.canNext = true
+        }
+    },
+
     // update (dt) {},
 });

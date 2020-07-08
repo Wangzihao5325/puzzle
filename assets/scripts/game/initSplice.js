@@ -1,4 +1,4 @@
-import { SCALELEAVEL, SIZES, spliceArr, PUZZLE_FOOTER, PUZZLE_SCENE, GAME_CACHE } from '../global/piece_index';
+import { SCALELEAVEL, SIZES, spliceArr, PUZZLE_FOOTER, PUZZLE_SCENE, GAME_CACHE,TYPES } from '../global/piece_index';
 
 function initItem(SIZES, hardLevel, sortType = 0, pre_item, game_bg, spframe_puzzle, resort = false, isAnimate = false, showAnimation = false) {
     /*根据难度取对应切片数据*/
@@ -168,7 +168,7 @@ function orderByRandom(arr) {
 
 //边框排序
 function orderByBorder(arr, hardLevel) {
-    const hardLeavelSore = [[2, 3], [4, 6], [6, 8], [6, 8]];
+    const hardLeavelSore = TYPES;
     const x = hardLeavelSore[hardLevel][0]
     const y = hardLeavelSore[hardLevel][1]
     const arryIndex = []

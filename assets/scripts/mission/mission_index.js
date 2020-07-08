@@ -71,6 +71,7 @@ cc.Class({
     },
 
     missionItemClickCallback(item) {
+        console.log("item",item)
         CACHE.mission_press = item;
         CACHE.chapterData = item;
         if (!this._mission_select_obj) {
