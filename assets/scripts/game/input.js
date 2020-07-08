@@ -22,13 +22,13 @@ cc.Class({
 
     onLoad() {
         this.editBox.maxLength = 50;
-        this.root.on(cc.Node.EventType.TOUCH_START, () => {
+        this.root.on(cc.Node.EventType.TOUCH_START, (event) => {
             event.stopPropagation();
         });
-        this.root.on(cc.Node.EventType.TOUCH_MOVE, () => {
+        this.root.on(cc.Node.EventType.TOUCH_MOVE, (event) => {
             event.stopPropagation();
         });
-        this.root.on(cc.Node.EventType.TOUCH_END, () => {
+        this.root.on(cc.Node.EventType.TOUCH_END, (event) => {
             if (this.editBox.string && this.inputEndCallback) {
                 let string = this.editBox.string;
                 this.inputEndCallback(string);
