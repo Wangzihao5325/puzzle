@@ -129,12 +129,6 @@ cc.Class({
 
     initSpliceWarp(hardLevel = LEVEL.EASY, imagePath) {
         /*初始化底部栏*/
-
-        // let sizeArr = [...SIZES[hardLevel]];
-        // spliceWarp_node.width = sizeArr.length * PUZZLE_FOOTER.itemWidth + PUZZLE_FOOTER.itemWidthMargin;
-        // spliceWarp_node.height = PUZZLE_FOOTER.height;
-        // spliceWarp_node.parent = this.game_root;
-        // spliceWarp_node.setPosition(PUZZLE_FOOTER.position[0], PUZZLE_FOOTER.position[1]);
         let obj = this.footerWarp.getComponent('game_splice');
         if (obj) {
             obj.init(hardLevel, imagePath);
@@ -236,14 +230,14 @@ cc.Class({
                     break;
             }
             shadowNode.active = true
-            const angleNum=CACHE.hard_level<2?0:Math.floor(4 * Math.random());
+            const angleNum = CACHE.hard_level !== 2 ? 0 : Math.floor(4 * Math.random());
             let randomNum = angleNum * 90;
             cc.tween(contentNode)
                 .to(.2, { position: shadowPostion })
                 .start()
             cc.tween(node)
                 .to(0.2, { position: cc.v2(node.x, node.y + 100) })
-                .to(fallTime, { position: cc.v2(node.x, footerWarpPositionY), opacity: 200,angle:randomNum })
+                .to(fallTime, { position: cc.v2(node.x, footerWarpPositionY), opacity: 200, angle: randomNum })
                 .to(.2, { scale: 1, opacity: 0 })
                 // .to(.2, { opacity:255 })
                 .call(() => {
