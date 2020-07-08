@@ -1,4 +1,5 @@
 import { SIZES, SCALELEAVEL, underwayIndex, spliceArr } from '../global/piece_index';
+import { LEVEL } from '../global/piece_index';
 import { CACHE } from '../global/usual_cache';
 import { GAME_CACHE } from '../global/piece_index';
 
@@ -120,7 +121,7 @@ cc.Class({
             var currentNode = cc.find(`Canvas/root/puzzleWarp/puzzleBg/item_puzzle_splice-${index}`)
             var item_puzzle_warp = cc.find(`Canvas/root/puzzleWarp/puzzleBg/item_puzzle_warp-${index}`);
             /*动画*/
-            currentNode.zIndex=100;
+            currentNode.zIndex = 100;
             cc.tween(currentNode)
                 .to(.4, { position: cc.v2(currentNode.defaultPostion[0], currentNode.defaultPostion[1]) })
                 .call(() => {
@@ -240,9 +241,9 @@ cc.Class({
         this.viewPuaaleImg.active = this.isViewing
     },
 
-    closeView(){
-        if(this.isViewing){
-            this.isViewing=false
+    closeView() {
+        if (this.isViewing) {
+            this.isViewing = false
             this.viewPuaaleImg.active = false
         }
     },
@@ -270,7 +271,7 @@ cc.Class({
             this.gamePause()
             event.stopPropagation();
         })
-        this.viewPuaaleImg.on(cc.Node.EventType.TOUCH_END, (event)=>{
+        this.viewPuaaleImg.on(cc.Node.EventType.TOUCH_END, (event) => {
             cc.find("sound").getComponent("sound").tap()
             this.closeView()
         })
@@ -314,9 +315,24 @@ cc.Class({
 
     //调用完成接口
     doComplate() {
+        let star = 1;
+        switch (CACHE.hard_level) {
+            case LEVEL.EASY:
+                star = 1;
+                break;
+            case LEVEL.NORMAL:
+                star = 2;
+                break;
+            case LEVEL.HARD_WITHOUT_ROTATION:
+                star = 3;
+                break;
+            case LEVEL.HARD:
+                star = 4;
+                break;
+        }
         const data = {
             hurdleId: CACHE.chapterData.hurdleId,
-            star: CACHE.hard_level + 1
+            star
         }
         Api.missionComplete(data, (res => {
             if (res.code === 0) {
@@ -326,7 +342,7 @@ cc.Class({
                     setTimeout(() => {
                         cc.find("sound").getComponent("sound").gameSettlement()
                     }, 3000)
-                    this.showAward(res.data.list, CACHE.hard_level + 1);
+                    this.showAward(res.data.list, star);
                 }, 0)
             } else {
                 Toast.show(res.meeage)
@@ -361,7 +377,7 @@ cc.Class({
 
     //显示分享弹窗
     showShare(item, leavel) {
-        const shareList = [this.game_share1, this.game_share2, this.game_share3]
+        const shareList = [this.game_share1, this.game_share2, this.game_share3, this.game_share3]
         let game_share = cc.instantiate(shareList[leavel]);
         game_share.parent = this.root_warp;
         game_share.name = 'game_share'

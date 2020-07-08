@@ -15,6 +15,7 @@ cc.Class({
         start1: cc.Node,
         start2: cc.Node,
         start3: cc.Node,
+        start4: cc.Node,
         coreStart: cc.SpriteFrame,
         defaultStart: cc.SpriteFrame,
         goods_item: cc.Prefab,
@@ -47,7 +48,7 @@ cc.Class({
 
         //得分动画
         const startLeavel = leavel
-        const startList = [this.start1, this.start2, this.start3]
+        const startList = [this.start1, this.start2, this.start3, this.start4]
 
         for (let i = 0; i < startLeavel; i++) {
             let startItem = startList[i]
