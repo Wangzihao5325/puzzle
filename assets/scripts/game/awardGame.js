@@ -13,6 +13,7 @@ cc.Class({
 
     properties: {
         root:cc.Node,
+        headerWarp:cc.Node,
         startNum:cc.Label,
         awardGameBtn:cc.Node,
         startLack:cc.Prefab,
@@ -33,6 +34,9 @@ cc.Class({
 
     start () {
         this.startNum.string=CACHE.userData.star
+        if (CACHE.platform.isIphoneX) {
+            this.headerWarp.height = 140
+        }
     },
     goAwardGame(){},
 

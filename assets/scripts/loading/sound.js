@@ -158,10 +158,10 @@ cc.Class({
         if(current.fragment!==old.fragment){
             this.resetFragment(current.fragment)
         }
-        if(current.star>=10&&old.star<=10){
+        if(current.star>=10&&old.star<10){
             this.showAwardOpen()
         }
-        this.showAwardOpen()
+        // this.showAwardOpen()
 
     },
     resetCoin(num){
@@ -196,7 +196,7 @@ cc.Class({
     },
     showAwardOpen(){
         let awardOpen = cc.instantiate(this.awardGameOpen);
-        awardOpen.parent = this.root;
+        awardOpen.parent = cc.find("Canvas");
     }
     // update (dt) {},
 });

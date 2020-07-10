@@ -512,6 +512,7 @@ cc.Class({
             game_award.destroy();
             header.destroy();
             this.showShare(item, leavel - 1);
+            cc.find("sound").getComponent("sound").updateAssets()    
         }, 3000)
 
     },

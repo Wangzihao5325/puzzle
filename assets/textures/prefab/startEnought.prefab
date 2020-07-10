@@ -13,7 +13,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "startLack",
+    "_name": "startEnought",
     "_objFlags": 0,
     "_parent": null,
     "_children": [

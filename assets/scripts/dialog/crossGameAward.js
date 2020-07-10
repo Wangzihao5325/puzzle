@@ -109,7 +109,6 @@ handleGet(){
     header.destroy();
     this.awardWarp.destroy();
     contralObj.showShare(undefined,4)
-    cc.find("sound").getComponent("sound").updateAssets()    
 },
     // update (dt) {},
 });
