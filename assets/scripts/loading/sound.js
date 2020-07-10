@@ -58,6 +58,7 @@ cc.Class({
             default: null,
             type: cc.AudioClip
         },
+        awardGameOpen:cc.Prefab
 
     },
 
@@ -157,6 +158,11 @@ cc.Class({
         if(current.fragment!==old.fragment){
             this.resetFragment(current.fragment)
         }
+        if(current.star>=10&&old.star<=10){
+            this.showAwardOpen()
+        }
+        this.showAwardOpen()
+
     },
     resetCoin(num){
         if(cc.find('Canvas/store')){
@@ -188,5 +194,9 @@ cc.Class({
             fragmentLabel.string=num
         }
     },
+    showAwardOpen(){
+        let awardOpen = cc.instantiate(this.awardGameOpen);
+        awardOpen.parent = this.root;
+    }
     // update (dt) {},
 });

@@ -27,10 +27,14 @@ cc.Class({
             default: []
         },
         footerWarp: cc.Node,
+        crossBorder:cc.Node,
+        
 
     },
 
     onLoad() {
+        console.log("gameTest",CACHE.hard_level)
+
         this.init();
         cc.find("sound").getComponent("sound").stop()
         cc.find("sound").getComponent("sound").playGameBg()
@@ -53,6 +57,10 @@ cc.Class({
 
         const hardLevel = CACHE.hard_level;
         const missionObj = CACHE.mission_press;
+
+        if(hardLevel===4){
+            this.crossBorder.active=true
+        }
 
         if (CACHE.platform.isIphoneX) {
             //改变底部高度

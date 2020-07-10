@@ -1,7 +1,7 @@
 import CusHttp from './custom_http';
 import { CACHE } from '../global/usual_cache';
-//const API_DOMAIN = 'http://192.168.3.144:8090';
-const API_DOMAIN = 'https://mp.becabaking.xyz:8090';
+const API_DOMAIN = 'http://192.168.3.144:8090';
+// const API_DOMAIN = 'https://mp.becabaking.xyz:8090';
 
 /**
  * 根据城市id获取城市详情
@@ -209,6 +209,22 @@ const memory_comment = (callback, failedCallback) => new CusHttp().Get(`${API_DO
 const memory_praise = (payload = {}, callback, failedCallback) => new CusHttp().Post(`${API_DOMAIN}/travel/memory/praise`, payload, callback, failedCallback);
 
 /**
+ * 随机奖励关卡关卡
+ * @param {Function} callback
+ * @param {Function} failedCallback
+ */
+const random_reward_hurdle = (callback, failedCallback) => new CusHttp().Get(`${API_DOMAIN}/travel/random_reward_hurdle`, callback, failedCallback);
+
+
+/**
+ * 完成奖励关卡关卡
+ * @param {Function} callback
+ * @param {Function} failedCallback
+ */
+const reward_complete = (callback, failedCallback) => new CusHttp().Post(`${API_DOMAIN}/travel/reward_complete`, {},callback, failedCallback);
+
+
+/**
  * 获取商城物品
  * @param {Function} callback
  * @param {Function} failedCallback
@@ -377,7 +393,8 @@ export default {
     travelComment,
     use_prop,
     backpack,
-
+    random_reward_hurdle,
+    reward_complete,
     task_tips,
     task_daily,
     task_main,

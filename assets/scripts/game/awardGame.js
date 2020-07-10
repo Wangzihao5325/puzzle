@@ -5,6 +5,8 @@
 // Learn life-cycle callbacks:
 //  - https://docs.cocos.com/creator/manual/en/scripting/life-cycle-callbacks.html
 import {CACHE} from '../global/usual_cache'
+import {random_reward_hurdle,use_prop} from '../api/api_index'
+import {IMAGE_SERVER} from '../global/app_global_index'
 
 cc.Class({
     extends: cc.Component,
@@ -37,13 +39,39 @@ cc.Class({
     goTarvel(){},
 
     handleAwardGame(){
-        if(CACHE.userData.star<11){
-            console.log("hh")
+        if(CACHE.userData.star<10){
             let startLack=cc.instantiate(this.startLack)
             startLack.parent=cc.find('Canvas')
         }else{
-            this.redirectPuzzle()
+            //消耗星星
+            this.starExpendAnimation()
+            use_prop({star:10},res=>{
+                if(res.code!==0){
+                    Toast.show(res.message||'星星消耗失败')
+                }
+            })
+            //获取随机关卡
+            random_reward_hurdle(res=>{
+                if(res.code===0){
+                    //load puzzle sence
+                    const data=res.data
+                    data.logoUrl=`${IMAGE_SERVER}/${data.picId}.png`
+                    cc.loader.load(data.logoUrl, (err, texture) => {
+                        this.redirectPuzzle(data)
+                    });
+                }
+            })
         }
+    },
+    redirectPuzzle(data) {
+        CACHE.mission_press = data;
+        CACHE.chapterData = data;
+        CACHE.hard_level=4
+        cc.director.loadScene("puzzle");
+    },
+
+    starExpendAnimation(){
+        //todo:
     },
 
     signSetTouch() {//signBg
@@ -60,28 +88,6 @@ cc.Class({
     },
     back(){
         cc.director.loadScene("travel");
-    },
-    redirectPuzzle() {
-        if (this.canNext) {
-            const data={
-                chapterId: 801,
-                chapterName: "西藏",
-                hurdleId: 801001,
-                hurdleName: "布达拉宫",
-                lock: false,
-                logoUrl: "https://img.becabaking.xyz/city071.png",
-                picId: "city071",
-                showLock: true,
-                star: 4,
-            }
-            CACHE.mission_press = data;
-            CACHE.chapterData = data;
-            CACHE.hard_level=4
-            cc.director.loadScene("puzzle");
-
-        } else {
-            this.canNext = true
-        }
     },
 
     // update (dt) {},
