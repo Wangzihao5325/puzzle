@@ -144,6 +144,7 @@ cc.Class({
         header.parent = cc.find('Canvas');
         header.zIndex = 0;
         Action.User.BalanceUpdate((res) => {
+            this.awardGameAnimation()
             obj.render();
             this.powerTimer();
         });
@@ -448,6 +449,60 @@ cc.Class({
     },
     updateTaskTips() {
         this.taskNew.active = CACHE.btnTips.task;
+    },
+
+    awardGameAnimation(){
+
+        if(CACHE.userData.star<10){
+            return false
+        }
+
+        const holo=cc.find('holo',this.awardGameBtn)
+        const icon=cc.find('min',this.awardGameBtn)
+        const d1=cc.find('d1',this.awardGameBtn)
+        const d2=cc.find('d2',this.awardGameBtn)
+        const newIcon=cc.find('new',this.awardGameBtn)
+        holo.active=true
+        newIcon.active=true
+        cc.tween(holo)
+            .to(100, { angle:3600 })
+            .union()
+            .repeatForever()
+            .start()
+
+
+            setTimeout(()=>{
+                cc.tween(d1)
+                .delay(0.5)
+                .to(.15, { position: cc.v2(d1.x,d1.y+20) })
+                .to(.15, { position: cc.v2(d1.x,d1.y) })
+                .union()
+                .repeatForever()
+                .start()
+            },0)
+
+        setTimeout(()=>{
+            cc.tween(d2)
+            .delay(0.5)
+            .to(.15, { position: cc.v2(d2.x,d2.y+20) })
+            .to(.15, { position: cc.v2(d2.x,d2.y) })
+            .union()
+            .repeatForever()
+            .start()
+        },150)
+        setTimeout(()=>{
+            cc.tween(icon)
+            .delay(0.5)
+            .to(.15, { position: cc.v2(icon.x,icon.y+20) })
+            .to(.15, { position: cc.v2(icon.x,icon.y) })
+            .union()
+            .repeatForever()
+            .start()
+        },450)
+
+
+
+
     }
 
     // update (dt) {},

@@ -86,7 +86,6 @@ cc.Class({
     onLoad() {
 
         this.crossComplate=[0,0,0,0]
-        console.log("this.crossComplate",this.crossComplate,CACHE.hard_level)
         this.setTouch();
         this.resetUI()
         GAME_CACHE.isComplate = false
@@ -394,6 +393,7 @@ cc.Class({
     doCrossPartComp(index){
         this.crossPartComp.active=true;
 
+
         const positionList= [[-161,214],[161,214],[-161,-214],[161,-214]]
         this.crossWrap.setPosition(cc.v2(positionList[index][0],positionList[index][1]))
         this.crossDiamond.setPosition(cc.v2(0,0))
@@ -401,6 +401,11 @@ cc.Class({
         this.crossDiamond.setScale(1)
         this.crossholo.active=true
 
+
+        let diamondIcon = cc.find('icon',this.diamondWarp);
+        let diamondIconWord = diamondIcon.parent.convertToWorldSpaceAR(diamondIcon.position);
+        let targetRoot = this.crossWrap.convertToNodeSpaceAR(diamondIconWord);
+        // console.log("diamondIconWord",diamondIconWord,targetRoot,diamondIconWord.x-CACHE.platform.visibleSize.width/2-positionList[index][0],diamondIconWord.y-CACHE.platform.visibleSize.height/2-positionList[index][1])
 
         // this.crossholo.opacity=100
         cc.tween(this.crossholo)
@@ -410,7 +415,7 @@ cc.Class({
             this.crossholo.active=false
             cc.tween(this.crossDiamond)
             .to(0.4,{scale:1.3})
-            .to(1,{position:cc.v2(168-positionList[index][0],527-positionList[index][1])})
+            .to(1,{position:cc.v2(targetRoot.x,targetRoot.y)})
             .to(0.2,{opacity:0,scale:0.4})
             .call(()=>{
                 this.crossPartComp.active=false
@@ -483,7 +488,9 @@ cc.Class({
                     setTimeout(() => {
                         cc.find("sound").getComponent("sound").gameSettlement()
                     }, 3000)
-                    this.showCrossAward(res.data.list[0]);
+                    setTimeout(()=>{
+                        this.showCrossAward(res.data.list[0]);
+                    },1000)
                 }, 0)
             } else {
                 Toast.show(res.meeage)
