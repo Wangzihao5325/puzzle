@@ -411,7 +411,10 @@ cc.Class({
                 this.process_bar.width=500*data.activity/100
                 if(data.levelOneReceive===true){
                     cc.find('giftIcon',this.git1).getComponent(cc.Sprite).spriteFrame=this.gift1Open
-                    this.jump1&&this.jump1.stop()
+                    const node=cc.find('giftIcon',this.git1)
+                    const newNode=cc.instantiate(node)
+                    newNode.parent=node.parent
+                    node.destroy()
                     let halo= cc.find('halo',this.git1)
                     halo.active=false
 
@@ -426,7 +429,10 @@ cc.Class({
                 }
                 if(data.levelTwoReceive===true){
                     cc.find('giftIcon',this.git2).getComponent(cc.Sprite).spriteFrame=this.gift1Open
-                    this.jump2&&this.jump2.stop()
+                    const node=cc.find('giftIcon',this.git2)
+                    const newNode=cc.instantiate(node)
+                    newNode.parent=node.parent
+                    node.destroy()
                     let halo= cc.find('halo',this.git2)
                     halo.active=false
                 }else{
@@ -439,7 +445,10 @@ cc.Class({
                 }
                 if(data.levelThreeReceive===true){
                     cc.find('giftIcon',this.git3).getComponent(cc.Sprite).spriteFrame=this.gift2Open
-                    this.jump3&&this.jump3.stop()
+                    const node=cc.find('giftIcon',this.git3)
+                    const newNode=cc.instantiate(node)
+                    newNode.parent=node.parent
+                    node.destroy()
                     let halo= cc.find('halo',this.git3)
                     halo.active=false
                 }else{

@@ -261,6 +261,9 @@ cc.Class({
                     let obj = dayNode.getComponent('sign_item_index') || dayNode.getComponent('sign_item_seven');
                     if (obj) {
                         obj.todaySign();
+                        setTimeout(()=>{
+                            this.closeSign()
+                        },1000)
                         CACHE.signData.todaySign = true;
                         this.signNew.active = false;
                         //重新更新任务红点
@@ -308,6 +311,16 @@ cc.Class({
                 }
             });
         });
+    },
+
+    closeSign(){
+        cc.tween(this.signRoot)
+        .to(.1,{scale:1.2})
+        .to(0.3,{scale:.2,opacity:0})
+        .call(()=>{
+            this.signRoot.destroy()
+        })
+        .start()
     },
 
     cityMissionInit() {
