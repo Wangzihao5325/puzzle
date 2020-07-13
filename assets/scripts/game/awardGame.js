@@ -21,7 +21,8 @@ cc.Class({
         canNext:{
             type:cc.Boolean,
             default:true
-        }
+        },
+        pic:cc.Sprite
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -29,6 +30,21 @@ cc.Class({
     onLoad () {
         this.signSetTouch()
         console.log("CACHE.platform",cc.view.getVisibleSize())
+
+        //获取随机关卡
+        random_reward_hurdle(res=>{
+            if(res.code===0){
+                //load puzzle sence
+                const data=res.data
+                CACHE.mission_press = data;
+                CACHE.chapterData = data;
+                data.logoUrl=`${IMAGE_SERVER}/${data.picId}.png`
+                cc.loader.load(data.logoUrl, (err, texture) => {
+                    this.pic.spriteFrame = new cc.SpriteFrame(texture)
+
+                });
+            }
+        })
         // this.root.height=CACHE.platform.height;
     },
 
@@ -52,24 +68,15 @@ cc.Class({
             use_prop({star:10},res=>{
                 if(res.code!==0){
                     Toast.show(res.message||'星星消耗失败')
+                }else{
+                    this.redirectPuzzle()
                 }
             })
-            //获取随机关卡
-            random_reward_hurdle(res=>{
-                if(res.code===0){
-                    //load puzzle sence
-                    const data=res.data
-                    data.logoUrl=`${IMAGE_SERVER}/${data.picId}.png`
-                    cc.loader.load(data.logoUrl, (err, texture) => {
-                        this.redirectPuzzle(data)
-                    });
-                }
-            })
+
         }
     },
-    redirectPuzzle(data) {
-        CACHE.mission_press = data;
-        CACHE.chapterData = data;
+    redirectPuzzle() {
+
         CACHE.hard_level=4
         cc.director.loadScene("puzzle");
     },
