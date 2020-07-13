@@ -61,6 +61,8 @@ cc.Class({
         } else if (this.guideStep == 2) {
             originNode = cc.find('Canvas/root/content');
             btn = cc.find('Canvas/root/content/goBtn');
+        } else {
+            return true;
         }
         if (!originNode || !btn) {
             return false;
