@@ -97,14 +97,6 @@ cc.Class({
         })
 
         this.node.on(cc.Node.EventType.TOUCH_MOVE, (event) => {
-            let delta0 = event.touch.getDelta();
-            this.deltaX = delta0.x + this.deltaX;
-            this.deltaY = delta0.y + this.deltaY;
-            if (this.deltaX <= 5 && this.deltaY <= 5) {
-                this.isMove = false;
-                return;
-            }
-
 
             //关闭查看图片
             const contralObj = cc.find(`Canvas/menuWarp`).getComponent('conraol')
