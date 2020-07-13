@@ -12,7 +12,7 @@ import {
 } from '../global/piece_index';
 import { initItem } from './initSplice';
 import { CACHE } from '../global/usual_cache';
-import {throttle} from '../utils/utils'
+import { throttle } from '../utils/utils'
 
 cc.Class({
     extends: cc.Component,
@@ -48,18 +48,18 @@ cc.Class({
         }
     },
 
-    setSpItem(spt,item) {
+    setSpItem(spt, item) {
         this.sp_item.spriteFrame = spt;
-        const index=item[6]
-        const indexXNum=TYPES[CACHE.hard_level][0]
-        const indexYNUM=TYPES[CACHE.hard_level][1]
-        const col=(index+1)%indexXNum===0?indexXNum:(index+1)%indexXNum-1
-        const row=Math.ceil((index+1)/indexXNum)-1
+        const index = item[6]
+        const indexXNum = TYPES[CACHE.hard_level][0]
+        const indexYNUM = TYPES[CACHE.hard_level][1]
+        const col = (index + 1) % indexXNum === 0 ? indexXNum : (index + 1) % indexXNum - 1
+        const row = Math.ceil((index + 1) / indexXNum) - 1
         // this.contentNode.width=item[2]
         // this.contentNode.width=item[2]
-        const x=-item[4]
-        const y=-item[5]
-        this.sp_item_Node.setPosition(cc.v2(x,y))
+        const x = -item[4]
+        const y = -item[5]
+        this.sp_item_Node.setPosition(cc.v2(x, y))
 
     },
 
@@ -78,6 +78,8 @@ cc.Class({
     },
 
     setTouch(hardLevel) {
+        this.deltaX = 0;
+        this.deltaY = 0;
         /* 初始化node Y轴偏移量（因为现在node在底部栏不可滑动,使用偏移量记录是否达到拖出底部栏的标准）*/
         this.item_node._offsetY = 0;
         this.node.on(cc.Node.EventType.TOUCH_START, (event) => {
@@ -95,6 +97,14 @@ cc.Class({
         })
 
         this.node.on(cc.Node.EventType.TOUCH_MOVE, (event) => {
+            let delta0 = event.touch.getDelta();
+            this.deltaX = delta0.x + this.deltaX;
+            this.deltaY = delta0.y + this.deltaY;
+            if (this.deltaX <= 5 && this.deltaY <= 5) {
+                this.isMove = false;
+                return;
+            }
+
 
             //关闭查看图片
             const contralObj = cc.find(`Canvas/menuWarp`).getComponent('conraol')
@@ -154,14 +164,14 @@ cc.Class({
                 let bgX = Math.ceil(this.item_node.x - (PUZZLE_FOOTER.position[0] - PUZZLE_FOOTER.truePosition[0])) - PUZZLE_SCENE.width / 2;
                 const resetPostion = cc.v2(bgX, this.item_node.y + delta.y - 540 + this.item_node.height);
 
-                let windowSize=cc.view.getVisibleSize();
+                let windowSize = cc.view.getVisibleSize();
                 // cc.log("width="+windowSize.width+",height="+windowSize.height);
-                const rightPositiot=cc.v2(event.touch.getLocation().x-windowSize.width/2,event.touch.getLocation().y-windowSize.height/2)
+                const rightPositiot = cc.v2(event.touch.getLocation().x - windowSize.width / 2, event.touch.getLocation().y - windowSize.height / 2)
                 this.item_node.setPosition(rightPositiot);
                 GAME_CACHE.underwayIndex.push(this.item_node.defaultIndex);
                 this.removeSpliceNode(this.item_node.defaultIndex);
                 cc.tween(this.item_node)
-                    .to(0.2, { scale: 1  })
+                    .to(0.2, { scale: 1 })
                     .start();
                 //重新排列底部块的位置
                 let game_bg = cc.find('Canvas/root/puzzleWarp/puzzleBg');
@@ -181,15 +191,17 @@ cc.Class({
         })
 
         this.node.on(cc.Node.EventType.TOUCH_END, (event) => {
+            this.deltaX = 0;
+            this.deltaY = 0;
             if (this.isMove) {
                 this.item_node._offsetY = 0;
             } else {
-                throttle(cc.find("sound").getComponent("sound").tap(),500)
+                throttle(cc.find("sound").getComponent("sound").tap(), 500)
             }
 
             let outList = this.item_node.parent.name !== 'content';
 
-            if(outList){
+            if (outList) {
                 this.item_node.parent = cc.find('Canvas/root/puzzleWarp/puzzleBg');
             }
 
@@ -218,27 +230,27 @@ cc.Class({
             }
 
             outList = this.item_node.parent.name !== 'content';
-            if (hardLevel == LEVEL.HARD && !this.isMove&&outList) {
+            if (hardLevel == LEVEL.HARD && !this.isMove && outList) {
                 //第三级难度点击旋转
                 // this.item_node.angle = (this.item_node.angle - 90) % 360;
                 //添加节流
-                const angleNum=this.item_node.angleNum+1===4?0:this.item_node.angleNum+1%4
+                const angleNum = this.item_node.angleNum + 1 === 4 ? 0 : this.item_node.angleNum + 1 % 4
 
                 throttle(
-                        cc.tween(this.item_node)
-                        .to(.1, { angle: 0-(this.item_node.angleNum+1)*90 })
-                        .call(()=>{
+                    cc.tween(this.item_node)
+                        .to(.1, { angle: 0 - (this.item_node.angleNum + 1) * 90 })
+                        .call(() => {
                             //解决旋转连续性
-                            this.item_node.angleNum=angleNum;
-                            if(angleNum===0){
-                                this.item_node.angle=0;
+                            this.item_node.angleNum = angleNum;
+                            if (angleNum === 0) {
+                                this.item_node.angle = 0;
                             }
-                            this.calPostion(this.item_node.x, this.item_node.y, 0-angleNum*90, hardLevel)
+                            this.calPostion(this.item_node.x, this.item_node.y, 0 - angleNum * 90, hardLevel)
                         })
                         .start()
                     // }
-               ,1000).bind(this)
- 
+                    , 1000).bind(this)
+
             }
             if (outList) {
                 //在盒子外计算
@@ -286,14 +298,14 @@ cc.Class({
             //             .start()
             //         // }
             //    ,1000).bind(this)
- 
+
             // }
             const outList = this.item_node.parent.name !== 'content';
             if (outList) {
                 //在盒子外计算
                 let delta = event.touch.getDelta();
                 this.calPostion(this.item_node.x + delta.x, this.item_node.y + delta.y, this.item_node.angle, hardLevel);
-            }else{
+            } else {
                 this.item_node.setScale(SCALELEAVEL[hardLevel])
             }
             this.item_node.zIndex = 10;//恢复z-index
@@ -370,8 +382,8 @@ cc.Class({
                 GAME_CACHE.complateIndex.push(this.item_node.defaultIndex);
                 GAME_CACHE.underwayIndex.remove(this.item_node.defaultIndex)
                 this.checkSuccess();
-                if (GAME_CACHE.complateIndex.length >= reg.length * 0.3&&GAME_CACHE.puzzleAnimation===false) {
-                    GAME_CACHE.puzzleAnimation=true
+                if (GAME_CACHE.complateIndex.length >= reg.length * 0.3 && GAME_CACHE.puzzleAnimation === false) {
+                    GAME_CACHE.puzzleAnimation = true
                     let dragonBonesNode = cc.find('Canvas/root/puzzleWarp/puzzleBg');
                     let animate = dragonBonesNode.getComponent(dragonBones.ArmatureDisplay)
                     animate.playAnimation(CACHE.dragonBoneAnimateName, 0);
@@ -379,7 +391,7 @@ cc.Class({
                 setTimeout(() => { item_puzzle_warp.destroy(); }, 100)
             } else {
                 cc.tween(this.item_node)
-                    .to(.2, { position: cc.v2(minItem[4], minItem[5]-4) })
+                    .to(.2, { position: cc.v2(minItem[4], minItem[5] - 4) })
                     .start()
             }
         }
@@ -392,10 +404,10 @@ cc.Class({
 
     setRandomRotation(hardLevel) {
         if (hardLevel == LEVEL.HARD) {
-            const angleNum=Math.floor(4 * Math.random());
+            const angleNum = Math.floor(4 * Math.random());
             let randomNum = angleNum * 90;
             this.item_node.angle = randomNum;
-            this.item_node.angleNum=angleNum
+            this.item_node.angleNum = angleNum
         }
     }
 

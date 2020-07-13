@@ -56,7 +56,6 @@ cc.Class({
         let btn;
         if (this.guideStep == 1) {
             originNode = cc.find('Canvas');
-            console.log(originNode);
             btn = cc.find('Canvas/guide');
         } else if (this.guideStep == 2) {
             originNode = cc.find('Canvas/root/content');
