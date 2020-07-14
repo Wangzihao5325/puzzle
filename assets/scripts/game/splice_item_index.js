@@ -78,11 +78,10 @@ cc.Class({
     },
 
     setTouch(hardLevel) {
-        this.deltaX = 0;
-        this.deltaY = 0;
         /* 初始化node Y轴偏移量（因为现在node在底部栏不可滑动,使用偏移量记录是否达到拖出底部栏的标准）*/
         this.item_node._offsetY = 0;
         this.node.on(cc.Node.EventType.TOUCH_START, (event) => {
+            this.startTouchTime=new Date().getTime()
             /*拿起增加z-index*/
             const current_node = this.item_node || this.splice_item;
             current_node.zIndex = 11;
@@ -95,17 +94,10 @@ cc.Class({
             event.stopPropagation();
             */
         })
+        this.isMove=false
 
         this.node.on(cc.Node.EventType.TOUCH_MOVE, (event) => {
-            let delta0 = event.touch.getDelta();
-            this.deltaX = delta0.x + this.deltaX;
-            this.deltaY = delta0.y + this.deltaY;
-            if (this.deltaX <= 5 && this.deltaY <= 5) {
-                this.isMove = false;
-                return;
-            }
-
-
+            let delta = event.touch.getDelta();
             //关闭查看图片
             const contralObj = cc.find(`Canvas/menuWarp`).getComponent('conraol')
             contralObj.closeView()
@@ -132,11 +124,9 @@ cc.Class({
             cc.tween(this.contentNode)
                 .to(.2, { position: shadowPostion })
                 .start()
-
-            this.isMove = true;
-            let delta = event.touch.getDelta();
             const outList = this.item_node.parent.name !== 'content';
             let newPositin = cc.v2(this.item_node.x + delta.x, this.item_node.y + delta.y > 430 ? 430 : this.item_node.y + delta.y);
+
             //在拼图盒子内移动
             if (!outList && this.item_node._offsetY + delta.y < 90) {
                 // this.item_node.parent = cc.find('Canvas');
@@ -191,8 +181,9 @@ cc.Class({
         })
 
         this.node.on(cc.Node.EventType.TOUCH_END, (event) => {
-            this.deltaX = 0;
-            this.deltaY = 0;
+            const touchEndTime=new Date().getTime()
+           this.isMove= touchEndTime-this.startTouchTime>=300
+           console.log('touchEndTime-this.startTouchTime',touchEndTime,this.startTouchTime,touchEndTime-this.startTouchTime)
             if (this.isMove) {
                 this.item_node._offsetY = 0;
             } else {
@@ -258,10 +249,11 @@ cc.Class({
                 this.calPostion(this.item_node.x + delta.x, this.item_node.y + delta.y, this.item_node.angle, hardLevel);
             }
             this.item_node.zIndex = 10;//恢复z-index
-            this.isMove = false;
+            // this.isMove = false;
             // cc.find('shadow',this.item_node).active=false
             // const puzzleItem= cc.find('content',this.item_node)
             //去除拿起阴影
+            this.shadow.active = false
             cc.tween(this.contentNode)
                 .to(.1, { position: cc.v2(0, 0) })
                 .start()
@@ -274,7 +266,8 @@ cc.Class({
         })
 
         this.node.on(cc.Node.EventType.TOUCH_CANCEL, (event) => {
-            console.log("touchCancel")
+            const touchEndTime=new Date().getTime()
+            this.isMove= touchEndTime-this.startTouchTime>=300
             if (this.isMove) {
                 this.item_node._offsetY = 0;
             }
@@ -353,7 +346,6 @@ cc.Class({
 
     /*计算中心点距离*/
     calPostion(x, y, rotation, hardLevel) {
-        console.log("calPostion")
         const defaultPostion = this.item_node.defaultPostion;
         const defaultx = defaultPostion[0];
         const defaulty = defaultPostion[1];
