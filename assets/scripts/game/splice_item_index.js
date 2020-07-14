@@ -98,6 +98,7 @@ cc.Class({
 
         this.node.on(cc.Node.EventType.TOUCH_MOVE, (event) => {
             let delta = event.touch.getDelta();
+
             //关闭查看图片
             const contralObj = cc.find(`Canvas/menuWarp`).getComponent('conraol')
             contralObj.closeView()

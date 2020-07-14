@@ -1,4 +1,5 @@
-import CACHE from '../global/usual_cache';
+import { CACHE } from '../global/usual_cache';
+import Api from '../api/api_index';
 
 cc.Class({
     extends: cc.Component,
@@ -16,32 +17,34 @@ cc.Class({
     // LIFE-CYCLE CALLBACKS:
 
     onLoad() {
-        this.guideToastArrowNode = cc.instantiate(this.guideToastArrow);
-        let arrowObj = this.guideToastArrowNode.getComponent('guideToastArrow');
-        if (arrowObj) {
-            arrowObj.animate();
+        if (!CACHE.userInfo.firstRewardTaskEnded) {
+            this.guideToastArrowNode = cc.instantiate(this.guideToastArrow);
+            let arrowObj = this.guideToastArrowNode.getComponent('guideToastArrow');
+            if (arrowObj) {
+                arrowObj.animate();
+            }
+            this.guideToastArrowNode.scaleX = 0.5;
+            this.guideToastArrowNode.scaleY = 0.5;
+            this.guideToastArrowNode.angle = 180;
+            this.guideToastArrowNode.parent = this.node;
+            let height = cc.view.getVisibleSize().height;
+            this.guideToastArrowNode.setPosition(0, height / 2 - 60);
+
+            this.guideToastNode = cc.instantiate(this.guideToast);
+            let obj = this.guideToastNode.getComponent('guideToast');
+            if (obj) {
+                this.guideToastNode.item_obj = obj;
+                obj.setContentStr("<color=#887160>累计通关关卡的星星，\n是开启奖励关卡的条件</color>");
+            }
+            this.guideToastNode.parent = this.node;
+            this.guideToastNode.setPosition(0, 400);
+
+            this.guideStep = 1;
+
+            this.node.on(cc.Node.EventType.TOUCH_START, this.onTouchStart, this);
+            this.node.on(cc.Node.EventType.TOUCH_END, this.onTouchEnd, this);
+            this.node.on(cc.Node.EventType.TOUCH_MOVE, this.onTouchMove, this);
         }
-        this.guideToastArrowNode.scaleX = 0.5;
-        this.guideToastArrowNode.scaleY = 0.5;
-        this.guideToastArrowNode.angle = 180;
-        this.guideToastArrowNode.parent = this.node;
-        let height = cc.view.getVisibleSize().height;
-        this.guideToastArrowNode.setPosition(0, height / 2 - 60);
-
-        this.guideToastNode = cc.instantiate(this.guideToast);
-        let obj = this.guideToastNode.getComponent('guideToast');
-        if (obj) {
-            this.guideToastNode.item_obj = obj;
-            obj.setContentStr("<color=#887160>累计通关关卡的星星，\n是开启奖励关卡的条件</color>");
-        }
-        this.guideToastNode.parent = this.node;
-        this.guideToastNode.setPosition(0, 400);
-
-        this.guideStep = 1;
-
-        this.node.on(cc.Node.EventType.TOUCH_START, this.onTouchStart, this);
-        this.node.on(cc.Node.EventType.TOUCH_END, this.onTouchEnd, this);
-        this.node.on(cc.Node.EventType.TOUCH_MOVE, this.onTouchMove, this);
     },
 
     start() {
@@ -179,6 +182,8 @@ cc.Class({
             if (isEnd) {
                 this.guideStep++;
                 this.handNode.active = false;
+                CACHE.userInfo.firstRewardTaskEnded = true;
+                Api.guideStageSpecialComplete({ event: 3 }, (res) => { });
             }
             return false
         } else {
