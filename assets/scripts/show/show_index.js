@@ -469,7 +469,7 @@ cc.Class({
                 rewardName = '金币';
                 break;
             case 3:
-                rewardName = '猫粮';
+                rewardName = '高级猫粮';
                 break;
             case 2:
                 rewardName = '钻石';
