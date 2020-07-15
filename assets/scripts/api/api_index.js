@@ -98,7 +98,10 @@ const petHungry = (callback, failedCallback) => new CusHttp().Post(`${API_DOMAIN
  * @param {Function} callback
  * @param {Function} failedCallback
  */
-const petRemainFood = (callback, failedCallback) => new CusHttp().Get(`${API_DOMAIN}/pet/remain_food`, callback, failedCallback);
+const petRemainFood = (callback, failedCallback) => {
+    let url = (CACHE.userInfo && typeof CACHE.userInfo.stage == 'number' && CACHE.userInfo.stage == 5) ? `${API_DOMAIN}/pet/remain_food?isGuide=1` : `${API_DOMAIN}/pet/remain_food?isGuide=0`;
+    new CusHttp().Get(url, callback, failedCallback)
+};
 
 
 /**
@@ -221,7 +224,7 @@ const random_reward_hurdle = (callback, failedCallback) => new CusHttp().Get(`${
  * @param {Function} callback
  * @param {Function} failedCallback
  */
-const reward_complete = (callback, failedCallback) => new CusHttp().Post(`${API_DOMAIN}/travel/reward_complete`, {},callback, failedCallback);
+const reward_complete = (callback, failedCallback) => new CusHttp().Post(`${API_DOMAIN}/travel/reward_complete`, {}, callback, failedCallback);
 
 
 /**
