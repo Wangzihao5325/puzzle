@@ -19,7 +19,7 @@ cc.Class({
         cityBg: cc.Sprite,
         cityBgNode: cc.Node,
         starProgress: cc.Label,
-        headerWarp:cc.Node,
+        headerWarp: cc.Node,
 
         introduceRoot: cc.Node,
         introduceTitleLabel: cc.Label,
@@ -44,6 +44,7 @@ cc.Class({
         goodDetailClose: cc.Sprite,
         goodDetailBg: cc.Sprite,
         goodLessReg: cc.Sprite,
+        cityTitleLabel: cc.Label,
 
         audio: {
             default: null,
@@ -71,7 +72,6 @@ cc.Class({
     },
 
     missionItemClickCallback(item) {
-        console.log("item",item)
         CACHE.mission_press = item;
         CACHE.chapterData = item;
         if (!this._mission_select_obj) {
@@ -229,8 +229,8 @@ cc.Class({
             /* 生成掉落物品*/
             CACHE.cityData.goodsList.forEach((item, index) => {
                 let Item = cc.instantiate(this.goodsItem);
-                Item.scaleX = 0.5;
-                Item.scaleY = 0.5;
+                Item.scaleX = 0.6;
+                Item.scaleY = 0.6;
                 let obj = Item.getComponent('goodItemPro');
                 if (obj) {
                     obj.initWithItem(item);
@@ -240,12 +240,12 @@ cc.Class({
                     /*稀有物品*/
                     Item.parent = this.rareGoodsBg.node;
                     let xPosition = -200 + (index % 5) * 100;
-                    Item.setPosition(cc.v2(xPosition, -20));
+                    Item.setPosition(cc.v2(xPosition, -30));
                 } else {
                     /*普通物品*/
                     let xPosition = -200 + (index % 5) * 100;
                     Item.parent = this.normalGoodsBg.node;
-                    Item.setPosition(cc.v2(xPosition, -20));
+                    Item.setPosition(cc.v2(xPosition, -30));
                 }
             });
         }
@@ -266,6 +266,7 @@ cc.Class({
     render() {
         let cityItem = CACHE.travel_city_press;
         this.titleLabel.string = cityItem.name;
+        this.cityTitleLabel.string = `${cityItem.trueName} · 介绍`
         Action.Mission.CityDetails((res) => {
             this.renderIntroduce();
             /**必须设置一个宽度才能自动换行 */
@@ -293,8 +294,8 @@ cc.Class({
 
     onLoad() {
         cc.find("sound").getComponent("sound").playBg()
-        if(CACHE.platform.isIphoneX){
-            this.headerWarp.height=140
+        if (CACHE.platform.isIphoneX) {
+            this.headerWarp.height = 140
         }
     },
 
