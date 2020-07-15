@@ -169,7 +169,7 @@ cc.Class({
             this.actionWarp.active=true&&this.canSell
         }
         else if (type == 1) {//稀有物品
-            this.goodDetails.node.color = cc.color(255, 255, 255);
+            this.goodDetails.node.color = cc.color(141, 141, 141);
             this.goodDetailsContent.color = cc.color(212, 181, 156);
             this.goodDetailBg.node.color = cc.color(255, 247, 206);
             this.goodLessReg.node.active = true;
