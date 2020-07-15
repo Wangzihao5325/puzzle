@@ -408,7 +408,7 @@ cc.Class({
             if(res.code===0){
                 const data=res.data;
                 this.activeNum.string=data.activity
-                this.process_bar.width=500*data.activity/100
+                this.process_bar.width=525*data.activity/100
                 if(data.levelOneReceive===true){
                     cc.find('giftIcon',this.git1).getComponent(cc.Sprite).spriteFrame=this.gift1Open
                     const node=cc.find('giftIcon',this.git1)
