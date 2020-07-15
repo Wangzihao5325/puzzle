@@ -36,7 +36,7 @@ cc.Class({
         taskNew: cc.Node,
         signDoubleButton: cc.Node,
         signDoubleImage: cc.Node,
-        awardGameBtn:cc.Node,
+        awardGameBtn: cc.Node,
         map: cc.ScrollView,
         mapMask: cc.Node,
 
@@ -261,9 +261,9 @@ cc.Class({
                     let obj = dayNode.getComponent('sign_item_index') || dayNode.getComponent('sign_item_seven');
                     if (obj) {
                         obj.todaySign();
-                        setTimeout(()=>{
+                        setTimeout(() => {
                             this.closeSign()
-                        },1000)
+                        }, 1000)
                         CACHE.signData.todaySign = true;
                         this.signNew.active = false;
                         //重新更新任务红点
@@ -313,14 +313,14 @@ cc.Class({
         });
     },
 
-    closeSign(){
+    closeSign() {
         cc.tween(this.signRoot)
-        .to(.1,{scale:1.2})
-        .to(0.3,{scale:.2,opacity:0})
-        .call(()=>{
-            this.signRoot.destroy()
-        })
-        .start()
+            .to(.1, { scale: 1.2 })
+            .to(0.3, { scale: .2, opacity: 0 })
+            .call(() => {
+                this.signRoot.destroy()
+            })
+            .start()
     },
 
     cityMissionInit() {
@@ -373,6 +373,9 @@ cc.Class({
                     } else {
                         this.drawLine(cc.v2(startPt.positionX, startPt.positionY), cc.v2(item.positionX, item.positionY));
                     }
+                }
+                if (item.isRecommend) {
+                    CACHE.travel_city_press = item;
                 }
                 /*生成关卡*/
                 let cityItemNode = cc.instantiate(this.city_item);
@@ -464,54 +467,54 @@ cc.Class({
         this.taskNew.active = CACHE.btnTips.task;
     },
 
-    awardGameAnimation(){
+    awardGameAnimation() {
 
-        if(CACHE.userData.star<10){
+        if (CACHE.userData.star < 10) {
             return false
         }
 
-        const holo=cc.find('holo',this.awardGameBtn)
-        const icon=cc.find('min',this.awardGameBtn)
-        const d1=cc.find('d1',this.awardGameBtn)
-        const d2=cc.find('d2',this.awardGameBtn)
-        const newIcon=cc.find('new',this.awardGameBtn)
-        holo.active=true
-        newIcon.active=true
+        const holo = cc.find('holo', this.awardGameBtn)
+        const icon = cc.find('min', this.awardGameBtn)
+        const d1 = cc.find('d1', this.awardGameBtn)
+        const d2 = cc.find('d2', this.awardGameBtn)
+        const newIcon = cc.find('new', this.awardGameBtn)
+        holo.active = true
+        newIcon.active = true
         cc.tween(holo)
-            .to(100, { angle:3600 })
+            .to(100, { angle: 3600 })
             .union()
             .repeatForever()
             .start()
 
 
-            setTimeout(()=>{
-                cc.tween(d1)
+        setTimeout(() => {
+            cc.tween(d1)
                 .delay(0.5)
-                .to(.15, { position: cc.v2(d1.x,d1.y+20) })
-                .to(.15, { position: cc.v2(d1.x,d1.y) })
+                .to(.15, { position: cc.v2(d1.x, d1.y + 20) })
+                .to(.15, { position: cc.v2(d1.x, d1.y) })
                 .union()
                 .repeatForever()
                 .start()
-            },0)
+        }, 0)
 
-        setTimeout(()=>{
+        setTimeout(() => {
             cc.tween(d2)
-            .delay(0.5)
-            .to(.15, { position: cc.v2(d2.x,d2.y+20) })
-            .to(.15, { position: cc.v2(d2.x,d2.y) })
-            .union()
-            .repeatForever()
-            .start()
-        },150)
-        setTimeout(()=>{
+                .delay(0.5)
+                .to(.15, { position: cc.v2(d2.x, d2.y + 20) })
+                .to(.15, { position: cc.v2(d2.x, d2.y) })
+                .union()
+                .repeatForever()
+                .start()
+        }, 150)
+        setTimeout(() => {
             cc.tween(icon)
-            .delay(0.5)
-            .to(.15, { position: cc.v2(icon.x,icon.y+20) })
-            .to(.15, { position: cc.v2(icon.x,icon.y) })
-            .union()
-            .repeatForever()
-            .start()
-        },450)
+                .delay(0.5)
+                .to(.15, { position: cc.v2(icon.x, icon.y + 20) })
+                .to(.15, { position: cc.v2(icon.x, icon.y) })
+                .union()
+                .repeatForever()
+                .start()
+        }, 450)
 
 
 
