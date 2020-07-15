@@ -64,21 +64,29 @@ cc.Class({
                 typeName = '美食';
                 titleImagePath = 'show/meishi';
                 titleText = '美食节';
+                this.awardIcon.node.scaleX = 0.5;
+                this.awardIcon.node.scaleY = 0.5;
                 break;
             case 70002://手工达人
                 typeName = '手工';
                 titleImagePath = 'show/shougognpin';
                 titleText = '手工达人';
+                this.awardIcon.node.scaleX = 0.5;
+                this.awardIcon.node.scaleY = 0.5;
                 break;
             case 70004://艺术品
                 typeName = '艺术品';
                 titleImagePath = 'show/jininapin';
                 titleText = '艺术大师';
+                this.awardIcon.node.scaleX = 0.2;
+                this.awardIcon.node.scaleY = 0.2;
                 break;
             case 70005://博物展
                 typeName = '文物';
                 titleImagePath = 'show/wenwu';
                 titleText = '博物展';
+                this.awardIcon.node.scaleX = 0.2;
+                this.awardIcon.node.scaleY = 0.2;
                 break;
         }
         let currentNum = showData.festivalInfo.currentNum;
