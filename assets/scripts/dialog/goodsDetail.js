@@ -71,6 +71,12 @@ cc.Class({
     handleAction(){
         if(this.info.type===3){
             //宠物
+
+            let { outward } = HOME_CACHE.pet_info
+            if(outward){
+                Toast.show('宠物已经外出，无法喂食~')
+                return false
+            }
             //关闭商品详情弹窗
             this.handleClose()
             //关闭背包弹窗

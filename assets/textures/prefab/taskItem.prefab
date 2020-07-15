@@ -700,7 +700,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 198,
-      "height": 20.16
+      "height": 30.24
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -753,7 +753,7 @@
     "_string": "完成一次新剧情关卡",
     "_N$string": "完成一次新剧情关卡",
     "_fontSize": 22,
-    "_lineHeight": 16,
+    "_lineHeight": 24,
     "_enableWrapText": true,
     "_N$file": {
       "__uuid__": "276b8d68-767a-4fea-a51d-4c0e74037850"
@@ -1052,7 +1052,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 19.97,
-      "height": 22.68
+      "height": 25.2
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -1105,7 +1105,7 @@
     "_string": "1\\1",
     "_N$string": "1\\1",
     "_fontSize": 18,
-    "_lineHeight": 18,
+    "_lineHeight": 20,
     "_enableWrapText": true,
     "_N$file": {
       "__uuid__": "276b8d68-767a-4fea-a51d-4c0e74037850"

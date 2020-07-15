@@ -24,6 +24,9 @@ cc.Class({
         goodsItemWarp: cc.Node,
         goodsWarp: cc.Node,
         goodsContent: cc.Node,
+        starNum:cc.Label,
+        star:cc.Node,
+        starWarp:cc.Node,
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -123,7 +126,39 @@ cc.Class({
                 }
             }
         }, 500);
+
+        setTimeout(()=>{
+            // var ctx = this.star.getComponent(cc.Graphics);
+            // ctx.moveTo(-30, 0);
+            // ctx.bezierCurveTo(20, 100, 200, 100, 200, 20);
+            // ctx.fill();
+            this.star.active=true
+            this.star.runAction(this.createBezierTo(.5, cc.v2(-130, 50), cc.v2(0, 0), 100, 360));
+
+        },1000)
+        setTimeout(()=>{
+            cc.tween(this.starWarp)
+            .to(0.2,{scale:1.4})
+            .to(0.1,{scale:1.2})
+            .start()
+        },1500)
     },
+
+
+    // 抛物线创建
+    createBezierTo(t, startPoint, endPoint, height, angle) {
+        // 把角度转换为弧度
+        let radian = angle * 3.14159 / 180;
+        // 第一个控制点为抛物线左半弧的中点
+        let q1x = startPoint.x + (endPoint.x - startPoint.x) / 4;
+        let q1 = cc.v2(q1x, height + startPoint.y + Math.cos(radian) * q1x);
+        // 第二个控制点为整个抛物线的中点
+        let q2x = startPoint.x + (endPoint.x - startPoint.x) / 2;
+        let q2 = cc.v2(q2x, height + startPoint.y + Math.cos(radian) * q2x);
+        // 曲线配置
+        return cc.bezierTo(t, [q1, q2, endPoint]).easing(cc.easeInOut(0.5));
+    },
+
 
     init(list, leavel) {
         let arr = []
@@ -135,6 +170,8 @@ cc.Class({
                 arr2.push(item)
             }
         })
+        const text=['x1','x2','x4','x3']
+        this.star.string=text[leavel]
         arr.map((item, index) => {
             var node = cc.instantiate(this.goodsItemWarp);
             node.name = `goodsItemWarp_${index}`

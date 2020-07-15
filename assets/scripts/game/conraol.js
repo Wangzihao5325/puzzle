@@ -334,7 +334,7 @@ cc.Class({
                 let footerWarp = cc.find(`Canvas/footerWarp`);
                 footerWarp.active = false;
                 this.menuWarp.active = false;
-                this.name.color = cc.color(255, 255, 255)
+                this.puzzle_name.color = new cc.color(255, 255, 255,255)
                 cc.tween(this.flash)
                     .to(.8, { position: cc.v2(485, -550) })
                     .start()
