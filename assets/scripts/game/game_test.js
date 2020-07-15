@@ -191,7 +191,7 @@ cc.Class({
         // var puzzleItem = cc.find(`Canvas/root/puzzleWarp/puzzleBg`);
         let list = [...GAME_CACHE.spliceArr];
         // list.reverse();
-        const time = [60, 40, 30][CACHE.hard_level]
+        const time = [140, 120, 100,100][CACHE.hard_level]
         this.pliceAnimation(list, time)
     },
 
@@ -216,7 +216,7 @@ cc.Class({
             let shadowNode = cc.find('shadow', node)
             node.zIndex = 100
             //根据平涂块的需要掉落的距离设置动画时间
-            const fallTime = Math.ceil((440 + node.y) / 1200 * 10) / 10
+            const fallTime = Math.ceil((440 + node.y) / 1000 * 10*1.4) / 10
             this.fallTimer = setTimeout(() => {
                 this.pliceAnimation(data.splice(1), time, index + 1)
             }, time)
@@ -244,8 +244,8 @@ cc.Class({
                 .to(.2, { position: shadowPostion })
                 .start()
             cc.tween(node)
-                .to(0.2, { position: cc.v2(node.x, node.y + 100) })
-                .to(fallTime, { position: cc.v2(node.x, footerWarpPositionY), opacity: 200, angle: randomNum })
+                .to(0.2, { position: cc.v2(node.x, node.y + 50) })
+                .to(fallTime, { position: cc.v2(node.x, footerWarpPositionY), opacity: 100, angle: randomNum })
                 .to(.2, { scale: 1, opacity: 0 })
                 // .to(.2, { opacity:255 })
                 .call(() => {
