@@ -186,7 +186,7 @@
       "array": [
         0,
         0,
-        512.9847352729386,
+        415.97635840214735,
         0,
         0,
         0,
@@ -2482,7 +2482,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 560,
-      "height": 850
+      "height": 950
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -2560,7 +2560,7 @@
       "ctor": "Float64Array",
       "array": [
         -310.53,
-        329.71,
+        354.71,
         0,
         0,
         0,
@@ -2622,7 +2622,7 @@
       "ctor": "Float64Array",
       "array": [
         145.911,
-        32.139,
+        43.139,
         0,
         0,
         0,
@@ -2752,7 +2752,7 @@
       "ctor": "Float64Array",
       "array": [
         0,
-        180.74,
+        205.74,
         0,
         0,
         0,
@@ -2944,7 +2944,7 @@
       "ctor": "Float64Array",
       "array": [
         -296.707,
-        -10.088,
+        15.088,
         0,
         0,
         0,
@@ -3124,7 +3124,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 520,
-      "height": 160
+      "height": 210
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -3136,7 +3136,7 @@
       "ctor": "Float64Array",
       "array": [
         0,
-        -120.584,
+        -116.223,
         0,
         0,
         0,
@@ -3316,7 +3316,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 520,
-      "height": 160
+      "height": 210
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -3328,7 +3328,7 @@
       "ctor": "Float64Array",
       "array": [
         0,
-        -312.771,
+        -343.73,
         0,
         0,
         0,
@@ -3548,7 +3548,7 @@
       "ctor": "Float64Array",
       "array": [
         238.424,
-        370.478,
+        395.478,
         0,
         0,
         0,
@@ -5051,6 +5051,9 @@
     },
     "goodLessReg": {
       "__id__": 88
+    },
+    "cityTitleLabel": {
+      "__id__": 57
     },
     "audio": {
       "__uuid__": "f4166aea-554b-4068-aa9c-448afed40be1"
