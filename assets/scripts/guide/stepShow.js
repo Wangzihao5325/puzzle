@@ -262,9 +262,10 @@ cc.Class({
             return false;
         } else if (CACHE.userInfo.stage == 4 && this.guideStep == 4) {
             if (isEnd) {
-                this.handNode.x = 0;
-                this.handNode.y = 100;
-                this.handNode.active = true;
+                // this.handNode.x = 0;
+                // this.handNode.y = 100;
+                // this.handNode.active = true;
+                this.handNode.active = false;
                 this.guideStep++;
             }
             return false;
@@ -280,9 +281,9 @@ cc.Class({
             return false;
         } else if (CACHE.userInfo.stage == 4 && this.guideStep == 6) {
             if (isEnd) {
-                this.handNode.x = 0;
-                this.handNode.y = -200;
-                this.handNode.active = true;
+                // this.handNode.x = 0;
+                // this.handNode.y = -200;
+                this.handNode.active = false;
                 this.guideToastNode.active = false;
                 this.guideStep++;
             }
