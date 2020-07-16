@@ -1999,8 +1999,8 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        0,
-        5,
+        -8.499,
+        3.179,
         0,
         0,
         0,
@@ -2051,8 +2051,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 80,
-      "height": 17
+      "width": 120,
+      "height": 24
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -2063,7 +2063,7 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        -20,
+        -7.858,
         -172,
         0,
         0,
@@ -2159,7 +2159,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 0,
-      "height": 21.42
+      "height": 30.24
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -2170,7 +2170,7 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        -20,
+        -10,
         -172,
         0,
         0,
@@ -2211,8 +2211,8 @@
     "_useOriginalSize": false,
     "_string": "",
     "_N$string": "",
-    "_fontSize": 17,
-    "_lineHeight": 17,
+    "_fontSize": 20,
+    "_lineHeight": 24,
     "_enableWrapText": true,
     "_N$file": null,
     "_isSystemFontUsed": true,
@@ -2284,9 +2284,9 @@
         0,
         0,
         1,
-        0.15,
-        0.15,
-        0.15
+        0.2,
+        0.2,
+        1
       ]
     },
     "_eulerAngles": {
