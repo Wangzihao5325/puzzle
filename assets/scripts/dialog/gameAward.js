@@ -27,6 +27,10 @@ cc.Class({
         starNum:cc.Label,
         star:cc.Node,
         starWarp:cc.Node,
+        starAmount:{
+            type:Number,
+            default:0
+        }
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -126,22 +130,34 @@ cc.Class({
                 }
             }
         }, 500);
-
+        console.log("leavel",leavel)
         setTimeout(()=>{
-            // var ctx = this.star.getComponent(cc.Graphics);
-            // ctx.moveTo(-30, 0);
-            // ctx.bezierCurveTo(20, 100, 200, 100, 200, 20);
-            // ctx.fill();
-            this.star.active=true
-            this.star.runAction(this.createBezierTo(.5, cc.v2(-130, 50), cc.v2(0, 0), 100, 360));
+            const num=[0,1,2,3,4][leavel]
+            for(let i=0;i<num;i++){
+                setTimeout(()=>{
+                    this.addStart()
+                },i*400)
+            }
 
         },1000)
+
+    },
+
+    addStart(){
+        // this.star.active=true
+        const starNode=cc.instantiate(this.star)
+        starNode.active=true
+        starNode.parent=this.star.parent
+        starNode.runAction(this.createBezierTo(.5, cc.v2(-130, 50), cc.v2(0, 0), 100, 360));
+
         setTimeout(()=>{
+            this.starAmount=this.starAmount+1
+            this.starNum.string=`x${this.starAmount}`
             cc.tween(this.starWarp)
             .to(0.2,{scale:1.4})
             .to(0.1,{scale:1.2})
             .start()
-        },1500)
+        },500)
     },
 
 
@@ -166,7 +182,12 @@ cc.Class({
         list.map(item => {
             if (item.goodsType === 11 || item.goodsType === 12) {
                 arr.push(item)
-            } else {
+            }
+            else if(item.goodsType===17){
+                this.starAmount=item.amount
+                this.starNum.string=`x ${item.amount}`
+
+            }  else {
                 arr2.push(item)
             }
         })
