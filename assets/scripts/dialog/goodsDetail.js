@@ -6,6 +6,7 @@
 //  - https://docs.cocos.com/creator/manual/en/scripting/life-cycle-callbacks.html
 import Api from '../api/api_index'
 import {CACHE} from '../global/usual_cache'
+import {HOME_CACHE} from '../global/home_global'
 
 cc.Class({
     extends: cc.Component,

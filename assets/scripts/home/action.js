@@ -168,6 +168,9 @@ cc.Class({
         OutSide.parent = my_home
         OutSide.active = true
         bowlWarp.active=false
+        //更新宠物信息
+        let homeIndeObj = cc.find('Canvas').getComponent('home_index')
+        homeIndeObj.getPetInfo()
     },
 
     handleGoout() {
