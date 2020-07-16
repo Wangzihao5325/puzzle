@@ -229,8 +229,8 @@ cc.Class({
             /* 生成掉落物品*/
             CACHE.cityData.goodsList.forEach((item, index) => {
                 let Item = cc.instantiate(this.goodsItem);
-                Item.scaleX = 0.6;
-                Item.scaleY = 0.6;
+                Item.scaleX = 0.7;
+                Item.scaleY = 0.7;
                 let obj = Item.getComponent('goodItemPro');
                 if (obj) {
                     obj.initWithItem(item);
@@ -239,11 +239,11 @@ cc.Class({
                 if (item.goodsQuality == 1) {
                     /*稀有物品*/
                     Item.parent = this.rareGoodsBg.node;
-                    let xPosition = -200 + (index % 5) * 100;
+                    let xPosition = -216 + (index % 5) * 108;
                     Item.setPosition(cc.v2(xPosition, -30));
                 } else {
                     /*普通物品*/
-                    let xPosition = -200 + (index % 5) * 100;
+                    let xPosition = -216 + (index % 5) * 108;
                     Item.parent = this.normalGoodsBg.node;
                     Item.setPosition(cc.v2(xPosition, -30));
                 }
