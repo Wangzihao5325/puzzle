@@ -35,7 +35,7 @@ cc.Class({
         //设置常驻节点
         cc.game.addPersistRootNode(this.soundNode);
         let totalWidth = this.loadingBg.node.width;
-        let totalStep = 13;
+        let totalStep = 14;
         //播放引导页背景音
         // this.soundNode.getComponent("sound").playGuide()
 
@@ -113,18 +113,21 @@ cc.Class({
                                                     // handle spriteFrames
                                                     cc.loader.loadResDir('6x6/', cc.SpriteFrame, (err, spriteFrames) => {
                                                         this.loadingProgressAdd(12, totalStep, totalWidth);
-                                                        Api.guideState((res) => {
-                                                            if (res.data) {
-                                                                CACHE.userInfo.stage = res.data.stage;
-                                                                CACHE.userInfo.firstPetBackHomeEnded = res.data.firstPetBackHomeEnded;
-                                                                CACHE.userInfo.firstRecallEnded = res.data.firstRecallEnded;
-                                                                CACHE.userInfo.firstRewardTaskEnded = res.data.firstRewardTaskEnded;
-                                                                this.loadingProgressAdd(13, totalStep, totalWidth);
-                                                                cc.director.loadScene("travel");
-                                                            }
-                                                            if (CACHE.platform.isWachat) {
-                                                                WxApi.loadUserInfo();
-                                                            }
+                                                        cc.loader.loadResDir('mission/', cc.SpriteFrame, (err, spriteFrames) => {
+                                                            this.loadingProgressAdd(13, totalStep, totalWidth);
+                                                            Api.guideState((res) => {
+                                                                if (res.data) {
+                                                                    CACHE.userInfo.stage = res.data.stage;
+                                                                    CACHE.userInfo.firstPetBackHomeEnded = res.data.firstPetBackHomeEnded;
+                                                                    CACHE.userInfo.firstRecallEnded = res.data.firstRecallEnded;
+                                                                    CACHE.userInfo.firstRewardTaskEnded = res.data.firstRewardTaskEnded;
+                                                                    this.loadingProgressAdd(14, totalStep, totalWidth);
+                                                                    cc.director.loadScene("travel");
+                                                                }
+                                                                if (CACHE.platform.isWachat) {
+                                                                    WxApi.loadUserInfo();
+                                                                }
+                                                            });
                                                         });
                                                     });
                                                 });
