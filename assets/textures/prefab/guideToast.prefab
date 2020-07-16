@@ -395,7 +395,7 @@
     "_contentSize": {
       "__type__": "cc.Size",
       "width": 0,
-      "height": 37.8
+      "height": 34.02
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -443,11 +443,11 @@
     "_isSystemFontUsed": true,
     "_N$string": "",
     "_N$horizontalAlign": 0,
-    "_N$fontSize": 20,
+    "_N$fontSize": 22,
     "_N$font": null,
     "_N$cacheMode": 0,
     "_N$maxWidth": 0,
-    "_N$lineHeight": 30,
+    "_N$lineHeight": 27,
     "_N$imageAtlas": null,
     "_N$handleTouchEvent": true,
     "_id": ""

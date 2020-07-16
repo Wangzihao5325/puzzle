@@ -16,7 +16,7 @@ cc.Class({
     },
 
     setContentStr(string, isHeightFit) {
-        let biggerSize = 120;//margin*2
+        let biggerSize = 200;//margin*2
         let biggerHeight = 30;
         this.richText.node.opacity = 1;
         this.richText.string = string;
@@ -28,7 +28,9 @@ cc.Class({
             if (isHeightFit) {
                 this.txtBg.height = this.richText.node.height + biggerHeight * 2;
             } else {
-                this.txtBg.height = 120;
+                //this.txtBg.height = 120;
+                this.txtBg.height = this.richText.node.height + 50 * 2;
+
             }
             this.tail.x = -bgWidth / 2;
             this.richText.node.opacity = 255;
@@ -36,8 +38,9 @@ cc.Class({
     },
 
     textAnimate1(callback) {
-        this.txtBg.height = 120;
+        this.txtBg.height = 220;
         this.txtBg.width = 400;
+        this.tail.x = -200;
 
         let str0 = '';
         let _str0 = '[高级猫粮]';
@@ -102,8 +105,9 @@ cc.Class({
     },
 
     textAnimate2(callback) {
-        this.txtBg.height = 120;
+        this.txtBg.height = 220;
         this.txtBg.width = 400;
+        this.tail.x = -200;
 
         let str0 = '';
         let _str0 = '幸运值';
