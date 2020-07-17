@@ -162,7 +162,8 @@ cc.Class({
     },
 
     onTouchStart(event) {
-        if (this.isUserPressIn(event)) {
+        this._isPressIn = this.isUserPressIn(event);
+        if (this._isPressIn) {
             this.node._touchListener.setSwallowTouches(false);
         } else {
             this.node._touchListener.setSwallowTouches(true);
@@ -175,7 +176,7 @@ cc.Class({
 
     onTouchEnd(event) {
         // 判断触摸点是否在按钮上
-        if (this.isUserPressIn(event)) {
+        if (this._isPressIn && this.isUserPressIn(event)) {
             this.node._touchListener.setSwallowTouches(false);
             this.guideStep++;
             this.guide();
