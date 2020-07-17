@@ -77,6 +77,7 @@ cc.Class({
         Api.task_receive({taskId:this.info.taskId},res=>{
             if(res.code===0){
                 const data=res.data
+                cc.find("sound").getComponent("sound").updateAssets()
                 Toast.show(`${data.name} +${data.rewordAmount}`,{icon:data.iconUrl})
                 //执行动画
                 this.getBtn.active=false
