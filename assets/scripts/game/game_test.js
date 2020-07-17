@@ -57,7 +57,6 @@ cc.Class({
 
         const hardLevel = CACHE.hard_level;
         const missionObj = CACHE.mission_press;
-
         if(hardLevel===4){
             this.crossBorder.active=true
         }
@@ -106,6 +105,7 @@ cc.Class({
         /*根据难度获取切片数据数组*/
 
         let sizeArr = [...SIZES[hardLevel]];
+        console.log("sizeArr",sizeArr)
         /*遍历sizeArr生成item*/
         sizeArr.forEach((item, index) => {
             /*根据预制资源实例化节点*/
@@ -140,6 +140,9 @@ cc.Class({
         let obj = this.footerWarp.getComponent('game_splice');
         if (obj) {
             obj.init(hardLevel, imagePath);
+            setTimeout(() => {
+                this.puzzlePliceAnimation()
+            }, 500)
         }
     },
 
@@ -197,6 +200,7 @@ cc.Class({
 
     //拼图块凋落动画
     pliceAnimation(data, time, index = 0) {
+        console.log("pliceAnimation,data",data,time,index)
         const hardLevel = CACHE.hard_level;
         if (this.fallTimer) {
             clearTimeout(this.fallTimer)
@@ -217,7 +221,6 @@ cc.Class({
             node.zIndex = 100
             //根据平涂块的需要掉落的距离设置动画时间
             const fallTime = Math.ceil(( node.y-footerWarpPositionY) / 800*10) / 10
-            console.log("fallTime",fallTime)
             this.fallTimer = setTimeout(() => {
                 this.pliceAnimation(data.splice(1), time, index + 1)
             }, time)
@@ -288,9 +291,7 @@ cc.Class({
     },
 
     start() {
-        setTimeout(() => {
-            this.puzzlePliceAnimation()
-        }, 500)
+
 
     },
 
