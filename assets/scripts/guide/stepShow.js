@@ -317,7 +317,8 @@ cc.Class({
             this.node._touchListener.setSwallowTouches(true);
             return;
         }
-        if (this.isUserPressIn(event)) {
+        this._isPressIn = this.isUserPressIn(event);
+        if (this._isPressIn) {
             this.node._touchListener.setSwallowTouches(this.guide());
         }
         else {
@@ -334,7 +335,7 @@ cc.Class({
             this.node._touchListener.setSwallowTouches(true);
             return;
         }
-        if (this.isUserPressIn(event, true)) {
+        if (this._isPressIn && this.isUserPressIn(event, true)) {//this.isUserPressIn(event, true)
             this.node._touchListener.setSwallowTouches(this.guide(true));
         }
         else {

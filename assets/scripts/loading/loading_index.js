@@ -20,6 +20,14 @@ cc.Class({
         soundNode: cc.Node,
         loadingBg: cc.Sprite,
         loadingMask: cc.Sprite,
+        node1: cc.Node,
+        node2: cc.Node,
+        node3: cc.Node,
+        node4: cc.Node,
+        node5: cc.Node,
+        node6: cc.Node,
+        node7: cc.Node,
+        node8: cc.Node,
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -48,6 +56,7 @@ cc.Class({
             });
             CACHE.assets.bg = resArr;
             this.loadingProgressAdd(1, totalStep, totalWidth);
+            this.node1.active = true;
             /*加载城市icon*/
             cc.loader.load(CITY_ICON_URL, (errs, results) => {
                 if (errs) cc.error(errs);
@@ -64,6 +73,7 @@ cc.Class({
                     });
                     CACHE.assets.manVistor = resArr;
                     this.loadingProgressAdd(3, totalStep, totalWidth);
+                    this.node2.active = true;
                     cc.loader.load(WOMAN_VISTER, (errs, results) => {
                         if (errs) cc.error(errs);
                         let resArr = WOMAN_VISTER.map((item) => {
@@ -78,6 +88,7 @@ cc.Class({
                             });
                             CACHE.assets.oldManVistor = resArr;
                             this.loadingProgressAdd(5, totalStep, totalWidth);
+                            this.node3.active = true;
                             cc.loader.load(YOUNG_WOMAN_VISTER, (errs, results) => {
                                 if (errs) cc.error(errs);
                                 let resArr = YOUNG_WOMAN_VISTER.map((item) => {
@@ -92,6 +103,7 @@ cc.Class({
                                     });
                                     CACHE.assets.vistorAttitude = resArr;
                                     this.loadingProgressAdd(7, totalStep, totalWidth);
+                                    this.node4.active = true;
                                     /*加载导航资源 */
                                     cc.loader.load(NAVI_ASSETS, (errs, results) => {
                                         if (errs) cc.error(errs);
@@ -104,17 +116,20 @@ cc.Class({
 
                                         cc.loader.loadResDir('3x4/', cc.SpriteFrame, (err, spriteFrames) => {
                                             this.loadingProgressAdd(9, totalStep, totalWidth);
+                                            this.node5.active = true;
                                             // handle spriteFrames
                                             cc.loader.loadResDir('4x6/', cc.SpriteFrame, (err, spriteFrames) => {
                                                 this.loadingProgressAdd(10, totalStep, totalWidth);
                                                 // handle spriteFrames
                                                 cc.loader.loadResDir('6x8/', cc.SpriteFrame, (err, spriteFrames) => {
                                                     this.loadingProgressAdd(11, totalStep, totalWidth);
+                                                    this.node6.active = true;
                                                     // handle spriteFrames
                                                     cc.loader.loadResDir('6x6/', cc.SpriteFrame, (err, spriteFrames) => {
                                                         this.loadingProgressAdd(12, totalStep, totalWidth);
                                                         cc.loader.loadResDir('mission/', cc.SpriteFrame, (err, spriteFrames) => {
                                                             this.loadingProgressAdd(13, totalStep, totalWidth);
+                                                            this.node7.active = true;
                                                             Api.guideState((res) => {
                                                                 if (res.data) {
                                                                     CACHE.userInfo.stage = res.data.stage;
@@ -122,6 +137,7 @@ cc.Class({
                                                                     CACHE.userInfo.firstRecallEnded = res.data.firstRecallEnded;
                                                                     CACHE.userInfo.firstRewardTaskEnded = res.data.firstRewardTaskEnded;
                                                                     this.loadingProgressAdd(14, totalStep, totalWidth);
+                                                                    this.node8.active = true;
                                                                     cc.director.loadScene("travel");
                                                                 }
                                                                 if (CACHE.platform.isWachat) {
