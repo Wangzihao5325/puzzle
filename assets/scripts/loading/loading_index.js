@@ -158,6 +158,10 @@ cc.Class({
                                                                     this.loadingProgressAdd(14, totalStep, totalWidth);
                                                                     let step7_2 = cc.find('jiaoyin2', this.node7)
                                                                     step7_2.active = true;
+                                                                    let step8_1 = cc.find('jiaoyin1', this.node8)
+                                                                    step8_1.active = true;
+                                                                    let step8_2 = cc.find('jiaoyin2', this.node8)
+                                                                    step8_2.active = true;
                                                                     cc.director.loadScene("travel");
                                                                 }
                                                                 if (CACHE.platform.isWachat) {
