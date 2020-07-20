@@ -62,8 +62,8 @@ cc.Class({
     init(item){
         this.buy.info=item
         this.num.string=`x ${item.number}`
-        this.Name.string=`x ${item.name}`
-        this.des.string=`x ${item.introduce}`
+        this.Name.string=` ${item.name}`
+        this.des.string=` ${item.introduce}`
         this.price.string=`x ${item.realPrice}`
         cc.loader.load(item.icon, (err, texture)=> {
             this.icon.spriteFrame=new cc.SpriteFrame(texture)
@@ -91,7 +91,7 @@ cc.Class({
             this.price_warp.active=true
             this.adButton.active=true
             this.buy.active=false
-            this.adTime.string=`(${item.maxCount-item.currentCount}/${item.maxCount})`
+            this.adTime.string=`(${item.currentCount}/${item.maxCount})`
             this.price.string=`x ${item.price}`
         }
     },

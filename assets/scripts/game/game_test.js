@@ -105,7 +105,6 @@ cc.Class({
         /*根据难度获取切片数据数组*/
 
         let sizeArr = [...SIZES[hardLevel]];
-        console.log("sizeArr",sizeArr)
         /*遍历sizeArr生成item*/
         sizeArr.forEach((item, index) => {
             /*根据预制资源实例化节点*/
@@ -200,7 +199,6 @@ cc.Class({
 
     //拼图块凋落动画
     pliceAnimation(data, time, index = 0) {
-        console.log("pliceAnimation,data",data,time,index)
         const hardLevel = CACHE.hard_level;
         if (this.fallTimer) {
             clearTimeout(this.fallTimer)

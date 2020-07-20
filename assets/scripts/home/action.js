@@ -173,6 +173,27 @@ cc.Class({
         homeIndeObj.getPetInfo()
     },
 
+    checkCanOut(){
+        Api.allow_goout((res) => {
+            if(res.code===0){
+                this.handleGoout()
+            }else if (res.code === 20008) {
+                //体力不够
+                Hunger.show("")
+            }
+            else if (res.code === 20011) {
+                //太累了
+                const str = res.message
+                const time = str.slice(str.indexOf('=') + 1)
+                Tire.show(time)
+            }
+            else {
+                Toast.show(res.message || '外出失败')
+            }
+        })
+
+    },
+
     handleGoout() {
 
         ConfirmOut.show(() => {
@@ -218,7 +239,7 @@ cc.Class({
         })
         this.Goout.on(cc.Node.EventType.TOUCH_END, (event) => {
             cc.find("sound").getComponent("sound").tap()
-            this.handleGoout()
+            this.checkCanOut()
             event.stopPropagation();
 
         })
