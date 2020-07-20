@@ -273,9 +273,9 @@ cc.Class({
             //在进行倒计时，倒计时结束才能允许点击
             if (isEnd) {
                 this.waiting = true;
-                this.handNode.x = 0;
-                this.handNode.y = -50;
-                this.handNode.active = true;
+                // this.handNode.x = 0;
+                // this.handNode.y = -50;
+                // this.handNode.active = true;
                 this.guideStep++;
             }
             return false;

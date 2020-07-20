@@ -217,7 +217,11 @@ cc.Class({
             return true;
         } else if (CACHE.userInfo.stage == 5 && (this.guideStep == 6 || this.guideStep == 7 || this.guideStep == 8 || this.guideStep == 9)) {
             if (isEnd) {
+                this.waitting = true;
                 this.guideStep++;
+                setTimeout(() => {
+                    this.waitting = false;
+                }, 500)
             }
             return false;
         } else if (CACHE.userInfo.stage == 5 && this.guideStep == 10) {

@@ -281,16 +281,16 @@ cc.Class({
                 });
                 break;
             case 2:
-                cc.loader.loadRes("normal/gaojiliang", cc.SpriteFrame, (err, spriteFrame) => {
+                cc.loader.loadRes("normal/maoliang", cc.SpriteFrame, (err, spriteFrame) => {
                     this.iconSprite.spriteFrame = spriteFrame;
-                    this.iconSprite.node.scaleX = 0.1;
-                    this.iconSprite.node.scaleY = 0.1;
+                    // this.iconSprite.node.scaleX = 0.1;
+                    // this.iconSprite.node.scaleY = 0.1;
                     this.iconSprite2.spriteFrame = spriteFrame;
-                    this.iconSprite2.node.scaleX = 0.32;
-                    this.iconSprite2.node.scaleY = 0.32;
+                    // this.iconSprite2.node.scaleX = 0.32;
+                    // this.iconSprite2.node.scaleY = 0.32;
                     this.timerIcon.spriteFrame = spriteFrame;
-                    this.timerIcon.node.scaleX = 0.1;
-                    this.timerIcon.node.scaleY = 0.1;
+                    // this.timerIcon.node.scaleX = 0.1;
+                    // this.timerIcon.node.scaleY = 0.1;
                 });
                 break;
         }
