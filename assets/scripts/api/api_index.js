@@ -154,7 +154,14 @@ const petGoout = (callback, failedCallback) => {
     new CusHttp().Post(url, payload, callback, failedCallback)
 };
 
-
+/**
+ * 查询是否能够外出
+ * @param {Function} callback
+ * @param {Function} failedCallback
+ */
+const allow_goout = (callback, failedCallback) => {
+    new CusHttp().Get(`${API_DOMAIN}/pet/allow_go_out`, callback, failedCallback)
+};
 
 /**
  * 外出回家通知
@@ -411,6 +418,7 @@ export default {
     petFeed,
     petBuyEquip,
     petEquip,
+    allow_goout,
     petGoout,
     petBackNotice,
     backNoticeView,

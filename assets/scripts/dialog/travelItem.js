@@ -14,6 +14,7 @@ cc.Class({
         iconContent:cc.Node,
         icon:cc.Node,
         pic: cc.Sprite,
+        picNode:cc.Node,
         title:cc.Label,
         num:cc.Label,
         good_bg: cc.Sprite,
@@ -71,8 +72,8 @@ cc.Class({
             const h=texture.height
             const w=texture.width
             const wh=w>h
-            this.pic.height=parseInt( wh?70*h/w:70)
-            this.pic.width=parseInt(wh?70:70*w/h)
+            this.picNode.height=parseInt( wh?70*h/w:70)
+            this.picNode.width=parseInt(wh?70:70*w/h)
 
         });
     },
