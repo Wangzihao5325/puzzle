@@ -108,7 +108,7 @@ cc.Class({
                 this.getFoodRemain()
                 // HOME_CACHE.pet_info=res.data;
                 if (this.feedCallback) {
-                    this.feedCallback();//新手引导使用
+                    this.feedCallback(data.currentHungry);//新手引导使用
                 }
             } else {
                 Toast.show(res.message)

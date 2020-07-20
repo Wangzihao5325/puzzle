@@ -218,27 +218,37 @@ cc.Class({
         } else if (CACHE.userInfo.stage == 5 && (this.guideStep == 6 || this.guideStep == 7 || this.guideStep == 8 || this.guideStep == 9)) {
             if (this.guideStep == 6 && !isEnd) {
                 let feedWarper = cc.find('Canvas/feedWarp');
-                feedWarper.getComponent('feed').setFeedCallback(() => {
-                    this.waitting = false;
+                feedWarper.getComponent('feed').setFeedCallback((hungry) => {
+                    if (hungry == 500) {
+                        this.guideToastNode.setPosition(cc.v2(0, -150));
+                        this.guideToastNode.item_obj.setContentStr("<color=#887160>小月半吃饱了,\n走到门边抬头看着你</color>")
+                        this.guideToastNode.active = true;
+                        this.guideToastTimer = setTimeout(() => {
+                            this.guideToastNode.active = false;
+                            this.guideToastTimer = null;
+                        }, 2000);
+                        let pos = CACHE.platform.isIphoneX ? cc.v2(270, -280) : cc.v2(270, -230);
+                        this.handNode.setPosition(pos);
+                        this.guideStep = 11;
+                    }
                 })
             }
             if (isEnd) {
-                this.waitting = true;
-                this.guideStep++;
+                // this.guideStep++;
             }
             return false;
         } else if (CACHE.userInfo.stage == 5 && this.guideStep == 10) {
             if (isEnd) {
-                this.guideToastNode.setPosition(cc.v2(0, -150));
-                this.guideToastNode.item_obj.setContentStr("<color=#887160>小月半吃饱了,\n走到门边抬头看着你</color>")
-                this.guideToastNode.active = true;
-                this.guideToastTimer = setTimeout(() => {
-                    this.guideToastNode.active = false;
-                    this.guideToastTimer = null;
-                }, 2000);
-                let pos = CACHE.platform.isIphoneX ? cc.v2(270, -280) : cc.v2(270, -230);
-                this.handNode.setPosition(pos);
-                this.guideStep++;
+                // this.guideToastNode.setPosition(cc.v2(0, -150));
+                // this.guideToastNode.item_obj.setContentStr("<color=#887160>小月半吃饱了,\n走到门边抬头看着你</color>")
+                // this.guideToastNode.active = true;
+                // this.guideToastTimer = setTimeout(() => {
+                //     this.guideToastNode.active = false;
+                //     this.guideToastTimer = null;
+                // }, 2000);
+                // let pos = CACHE.platform.isIphoneX ? cc.v2(270, -280) : cc.v2(270, -230);
+                // this.handNode.setPosition(pos);
+                // this.guideStep++;
             }
             return false;
         } else if (CACHE.userInfo.stage == 5 && this.guideStep == 11) {

@@ -1,7 +1,7 @@
 {
   "appid": "wxd788865b83b6aa83",
   "orientation": "portrait",
-  "separate_engine": true,
+  "separate_engine": false,
   "REMOTE_SERVER_ROOT": "https://img.becabaking.xyz",
   "subContext": ""
 }
