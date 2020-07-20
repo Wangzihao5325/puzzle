@@ -216,7 +216,7 @@ cc.Class({
             }
             return true;
         } else if (CACHE.userInfo.stage == 5 && (this.guideStep == 6 || this.guideStep == 7 || this.guideStep == 8 || this.guideStep == 9)) {
-            if (CACHE.userInfo.stage == 5 && !isEnd) {
+            if (this.guideStep == 6 && !isEnd) {
                 let feedWarper = cc.find('Canvas/feedWarp');
                 feedWarper.getComponent('feed').setFeedCallback(() => {
                     this.waitting = false;
