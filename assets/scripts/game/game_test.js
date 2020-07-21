@@ -117,6 +117,8 @@ cc.Class({
             item_node.height = item[3];
             item_node.parent = this.game_bg;
             item_node.setPosition(item[4], item[5]);
+            cc.find('border',item_node).width=item[2];
+            cc.find('border',item_node).height=item[3];
             item_node.zIndex = 10;
             /*获取itembg_index对象*/
             let obj = item_node.getComponent('itembg_index');

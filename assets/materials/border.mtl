@@ -1,0 +1,28 @@
+{
+  "__type__": "cc.Material",
+  "_name": "border",
+  "_objFlags": 0,
+  "_native": "",
+  "_effectAsset": {
+    "__uuid__": "a6983f47-a31d-47ac-8282-1de0ac55de40"
+  },
+  "_techniqueIndex": 0,
+  "_techniqueData": {
+    "0": {
+      "defines": {
+        "USE_TEXTURE": true,
+        "SHOW_INNER_GLOW": true
+      },
+      "props": {
+        "glowColor": {
+          "__type__": "cc.Color",
+          "r": 255,
+          "g": 255,
+          "b": 255,
+          "a": 255
+        },
+        "glowRange": 2
+      }
+    }
+  }
+}

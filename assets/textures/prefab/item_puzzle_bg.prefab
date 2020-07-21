@@ -19,19 +19,22 @@
     "_children": [
       {
         "__id__": 2
+      },
+      {
+        "__id__": 5
       }
     ],
     "_active": true,
     "_components": [
       {
-        "__id__": 5
+        "__id__": 8
       },
       {
-        "__id__": 6
+        "__id__": 9
       }
     ],
     "_prefab": {
-      "__id__": 7
+      "__id__": 10
     },
     "_opacity": 255,
     "_color": {
@@ -43,8 +46,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 100,
-      "height": 100
+      "width": 347,
+      "height": 347
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -82,7 +85,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "item_puzzle",
+    "_name": "border",
     "_objFlags": 0,
     "_parent": {
       "__id__": 1
@@ -100,15 +103,15 @@
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
-      "r": 56,
-      "g": 76,
-      "b": 85,
+      "r": 255,
+      "g": 255,
+      "b": 255,
       "a": 255
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 400,
-      "height": 400
+      "width": 347,
+      "height": 347
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -150,6 +153,111 @@
     "_objFlags": 0,
     "node": {
       "__id__": 2
+    },
+    "_enabled": true,
+    "_materials": [
+      {
+        "__uuid__": "f32659e7-6fa2-482f-bdb3-85f021b22fe4"
+      }
+    ],
+    "_srcBlendFactor": 770,
+    "_dstBlendFactor": 771,
+    "_spriteFrame": null,
+    "_type": 0,
+    "_sizeMode": 0,
+    "_fillType": 0,
+    "_fillCenter": {
+      "__type__": "cc.Vec2",
+      "x": 0,
+      "y": 0
+    },
+    "_fillStart": 0,
+    "_fillRange": 0,
+    "_isTrimmedMode": false,
+    "_atlas": null,
+    "_id": ""
+  },
+  {
+    "__type__": "cc.PrefabInfo",
+    "root": {
+      "__id__": 1
+    },
+    "asset": {
+      "__uuid__": "e3e4f92d-2094-41ce-b34e-ca6023dcbe32"
+    },
+    "fileId": "98m8dkmBlKL55iU0okwkN/",
+    "sync": false
+  },
+  {
+    "__type__": "cc.Node",
+    "_name": "item_puzzle",
+    "_objFlags": 0,
+    "_parent": {
+      "__id__": 1
+    },
+    "_children": [],
+    "_active": true,
+    "_components": [
+      {
+        "__id__": 6
+      }
+    ],
+    "_prefab": {
+      "__id__": 7
+    },
+    "_opacity": 255,
+    "_color": {
+      "__type__": "cc.Color",
+      "r": 56,
+      "g": 76,
+      "b": 85,
+      "a": 255
+    },
+    "_contentSize": {
+      "__type__": "cc.Size",
+      "width": 347,
+      "height": 347
+    },
+    "_anchorPoint": {
+      "__type__": "cc.Vec2",
+      "x": 0.5,
+      "y": 0.5
+    },
+    "_trs": {
+      "__type__": "TypedArray",
+      "ctor": "Float64Array",
+      "array": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    "_eulerAngles": {
+      "__type__": "cc.Vec3",
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "_skewX": 0,
+    "_skewY": 0,
+    "_is3DNode": false,
+    "_groupIndex": 0,
+    "groupIndex": 0,
+    "_id": ""
+  },
+  {
+    "__type__": "cc.Sprite",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 5
     },
     "_enabled": true,
     "_materials": [
@@ -216,7 +324,10 @@
     },
     "_enabled": true,
     "mask_item": {
-      "__id__": 5
+      "__id__": 8
+    },
+    "border": {
+      "__id__": 3
     },
     "_id": ""
   },

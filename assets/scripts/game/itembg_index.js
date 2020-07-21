@@ -5,6 +5,7 @@ cc.Class({
 
     properties: {
         mask_item: cc.Mask,
+        border:cc.Sprite
     },
 
     setMarsk(index, hardLevel) {
@@ -16,6 +17,7 @@ cc.Class({
                 return;
             }
             self.mask_item.spriteFrame = assets;
+            self.border.spriteFrame=assets
         });
     },
 

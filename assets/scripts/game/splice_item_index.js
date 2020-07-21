@@ -368,7 +368,7 @@ cc.Class({
                     .to(.2, { position: newPositin })
                     .start()
                 var item_puzzle_warp = cc.find(`Canvas/root/puzzleWarp/puzzleBg/item_puzzle_warp-${this.item_node.defaultIndex}`);
-                item_puzzle_warp.active = false;
+                // item_puzzle_warp.active = false;
                 // var item_puzzle_splice = cc.find(`Canvas/root/puzzleWarp/puzzleBg/item_puzzle_splice-${this.item_node.defaultIndex}`);
                 this.item_node.active = false;
                 this.item_node.destroy()
@@ -381,7 +381,7 @@ cc.Class({
                     let animate = dragonBonesNode.getComponent(dragonBones.ArmatureDisplay)
                     animate.playAnimation(CACHE.dragonBoneAnimateName, 0);
                 }
-                setTimeout(() => { item_puzzle_warp.destroy(); }, 100)
+                setTimeout(() => { cc.find('item_puzzle',item_puzzle_warp).destroy(); }, 100)
             } else {
                 cc.tween(this.item_node)
                     .to(.2, { position: cc.v2(minItem[4], minItem[5] - 4) })

@@ -146,7 +146,7 @@ cc.Class({
                 .to(.4, { position: cc.v2(currentNode.defaultPostion[0], currentNode.defaultPostion[1]) })
                 .call(() => {
                     currentNode.destroy()
-                    item_puzzle_warp.destroy()
+                    cc.find('item_puzzle',item_puzzle_warp).destroy()
                     initItem(GAME_CACHE.spliceArr, CACHE.hard_level, 2, this.pre_item, this.game_bg, new cc.SpriteFrame(), true, true);
                     this.checkComplate()
                 })
@@ -177,7 +177,7 @@ cc.Class({
             initItem(GAME_CACHE.spliceArr, CACHE.hard_level, 2, this.pre_item, this.game_bg, new cc.SpriteFrame(), true, true);
             setTimeout(() => {
                 currentNode.destroy();
-                item_puzzle_warp.destroy();
+                cc.find('item_puzzle',item_puzzle_warp).destroy()
                 this.checkComplate();
             }, 400)
         }
