@@ -5,7 +5,7 @@ cc.Class({
 
     properties: {
         mask_item: cc.Mask,
-        border:cc.Sprite
+        border: cc.Sprite
     },
 
     setMarsk(index, hardLevel) {
@@ -17,8 +17,15 @@ cc.Class({
                 return;
             }
             self.mask_item.spriteFrame = assets;
-            self.border.spriteFrame=assets
+            self.border.spriteFrame = assets
         });
+    },
+
+    borderAnimate() {
+        cc.tween(this.border.node)
+            .to(0.5, { opacity: 255 })
+            .to(0.5, { opacity: 0 })
+            .start();
     },
 
     start() {
