@@ -23,8 +23,15 @@ cc.Class({
 
     borderAnimate() {
         cc.tween(this.border.node)
-            .to(0.5, { opacity: 255 })
-            .to(0.5, { opacity: 0 })
+            .to(0.1, { opacity: 10 })
+            .to(0.1, { opacity: 30 })
+            .to(0.1, { opacity: 80 })
+            .to(0.1, { opacity: 160 })
+            .delay(0.2)
+            .to(0.1, { opacity: 80 })
+            .to(0.1, { opacity: 30 })
+            .to(0.1, { opacity: 10 })
+            .to(0.1, { opacity: 0 })
             .start();
     },
 

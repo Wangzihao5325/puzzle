@@ -21,7 +21,7 @@
           "b": 255,
           "a": 255
         },
-        "glowRange": 2
+        "glowRange": 5
       }
     }
   }
