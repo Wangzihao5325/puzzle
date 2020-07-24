@@ -81,7 +81,7 @@ cc.Class({
         /* 初始化node Y轴偏移量（因为现在node在底部栏不可滑动,使用偏移量记录是否达到拖出底部栏的标准）*/
         this.item_node._offsetY = 0;
         this.node.on(cc.Node.EventType.TOUCH_START, (event) => {
-            this.startTouchTime=new Date().getTime()
+            this.startTouchTime = new Date().getTime()
             /*拿起增加z-index*/
             const current_node = this.item_node || this.splice_item;
             current_node.zIndex = 11;
@@ -94,7 +94,7 @@ cc.Class({
             event.stopPropagation();
             */
         })
-        this.isMove=false
+        this.isMove = false
 
         this.node.on(cc.Node.EventType.TOUCH_MOVE, (event) => {
             let delta = event.touch.getDelta();
@@ -182,9 +182,9 @@ cc.Class({
         })
 
         this.node.on(cc.Node.EventType.TOUCH_END, (event) => {
-            const touchEndTime=new Date().getTime()
-           this.isMove= touchEndTime-this.startTouchTime>=300
-           console.log('touchEndTime-this.startTouchTime',touchEndTime,this.startTouchTime,touchEndTime-this.startTouchTime)
+            const touchEndTime = new Date().getTime()
+            this.isMove = touchEndTime - this.startTouchTime >= 300
+            console.log('touchEndTime-this.startTouchTime', touchEndTime, this.startTouchTime, touchEndTime - this.startTouchTime)
             if (this.isMove) {
                 this.item_node._offsetY = 0;
             } else {
@@ -267,8 +267,8 @@ cc.Class({
         })
 
         this.node.on(cc.Node.EventType.TOUCH_CANCEL, (event) => {
-            const touchEndTime=new Date().getTime()
-            this.isMove= touchEndTime-this.startTouchTime>=300
+            const touchEndTime = new Date().getTime()
+            this.isMove = touchEndTime - this.startTouchTime >= 300
             if (this.isMove) {
                 this.item_node._offsetY = 0;
             }
@@ -381,7 +381,17 @@ cc.Class({
                     let animate = dragonBonesNode.getComponent(dragonBones.ArmatureDisplay)
                     animate.playAnimation(CACHE.dragonBoneAnimateName, 0);
                 }
-                setTimeout(() => { cc.find('item_puzzle',item_puzzle_warp).destroy(); }, 100)
+                setTimeout(() => {
+                    //显露白边
+                    cc.find('item_puzzle', item_puzzle_warp).destroy();
+                    GAME_CACHE.complateIndex.forEach((item) => {
+                        let borderNode = cc.find(`Canvas/root/puzzleWarp/puzzleBg/item_puzzle_warp-${item}`);
+                        let borderObj = borderNode.getComponent('itembg_index');
+                        if (borderObj) {
+                            borderObj.borderAnimate();
+                        }
+                    })
+                }, 100)
             } else {
                 cc.tween(this.item_node)
                     .to(.2, { position: cc.v2(minItem[4], minItem[5] - 4) })
