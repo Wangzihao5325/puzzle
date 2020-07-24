@@ -21,7 +21,10 @@
           "b": 255,
           "a": 255
         },
-        "glowRange": 2
+        "glowRange": 2,
+        "glowThreshold": 0.1,
+        "spriteWidth": 1500,
+        "spriteHeight": 1500
       }
     }
   }
