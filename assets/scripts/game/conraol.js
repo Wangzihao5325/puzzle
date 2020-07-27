@@ -1,4 +1,10 @@
-import { SIZES, SCALELEAVEL, underwayIndex, spliceArr,corssPuzzleIndex } from '../global/piece_index';
+import {
+    SIZES, SCALELEAVEL, underwayIndex, spliceArr, corssPuzzleIndex,
+    RoadMap34,
+    RoadMap46,
+    RoadMap68,
+    RoadMap66
+} from '../global/piece_index';
 import { LEVEL } from '../global/piece_index';
 import { CACHE } from '../global/usual_cache';
 import { GAME_CACHE } from '../global/piece_index';
@@ -45,21 +51,21 @@ cc.Class({
             default: false
         },
         header: cc.Prefab,
-        diamondWarp:cc.Node,
-        currentCount:cc.Label,
-        count:{
-            type:cc.Number,
-            default:0
+        diamondWarp: cc.Node,
+        currentCount: cc.Label,
+        count: {
+            type: cc.Number,
+            default: 0
         },
-        crossComplate:{
-            type:Array,
-            default:[]
+        crossComplate: {
+            type: Array,
+            default: []
         },
-        crossPartComp:cc.Node,
-        crossWrap:cc.Node,
-        crossholo:cc.Node,
-        crossDiamond:cc.Node,
-        crossBorder:cc.Node
+        crossPartComp: cc.Node,
+        crossWrap: cc.Node,
+        crossholo: cc.Node,
+        crossDiamond: cc.Node,
+        crossBorder: cc.Node
     },
 
     /**
@@ -85,7 +91,7 @@ cc.Class({
 
     onLoad() {
 
-        this.crossComplate=[0,0,0,0]
+        this.crossComplate = [0, 0, 0, 0]
         this.setTouch();
         this.resetUI()
         GAME_CACHE.isComplate = false
@@ -100,8 +106,8 @@ cc.Class({
             const height = Math.ceil(CACHE.platform.visibleSize.height / 2 - 857 / 2 - 10)
             this.menuWarp.height = height > 240 ? 240 : height
         }
-        if(CACHE.hard_level===4){
-            this.diamondWarp.active=true
+        if (CACHE.hard_level === 4) {
+            this.diamondWarp.active = true
         }
 
     },
@@ -146,13 +152,28 @@ cc.Class({
                 .to(.4, { position: cc.v2(currentNode.defaultPostion[0], currentNode.defaultPostion[1]) })
                 .call(() => {
                     currentNode.destroy()
-                    cc.find('item_puzzle',item_puzzle_warp).destroy()
+                    cc.find('item_puzzle', item_puzzle_warp).destroy()
                     initItem(GAME_CACHE.spliceArr, CACHE.hard_level, 2, this.pre_item, this.game_bg, new cc.SpriteFrame(), true, true);
                     this.checkComplate()
+                    GAME_CACHE.rightNowCompleteIndex = index;
+                    GAME_CACHE.complateIndex.push(index)
+                    GAME_CACHE.underwayIndex.remove(index)
+                    if (GAME_CACHE.complateIndex.length < SIZES[CACHE.hard_level].length) {
+                        //显露白边
+                        this.findBigestContent();
+                        GAME_CACHE.whiteLightIndex.forEach((item) => {
+                            let borderNode = cc.find(`Canvas/root/puzzleWarp/puzzleBg/item_puzzle_warp-${item}`);
+                            let borderObj = borderNode.getComponent('itembg_index');
+                            if (borderObj) {
+                                borderObj.borderAnimate();
+                            }
+                        })
+                    }
                 })
                 .start()
-            GAME_CACHE.complateIndex.push(index)
-            GAME_CACHE.underwayIndex.remove(index)
+            // GAME_CACHE.complateIndex.push(index)
+            // GAME_CACHE.underwayIndex.remove(index)
+
         } else {
             //磁铁吸引在底部框内的切块
             var spliceWarp = cc.find(`Canvas/footerWarp/spliceWarp/spliceScrollView/view/content`);
@@ -171,14 +192,26 @@ cc.Class({
                 .start()
 
             const index = currentNode.defaultIndex;
+            GAME_CACHE.rightNowCompleteIndex = index;
             GAME_CACHE.complateIndex.push(index);
             this.removeSpliceNode(index)
             // underwayIndex.remove(index);
             initItem(GAME_CACHE.spliceArr, CACHE.hard_level, 2, this.pre_item, this.game_bg, new cc.SpriteFrame(), true, true);
             setTimeout(() => {
                 currentNode.destroy();
-                cc.find('item_puzzle',item_puzzle_warp).destroy()
+                cc.find('item_puzzle', item_puzzle_warp).destroy()
                 this.checkComplate();
+                if (GAME_CACHE.complateIndex.length < SIZES[CACHE.hard_level].length) {
+                    //显露白边
+                    this.findBigestContent();
+                    GAME_CACHE.whiteLightIndex.forEach((item) => {
+                        let borderNode = cc.find(`Canvas/root/puzzleWarp/puzzleBg/item_puzzle_warp-${item}`);
+                        let borderObj = borderNode.getComponent('itembg_index');
+                        if (borderObj) {
+                            borderObj.borderAnimate();
+                        }
+                    })
+                }
             }, 400)
         }
         if (GAME_CACHE.complateIndex.length >= SIZES[CACHE.hard_level].length * 0.3 && GAME_CACHE.puzzleAnimation === false) {
@@ -188,6 +221,58 @@ cc.Class({
             animate.playAnimation(CACHE.dragonBoneAnimateName, 0);
         }
 
+    },
+
+    findBigestContent() {
+        let roadMap = null;
+        switch (CACHE.hard_level) {
+            // RoadMap46,
+            // RoadMap68
+            case 0:
+                roadMap = RoadMap34;
+                break;
+            case 1:
+                roadMap = RoadMap46;
+                break;
+            case 2:
+                roadMap = RoadMap68;
+                break;
+            case 3:
+                roadMap = RoadMap68;
+                break;
+            case 4:
+                roadMap = RoadMap66;
+                break;
+        }
+        let regArr = GAME_CACHE.complateIndex.map((item) => parseInt(item));
+        regArr.pop();
+        regArr.sort((a, b) => a - b);
+        let regIndex = parseInt(GAME_CACHE.rightNowCompleteIndex);
+        GAME_CACHE.whiteLightIndex = [regIndex]
+        this.calBigContent(roadMap, regIndex, regArr);
+    },
+
+    calBigContent(roadMap, regIndex, regArr) {
+        if (regArr.length == 0) {
+            return;
+        }
+        let sub = roadMap[`${regIndex}`];
+        let leftRegArr = [];
+        let res = regArr.filter((item) => {
+            let isHave = sub.some((innerItem) => {
+                return item === innerItem;
+            });
+            if (!isHave) {
+                leftRegArr.push(item);
+            }
+            return isHave
+        })
+        if (res.length !== 0) {
+            GAME_CACHE.whiteLightIndex = GAME_CACHE.whiteLightIndex.concat(res);
+            res.forEach((item) => {
+                this.calBigContent(roadMap, item, leftRegArr);
+            });
+        }
     },
 
     handleClickSort() {
@@ -271,7 +356,7 @@ cc.Class({
     setTouch() {
         let clidkMagnet = throttle(() => this.handleClidkMagnet(), 600)
 
-        
+
         this.crossPartComp.on(cc.Node.EventType.TOUCH_END, (event) => {
             event.stopPropagation();
         })
@@ -302,46 +387,46 @@ cc.Class({
     },
 
     //判断完成，并调用完成动画
-    checkComplate(onlyCheck=false) {
-        if(onlyCheck){
-            if(SIZES[CACHE.hard_level].length == GAME_CACHE.complateIndex.length){
-                return true    
-            }else{
+    checkComplate(onlyCheck = false) {
+        if (onlyCheck) {
+            if (SIZES[CACHE.hard_level].length == GAME_CACHE.complateIndex.length) {
+                return true
+            } else {
                 return false
             }
-        }else{
-            if(CACHE.hard_level===4){
+        } else {
+            if (CACHE.hard_level === 4) {
                 this.checkCrosscomplate()
             }
-           if (SIZES[CACHE.hard_level].length == GAME_CACHE.complateIndex.length) {
+            if (SIZES[CACHE.hard_level].length == GAME_CACHE.complateIndex.length) {
                 // Toast.show("拼图完成", {timer:1000});
                 cc.find("sound").getComponent("sound").stop()
                 cc.find("sound").getComponent("sound").missionSuccess()
                 if (cc.sys.platform === cc.sys.WECHAT_GAME) {
                     wx.vibrateLong()
                 }
-    
+
                 this.doComplate()
                 GAME_CACHE.complateIndex = []
                 GAME_CACHE.isComplate = true
-    
+
                 let headerBg = cc.find(`Canvas/root/headerBg`);
                 let footerBg = cc.find(`Canvas/root/footerBg`);
-    
+
                 headerBg.active = true
                 footerBg.active = true
-    
+
                 let footerWarp = cc.find(`Canvas/footerWarp`);
                 footerWarp.active = false;
                 this.menuWarp.active = false;
-                this.puzzle_name.color = new cc.color(255, 255, 255,255)
+                this.puzzle_name.color = new cc.color(255, 255, 255, 255)
                 cc.tween(this.flash)
                     .to(.8, { position: cc.v2(485, -550) })
                     .start()
-    
-    
+
+
                 /*动画*/
-    
+
                 return true
             } else {
                 return false
@@ -350,95 +435,95 @@ cc.Class({
 
     },
 
-    checkCrosscomplate(){
-        const data=GAME_CACHE.complateIndex
-        const currentIndex=data[data.length-1]
+    checkCrosscomplate() {
+        const data = GAME_CACHE.complateIndex
+        const currentIndex = data[data.length - 1]
         let currentZone;
-        const indexX= (parseInt(currentIndex)+1)%6
-        if(currentIndex<=17){
-            if(indexX>=1&&indexX<=3){
-                currentZone=0
-            }else{
-                currentZone=1
+        const indexX = (parseInt(currentIndex) + 1) % 6
+        if (currentIndex <= 17) {
+            if (indexX >= 1 && indexX <= 3) {
+                currentZone = 0
+            } else {
+                currentZone = 1
             }
-        }else{
-            if(indexX>=1&&indexX<=3){
-                currentZone=2
-            }else{
-                currentZone=3
+        } else {
+            if (indexX >= 1 && indexX <= 3) {
+                currentZone = 2
+            } else {
+                currentZone = 3
             }
         }
         // console.log("currentIndex",data,currentIndex,indexX,currentZone)                                                                                                                                                                                                                                         
-        if(GAME_CACHE.complateIndex.length<9){
-            
+        if (GAME_CACHE.complateIndex.length < 9) {
+
             return false
-        }else{
-            let crossComplateArr =this.crossComplate
-            let isComplate=true
-            corssPuzzleIndex[currentZone].map(item=>{
-                if(data.indexOf(item.toString())===-1){
-                    isComplate=false
+        } else {
+            let crossComplateArr = this.crossComplate
+            let isComplate = true
+            corssPuzzleIndex[currentZone].map(item => {
+                if (data.indexOf(item.toString()) === -1) {
+                    isComplate = false
                     return false
                 }
             })
-            if(isComplate){
-                crossComplateArr[currentZone]=1
-                this.crossComplate=crossComplateArr
-                isComplate&&this.doCrossPartComp(currentZone)
+            if (isComplate) {
+                crossComplateArr[currentZone] = 1
+                this.crossComplate = crossComplateArr
+                isComplate && this.doCrossPartComp(currentZone)
             }
 
-            
+
         }
     },
-    doCrossPartComp(index){
-        this.crossPartComp.active=true;
+    doCrossPartComp(index) {
+        this.crossPartComp.active = true;
 
 
-        const positionList= [[-161,214],[161,214],[-161,-214],[161,-214]]
-        this.crossWrap.setPosition(cc.v2(positionList[index][0],positionList[index][1]))
-        this.crossDiamond.setPosition(cc.v2(0,0))
-        this.crossDiamond.opacity=255
+        const positionList = [[-161, 214], [161, 214], [-161, -214], [161, -214]]
+        this.crossWrap.setPosition(cc.v2(positionList[index][0], positionList[index][1]))
+        this.crossDiamond.setPosition(cc.v2(0, 0))
+        this.crossDiamond.opacity = 255
         this.crossDiamond.setScale(1)
-        this.crossholo.active=true
+        this.crossholo.active = true
 
 
-        let diamondIcon = cc.find('icon',this.diamondWarp);
+        let diamondIcon = cc.find('icon', this.diamondWarp);
         let diamondIconWord = diamondIcon.parent.convertToWorldSpaceAR(diamondIcon.position);
         let targetRoot = this.crossWrap.convertToNodeSpaceAR(diamondIconWord);
         // console.log("diamondIconWord",diamondIconWord,targetRoot,diamondIconWord.x-CACHE.platform.visibleSize.width/2-positionList[index][0],diamondIconWord.y-CACHE.platform.visibleSize.height/2-positionList[index][1])
 
         // this.crossholo.opacity=100
         cc.tween(this.crossholo)
-        .to(.4,{opacity:255,angle:120})
-        .to(.1,{opacity:0})
-        .call(()=>{
-            this.crossholo.active=false
-            cc.tween(this.crossDiamond)
-            .to(0.4,{scale:1.3})
-            .to(1,{position:cc.v2(targetRoot.x,targetRoot.y)})
-            .to(0.2,{opacity:0,scale:0.4})
-            .call(()=>{
-                this.crossPartComp.active=false
-                this.crossDiamond.setPosition(cc.v2(0,0))
-                this.crossDiamond.opacity=255
-                this.crossDiamond.setScale(1)
-                this.crossholo.active=true
-                this.count=this.count+1
-                this.currentCount.string=this.count
+            .to(.4, { opacity: 255, angle: 120 })
+            .to(.1, { opacity: 0 })
+            .call(() => {
+                this.crossholo.active = false
+                cc.tween(this.crossDiamond)
+                    .to(0.4, { scale: 1.3 })
+                    .to(1, { position: cc.v2(targetRoot.x, targetRoot.y) })
+                    .to(0.2, { opacity: 0, scale: 0.4 })
+                    .call(() => {
+                        this.crossPartComp.active = false
+                        this.crossDiamond.setPosition(cc.v2(0, 0))
+                        this.crossDiamond.opacity = 255
+                        this.crossDiamond.setScale(1)
+                        this.crossholo.active = true
+                        this.count = this.count + 1
+                        this.currentCount.string = this.count
+                    })
+                    .start()
             })
             .start()
-        })
-        .start()
 
 
 
-            
 
-        
+
+
     },
     //调用完成接口
     doComplate() {
-        if(CACHE.hard_level===4){ 
+        if (CACHE.hard_level === 4) {
             this.doCrossComplate()
             return false
         }
@@ -468,9 +553,9 @@ cc.Class({
                     setTimeout(() => {
                         cc.find("sound").getComponent("sound").gameSettlement()
                     }, 3000)
-                    setTimeout(()=>{
+                    setTimeout(() => {
                         this.showAward(res.data.list, star);
-                    },1500)
+                    }, 1500)
                 }, 0)
             } else {
                 Toast.show(res.meeage)
@@ -478,19 +563,19 @@ cc.Class({
         }))
     },
 
-    doCrossComplate(){
-        Api.reward_complete( (res => {
-            console.log("res",res)
+    doCrossComplate() {
+        Api.reward_complete((res => {
+            console.log("res", res)
             if (res.code === 0) {
                 setTimeout(() => {
-                    this.crossBorder.active=false
+                    this.crossBorder.active = false
                     cc.find("sound").getComponent("sound").gameSuccess()
                     setTimeout(() => {
                         cc.find("sound").getComponent("sound").gameSettlement()
                     }, 3000)
-                    setTimeout(()=>{
+                    setTimeout(() => {
                         this.showCrossAward(res.data.list[0]);
-                    },1000)
+                    }, 1000)
                 }, 0)
             } else {
                 Toast.show(res.meeage)
@@ -519,12 +604,12 @@ cc.Class({
             game_award.destroy();
             header.destroy();
             this.showShare(item, leavel - 1);
-            cc.find("sound").getComponent("sound").updateAssets()    
+            cc.find("sound").getComponent("sound").updateAssets()
         }, 3000)
 
     },
 
-    showCrossAward(item){
+    showCrossAward(item) {
         console.log("showCrossAward")
         let header = cc.instantiate(this.header);
         let headerObj = header.getComponent('header_warp_index');
@@ -542,13 +627,13 @@ cc.Class({
             this._guideShowAwardCallback();
         }
     },
-    crossShare(){
+    crossShare() {
 
     },
 
     //显示分享弹窗
     showShare(item, leavel) {
-        const shareList = [this.game_share1, this.game_share2, this.game_share3, this.game_share3,this.game_share3]
+        const shareList = [this.game_share1, this.game_share2, this.game_share3, this.game_share3, this.game_share3]
         let game_share = cc.instantiate(shareList[leavel]);
         game_share.parent = this.root_warp;
         game_share.name = 'game_share'
