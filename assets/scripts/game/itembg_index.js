@@ -29,20 +29,28 @@ cc.Class({
         // material.setProperty("spriteHeight", 30);
         // this.borderNode.setMaterial(0, material);
         let width=400
+        let borderScale=1
         if(CACHE.hard_level===0){
             width=400
+            borderScale=0.6
         }
         if(CACHE.hard_level===1){
             width=300
+            borderScale=0.8
         }else if(CACHE.hard_level===2){
             width=200
+            borderScale=1
 
         }
         else if(CACHE.hard_level===3){
             width=200
+            borderScale=1
+
         }
         else if(CACHE.hard_level===4){
             width=250
+            borderScale=1
+
         }
 
         // let material= this.border.getMaterial(0);
@@ -52,15 +60,16 @@ cc.Class({
 
         for(let i=1;i<=6;i++){
             setTimeout(()=>{
-                this.borderWidth(i,width)
-            },i*30)
+                this.borderWidth(i*borderScale,width)
+            },i*50)
         }
 
         for(let i=6;i>=0;i--){
             setTimeout(()=>{
-                this.borderWidth(i)
-            },(6-i)*30+200)
+                this.borderWidth(i*borderScale,width)
+            },(6-i)*50+300)
         }
+        // console.log("width",width)
         
 
         // cc.tween(this.border.node)+++++++++++++++++++++++
