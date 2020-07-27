@@ -11,7 +11,8 @@ import {
     SIZES,
     RoadMap34,
     RoadMap46,
-    RoadMap68
+    RoadMap68,
+    RoadMap66
 } from '../global/piece_index';
 import { initItem } from './initSplice';
 import { CACHE } from '../global/usual_cache';
@@ -424,6 +425,9 @@ cc.Class({
             case 3:
                 roadMap = RoadMap68;
                 break;
+            case 4:
+                roadMap = RoadMap66;
+                break;
         }
         let regArr = GAME_CACHE.complateIndex.map((item) => parseInt(item));
         regArr.pop();
@@ -434,7 +438,6 @@ cc.Class({
     },
 
     calBigContent(roadMap, regIndex, regArr) {
-        debugger;
         if (regArr.length == 0) {
             return;
         }
