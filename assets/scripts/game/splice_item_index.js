@@ -386,10 +386,10 @@ cc.Class({
                     let animate = dragonBonesNode.getComponent(dragonBones.ArmatureDisplay)
                     animate.playAnimation(CACHE.dragonBoneAnimateName, 0);
                 }
-                if (GAME_CACHE.complateIndex.length < reg.length) {
-                    setTimeout(() => {
-                        //显露白边
-                        cc.find('item_puzzle', item_puzzle_warp).destroy();
+                setTimeout(() => {
+                    //显露白边
+                    cc.find('item_puzzle', item_puzzle_warp).destroy();
+                    if (GAME_CACHE.complateIndex.length < reg.length && GAME_CACHE.complateIndex.length !== 0) {
                         this.findBigestContent();
                         GAME_CACHE.whiteLightIndex.forEach((item) => {
                             let borderNode = cc.find(`Canvas/root/puzzleWarp/puzzleBg/item_puzzle_warp-${item}`);
@@ -398,8 +398,11 @@ cc.Class({
                                 borderObj.borderAnimate();
                             }
                         })
-                    }, 100)
-                }
+                    } else {
+                        cc.find('border', item_puzzle_warp).destroy();
+                    }
+                }, 100)
+
             } else {
                 cc.tween(this.item_node)
                     .to(.2, { position: cc.v2(minItem[4], minItem[5] - 4) })
