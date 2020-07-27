@@ -9,6 +9,9 @@ import {
     PUZZLE_FOOTER,
     PUZZLE_SCENE,
     SIZES,
+    RoadMap34,
+    RoadMap46,
+    RoadMap68
 } from '../global/piece_index';
 import { initItem } from './initSplice';
 import { CACHE } from '../global/usual_cache';
@@ -371,7 +374,8 @@ cc.Class({
                 // item_puzzle_warp.active = false;
                 // var item_puzzle_splice = cc.find(`Canvas/root/puzzleWarp/puzzleBg/item_puzzle_splice-${this.item_node.defaultIndex}`);
                 this.item_node.active = false;
-                this.item_node.destroy()
+                this.item_node.destroy();
+                GAME_CACHE.rightNowCompleteIndex = this.item_node.defaultIndex;
                 GAME_CACHE.complateIndex.push(this.item_node.defaultIndex);
                 GAME_CACHE.underwayIndex.remove(this.item_node.defaultIndex)
                 this.checkSuccess();
@@ -381,22 +385,75 @@ cc.Class({
                     let animate = dragonBonesNode.getComponent(dragonBones.ArmatureDisplay)
                     animate.playAnimation(CACHE.dragonBoneAnimateName, 0);
                 }
-                setTimeout(() => {
-                    //显露白边
-                    cc.find('item_puzzle', item_puzzle_warp).destroy();
-                    GAME_CACHE.complateIndex.forEach((item) => {
-                        let borderNode = cc.find(`Canvas/root/puzzleWarp/puzzleBg/item_puzzle_warp-${item}`);
-                        let borderObj = borderNode.getComponent('itembg_index');
-                        if (borderObj) {
-                            borderObj.borderAnimate();
-                        }
-                    })
-                }, 100)
+                if (GAME_CACHE.complateIndex.length < reg.length) {
+                    setTimeout(() => {
+                        //显露白边
+                        cc.find('item_puzzle', item_puzzle_warp).destroy();
+                        this.findBigestContent();
+                        GAME_CACHE.whiteLightIndex.forEach((item) => {
+                            let borderNode = cc.find(`Canvas/root/puzzleWarp/puzzleBg/item_puzzle_warp-${item}`);
+                            let borderObj = borderNode.getComponent('itembg_index');
+                            if (borderObj) {
+                                borderObj.borderAnimate();
+                            }
+                        })
+                    }, 100)
+                }
             } else {
                 cc.tween(this.item_node)
                     .to(.2, { position: cc.v2(minItem[4], minItem[5] - 4) })
                     .start()
             }
+        }
+    },
+
+    findBigestContent() {
+        let roadMap = null;
+        switch (CACHE.hard_level) {
+            // RoadMap46,
+            // RoadMap68
+            case 0:
+                roadMap = RoadMap34;
+                break;
+            case 1:
+                roadMap = RoadMap46;
+                break;
+            case 2:
+                roadMap = RoadMap68;
+                break;
+            case 3:
+                roadMap = RoadMap68;
+                break;
+        }
+        let regArr = GAME_CACHE.complateIndex.map((item) => parseInt(item));
+        regArr.pop();
+        regArr.sort((a, b) => a - b);
+        let regIndex = parseInt(GAME_CACHE.rightNowCompleteIndex);
+        GAME_CACHE.whiteLightIndex = [regIndex]
+        this.calBigContent(roadMap, regIndex, regArr);
+    },
+
+    calBigContent(roadMap, regIndex, regArr) {
+        debugger;
+        if (regArr.length == 0) {
+            return;
+        }
+        let sub = roadMap[`${regIndex}`];
+        let leftRegArr = [];
+        let res = regArr.filter((item) => {
+            let isHave = sub.some((innerItem) => {
+                return item === innerItem;
+            });
+            if (!isHave) {
+                leftRegArr.push(item);
+            }
+            return isHave
+        })
+        if (res.length !== 0) {
+            GAME_CACHE.whiteLightIndex = GAME_CACHE.whiteLightIndex.concat(res);
+            res.forEach((item) => {
+                this.calBigContent(roadMap, item, leftRegArr);
+            });
         }
     },
 
