@@ -158,7 +158,7 @@ cc.Class({
                     GAME_CACHE.rightNowCompleteIndex = index;
                     GAME_CACHE.complateIndex.push(index)
                     GAME_CACHE.underwayIndex.remove(index)
-                    if (GAME_CACHE.complateIndex.length < SIZES[CACHE.hard_level].length) {
+                    if (GAME_CACHE.complateIndex.length < SIZES[CACHE.hard_level].length && GAME_CACHE.complateIndex.length !== 0) {
                         //显露白边
                         this.findBigestContent();
                         GAME_CACHE.whiteLightIndex.forEach((item) => {
@@ -168,6 +168,8 @@ cc.Class({
                                 borderObj.borderAnimate();
                             }
                         })
+                    } else {
+                        cc.find('border', item_puzzle_warp).destroy()
                     }
                 })
                 .start()
@@ -201,7 +203,7 @@ cc.Class({
                 currentNode.destroy();
                 cc.find('item_puzzle', item_puzzle_warp).destroy()
                 this.checkComplate();
-                if (GAME_CACHE.complateIndex.length < SIZES[CACHE.hard_level].length) {
+                if (GAME_CACHE.complateIndex.length < SIZES[CACHE.hard_level].length && GAME_CACHE.complateIndex.length !== 0) {
                     //显露白边
                     this.findBigestContent();
                     GAME_CACHE.whiteLightIndex.forEach((item) => {
@@ -211,6 +213,8 @@ cc.Class({
                             borderObj.borderAnimate();
                         }
                     })
+                } else {
+                    cc.find('border', item_puzzle_warp).destroy()
                 }
             }, 400)
         }
