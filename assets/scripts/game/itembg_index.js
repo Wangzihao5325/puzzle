@@ -1,4 +1,5 @@
 import { MASK_RESOUSE } from '../global/piece_index';
+import { CACHE } from '../global/usual_cache';
 
 cc.Class({
     extends: cc.Component,
@@ -27,10 +28,31 @@ cc.Class({
         // material.setProperty("spriteWidth", 30);
         // material.setProperty("spriteHeight", 30);
         // this.borderNode.setMaterial(0, material);
+        let width=400
+        if(CACHE.hard_level===0){
+            width=400
+        }
+        if(CACHE.hard_level===1){
+            width=300
+        }else if(CACHE.hard_level===2){
+            width=200
+
+        }
+        else if(CACHE.hard_level===3){
+            width=200
+        }
+        else if(CACHE.hard_level===4){
+            width=250
+        }
+
+        // let material= this.border.getMaterial(0);
+        // material.setProperty("spriteWidth", width);
+        // material.setProperty("spriteHeight", width);
+        // this.border.setMaterial(0, material);
 
         for(let i=1;i<=6;i++){
             setTimeout(()=>{
-                this.borderWidth(i)
+                this.borderWidth(i,width)
             },i*30)
         }
 
@@ -55,9 +77,11 @@ cc.Class({
     },
 
 
-    borderWidth(width){
+    borderWidth(glowRange,width){
         let material= this.border.getMaterial(0);
-        material.setProperty("glowRange", width);
+        material.setProperty("glowRange", glowRange);
+        material.setProperty("spriteWidth", width);
+        material.setProperty("spriteHeight", width);
         this.border.setMaterial(0, material);
         // if(with===)
     },
