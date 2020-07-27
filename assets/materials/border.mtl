@@ -23,8 +23,8 @@
         },
         "glowRange": 1,
         "glowThreshold": 0.1,
-        "spriteWidth": 500,
-        "spriteHeight": 500
+        "spriteWidth": 400,
+        "spriteHeight": 400
       }
     }
   }
