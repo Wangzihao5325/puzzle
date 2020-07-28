@@ -472,7 +472,6 @@ cc.Class({
                 currentZone = 3
             }
         }
-        // console.log("currentIndex",data,currentIndex,indexX,currentZone)                                                                                                                                                                                                                                         
         if (GAME_CACHE.complateIndex.length < 9) {
 
             return false
@@ -509,7 +508,6 @@ cc.Class({
         let diamondIcon = cc.find('icon', this.diamondWarp);
         let diamondIconWord = diamondIcon.parent.convertToWorldSpaceAR(diamondIcon.position);
         let targetRoot = this.crossWrap.convertToNodeSpaceAR(diamondIconWord);
-        // console.log("diamondIconWord",diamondIconWord,targetRoot,diamondIconWord.x-CACHE.platform.visibleSize.width/2-positionList[index][0],diamondIconWord.y-CACHE.platform.visibleSize.height/2-positionList[index][1])
 
         // this.crossholo.opacity=100
         cc.tween(this.crossholo)
@@ -584,7 +582,6 @@ cc.Class({
 
     doCrossComplate() {
         Api.reward_complete((res => {
-            console.log("res", res)
             if (res.code === 0) {
                 setTimeout(() => {
                     this.crossBorder.active = false
@@ -629,7 +626,6 @@ cc.Class({
     },
 
     showCrossAward(item) {
-        console.log("showCrossAward")
         let header = cc.instantiate(this.header);
         let headerObj = header.getComponent('header_warp_index');
         header.parent = cc.find('Canvas');;

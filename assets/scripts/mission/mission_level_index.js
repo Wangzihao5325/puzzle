@@ -77,7 +77,6 @@ cc.Class({
     },
 
     hardBtnClickCallback(hardLevel) {
-        console.log("hardLevel",hardLevel)
         if (this.btnObj) {
             this.btnObj.forEach(item => {
                 if (item._hardLevel !== hardLevel) {
@@ -102,7 +101,6 @@ cc.Class({
             let obj = hardBtn.getComponent('hard_btn');
             obj._hardLevel = hard;
             obj.initWithHard(hard, (hardLevel) => {
-                console.log("leavel",hardLevel)
                 this.setStartWithHard(hardLevel)
                 this.hardBtnClickCallback(hardLevel);
             });

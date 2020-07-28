@@ -69,7 +69,6 @@ cc.Class({
                 this.borderWidth(i*borderScale,width)
             },(6-i)*50+300)
         }
-        // console.log("width",width)
         
 
         // cc.tween(this.border.node)+++++++++++++++++++++++

@@ -188,7 +188,6 @@ cc.Class({
         this.node.on(cc.Node.EventType.TOUCH_END, (event) => {
             const touchEndTime = new Date().getTime()
             this.isMove = touchEndTime - this.startTouchTime >= 300
-            console.log('touchEndTime-this.startTouchTime', touchEndTime, this.startTouchTime, touchEndTime - this.startTouchTime)
             if (this.isMove) {
                 this.item_node._offsetY = 0;
             } else {

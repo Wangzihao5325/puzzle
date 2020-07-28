@@ -130,7 +130,6 @@ cc.Class({
                 }
             }
         }, 500);
-        console.log("leavel",leavel)
         setTimeout(()=>{
             const num=[0,1,2,3,4][leavel]
             for(let i=0;i<num;i++){

@@ -33,7 +33,6 @@ cc.Class({
     },
 
     onLoad() {
-        console.log("gameTest",CACHE.hard_level)
 
         this.init();
         cc.find("sound").getComponent("sound").stop()

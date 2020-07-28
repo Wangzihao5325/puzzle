@@ -29,8 +29,6 @@ cc.Class({
 
     onLoad () {
         this.signSetTouch()
-        console.log("CACHE.platform",cc.view.getVisibleSize())
-
         //获取随机关卡
         random_reward_hurdle(res=>{
             if(res.code===0){

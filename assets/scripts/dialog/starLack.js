@@ -40,7 +40,6 @@ cc.Class({
         .start()
     },
     go(){
-        // console.log("go")
         cc.director.loadScene("travel");
     },
 
