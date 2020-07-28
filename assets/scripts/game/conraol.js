@@ -161,13 +161,20 @@ cc.Class({
                     if (GAME_CACHE.complateIndex.length < SIZES[CACHE.hard_level].length && GAME_CACHE.complateIndex.length !== 0) {
                         //显露白边
                         this.findBigestContent();
-                        GAME_CACHE.whiteLightIndex.forEach((item) => {
-                            let borderNode = cc.find(`Canvas/root/puzzleWarp/puzzleBg/item_puzzle_warp-${item}`);
-                            let borderObj = borderNode.getComponent('itembg_index');
-                            if (borderObj) {
-                                borderObj.borderAnimate();
+                        if (GAME_CACHE.whiteLightIndex.length > 1) {
+                            GAME_CACHE.whiteLightIndex.forEach((item) => {
+                                let borderNode = cc.find(`Canvas/root/puzzleWarp/puzzleBg/item_puzzle_warp-${item}`);
+                                let borderObj = borderNode.getComponent('itembg_index');
+                                if (borderObj) {
+                                    borderObj.borderAnimate();
+                                }
+                            })
+                        } else {
+                            let item_puzzle_warp_obj = item_puzzle_warp.getComponent('itembg_index');
+                            if (item_puzzle_warp_obj) {
+                                item_puzzle_warp_obj.borderWidth(0, 400);
                             }
-                        })
+                        }
                     } else {
                         cc.find('border', item_puzzle_warp).destroy()
                     }
@@ -206,13 +213,20 @@ cc.Class({
                 if (GAME_CACHE.complateIndex.length < SIZES[CACHE.hard_level].length && GAME_CACHE.complateIndex.length !== 0) {
                     //显露白边
                     this.findBigestContent();
-                    GAME_CACHE.whiteLightIndex.forEach((item) => {
-                        let borderNode = cc.find(`Canvas/root/puzzleWarp/puzzleBg/item_puzzle_warp-${item}`);
-                        let borderObj = borderNode.getComponent('itembg_index');
-                        if (borderObj) {
-                            borderObj.borderAnimate();
+                    if (GAME_CACHE.whiteLightIndex.length > 1) {
+                        GAME_CACHE.whiteLightIndex.forEach((item) => {
+                            let borderNode = cc.find(`Canvas/root/puzzleWarp/puzzleBg/item_puzzle_warp-${item}`);
+                            let borderObj = borderNode.getComponent('itembg_index');
+                            if (borderObj) {
+                                borderObj.borderAnimate();
+                            }
+                        })
+                    } else {
+                        let item_puzzle_warp_obj = item_puzzle_warp.getComponent('itembg_index');
+                        if (item_puzzle_warp_obj) {
+                            item_puzzle_warp_obj.borderWidth(0, 400);
                         }
-                    })
+                    }
                 } else {
                     cc.find('border', item_puzzle_warp).destroy()
                 }
@@ -254,6 +268,7 @@ cc.Class({
         let regIndex = parseInt(GAME_CACHE.rightNowCompleteIndex);
         GAME_CACHE.whiteLightIndex = [regIndex]
         this.calBigContent(roadMap, regIndex, regArr);
+        GAME_CACHE.whiteLightIndex = [...new Set(GAME_CACHE.whiteLightIndex)];
     },
 
     calBigContent(roadMap, regIndex, regArr) {
