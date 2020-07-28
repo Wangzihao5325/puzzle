@@ -35,16 +35,16 @@ cc.Class({
             borderScale=1
         }
         if(CACHE.hard_level===1){
-            width=300
-            borderScale=2.4
+            width=400
+            borderScale=3
         }else if(CACHE.hard_level===2){
-            width=200
-            borderScale=2
+            width=400
+            borderScale=3
 
         }
         else if(CACHE.hard_level===3){
-            width=200
-            borderScale=2
+            width=400
+            borderScale=3
 
         }
         else if(CACHE.hard_level===4){
@@ -65,35 +65,35 @@ cc.Class({
         //     },i*70)
         // }
         setTimeout(()=>{
-            this.borderWidth(2,width)
+            this.borderWidth(2*borderScale,width)
         },2*70)
         setTimeout(()=>{
-            this.borderWidth(4,width)
+            this.borderWidth(4*borderScale,width)
         },3*70)
         setTimeout(()=>{
-            this.borderWidth(5,width)
+            this.borderWidth(5*borderScale,width)
         },4*70)
         setTimeout(()=>{
-            this.borderWidth(5.8,width)
+            this.borderWidth(5.8*borderScale,width)
         },5*70)
         setTimeout(()=>{
-            this.borderWidth(6,width)
+            this.borderWidth(6*borderScale,width)
         },6*70)
 
         setTimeout(()=>{
-            this.borderWidth(6,width)
+            this.borderWidth(6*borderScale,width)
         },7*70)
         setTimeout(()=>{
-            this.borderWidth(5.8,width)
+            this.borderWidth(5.8*borderScale,width)
         },8*70)
         setTimeout(()=>{
-            this.borderWidth(5,width)
+            this.borderWidth(5*borderScale,width)
         },9*70)
         setTimeout(()=>{
-            this.borderWidth(4,width)
+            this.borderWidth(4*borderScale,width)
         },10*70)
         setTimeout(()=>{
-            this.borderWidth(2,width)
+            this.borderWidth(2*borderScale,width)
         },11*70)
         setTimeout(()=>{
             this.borderWidth(0,width)
