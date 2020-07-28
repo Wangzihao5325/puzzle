@@ -32,43 +32,82 @@ cc.Class({
         let borderScale=1
         if(CACHE.hard_level===0){
             width=400
-            borderScale=0.6
+            borderScale=1
         }
         if(CACHE.hard_level===1){
             width=300
-            borderScale=0.8
+            borderScale=2.4
         }else if(CACHE.hard_level===2){
             width=200
-            borderScale=1
+            borderScale=2
 
         }
         else if(CACHE.hard_level===3){
             width=200
-            borderScale=1
+            borderScale=2
 
         }
         else if(CACHE.hard_level===4){
-            width=250
+            width=500
             borderScale=1
 
         }
+        console.log("CACHE.hard_level",CACHE.hard_level,width,borderScale)
 
         // let material= this.border.getMaterial(0);
         // material.setProperty("spriteWidth", width);
         // material.setProperty("spriteHeight", width);
         // this.border.setMaterial(0, material);
 
-        for(let i=1;i<=6;i++){
-            setTimeout(()=>{
-                this.borderWidth(i*borderScale,width)
-            },i*50)
-        }
+        // for(let i=2;i<=6;i++){
+        //     setTimeout(()=>{
+        //         this.borderWidth(i*borderScale,width)
+        //     },i*70)
+        // }
+        setTimeout(()=>{
+            this.borderWidth(2,width)
+        },2*70)
+        setTimeout(()=>{
+            this.borderWidth(4,width)
+        },3*70)
+        setTimeout(()=>{
+            this.borderWidth(5,width)
+        },4*70)
+        setTimeout(()=>{
+            this.borderWidth(5.8,width)
+        },5*70)
+        setTimeout(()=>{
+            this.borderWidth(6,width)
+        },6*70)
 
-        for(let i=6;i>=0;i--){
-            setTimeout(()=>{
-                this.borderWidth(i*borderScale,width)
-            },(6-i)*50+300)
-        }
+        setTimeout(()=>{
+            this.borderWidth(6,width)
+        },7*70)
+        setTimeout(()=>{
+            this.borderWidth(5.8,width)
+        },8*70)
+        setTimeout(()=>{
+            this.borderWidth(5,width)
+        },9*70)
+        setTimeout(()=>{
+            this.borderWidth(4,width)
+        },10*70)
+        setTimeout(()=>{
+            this.borderWidth(2,width)
+        },11*70)
+        setTimeout(()=>{
+            this.borderWidth(0,width)
+        },12*70)
+
+
+        // for(let i=6;i>=0;i--){
+        //     if(i===1){
+        //         continue;
+        //     }
+        //     setTimeout(()=>{
+        //         this.borderWidth(i*borderScale,width)
+        //     },(6-i)*70+320)
+        // }
         
 
         // cc.tween(this.border.node)+++++++++++++++++++++++
