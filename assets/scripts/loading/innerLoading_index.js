@@ -93,11 +93,9 @@ cc.Class({
                     cc.director.loadScene('puzzle');
                 })
                 break;
-            default :
-                setTimeout(()=>{
-                    cc.director.loadScene(CACHE.targetScene);
-                },1500)
-            break;
+            default:
+                cc.director.loadScene(CACHE.targetScene);
+                break;
         }
 
     },
