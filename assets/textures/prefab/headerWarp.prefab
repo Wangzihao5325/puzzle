@@ -1513,7 +1513,7 @@
       "__id__": 1
     },
     "_children": [],
-    "_active": true,
+    "_active": false,
     "_components": [
       {
         "__id__": 42
@@ -1671,7 +1671,7 @@
       "__id__": 1
     },
     "_children": [],
-    "_active": true,
+    "_active": false,
     "_components": [
       {
         "__id__": 47
@@ -1708,7 +1708,7 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        114.01499999999999,
+        120,
         -47.78799999999999,
         0,
         0,
@@ -1794,7 +1794,7 @@
     "alignMode": 1,
     "_target": null,
     "_alignFlags": 12,
-    "_left": 293.195,
+    "_left": 299.18,
     "_right": 0,
     "_top": 0,
     "_bottom": 30.312000000000005,
