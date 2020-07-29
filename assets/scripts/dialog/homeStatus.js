@@ -60,7 +60,7 @@ cc.Class({
 
     start () {
         if(CACHE.platform.isIphoneX){
-            this.headerWarp.height=140
+            this.headerWarp.getComponent(cc.Widget).top=66
         }
 
         this.energeItem.on(cc.Node.EventType.TOUCH_END, (event) => {

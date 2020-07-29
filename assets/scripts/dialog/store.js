@@ -207,6 +207,16 @@ cc.Class({
     },
 
     setTouch() {
+        // this.modal.on.
+        this.close.on(cc.Node.EventType.TOUCH_START, (event) => {
+            event.stopPropagation();
+        })
+        this.close.on(cc.Node.EventType.TOUCH_MOVE, (event) => {
+            event.stopPropagation();
+        })
+        this.close.on(cc.Node.EventType.TOUCH_END, (event) => {
+            event.stopPropagation();
+        })
         this.scroll.on("scrolling", (event) => {
             this.onScrollingEvent()
         })
