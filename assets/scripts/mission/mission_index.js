@@ -267,7 +267,7 @@ cc.Class({
 
     render() {
         let cityItem = CACHE.travel_city_press;
-        this.titleLabel.string = cityItem.name;
+        this.titleLabel.string =  `${cityItem.name.slice(0,1)}          ${cityItem.name.slice(4,5)}`;
         this.cityTitleLabel.string = `${cityItem.trueName} · 介绍`
         Action.Mission.CityDetails((res) => {
             this.renderIntroduce();

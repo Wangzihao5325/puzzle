@@ -32,6 +32,7 @@ cc.Class({
         bagBtn1: cc.Sprite,//手工品按钮
         bagBtn2: cc.Sprite,//纪念品按钮
         bagBtn3: cc.Sprite,//文物按钮
+        bagCloseBtn:cc.Node,
 
         label0: cc.Label,
         label1: cc.Label,
@@ -503,6 +504,11 @@ cc.Class({
         }
     },
 
+    closeBag(){
+        this.bagRoot.active = false;
+
+    },
+
     bagBtnSetTouch() {
         this.label0.node.opacity = 255;
         this.label1.node.opacity = 100;
@@ -532,7 +538,10 @@ cc.Class({
             this.bagInit(1);
             event.stopPropagation();
         })
-
+        this.bagCloseBtn.on(cc.Node.EventType.TOUCH_END, (event) => {
+            this.closeBag()
+            event.stopPropagation();
+        })
         this.bagBtn1.node.on(cc.Node.EventType.TOUCH_START, (event) => {
             event.stopPropagation();
         })

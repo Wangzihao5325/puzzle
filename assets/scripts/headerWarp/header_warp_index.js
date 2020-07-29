@@ -54,7 +54,7 @@ cc.Class({
 
     start() {
         if (CACHE.platform.isIphoneX) {
-            this.headerWarp.height = 140
+            this.headerWarp.getComponent(cc.Widget).top = 70
         }
     },
 
