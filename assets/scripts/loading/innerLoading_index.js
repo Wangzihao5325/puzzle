@@ -73,7 +73,9 @@ cc.Class({
                         });
                     });
                 } else {
-                    cc.director.loadScene('show');
+                    setTimeout(() => {
+                        cc.director.loadScene('show');
+                    }, 500)
                 }
                 break;
             case 'puzzle':
@@ -90,7 +92,9 @@ cc.Class({
                     picUrl = '6x6/';
                 }
                 cc.loader.loadResDir(picUrl, cc.SpriteFrame, (err, spriteFrames) => {
-                    cc.director.loadScene('puzzle');
+                    setTimeout(() => {
+                        cc.director.loadScene('puzzle');
+                    }, 200)
                 })
                 break;
             default:
