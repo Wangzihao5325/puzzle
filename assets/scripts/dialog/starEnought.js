@@ -4,43 +4,45 @@
 //  - https://docs.cocos.com/creator/manual/en/scripting/reference/attributes.html
 // Learn life-cycle callbacks:
 //  - https://docs.cocos.com/creator/manual/en/scripting/life-cycle-callbacks.html
-
+import { CACHE } from '../global/usual_cache';
 cc.Class({
     extends: cc.Component,
 
     properties: {
-        warp:cc.Node,
-        content:cc.Node,
-        cancel:cc.Node,
-        confirm:cc.Node,
-        close:cc.Node,
+        warp: cc.Node,
+        content: cc.Node,
+        cancel: cc.Node,
+        confirm: cc.Node,
+        close: cc.Node,
     },
 
     // LIFE-CYCLE CALLBACKS:
 
-    onLoad () {
+    onLoad() {
 
     },
 
-    start () {
+    start() {
         this.setTouch()
         this.content.setScale(0.2)
         cc.tween(this.content)
-        .to(.3,{scale:1.2})
-        .to(0.15,{scale:1})
-        .start()
+            .to(.3, { scale: 1.2 })
+            .to(0.15, { scale: 1 })
+            .start()
     },
-    handleClose(){
+    handleClose() {
         cc.tween(this.content)
-        .to(.1,{scale:1.2})
-        .to(0.3,{scale:.2,opacity:0})
-        .call(()=>{
-            this.warp.destroy()
-        })
-        .start()
+            .to(.1, { scale: 1.2 })
+            .to(0.3, { scale: .2, opacity: 0 })
+            .call(() => {
+                this.warp.destroy()
+            })
+            .start()
     },
-    go(){
-        cc.director.loadScene("travel");
+    go() {
+        CACHE.targetScene = 'travel';
+        cc.director.loadScene("innerLoading");
+        //cc.director.loadScene("travel");
 
     },
 
@@ -63,7 +65,7 @@ cc.Class({
             this.handleClose()
             event.stopPropagation();
         })
-        
+
     },
     // update (dt) {},
 });

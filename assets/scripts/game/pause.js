@@ -48,8 +48,10 @@ cc.Class({
     goBack() {
         this.dialog.active = false;
         const contralObj=cc.find('Canvas/menuWarp').getComponent('conraol')
-        contralObj.gameOver()
-        cc.director.loadScene("travel");
+        contralObj.gameOver();
+        CACHE.targetScene = 'travel';
+        cc.director.loadScene("innerLoading");
+        //cc.director.loadScene("travel");
     },
 
     closeDialog() {

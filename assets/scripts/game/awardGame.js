@@ -75,8 +75,10 @@ cc.Class({
     },
     redirectPuzzle() {
 
-        CACHE.hard_level=4
-        cc.director.loadScene("puzzle");
+        CACHE.hard_level=4;
+        CACHE.targetScene = 'puzzle';
+        cc.director.loadScene("innerLoading");
+        //cc.director.loadScene("puzzle");
     },
 
     starExpendAnimation(){

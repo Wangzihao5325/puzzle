@@ -85,6 +85,7 @@ const CACHE = {
         reCall: false, //回忆
     },
     missionLocationHurdleId: 0,
+    targetScene:''
 }
 
 export default {

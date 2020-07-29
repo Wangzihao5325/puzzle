@@ -159,7 +159,9 @@ cc.Class({
     //导航到拼图，接口请求和动画完成后执行
     redirectPuzzle() {
         if (this.canNext) {
-            cc.director.loadScene("puzzle");
+            CACHE.targetScene = 'puzzle';
+            cc.director.loadScene("innerLoading");
+            //cc.director.loadScene("puzzle");
         } else {
             this.canNext = true
         }

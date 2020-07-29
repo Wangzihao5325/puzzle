@@ -4,6 +4,7 @@
 //  - https://docs.cocos.com/creator/manual/en/scripting/reference/attributes.html
 // Learn life-cycle callbacks:
 //  - https://docs.cocos.com/creator/manual/en/scripting/life-cycle-callbacks.html
+import { CACHE } from '../global/usual_cache';
 
 cc.Class({
     extends: cc.Component,
@@ -82,7 +83,8 @@ cc.Class({
 
     handleNoRevive() {
         this.failWarp.destroy()
-        cc.director.loadScene("mission");
+        CACHE.targetScene = 'mission';
+        cc.director.loadScene("innerLoading");
 
     },
 
