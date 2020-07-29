@@ -4,6 +4,7 @@
 //  - https://docs.cocos.com/creator/manual/en/scripting/reference/attributes.html
 // Learn life-cycle callbacks:
 //  - https://docs.cocos.com/creator/manual/en/scripting/life-cycle-callbacks.html
+import {CACHE} from '../global/usual_cache';
 
 cc.Class({
     extends: cc.Component,
@@ -40,7 +41,9 @@ cc.Class({
         .start()
     },
     go(){
-        cc.director.loadScene("travel");
+        CACHE.targetScene = 'travel';
+        cc.director.loadScene("innerLoading");
+        //cc.director.loadScene("travel");
     },
 
     setTouch() {

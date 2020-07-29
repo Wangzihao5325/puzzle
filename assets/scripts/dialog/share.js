@@ -133,8 +133,10 @@ cc.Class({
     stageStepOver() {
         CACHE.userInfo.stage++;
         this.shareWarp.active = false;
-        this.shareWarp.destroy()
-        cc.director.loadScene("travel");
+        this.shareWarp.destroy();
+        CACHE.targetScene = 'travel';
+        cc.director.loadScene("innerLoading");
+        //cc.director.loadScene("travel");
     },
 
     handleBack() {
@@ -158,8 +160,10 @@ cc.Class({
             })
         } else {
             this.shareWarp.active = false;
-            this.shareWarp.destroy()
-            cc.director.loadScene("travel");
+            this.shareWarp.destroy();
+            CACHE.targetScene = 'travel';
+            cc.director.loadScene("innerLoading");
+            //cc.director.loadScene("travel");
         }
     },
 
@@ -319,9 +323,13 @@ cc.Class({
             let newIndex = CACHE.travel_city_press.index + 1;
             let newCityItem = CITIES[newIndex];
             CACHE.travel_city_press = newCityItem;
-            cc.director.loadScene("mission");
+            CACHE.targetScene = 'mission';
+            cc.director.loadScene("innerLoading");
+            //cc.director.loadScene("mission");
         } else {
-            cc.director.loadScene("mission");
+            CACHE.targetScene = 'mission';
+            cc.director.loadScene("innerLoading");
+            //cc.director.loadScene("mission");
         }
     },
 
