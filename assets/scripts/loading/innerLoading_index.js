@@ -94,7 +94,9 @@ cc.Class({
                 })
                 break;
             default:
-                cc.director.loadScene(CACHE.targetScene);
+                setTimeout(() => {
+                    cc.director.loadScene(CACHE.targetScene);
+                }, 500)
                 break;
         }
 
