@@ -105,8 +105,9 @@ cc.Class({
         cc.loader.load(showData.festivalInfo.awardIcon, (err, texture) => {
             this.awardIcon.spriteFrame = new cc.SpriteFrame(texture)
         });
-
+        this.node.zIndex = 20;
         this.node.active = true;
+
     },
 
     // LIFE-CYCLE CALLBACKS:
