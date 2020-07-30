@@ -99,11 +99,11 @@ cc.Class({
             this.pet_pop.setPosition(cc.v2(0,10))
             this.pet_pop.opacity=0
             cc.tween(this.pet_pop)
-            .to(.4,{position:cc.v2(-140,10),opacity:255},{ easing: 'fade'})
+            .to(.4,{position:cc.v2(-90,10),opacity:255},{ easing: 'fade'})
             .start()
         }else{
             cc.tween(this.pet_pop)
-            .to(.4,{position:cc.v2(-140,30),opacity:0},{ easing: 'fade'})
+            .to(.4,{position:cc.v2(-90,30),opacity:0},{ easing: 'fade'})
             .start()
         }
         this.isShowPop=!this.isShowPop
