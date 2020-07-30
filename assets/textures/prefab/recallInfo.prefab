@@ -472,7 +472,7 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        0,
+        -20.142,
         0,
         0,
         0,
@@ -540,7 +540,7 @@
     "alignMode": 1,
     "_target": null,
     "_alignFlags": 9,
-    "_left": 0,
+    "_left": -20.142,
     "_right": 0,
     "_top": 6.140000000000001,
     "_bottom": 0,

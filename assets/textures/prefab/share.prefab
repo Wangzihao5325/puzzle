@@ -1584,7 +1584,7 @@
       "ctor": "Float64Array",
       "array": [
         -153.201,
-        -420,
+        -400,
         0,
         0,
         0,
@@ -2016,7 +2016,7 @@
       "ctor": "Float64Array",
       "array": [
         142.472,
-        -420,
+        -400,
         0,
         0,
         0,
@@ -2447,7 +2447,7 @@
       "ctor": "Float64Array",
       "array": [
         0,
-        -500,
+        -490,
         0,
         0,
         0,
@@ -2516,7 +2516,7 @@
     "_alignFlags": 33,
     "_left": 0,
     "_right": 260,
-    "_top": 1013,
+    "_top": 1003,
     "_bottom": 0,
     "_verticalCenter": 0,
     "_horizontalCenter": 0,
