@@ -89,8 +89,8 @@ cc.Class({
     initSentence(types, text) {
         let list, listL;
         if (types === 0) {
-            list = [0, 20, 20, 20, 20]
-            listL = [0, 20, 40, 60, 80]
+            list = [0, 20, 20, 20]
+            listL = [0, 20, 40, 60]
         } else if (types === 1) {
             list = [0, 20, 20, 20, 20]
             listL = [0, 20, 40, 60, 80]

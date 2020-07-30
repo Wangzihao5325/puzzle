@@ -46,6 +46,11 @@ cc.Class({
         this.good_name.getComponent(cc.Label).string = `${item.name} x${item.num}`;
         cc.loader.load(item.icon, (err, texture) => {
             this.good_pic.spriteFrame = new cc.SpriteFrame(texture)
+            const h=texture.height
+            const w=texture.width
+            const wh=w>h
+            this.good_pic.getComponent(cc.Node).height=parseInt( wh?120*h/w:120)
+            this.good_pic.getComponent(cc.Node).width=parseInt(wh?120:120*w/h)
         });
     },
 
