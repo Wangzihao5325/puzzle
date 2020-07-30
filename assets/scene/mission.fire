@@ -186,7 +186,7 @@
       "array": [
         0,
         0,
-        506.043000395729,
+        355.9364409554043,
         0,
         0,
         0,
@@ -1285,8 +1285,8 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        248,
-        -5.75,
+        0,
+        -11.033000000000001,
         0,
         0,
         0,
@@ -1356,7 +1356,7 @@
     "_left": 0,
     "_right": 0,
     "_top": 0,
-    "_bottom": 50,
+    "_bottom": 44.717,
     "_verticalCenter": 0,
     "_horizontalCenter": 0,
     "_isAbsLeft": true,
@@ -1397,8 +1397,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 98,
-      "height": 100
+      "width": 87,
+      "height": 89
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -1410,12 +1410,12 @@
       "ctor": "Float64Array",
       "array": [
         0,
-        10,
+        12.75,
         0,
         0,
         0,
-        -0.21643961393810288,
-        0.9762960071199334,
+        -0.014389743035099501,
+        0.9998964622876629,
         0.5,
         0.5,
         1
@@ -1425,7 +1425,7 @@
       "__type__": "cc.Vec3",
       "x": 0,
       "y": 0,
-      "z": -25
+      "z": -1.649000000000001
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -1450,7 +1450,7 @@
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
     "_spriteFrame": {
-      "__uuid__": "437f15ac-8e09-4f46-9aef-8e7ff137776d"
+      "__uuid__": "c8f43b63-51f4-4188-a903-8062c2fb04b9"
     },
     "_type": 0,
     "_sizeMode": 1,
@@ -1480,7 +1480,7 @@
     "_left": 0,
     "_right": 0,
     "_top": 0,
-    "_bottom": 45,
+    "_bottom": 50.5,
     "_verticalCenter": 0,
     "_horizontalCenter": 0,
     "_isAbsLeft": true,
@@ -2944,7 +2944,7 @@
       "ctor": "Float64Array",
       "array": [
         0,
-        20,
+        30.157,
         0,
         0,
         0,
@@ -3006,7 +3006,7 @@
       "ctor": "Float64Array",
       "array": [
         0,
-        8,
+        0,
         0,
         0,
         0,
@@ -3078,7 +3078,7 @@
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
     "_spriteFrame": {
-      "__uuid__": "9148d33a-f215-4045-a6dc-e526d2c6ed03"
+      "__uuid__": "be37f55f-4055-44df-845d-66c4e46d6199"
     },
     "_type": 1,
     "_sizeMode": 0,
@@ -3198,7 +3198,7 @@
       "ctor": "Float64Array",
       "array": [
         0,
-        60,
+        80,
         0,
         0,
         0,
@@ -3390,7 +3390,7 @@
       "ctor": "Float64Array",
       "array": [
         0,
-        60,
+        80,
         0,
         0,
         0,
