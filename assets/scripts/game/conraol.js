@@ -373,7 +373,7 @@ cc.Class({
     },
 
     setTouch() {
-        let clidkMagnet = throttle(() => this.handleClidkMagnet(), 600)
+        let clidkMagnet = throttle(() => this.handleClidkMagnet(), 1200)
 
 
         this.crossPartComp.on(cc.Node.EventType.TOUCH_END, (event) => {

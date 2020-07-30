@@ -496,7 +496,9 @@ cc.Class({
     start() {
 
         this.init();
-
+        if (CACHE.platform.isIphoneX) {
+            this.adButton.getComponent(cc.Widget).top = -480
+        }
     },
 
     onDestroy() {
