@@ -45,6 +45,7 @@ cc.Class({
         goodDetailBg: cc.Sprite,
         goodLessReg: cc.Sprite,
         cityTitleLabel: cc.Label,
+        starMask: cc.Sprite,
 
         audio: {
             default: null,
@@ -262,12 +263,13 @@ cc.Class({
             });
             let starProgressStr = `${star_have}/${totalStar}`;
             this.starProgress.string = starProgressStr;
+            this.starMask.fillRange = star_have / totalStar;
         }
     },
 
     render() {
         let cityItem = CACHE.travel_city_press;
-        this.titleLabel.string =  `${cityItem.name.slice(0,1)}          ${cityItem.name.slice(4,5)}`;
+        this.titleLabel.string = `${cityItem.name.slice(0, 1)}          ${cityItem.name.slice(4, 5)}`;
         this.cityTitleLabel.string = `${cityItem.trueName} · 介绍`
         Action.Mission.CityDetails((res) => {
             this.renderIntroduce();
