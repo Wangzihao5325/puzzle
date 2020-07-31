@@ -40,9 +40,9 @@ cc.Class({
             .start()
     },
     go() {
-        CACHE.targetScene = 'travel';
-        cc.director.loadScene("innerLoading");
-        //cc.director.loadScene("travel");
+        // CACHE.targetScene = 'travel';
+        // cc.director.loadScene("innerLoading");
+        cc.director.loadScene("travel");
 
     },
 

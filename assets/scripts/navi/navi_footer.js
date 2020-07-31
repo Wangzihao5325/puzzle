@@ -83,27 +83,27 @@ cc.Class({
     goToPlay() {
         cc.find("sound").getComponent("sound").tap()
         if (CACHE.scene !== SCENE.TRAVEL) {
-            CACHE.targetScene = 'travel';
-            cc.director.loadScene("innerLoading");
-            //cc.director.loadScene("travel");
+            // CACHE.targetScene = 'travel';
+            // cc.director.loadScene("innerLoading");
+            cc.director.loadScene("travel");
         }
     },
 
     goToMyHome() {
         cc.find("sound").getComponent("sound").tap()
         if (CACHE.scene !== SCENE.HOME) {
-            CACHE.targetScene = 'my_home';
-            cc.director.loadScene("innerLoading");
-            //cc.director.loadScene("my_home");
+            // CACHE.targetScene = 'my_home';
+            // cc.director.loadScene("innerLoading");
+            cc.director.loadScene("my_home");
         }
     },
 
     goToShow() {
         cc.find("sound").getComponent("sound").tap()
         if (CACHE.scene !== SCENE.SHOW) {
-            CACHE.targetScene = 'show';
-            cc.director.loadScene("innerLoading");
-            //cc.director.loadScene("show");
+            // CACHE.targetScene = 'show';
+            // cc.director.loadScene("innerLoading");
+            cc.director.loadScene("show");
         }
     },
 

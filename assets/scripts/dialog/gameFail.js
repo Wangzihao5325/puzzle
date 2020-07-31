@@ -83,9 +83,9 @@ cc.Class({
 
     handleNoRevive() {
         this.failWarp.destroy()
-        CACHE.targetScene = 'mission';
-        cc.director.loadScene("innerLoading");
-
+        // CACHE.targetScene = 'mission';
+        // cc.director.loadScene("innerLoading");
+        cc.director.loadScene("mission");
     },
 
 

@@ -106,9 +106,9 @@ cc.Class({
             const data=CITIES[i]
             if(data.missionDone<data.missionNum){
                 CACHE.travel_city_press=data;
-                CACHE.targetScene = 'mission';
-                cc.director.loadScene("innerLoading");
-                //cc.director.loadScene("mission");
+                // CACHE.targetScene = 'mission';
+                // cc.director.loadScene("innerLoading");
+                cc.director.loadScene("mission");
                 break;
             }
         }
@@ -127,15 +127,15 @@ cc.Class({
                 break;
             case 1:
                 //展览
-                CACHE.targetScene = 'show';
-                cc.director.loadScene("innerLoading");
-                //cc.director.loadScene("show");
+                // CACHE.targetScene = 'show';
+                // cc.director.loadScene("innerLoading");
+                cc.director.loadScene("show");
                 break;
             case 2:
                 //完成宠物外出
-                CACHE.targetScene = 'my_home';
-                cc.director.loadScene("innerLoading");
-                //cc.director.loadScene("my_home");
+                // CACHE.targetScene = 'my_home';
+                // cc.director.loadScene("innerLoading");
+                cc.director.loadScene("my_home");
 
                 // setTimeout(()=>{
                 //     const obj=cc.find('Canvas').getComponent('home_index')
@@ -144,9 +144,9 @@ cc.Class({
                 break;
             case 3:
                 //宠物喂养
-                CACHE.targetScene = 'my_home';
-                cc.director.loadScene("innerLoading");
-                //cc.director.loadScene("my_home");
+                // CACHE.targetScene = 'my_home';
+                // cc.director.loadScene("innerLoading");
+                cc.director.loadScene("my_home");
 
                 // setTimeout(()=>{
                 //     const obj=cc.find('Canvas').getComponent('home_index')

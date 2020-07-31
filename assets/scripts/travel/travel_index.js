@@ -196,9 +196,9 @@ cc.Class({
 
     cityPress(itemObj) {
         CACHE.travel_city_press = itemObj;//在cache中存储点击选项，新场景加载后读取，获得传值
-        CACHE.targetScene = 'mission';
-        cc.director.loadScene("innerLoading");
-        //cc.director.loadScene("mission");
+        // CACHE.targetScene = 'mission';
+        // cc.director.loadScene("innerLoading");
+        cc.director.loadScene("mission");
     },
 
     _showTaskCallbackSet(showTaskCallback) {
@@ -285,9 +285,9 @@ cc.Class({
         });
         this.awardGameBtn.on(cc.Node.EventType.TOUCH_END, (event) => {
             cc.find("sound").getComponent("sound").tap();
-            CACHE.targetScene = 'awardGame';
-            cc.director.loadScene("innerLoading");
-            //cc.director.loadScene('awardGame');
+            // CACHE.targetScene = 'awardGame';
+            // cc.director.loadScene("innerLoading");
+            cc.director.loadScene('awardGame');
             event.stopPropagation();
         });
 

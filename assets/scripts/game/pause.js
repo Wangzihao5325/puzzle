@@ -49,9 +49,9 @@ cc.Class({
         this.dialog.active = false;
         const contralObj=cc.find('Canvas/menuWarp').getComponent('conraol')
         contralObj.gameOver();
-        CACHE.targetScene = 'travel';
-        cc.director.loadScene("innerLoading");
-        //cc.director.loadScene("travel");
+        // CACHE.targetScene = 'travel';
+        // cc.director.loadScene("innerLoading");
+        cc.director.loadScene("travel");
     },
 
     closeDialog() {

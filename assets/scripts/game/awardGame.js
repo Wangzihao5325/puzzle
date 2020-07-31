@@ -76,9 +76,9 @@ cc.Class({
     redirectPuzzle() {
 
         CACHE.hard_level=4;
-        CACHE.targetScene = 'puzzle';
-        cc.director.loadScene("innerLoading");
-        //cc.director.loadScene("puzzle");
+        // CACHE.targetScene = 'puzzle';
+        // cc.director.loadScene("innerLoading");
+        cc.director.loadScene("puzzle");
     },
 
     starExpendAnimation(){
@@ -98,6 +98,8 @@ cc.Class({
         });
     },
     back(){
+        // CACHE.targetScene = 'travel';
+        // cc.director.loadScene("innerLoading");
         cc.director.loadScene("travel");
     },
 
