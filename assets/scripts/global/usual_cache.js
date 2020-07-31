@@ -86,8 +86,8 @@ const CACHE = {
     },
     missionLocationHurdleId: 0,
     targetScene:'',
-    isMissionDone = false,
-    isAeardGameDone = false,
+    isMissionDone: false,
+    isAeardGameDone: false,
 }
 
 export default {
