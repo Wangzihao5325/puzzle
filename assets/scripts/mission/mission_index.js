@@ -301,6 +301,15 @@ cc.Class({
         if (CACHE.platform.isIphoneX) {
             this.headerWarp.height = 140
         }
+        if (!CACHE.isMissionDone) {
+            cc.loader.loadResDir('3x4/', cc.SpriteFrame, (err, spriteFrames) => {
+                cc.loader.loadResDir('4x6/', cc.SpriteFrame, (err, spriteFrames) => {
+                    cc.loader.loadResDir('6x8/', cc.SpriteFrame, (err, spriteFrames) => {
+                        CACHE.isMissionDone = true;
+                    })
+                })
+            })
+        }
     },
 
     start() {

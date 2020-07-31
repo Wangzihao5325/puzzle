@@ -51,6 +51,11 @@ cc.Class({
         if (CACHE.platform.isIphoneX) {
             this.headerWarp.height = 140
         }
+        if(!CACHE.isAeardGameDone){
+            cc.loader.loadResDir('6x6/', cc.SpriteFrame, (err, spriteFrames) => {
+                CACHE.isAeardGameDone = true;
+            });
+        }
     },
     goAwardGame(){},
 

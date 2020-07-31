@@ -125,54 +125,46 @@ cc.Class({
                                         let step4_2 = cc.find('jiaoyin2', this.node4)
                                         step4_2.active = true;
                                         /**获取新手引导进度 */
-
-                                        cc.loader.loadResDir('3x4/', cc.SpriteFrame, (err, spriteFrames) => {
-                                            this.loadingProgressAdd(9, totalStep, totalWidth);
-                                            let step5_1 = cc.find('jiaoyin1', this.node5)
-                                            step5_1.active = true;
-                                            // handle spriteFrames
-                                            cc.loader.loadResDir('4x6/', cc.SpriteFrame, (err, spriteFrames) => {
-                                                this.loadingProgressAdd(10, totalStep, totalWidth);
-                                                let step5_2 = cc.find('jiaoyin2', this.node5)
-                                                step5_2.active = true;
-                                                // handle spriteFrames
-                                                cc.loader.loadResDir('6x8/', cc.SpriteFrame, (err, spriteFrames) => {
-                                                    this.loadingProgressAdd(11, totalStep, totalWidth);
-                                                    let step6_1 = cc.find('jiaoyin1', this.node6)
-                                                    step6_1.active = true;
-                                                    // handle spriteFrames
-                                                    cc.loader.loadResDir('6x6/', cc.SpriteFrame, (err, spriteFrames) => {
-                                                        this.loadingProgressAdd(12, totalStep, totalWidth);
-                                                        let step6_2 = cc.find('jiaoyin2', this.node6)
-                                                        step6_2.active = true;
-                                                        cc.loader.loadResDir('mission/', cc.SpriteFrame, (err, spriteFrames) => {
-                                                            this.loadingProgressAdd(13, totalStep, totalWidth);
-                                                            let step7_1 = cc.find('jiaoyin1', this.node7)
-                                                            step7_1.active = true;
-                                                            Api.guideState((res) => {
-                                                                if (res.data) {
-                                                                    CACHE.userInfo.stage = res.data.stage;
-                                                                    CACHE.userInfo.firstPetBackHomeEnded = res.data.firstPetBackHomeEnded;
-                                                                    CACHE.userInfo.firstRecallEnded = res.data.firstRecallEnded;
-                                                                    CACHE.userInfo.firstRewardTaskEnded = res.data.firstRewardTaskEnded;
-                                                                    this.loadingProgressAdd(14, totalStep, totalWidth);
-                                                                    let step7_2 = cc.find('jiaoyin2', this.node7)
-                                                                    step7_2.active = true;
-                                                                    let step8_1 = cc.find('jiaoyin1', this.node8)
-                                                                    step8_1.active = true;
-                                                                    let step8_2 = cc.find('jiaoyin2', this.node8)
-                                                                    step8_2.active = true;
-                                                                    cc.director.loadScene("travel");
-                                                                }
-                                                                if (CACHE.platform.isWachat) {
-                                                                    WxApi.loadUserInfo();
-                                                                }
-                                                            });
-                                                        });
-                                                    });
-                                                });
+                                        this.loadingProgressAdd(9, totalStep, totalWidth);
+                                        let step5_1 = cc.find('jiaoyin1', this.node5)
+                                        step5_1.active = true;
+                                        this.loadingProgressAdd(10, totalStep, totalWidth);
+                                        let step5_2 = cc.find('jiaoyin2', this.node5)
+                                        step5_2.active = true;
+                                        this.loadingProgressAdd(11, totalStep, totalWidth);
+                                        let step6_1 = cc.find('jiaoyin1', this.node6)
+                                        step6_1.active = true;
+                                        // handle spriteFrames
+                                        this.loadingProgressAdd(12, totalStep, totalWidth);
+                                        let step6_2 = cc.find('jiaoyin2', this.node6)
+                                        step6_2.active = true;
+                                        cc.loader.loadResDir('mission/', cc.SpriteFrame, (err, spriteFrames) => {
+                                            this.loadingProgressAdd(13, totalStep, totalWidth);
+                                            let step7_1 = cc.find('jiaoyin1', this.node7)
+                                            step7_1.active = true;
+                                            Api.guideState((res) => {
+                                                if (res.data) {
+                                                    CACHE.userInfo.stage = res.data.stage;
+                                                    CACHE.userInfo.firstPetBackHomeEnded = res.data.firstPetBackHomeEnded;
+                                                    CACHE.userInfo.firstRecallEnded = res.data.firstRecallEnded;
+                                                    CACHE.userInfo.firstRewardTaskEnded = res.data.firstRewardTaskEnded;
+                                                    this.loadingProgressAdd(14, totalStep, totalWidth);
+                                                    let step7_2 = cc.find('jiaoyin2', this.node7)
+                                                    step7_2.active = true;
+                                                    let step8_1 = cc.find('jiaoyin1', this.node8)
+                                                    step8_1.active = true;
+                                                    let step8_2 = cc.find('jiaoyin2', this.node8)
+                                                    step8_2.active = true;
+                                                    cc.director.loadScene("travel");
+                                                }
+                                                if (CACHE.platform.isWachat) {
+                                                    WxApi.loadUserInfo();
+                                                }
                                             });
                                         });
+
+
+
 
                                     })
                                 })

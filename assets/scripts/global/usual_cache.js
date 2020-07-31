@@ -85,7 +85,9 @@ const CACHE = {
         reCall: false, //回忆
     },
     missionLocationHurdleId: 0,
-    targetScene:''
+    targetScene:'',
+    isMissionDone = false,
+    isAeardGameDone = false,
 }
 
 export default {
