@@ -1,7 +1,7 @@
 import CusHttp from './custom_http';
 import { CACHE } from '../global/usual_cache';
-//const API_DOMAIN = 'http://192.168.3.144:8090';
-const API_DOMAIN = 'https://mp.becabaking.xyz:8090';
+const API_DOMAIN = 'http://192.168.3.144:8090';
+// const API_DOMAIN = 'https://mp.becabaking.xyz:8090';
 
 /**
  * 根据城市id获取城市详情
@@ -161,6 +161,18 @@ const petGoout = (callback, failedCallback) => {
  */
 const allow_goout = (callback, failedCallback) => {
     new CusHttp().Get(`${API_DOMAIN}/pet/allow_go_out`, callback, failedCallback)
+};
+
+
+
+
+/**
+ * 第一次宠物提示
+ * @param {Function} callback
+ * @param {Function} failedCallback
+ */
+const myhome_first = (callback, failedCallback) => {
+    new CusHttp().Get(`${API_DOMAIN}/pet/myhome/first`, callback, failedCallback)
 };
 
 /**
@@ -455,6 +467,7 @@ export default {
     addHeartEnergy,
     showSpeedUp,
     missionLockShow,
+    myhome_first,
 
     guideState,
     guideStageComplete,

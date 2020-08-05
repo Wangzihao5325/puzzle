@@ -2548,10 +2548,21 @@
     "modal": {
       "__id__": 1
     },
-    "goOut": null,
-    "dress": null,
-    "feed": null,
-    "close": null,
+    "goOut": {
+      "__id__": 43
+    },
+    "dress": {
+      "__id__": 53
+    },
+    "feed": {
+      "__id__": 10
+    },
+    "close": {
+      "__id__": 7
+    },
+    "mainContent": {
+      "__id__": 6
+    },
     "_id": ""
   },
   {

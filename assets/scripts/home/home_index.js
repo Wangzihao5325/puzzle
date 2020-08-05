@@ -51,6 +51,8 @@ cc.Class({
         collectNew: cc.Node,
         help:cc.Node,
         helPdig:cc.Prefab,
+        goOutIcon:cc.Node,
+        dressIcon:cc.Node,
     },
 
     stateUpdate() {
@@ -344,6 +346,11 @@ cc.Class({
 
     start() {
         this.init();
+
+        if(CACHE.userInfo.firstMyHome===false){
+            this.show_help()
+        }
+
         //测试用
         // this.showCollect()
     },
@@ -399,12 +406,65 @@ cc.Class({
         collect.parent = canvas
     },
 
-    setTouch(hardLevel) {
-        this.cat.on(cc.Node.EventType.TOUCH_END, (event) => {
-            cc.find("sound").getComponent("sound").tap()
-            this.showCatAction()
-            event.stopPropagation();
+
+    checkCanOut(){
+        Api.allow_goout((res) => {
+            if(res.code===0){
+                this.handleGoout()
+            }else if (res.code === 20008) {
+                //体力不够
+                Hunger.show("")
+            }
+            else if (res.code === 20011) {
+                //太累了
+                const str = res.message
+                const time = str.slice(str.indexOf('=') + 1)
+                Tire.show(time)
+            }
+            else {
+                Toast.show(res.message || '外出失败')
+            }
         })
+
+    },
+
+    handleGoout() {
+
+        ConfirmOut.show(() => {
+            Api.petGoout((res) => {
+                if (res.code === 0) {
+                    Toast.show("宠物已外出")
+                    this.setOUtUi()
+                } else if (res.code === 20008) {
+                    //体力不够
+                    Hunger.show("")
+                }
+                else if (res.code === 20011) {
+                    //太累了
+                    const str = res.message
+                    const time = str.slice(str.indexOf('=') + 1)
+                    Tire.show(time)
+                }
+                else {
+                    Toast.show(res.message || '外出失败')
+                }
+            })
+        },
+            ((res) => {
+                Toast.show(res.message || '外出失败')
+
+            })
+        )
+
+    },
+
+
+    setTouch(hardLevel) {
+        // this.cat.on(cc.Node.EventType.TOUCH_END, (event) => {
+        //     cc.find("sound").getComponent("sound").tap()
+        //     this.showCatAction()
+        //     event.stopPropagation();
+        // })
         this.store_icon.on(cc.Node.EventType.TOUCH_END, (event) => {
             cc.find("sound").getComponent("sound").tap()
             this.showStore()
@@ -435,6 +495,19 @@ cc.Class({
             cc.find("sound").getComponent("sound").tap()
             this.show_help()
             event.stopPropagation();
+        })
+
+        this.dressIcon.on(cc.Node.EventType.TOUCH_END, (event) => {
+            cc.find("sound").getComponent("sound").tap()
+            this.show_dress()
+            event.stopPropagation();
+
+        })
+        this.goOutIcon.on(cc.Node.EventType.TOUCH_END, (event) => {
+            cc.find("sound").getComponent("sound").tap()
+            this.checkCanOut()
+            event.stopPropagation();
+
         })
 
     },
@@ -487,6 +560,24 @@ cc.Class({
                 });
             });
         });
+    },
+
+
+    
+    show_dress() {
+
+        //隐藏猫盆
+        let homeIndeObj = cc.find('Canvas').getComponent('home_index')
+        homeIndeObj.showBowl(false)
+
+        let dressModalInstan = cc.instantiate(this.dress_modal)
+        var warp_parent = cc.find(`Canvas`)
+        dressModalInstan.parent = warp_parent
+        dressModalInstan.setPosition(0, 0);
+
+        let obj=dressModalInstan.getComponent('dress')
+        obj.show_dress()
+
     },
 
     handleDressItem(item) {

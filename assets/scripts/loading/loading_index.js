@@ -148,6 +148,7 @@ cc.Class({
                                                     CACHE.userInfo.firstPetBackHomeEnded = res.data.firstPetBackHomeEnded;
                                                     CACHE.userInfo.firstRecallEnded = res.data.firstRecallEnded;
                                                     CACHE.userInfo.firstRewardTaskEnded = res.data.firstRewardTaskEnded;
+                                                    CACHE.userInfo.firstMyHome = res.data.firstMyHome;
                                                     this.loadingProgressAdd(14, totalStep, totalWidth);
                                                     let step7_2 = cc.find('jiaoyin2', this.node7)
                                                     step7_2.active = true;

@@ -45,6 +45,10 @@ cc.Class({
             type: cc.AudioClip
         },
         adButton: cc.Node,
+        collectIcon:cc.Node,
+        collect: cc.Prefab,
+
+
     },
 
     locationCity() {
@@ -225,7 +229,12 @@ cc.Class({
         const canvas = cc.find('Canvas')
         store.parent = canvas
     },
-
+    showCollect() {
+        let collect = cc.instantiate(this.collect);
+        collect.name = 'collect_root';
+        const canvas = cc.find('Canvas')
+        collect.parent = canvas
+    },
     signSetTouch() {//signBg
         this.signDoubleButton.on(cc.Node.EventType.TOUCH_END, (event) => {
             this.signDoubleImage.active = !this.signDoubleImage.active;
@@ -297,6 +306,11 @@ cc.Class({
         this.signGetGoods.on(cc.Node.EventType.TOUCH_MOVE, (event) => {
             event.stopPropagation();
         });
+        this.collectIcon.on(cc.Node.EventType.TOUCH_END, (event) => {
+            cc.find("sound").getComponent("sound").tap()
+            this.showCollect()
+            event.stopPropagation();
+        })
 
         this.signGetGoods.on(cc.Node.EventType.TOUCH_END, (event) => {
             cc.find("sound").getComponent("sound").tap()

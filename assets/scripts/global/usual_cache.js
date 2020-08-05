@@ -52,6 +52,7 @@ const CACHE = {
         firstRewardTaskEnded: false,
         firstTwoStarHurdle: true,
         firstTask: true,
+        firstMyHome:false,
     },
     dragonBoneAnimateName: '',
     lastBagTypeLength: 0,
@@ -72,7 +73,7 @@ const CACHE = {
         isIphoneX: false,
         visibleSize: null
     },
-    isShowGuide: true,
+    isShowGuide: false,
     btnTips: {
         task: false, //旅行页任务
         dailyTask: false, //日常任务
