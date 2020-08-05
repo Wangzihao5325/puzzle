@@ -99,6 +99,38 @@ cc.Class({
         }, 10000);
     },
 
+    checkComplete() {
+        if (this.completeStep === 0) {
+            //设置文字提示
+            this.isInitDone = false;
+            this.guideToastNode.item_obj.setContentStr("<color=#887160>磁铁可以帮助你自动完成一块哦\n快试试效果吧</color>");
+            this.guideToastNode.setPosition(0, 380);
+            this.guideToastNode.active = true;
+            setTimeout(() => {
+                this.guideToastNode.active = false;
+                let handPosition = CACHE.platform.isIphoneX ? cc.v2(-150, 600) : cc.v2(-150, 530);
+                this.handPressNode.setPosition(handPosition);
+                this.handPressNode.active = true;
+                this.isInitDone = true;
+            }, 1000);
+        }
+        if (this.completeStep === 4) {
+            //设置文字提示
+            this.isInitDone = false;
+            this.guideToastNode.item_obj.setContentStr("<color=#887160>当忘记原图什么样子的时候\n,可以使用查看道具查看哦</color>");
+            this.guideToastNode.setPosition(0, 380);
+            this.guideToastNode.active = true;
+            setTimeout(() => {
+                this.guideToastNode.active = false;
+                let handPosition = CACHE.platform.isIphoneX ? cc.v2(80, 600) : cc.v2(80, 530);
+                this.handPressNode.setPosition(handPosition);
+                this.handPressNode.active = true;
+                this.isInitDone = true;
+            }, 1000);
+        }
+        this.completeStep++;
+    },
+
 
     onTouchStart(event) {
         if (!this.isInitDone) {
@@ -122,6 +154,7 @@ cc.Class({
             this.node._touchListener.setSwallowTouches(false);
         } else if (this.guideStep == 2) {
             //此时分享弹窗已经出现，不能让玩家乱点
+            /*
             let originNode = cc.find('Canvas/root/game_share/container/poster');
             if (originNode) {
                 let pos = originNode.convertToNodeSpaceAR(event.getLocation());
@@ -137,6 +170,7 @@ cc.Class({
                 this.node._touchListener.setSwallowTouches(true);
                 return;
             }
+            */
         }
     },
 
@@ -169,15 +203,15 @@ cc.Class({
             return;
         }
 
-        if (this.guideStep == 1) {
-            if (this.guideToastNode) {
-                this.guideToastNode.active = false;
-            }
-            if (this.handPressNode) {
-                this.handPressNode.active = false;
-            }
-            this.guideStep++;
+        // if (this.guideStep == 1) {
+        if (this.guideToastNode) {
+            this.guideToastNode.active = false;
         }
+        if (this.handPressNode) {
+            this.handPressNode.active = false;
+        }
+        this.guideStep++;
+        //  }
 
         if (this.handNode) {
             this.handNode.active = false;
@@ -232,17 +266,61 @@ cc.Class({
         if (conraol) {
             let conraolComponent = conraol.getComponent('conraol');
             if (conraolComponent) {
-                conraolComponent._guideCallbackSetting(() => this.awardDone(), () => this.showDone(), () => this.failedDone(), () => this.rebornDone());
+                //conraolComponent._guideCallbackSetting(() => this.awardDone(), () => this.showDone(), () => this.failedDone(), () => this.rebornDone());
+                conraolComponent._guideCallbackSetting(null, null, () => this.failedDone(), () => this.rebornDone());
+                if (CACHE.userInfo.stage == 1) {
+                    this.completeStep = 0;
+                    conraolComponent._checkCompleteCallbackSetting(() => this.checkComplete());
+                }
             }
         }
 
         if (CACHE.userInfo && CACHE.userInfo.stage !== 99) {
             if (CACHE.userInfo.stage == 1 || CACHE.userInfo.stage == 3 || CACHE.userInfo.stage == 6) {
                 //设置掉落结束的callback
-                this.setPliceAnimateCallback(() => this.guideHandShow());
-                this.node.on(cc.Node.EventType.TOUCH_START, this.onTouchStart, this);
+                // this.setPliceAnimateCallback(() => this.guideHandShow());
+                // this.node.on(cc.Node.EventType.TOUCH_START, this.onTouchStart, this);
+
+                this.timer = setTimeout(() => {
+                    this.guideHandShow();
+                }, 10000);
+
+                this.setPliceAnimateCallback(() => setTimeout(() => {
+                    //设置手势提示
+                    this.handPressNode = cc.instantiate(this.hand);
+                    this.handPressNode.scaleX = 0.4;
+                    this.handPressNode.scaleY = 0.4;
+                    this.handPressNode.parent = this.node;
+                    let handPosition = CACHE.platform.isIphoneX ? cc.v2(-30, 600) : cc.v2(-30, 530);
+                    this.handPressNode.setPosition(handPosition);
+                    let handObj = this.handPressNode.getComponent('guideHand');
+                    if (handObj) {
+                        handObj.handAnimate();
+                    }
+                    //设置文字提示
+                    this.guideToastNode = cc.instantiate(this.guideToast);
+                    let obj = this.guideToastNode.getComponent('guideToast');
+                    if (obj) {
+                        this.guideToastNode.item_obj = obj;
+                        obj.setContentStr("<color=#887160>将直边拼图排列在\n前快试试效果吧!</color>");
+                    }
+                    this.guideToastNode.parent = this.node;
+                    this.guideToastNode.setPosition(180, 380);
+
+                    this.isInitDone = true;
+                }, 1000));
+                this.node.on(cc.Node.EventType.TOUCH_START, this.onTouchStartToolsGuide, this);
             }
         } else if (CACHE.userInfo.stage == 99) {
+            //正常拼图，处理未导航时长时间不操作处理
+            this.node.zIndex = 10000;
+            this.timer = setTimeout(() => {
+                this.guideHandShow();
+            }, 10000);
+
+            this.setPliceAnimateCallback(() => setTimeout(() => { this.isInitDone = true }, 1000));
+            this.node.on(cc.Node.EventType.TOUCH_START, this.onTouchStartWithoutGuide, this);
+            /*
             //第一次进入难度大于12块的拼图,引导使用道具
             if (CACHE.hard_level > 0 && CACHE.userInfo.firstTwoStarHurdle) {
                 this.timer = setTimeout(() => {
@@ -284,6 +362,7 @@ cc.Class({
                 this.setPliceAnimateCallback(() => setTimeout(() => { this.isInitDone = true }, 1000));
                 this.node.on(cc.Node.EventType.TOUCH_START, this.onTouchStartWithoutGuide, this);
             }
+            */
         }
     },
 
