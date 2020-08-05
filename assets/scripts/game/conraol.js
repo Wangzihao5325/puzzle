@@ -87,6 +87,12 @@ cc.Class({
         }
     },
 
+    _checkCompleteCallbackSetting(completeCallback) {
+        if (completeCallback) {
+            this._completeCallback = completeCallback;
+        }
+    },
+
     // LIFE-CYCLE CALLBACKS:
 
     onLoad() {
@@ -407,6 +413,10 @@ cc.Class({
 
     //判断完成，并调用完成动画
     checkComplate(onlyCheck = false) {
+        //给引导使用的回调
+        if (this._completeCallback) {
+            this._completeCallback();
+        }
         if (onlyCheck) {
             if (SIZES[CACHE.hard_level].length == GAME_CACHE.complateIndex.length) {
                 return true
