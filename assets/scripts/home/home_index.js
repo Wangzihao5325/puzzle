@@ -49,6 +49,8 @@ cc.Class({
         recallNew: cc.Node,
         backpackNew: cc.Node,
         collectNew: cc.Node,
+        help:cc.Node,
+        helPdig:cc.Prefab,
     },
 
     stateUpdate() {
@@ -78,6 +80,13 @@ cc.Class({
         // const feed = feedWarpInstan.getComponent('feed')
         // feed.resetUI()
     },
+
+        //喂养
+        show_help() {
+            let helpWarp = cc.instantiate(this.helPdig);
+            var warp_parent = cc.find(`Canvas`)
+            helpWarp.parent = warp_parent
+        },
 
     showBowl(show = true) {
         this.bowlWarp.active = show
@@ -419,6 +428,12 @@ cc.Class({
         this.bowlWarp.on(cc.Node.EventType.TOUCH_END, (event) => {
             cc.find("sound").getComponent("sound").tap()
             this.show_feed()
+            event.stopPropagation();
+        })
+
+        this.help.on(cc.Node.EventType.TOUCH_END, (event) => {
+            cc.find("sound").getComponent("sound").tap()
+            this.show_help()
             event.stopPropagation();
         })
 

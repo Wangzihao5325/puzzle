@@ -3,6 +3,7 @@ const SCENE = {
     TRAVEL: 'travel_scene',
     HOME: 'home_scene',
     SHOW: 'show_scene',
+    BACKPACK:'backpack',
     MISSION: 'mission_scene',
     GAME: 'game_scene',
 };
@@ -14,6 +15,7 @@ const SCENE_KEY = {
     MISSION: 3,
     GAME: 4,
     LOADING: 5,
+    BACKPACK:6,
 };
 
 const IMAGE_SERVER = 'https://img.becabaking.xyz';

@@ -1516,8 +1516,8 @@
       }
     ],
     "_useOriginalSize": false,
-    "_string": "展览",
-    "_N$string": "展览",
+    "_string": "背包",
+    "_N$string": "背包",
     "_fontSize": 40,
     "_lineHeight": 40,
     "_enableWrapText": true,
@@ -1628,7 +1628,7 @@
     },
     "component": "",
     "_componentId": "7afaeLABcNHC7IsNsP4pFLe",
-    "handler": "goToShow",
+    "handler": "goToBackPack",
     "customEventData": ""
   },
   {

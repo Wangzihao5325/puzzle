@@ -107,6 +107,15 @@ cc.Class({
         }
     },
 
+    goToBackPack(){
+        cc.find("sound").getComponent("sound").tap()
+        if (CACHE.scene !== SCENE.BACKPACK) {
+            // CACHE.targetScene = 'show';
+            // cc.director.loadScene("innerLoading");
+            cc.director.loadScene("backpack");
+        }
+    },
+
     // LIFE-CYCLE CALLBACKS:
 
     // onLoad () {},
