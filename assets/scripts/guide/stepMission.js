@@ -4,6 +4,7 @@ cc.Class({
 
     properties: {
         hand: cc.Prefab,
+        guideToast: cc.Prefab,
     },
 
     onLoad() {
@@ -162,6 +163,10 @@ cc.Class({
     },
 
     onTouchStart(event) {
+        if (this.waiting) {
+            this.node._touchListener.setSwallowTouches(true);
+            return;
+        }
         this._isPressIn = this.isUserPressIn(event);
         if (this._isPressIn) {
             this.node._touchListener.setSwallowTouches(false);
@@ -175,6 +180,10 @@ cc.Class({
     },
 
     onTouchEnd(event) {
+        if (this.waiting) {
+            this.node._touchListener.setSwallowTouches(true);
+            return;
+        }
         // 判断触摸点是否在按钮上
         if (this._isPressIn && this.isUserPressIn(event)) {
             this.node._touchListener.setSwallowTouches(false);
@@ -188,7 +197,23 @@ cc.Class({
 
     guide() {
         if (this.guideStep == 2) {
-            this.handNode.setPosition(cc.v2(0, -260));
+            this.waiting = true;
+            this.handNode.active = false;
+
+            this.guideToastNode = cc.instantiate(this.guideToast);
+            let guideToastObj = this.guideToastNode.getComponent('guideToast');
+            if (guideToastObj) {
+                this.guideToastNode.item_obj = guideToastObj;
+                guideToastObj.setContentStr("<color=#887160>各种稀有旅行纪念品,\n在高难度关卡掉落几率更大哦</color>");
+            }
+            this.guideToastNode.parent = this.node;
+            this.guideToastNode.setPosition(cc.v2(0, -400));
+            setTimeout(() => {
+                this.guideToastNode.active = false;
+                this.handNode.active = true;
+                this.handNode.setPosition(cc.v2(0, -260));
+                this.waiting = false;
+            }, 2000);
         }
     },
 });
