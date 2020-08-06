@@ -114,7 +114,7 @@ cc.Class({
                 this.isInitDone = true;
             }, 1000);
         }
-        if (this.completeStep === 4) {
+        if (this.completeStep === 5) {
             //设置文字提示
             this.isInitDone = false;
             this.guideToastNode.item_obj.setContentStr("<color=#887160>当忘记原图什么样子的时候\n,可以使用查看道具查看哦</color>");
