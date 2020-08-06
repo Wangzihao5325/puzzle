@@ -65,7 +65,9 @@ cc.Class({
         crossWrap: cc.Node,
         crossholo: cc.Node,
         crossDiamond: cc.Node,
-        crossBorder: cc.Node
+        crossBorder: cc.Node,
+        help:cc.Node,
+        helPdig:cc.Prefab,
     },
 
     /**
@@ -195,7 +197,7 @@ cc.Class({
             const spliceWarpChildren = spliceWarp.children[0];
             const currentNode = spliceWarpChildren;
             // var puzzleBg = cc.find(`Canvas`);
-            currentNode.parent = cc.find(`Canvas`);;
+            currentNode.parent = cc.find(`Canvas`);
             currentNode.zIndex = 10000;
             currentNode.opacity = 255;
             let newPositin = cc.v2(0, -540);
@@ -408,6 +410,11 @@ cc.Class({
         this.viewPuaaleImg.on(cc.Node.EventType.TOUCH_END, (event) => {
             cc.find("sound").getComponent("sound").tap()
             this.closeView()
+        })
+        this.help.on(cc.Node.EventType.TOUCH_END, (event) => {
+            cc.find("sound").getComponent("sound").tap()
+            this.show_help()
+            event.stopPropagation();
         })
     },
 
@@ -626,12 +633,6 @@ cc.Class({
             //新手引导使用的callback,用来判断奖励弹窗是否出现
             this._guideShowAwardCallback();
         }
-        setTimeout(() => {
-            game_award.destroy();
-            header.destroy();
-            this.showShare(item, leavel - 1);
-            cc.find("sound").getComponent("sound").updateAssets()
-        }, 3000)
 
     },
 
@@ -657,9 +658,12 @@ cc.Class({
     },
 
     //显示分享弹窗
-    showShare(item, leavel) {
+    showShare() {
+        let header=cc.find('Canvas/headerWarp')
+        header.destroy();
+
         const shareList = [this.game_share1, this.game_share2, this.game_share3, this.game_share3, this.game_share3]
-        let game_share = cc.instantiate(shareList[leavel]);
+        let game_share = cc.instantiate(shareList[CACHE.hard_level]);
         game_share.parent = this.root_warp;
         game_share.name = 'game_share'
         let obj = game_share.getComponent('share');
@@ -813,6 +817,11 @@ cc.Class({
         } else {
             return `00:0${time}`;
         }
+    },
+    show_help() {
+        let helpWarp = cc.instantiate(this.helPdig);
+        var warp_parent = cc.find(`Canvas`)
+        helpWarp.parent = warp_parent
     },
 
 });

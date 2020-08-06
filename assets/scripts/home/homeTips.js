@@ -49,6 +49,9 @@ cc.Class({
             goOutIcon.opacity=0
             dreesIcon.opacity=0
             bowlIcon.opacity=0
+            setTimeout(()=>{
+                this.handleClose()
+            },2000)
         }
     },
     init(type){
