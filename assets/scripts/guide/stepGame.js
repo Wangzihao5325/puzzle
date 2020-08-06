@@ -153,6 +153,7 @@ cc.Class({
             }
             this.node._touchListener.setSwallowTouches(false);
         } else if (this.guideStep == 2) {
+            this.node._touchListener.setSwallowTouches(false);
             //此时分享弹窗已经出现，不能让玩家乱点
             /*
             let originNode = cc.find('Canvas/root/game_share/container/poster');
@@ -171,6 +172,8 @@ cc.Class({
                 return;
             }
             */
+        }else{
+            this.node._touchListener.setSwallowTouches(false);
         }
     },
 

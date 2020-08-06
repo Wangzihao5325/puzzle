@@ -354,6 +354,20 @@ cc.Class({
                     cc.director.loadScene("mission");
                 }
             })
+        } else {
+            if ((CACHE.list[CACHE.list.length - 1] === CACHE.mission_press) && (CACHE.travel_city_press.index !== 7)) {
+                //城市的最后一关且不是西藏,7是西藏，最后一个城市没法往后跳
+                let newIndex = CACHE.travel_city_press.index + 1;
+                let newCityItem = CITIES[newIndex];
+                CACHE.travel_city_press = newCityItem;
+                // CACHE.targetScene = 'mission';
+                // cc.director.loadScene("innerLoading");
+                cc.director.loadScene("mission");
+            } else {
+                // CACHE.targetScene = 'mission';
+                // cc.director.loadScene("innerLoading");
+                cc.director.loadScene("mission");
+            }
         }
     },
 
