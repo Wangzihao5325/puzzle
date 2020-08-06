@@ -70,14 +70,15 @@ cc.Class({
 
 
     handleClose(){
-        this.scrollContent.destroy()
-        cc.tween(this.warp)
-        .to(.1,{scale:1.2})
-        .to(0.3,{scale:.2,opacity:0})
-        .call(()=>{
-            this.modal.destroy()
-        })
-        .start()
+        //this.scrollContent.destroy()
+        // cc.tween(this.warp)
+        // .to(.1,{scale:1.2})
+        // .to(0.3,{scale:.2,opacity:0})
+        // .call(()=>{
+        //     //this.modal.destroy()
+        // })
+        // .start()
+        this.node.active = false;
     },
 
     getBackpack(type){

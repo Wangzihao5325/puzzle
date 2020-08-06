@@ -10,6 +10,7 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
+        backpack: cc.Prefab,
         city_item: cc.Prefab,
         china_map: cc.Node,
         chhina_map_pic: cc.Sprite,
@@ -49,6 +50,15 @@ cc.Class({
         collect: cc.Prefab,
 
 
+    },
+
+    _openBackpack() {
+        if (this._backpack) {
+            this._backpack.active = true;
+        } else {
+            this._backpack = cc.instantiate(this.backpack);
+            this._backpack.parent = cc.find('Canvas');
+        }
     },
 
     locationCity() {

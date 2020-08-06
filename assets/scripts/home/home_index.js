@@ -49,10 +49,19 @@ cc.Class({
         recallNew: cc.Node,
         backpackNew: cc.Node,
         collectNew: cc.Node,
-        help:cc.Node,
-        helPdig:cc.Prefab,
-        goOutIcon:cc.Node,
-        dressIcon:cc.Node,
+        help: cc.Node,
+        helPdig: cc.Prefab,
+        goOutIcon: cc.Node,
+        dressIcon: cc.Node,
+    },
+
+    _openBackpack() {
+        if (this._backpack) {
+            this._backpack.active = true;
+        } else {
+            this._backpack = cc.instantiate(this.backpack);
+            this._backpack.parent = cc.find('Canvas');
+        }
     },
 
     stateUpdate() {
@@ -83,12 +92,12 @@ cc.Class({
         // feed.resetUI()
     },
 
-        //喂养
-        show_help() {
-            let helpWarp = cc.instantiate(this.helPdig);
-            var warp_parent = cc.find(`Canvas`)
-            helpWarp.parent = warp_parent
-        },
+    //喂养
+    show_help() {
+        let helpWarp = cc.instantiate(this.helPdig);
+        var warp_parent = cc.find(`Canvas`)
+        helpWarp.parent = warp_parent
+    },
 
     showBowl(show = true) {
         this.bowlWarp.active = show
@@ -347,7 +356,7 @@ cc.Class({
     start() {
         this.init();
 
-        if(CACHE.userInfo.firstMyHome===false){
+        if (CACHE.userInfo.firstMyHome === false) {
             this.show_help()
         }
 
@@ -407,11 +416,11 @@ cc.Class({
     },
 
 
-    checkCanOut(){
+    checkCanOut() {
         Api.allow_goout((res) => {
-            if(res.code===0){
+            if (res.code === 0) {
                 this.handleGoout()
-            }else if (res.code === 20008) {
+            } else if (res.code === 20008) {
                 //体力不够
                 Hunger.show("")
             }
@@ -563,7 +572,7 @@ cc.Class({
     },
 
 
-    
+
     show_dress() {
 
         //隐藏猫盆
@@ -575,7 +584,7 @@ cc.Class({
         dressModalInstan.parent = warp_parent
         dressModalInstan.setPosition(0, 0);
 
-        let obj=dressModalInstan.getComponent('dress')
+        let obj = dressModalInstan.getComponent('dress')
         obj.show_dress()
 
     },
