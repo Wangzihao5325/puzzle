@@ -99,7 +99,7 @@ cc.Class({
     },
 
     goToShow() {
-        cc.find("sound").getComponent("sound").tap()
+        cc.find("sound").getComponent("sound").tap();
         if (CACHE.scene !== SCENE.SHOW) {
             // CACHE.targetScene = 'show';
             // cc.director.loadScene("innerLoading");
@@ -107,13 +107,25 @@ cc.Class({
         }
     },
 
-    goToBackPack(){
-        cc.find("sound").getComponent("sound").tap()
-        if (CACHE.scene !== SCENE.BACKPACK) {
-            // CACHE.targetScene = 'show';
-            // cc.director.loadScene("innerLoading");
-            cc.director.loadScene("backpack");
+    goToBackPack() {
+        cc.find("sound").getComponent("sound").tap();
+        let node = cc.find('Canvas');
+        if (CACHE.scene === SCENE.TRAVEL) {
+            let obj = node.getComponent('travel_index');
+            if (obj) {
+                obj._openBackpack();
+            }
+        } else if (CACHE.scene === SCENE.HOME) {
+            let obj = node.getComponent('home_index');
+            if (obj) {
+                obj._openBackpack();
+            }
         }
+        // if (CACHE.scene !== SCENE.BACKPACK) {
+        //     // CACHE.targetScene = 'show';
+        //     // cc.director.loadScene("innerLoading");
+        //     cc.director.loadScene("backpack");
+        // }
     },
 
     // LIFE-CYCLE CALLBACKS:
