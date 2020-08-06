@@ -89,6 +89,7 @@ const CACHE = {
     targetScene:'',
     isMissionDone: false,
     isAeardGameDone: false,
+    isShowSign:false,
 }
 
 export default {

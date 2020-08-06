@@ -142,10 +142,10 @@ cc.Class({
     handleBack() {
         if (CACHE.userInfo && typeof CACHE.userInfo.stage == 'number' && CACHE.userInfo.stage == 1) {
             Api.guideStageComplete({ stage: 1 }, (res) => {
-                CACHE.userInfo.stage =99;
+                CACHE.userInfo.stage = 99;
                 this.stageStepOver();
             }, (res) => {
-                CACHE.userInfo.stage =99;
+                CACHE.userInfo.stage = 99;
                 this.stageStepOver();
             })
         } else if (CACHE.userInfo && typeof CACHE.userInfo.stage == 'number' && CACHE.userInfo.stage == 3) {
@@ -320,11 +320,13 @@ cc.Class({
     },
 
     handleContinue() {
-        if(CACHE.userInfo.stage == 1){
+        if (CACHE.userInfo.stage == 1) {
             Api.guideStageComplete({ stage: 1 }, (res) => {
-                CACHE.userInfo.stage =99;
+                CACHE.isShowSign = true;
+                CACHE.userInfo.stage = 99;
             }, (res) => {
-                CACHE.userInfo.stage =99;
+                CACHE.isShowSign = true;
+                CACHE.userInfo.stage = 99;
             })
         }
         if ((CACHE.list[CACHE.list.length - 1] === CACHE.mission_press) && (CACHE.travel_city_press.index !== 7)) {
