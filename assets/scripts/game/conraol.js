@@ -5,7 +5,7 @@ import {
     RoadMap68,
     RoadMap66
 } from '../global/piece_index';
-import { LEVEL,TYPES } from '../global/piece_index';
+import { LEVEL, TYPES } from '../global/piece_index';
 import { CACHE } from '../global/usual_cache';
 import { GAME_CACHE } from '../global/piece_index';
 
@@ -66,8 +66,8 @@ cc.Class({
         crossholo: cc.Node,
         crossDiamond: cc.Node,
         crossBorder: cc.Node,
-        help:cc.Node,
-        helPdig:cc.Prefab,
+        help: cc.Node,
+        helPdig: cc.Prefab,
     },
 
     /**
@@ -118,9 +118,9 @@ cc.Class({
             this.diamondWarp.active = true
         }
 
-        setTimeout(()=>{
+        setTimeout(() => {
             this.highlightGuidePices()
-        },4000)
+        }, 4000)
 
     },
 
@@ -307,7 +307,7 @@ cc.Class({
     },
 
     handleClickSort() {
-        if (this.checkComplate(true)) {
+        if (this.checkComplate(true, true)) {
             return false
         } else if (CACHE.userData.frame > 0) {
             this.userProp({ frame: 1 },
@@ -423,9 +423,9 @@ cc.Class({
     },
 
     //判断完成，并调用完成动画
-    checkComplate(onlyCheck = false) {
+    checkComplate(onlyCheck = false, isSort) {//isSort引导专用参数
         //给引导使用的回调
-        if (this._completeCallback) {
+        if (this._completeCallback && !isSort) {
             this._completeCallback();
         }
         if (onlyCheck) {
@@ -663,7 +663,7 @@ cc.Class({
 
     //显示分享弹窗
     showShare() {
-        let header=cc.find('Canvas/headerWarp')
+        let header = cc.find('Canvas/headerWarp')
         header.destroy();
 
         const shareList = [this.game_share1, this.game_share2, this.game_share3, this.game_share3, this.game_share3]
@@ -711,10 +711,10 @@ cc.Class({
         }, 1000)
     },
 
-    highlightGuidePices(){
+    highlightGuidePices() {
         const hardLeavelSore = TYPES;
-        const hardLevel=CACHE.hard_level
-        const x=hardLeavelSore[hardLevel][0]-1
+        const hardLevel = CACHE.hard_level
+        const x = hardLeavelSore[hardLevel][0] - 1
         let borderNode = cc.find(`Canvas/root/puzzleWarp/puzzleBg/item_puzzle_warp-${x}`);
         let borderObj = borderNode.getComponent('itembg_index');
         if (borderObj) {
