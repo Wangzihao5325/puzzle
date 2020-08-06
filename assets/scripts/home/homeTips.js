@@ -145,8 +145,9 @@ cc.Class({
 
         this.close.on(cc.Node.EventType.TOUCH_END, (event) => {
             cc.find("sound").getComponent("sound").tap()
-
-            this.handleClose()
+            if(CACHE.userInfo.firstMyHome!=false){
+                this.handleClose()
+            }
             event.stopPropagation();
         })
     }

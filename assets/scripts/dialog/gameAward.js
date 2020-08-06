@@ -96,6 +96,18 @@ cc.Class({
                 .start()
         })
 
+        setTimeout(()=>{
+            const leavel=CACHE.hard_level
+            console.log("leavel",leavel)
+            const num=[0,1,2,3,4][leavel+1]
+            for(let i=0;i<num;i++){
+                setTimeout(()=>{
+                    this.addStart()
+                },i*400)
+            }
+    
+        },1500)
+
 
 
     },
@@ -120,18 +132,8 @@ cc.Class({
     },
 
     gloadAnimation(){
-        const leavel=CACHE.hard_level
-        console.log("leavel",leavel)
+
         //金币动画
-       
-        const num=[0,1,2,3,4][leavel+1]
-        for(let i=0;i<num;i++){
-            setTimeout(()=>{
-                this.addStart()
-            },i*400)
-        }
-
-
 
         setTimeout(() => {
             let targetIconNode = cc.find('Canvas/headerWarp/coin/icon');

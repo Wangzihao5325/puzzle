@@ -5,7 +5,7 @@ import {
     RoadMap68,
     RoadMap66
 } from '../global/piece_index';
-import { LEVEL } from '../global/piece_index';
+import { LEVEL,TYPES } from '../global/piece_index';
 import { CACHE } from '../global/usual_cache';
 import { GAME_CACHE } from '../global/piece_index';
 
@@ -117,6 +117,10 @@ cc.Class({
         if (CACHE.hard_level === 4) {
             this.diamondWarp.active = true
         }
+
+        setTimeout(()=>{
+            this.highlightGuidePices()
+        },4000)
 
     },
 
@@ -705,6 +709,17 @@ cc.Class({
 
             }
         }, 1000)
+    },
+
+    highlightGuidePices(){
+        const hardLeavelSore = TYPES;
+        const hardLevel=CACHE.hard_level
+        const x=hardLeavelSore[hardLevel][0]-1
+        let borderNode = cc.find(`Canvas/root/puzzleWarp/puzzleBg/item_puzzle_warp-${x}`);
+        let borderObj = borderNode.getComponent('itembg_index');
+        if (borderObj) {
+            borderObj.borderAnimate();
+        }
     },
 
     //复活

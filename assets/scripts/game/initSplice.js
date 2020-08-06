@@ -16,6 +16,9 @@ function initItem(SIZES, hardLevel, sortType = 0, pre_item, game_bg, spframe_puz
         case 2:
             reSortSizeArr = SIZES;
             break;
+        case 3: 
+            reSortSizeArr = orderByRandom([...SIZES[hardLevel]],true)
+            break;
     }
     GAME_CACHE.spliceArr = reSortSizeArr
     /*遍历size根据size生成item*/
@@ -160,10 +163,21 @@ function defaultRect(item, spframe_puzzle) {
 }
 
 //随机打乱
-function orderByRandom(arr) {
+function orderByRandom(arr,guide=false) {
+    if(guide){
+        const hardLeavelSore = TYPES;
+        const x=hardLeavelSore[hardLevel][0]-1
+        const guidePice= arr[x]
+        const arrRes=arr.splice(x,1)
+        const arrResRandom=arrRes.sort(function () {
+            return .5 - Math.random();
+        });
+        return [guidePice,...arrResRandom]
+    }
     return arr.sort(function () {
         return .5 - Math.random();
     });
+
 }
 
 //边框排序
