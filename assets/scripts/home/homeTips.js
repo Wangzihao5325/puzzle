@@ -41,6 +41,7 @@ cc.Class({
 
     start () {
         this.setTouch()
+
         if(CACHE.userInfo.firstMyHome===false){
 
             let goOutIcon = cc.find('Canvas/rootWarp/my_home/actionOut')
@@ -51,7 +52,7 @@ cc.Class({
             bowlIcon.opacity=0
             setTimeout(()=>{
                 this.handleClose()
-            },2000)
+            },1000)
         }
     },
     init(type){
@@ -119,11 +120,15 @@ cc.Class({
                     .start()
                 })
                 .start()
-           Api.myhome_first(res=>{})
-           CACHE.userInfo.firstMyHome=true
+
             setTimeout(()=>{
+                Api.myhome_first(res=>{})
                 this.closeDia()
             },2000)
+
+            setTimeout(()=>{
+                CACHE.userInfo.firstMyHome=true
+            },4000)
         }else{
             this.closeDia()
         }

@@ -16,6 +16,7 @@ cc.Class({
         good_rare: cc.Node,
         good_pic: cc.Sprite,
         rare_bg: cc.SpriteFrame,
+        num:cc.Label
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -41,6 +42,7 @@ cc.Class({
     },
     init(item, index) {
         this.good_name.getComponent(cc.Label).string = item.name;
+        this.num.string=`x${item.amount}`
         cc.loader.load(item.iconUrl, (err, texture) => {
             this.good_pic.spriteFrame = new cc.SpriteFrame(texture)
         });
