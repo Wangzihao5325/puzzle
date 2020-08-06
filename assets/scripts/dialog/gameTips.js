@@ -49,13 +49,22 @@ cc.Class({
 
     setTouch() {
 
-
+        this.modal.on(cc.Node.EventType.TOUCH_END, (event) => {
+            event.stopPropagation();
+        })
+        this.modal.on(cc.Node.EventType.TOUCH_START, (event) => {
+            event.stopPropagation();
+        })
+        this.modal.on(cc.Node.EventType.TOUCH_MOVE, (event) => {
+            event.stopPropagation();
+        })
         this.close.on(cc.Node.EventType.TOUCH_END, (event) => {
             cc.find("sound").getComponent("sound").tap()
 
             this.closeDia()
             event.stopPropagation();
         })
+
     }
     // update (dt) {},
 });

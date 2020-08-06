@@ -12,6 +12,7 @@ cc.Class({
 
     properties: {
         awardContent: cc.Node,
+        award:cc.Node,
         start1: cc.Node,
         start2: cc.Node,
         start3: cc.Node,
@@ -30,7 +31,9 @@ cc.Class({
         starAmount:{
             type:Number,
             default:0
-        }
+        },
+        doubleBtn:cc.Node,
+        noAdBtn:cc.Node,
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -41,7 +44,7 @@ cc.Class({
     },
 
     start() {
-
+        this.setTouch()
     },
 
     setAnimation(leavel, list) {
@@ -93,7 +96,43 @@ cc.Class({
                 .start()
         })
 
+
+
+    },
+
+
+
+    addStart(){
+        // this.star.active=true
+        const starNode=cc.instantiate(this.star)
+        starNode.active=true
+        starNode.parent=this.star.parent
+        starNode.runAction(this.createBezierTo(.5, cc.v2(-130, 50), cc.v2(0, 0), 100, 360));
+
+        setTimeout(()=>{
+            this.starAmount=this.starAmount+1
+            this.starNum.string=`x${this.starAmount}`
+            cc.tween(this.starWarp)
+            .to(0.2,{scale:1.4})
+            .to(0.1,{scale:1.2})
+            .start()
+        },500)
+    },
+
+    gloadAnimation(){
+        const leavel=CACHE.hard_level
+        console.log("leavel",leavel)
         //金币动画
+       
+        const num=[0,1,2,3,4][leavel+1]
+        for(let i=0;i<num;i++){
+            setTimeout(()=>{
+                this.addStart()
+            },i*400)
+        }
+
+
+
         setTimeout(() => {
             let targetIconNode = cc.find('Canvas/headerWarp/coin/icon');
             let targetWorld = targetIconNode.parent.convertToWorldSpaceAR(targetIconNode);
@@ -130,35 +169,38 @@ cc.Class({
                 }
             }
         }, 500);
-        setTimeout(()=>{
-            const num=[0,1,2,3,4][leavel]
-            for(let i=0;i<num;i++){
-                setTimeout(()=>{
-                    this.addStart()
-                },i*400)
-            }
-
-        },1000)
 
     },
 
-    addStart(){
-        // this.star.active=true
-        const starNode=cc.instantiate(this.star)
-        starNode.active=true
-        starNode.parent=this.star.parent
-        starNode.runAction(this.createBezierTo(.5, cc.v2(-130, 50), cc.v2(0, 0), 100, 360));
-
+    handleNoAd(){
+        this.gloadAnimation()
         setTimeout(()=>{
-            this.starAmount=this.starAmount+1
-            this.starNum.string=`x${this.starAmount}`
-            cc.tween(this.starWarp)
-            .to(0.2,{scale:1.4})
-            .to(0.1,{scale:1.2})
-            .start()
-        },500)
+            const contralObj = cc.find(`Canvas/menuWarp`).getComponent('conraol')
+            const header=cc.find("Canvas/headerWarp")
+            contralObj.showShare()
+            this.award.destroy();
+
+        },2500)
+    },
+    doubleAward(){
+        Toast.show('广告暂未开通')
     },
 
+
+
+    setTouch(hardLevel) {
+
+        this.doubleBtn.on(cc.Node.EventType.TOUCH_END, (event) => {
+            cc.find("sound").getComponent("sound").tap()
+            this.doubleAward()
+            event.stopPropagation();
+        })
+        this.noAdBtn.on(cc.Node.EventType.TOUCH_END, (event) => {
+            cc.find("sound").getComponent("sound").tap()
+            this.handleNoAd()
+            event.stopPropagation();
+        })
+    },
 
     // 抛物线创建
     createBezierTo(t, startPoint, endPoint, height, angle) {
