@@ -121,6 +121,15 @@ cc.Class({
                 this.removeSelect(oldSelectNode)
             }
             //设置选中
+            console.log("(HOME_CACHE.selectDecorations",HOME_CACHE.selectDecorations,this.info)
+            if(HOME_CACHE.selectDecorations&&HOME_CACHE.selectDecorations.goodsId==this.info.goodsId){
+                console.log("已经选中")
+                this.removeDress(this.info.position)
+                HOME_CACHE.selectDecorations=undefined
+                cc.find(`Canvas/dressModal/dressWarp/save`).active=false
+
+                return false
+            }
             HOME_CACHE.selectDecorations=this.info
             node.spriteFrame=this.selectBorder
             contentNode.spriteFrame=this.selectBorder
@@ -128,7 +137,7 @@ cc.Class({
             this.iconWarpContent.color=new cc.color(255,255,255,255)
             
             this.select=!this.select;
-            this.handleDressItem()
+            this.handleDressItem(this.info.iconName)
             cc.find(`Canvas/dressModal/dressWarp/save`).active=true
             if(HOME_CACHE.selectDecorations.status===0){
                 cc.find(`Canvas/dressModal/dressWarp/save/saveWarp`).active=false
@@ -140,6 +149,41 @@ cc.Class({
 
         
 
+    },
+
+    removeDress(type){
+        // const cat_post_dress=['C','','Z']
+        // const currentPost=HOME_CACHE.cat_post
+        // const dress_per=cat_post_dress[currentPost]
+        // // HOME_CACHE.cat_post
+        let name=['','toushi00','boshi00','weishi00'][type]
+        console.log("name",name)
+        this.handleDressItem(name)
+        
+        // // "boshi00": { "x": -29.51, "y": -21.46, "rotation": -113.23, "width": 231, "height": 167 }
+        // // spine
+
+        // // var spine = this.ske_anim;
+        // var spine = cc.find(`Canvas/rootWarp/my_home/cat/catItem`);
+        // var ske_com = spine.getComponent(sp.Skeleton);
+        // this.ske_com = ske_com;
+        // const skeletonData = this.ske_com.skeletonData.getRuntimeData();
+        // const skin = skeletonData.findSkin('default');
+        // const type = this.position
+        // let parts = ['',`${dress_per}toushi00`, `${dress_per}boshi00`, `${dress_per}weishi00`]//["toushi00", "boshi00", "weishi00"];
+        // let regSlot = this.ske_com.findSlot(parts[type]);
+        // let slotIndex = skeletonData.findSlotIndex(name);
+        // let atta = skin.getAttachment(slotIndex, name);
+
+        // let typeparts = ['','toushi00','boshi00','weishi00']//["toushi00", "boshi00", "weishi00"];
+        // let slotDefaultIndex = skeletonData.findSlotIndex(`${parts[type]}`);
+        // let Defaultatta = skin.getAttachment(slotDefaultIndex, typeparts[type]);
+        // atta.x=Defaultatta.x;
+        // atta.y=Defaultatta.y;
+        // atta.rotation=Defaultatta.rotation;
+        // atta.offset=Defaultatta.offset;
+
+        // regSlot.attachment = atta;
     },
 
     removeSelect(node){
@@ -155,12 +199,14 @@ cc.Class({
     start () {
 
     },
-    handleDressItem(){
+
+
+    handleDressItem(currentName){
         const cat_post_dress=['C','','Z']
         const currentPost=HOME_CACHE.cat_post
         const dress_per=cat_post_dress[currentPost]
         // HOME_CACHE.cat_post
-        const name=this.iconName
+        let name=currentName||this.iconName
         
         // "boshi00": { "x": -29.51, "y": -21.46, "rotation": -113.23, "width": 231, "height": 167 }
         // spine
@@ -187,6 +233,7 @@ cc.Class({
 
         regSlot.attachment = atta;
     },
+
 
     headSlotChange() {
         var spine = this.ske_anim;
