@@ -13,6 +13,7 @@ cc.Class({
     },
 
     onLoad() {
+        return;
         if (!CACHE.isShowGuide) {
             return;
         }

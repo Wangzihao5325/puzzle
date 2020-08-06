@@ -45,7 +45,7 @@ cc.Class({
             type: cc.AudioClip
         },
         adButton: cc.Node,
-        collectIcon:cc.Node,
+        collectIcon: cc.Node,
         collect: cc.Prefab,
 
 
@@ -505,6 +505,10 @@ cc.Class({
 
         //设置红点显示或隐藏
         this.loadTaskTips();
+        if (CACHE.isShowSign) {
+            CACHE.isShowSign = false;
+            this.signRoot.active = true;
+        }
     },
 
     start() {
