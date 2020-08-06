@@ -47,6 +47,7 @@ cc.Class({
         adButton: cc.Node,
         collectIcon: cc.Node,
         collect: cc.Prefab,
+        collectNew:cc.Node,
 
 
     },
@@ -505,6 +506,7 @@ cc.Class({
 
         //设置红点显示或隐藏
         this.loadTaskTips();
+        this.loadBtnTips()
         if (CACHE.isShowSign) {
             CACHE.isShowSign = false;
             this.signRoot.active = true;
@@ -596,6 +598,27 @@ cc.Class({
 
 
 
+    },
+    loadBtnTips() {
+        Api.myHomeTips((res) => {
+            if (res.code === 0) {
+                CACHE.btnTips = {
+                    ...CACHE.btnTips,
+                    collect: res.data.colletTip,
+                    souvenir: res.data.normalGoodsTip || res.data.unusualGoodsTip,
+                    scenic: res.data.hurdleTip,
+                    normal: res.data.normalGoodsTip,
+                    lack: res.data.unusualGoodsTip,
+                    reCall: res.data.memoryTip, //回忆
+                }
+                this.updateBtnTips()
+            } else {
+                //请求异常处理
+            }
+        })
+    },
+    updateBtnTips() {
+        this.collectNew.active = CACHE.btnTips.collect
     }
 
     // update (dt) {},

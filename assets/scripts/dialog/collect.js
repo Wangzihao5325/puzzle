@@ -91,7 +91,7 @@ cc.Class({
             this.modal.destroy()
         })
         .start()
-        cc.find('Canvas').getComponent('home_index').updateBtnTips()
+        cc.find('Canvas').getComponent('travel_index').updateBtnTips()
     },
 
     getCollect(type,goodsQuality){
