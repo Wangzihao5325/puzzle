@@ -32,26 +32,26 @@ cc.Class({
         }
 
         //第一次需要增加提示
-        if (CACHE.userInfo && CACHE.userInfo.stage == 1) {
-            this.guideToastNode = cc.instantiate(this.guideToast);
-            let obj = this.guideToastNode.getComponent('guideToast');
-            if (obj) {
-                this.guideToastNode.item_obj = obj;
-                obj.setContentStr("<color=#887160>恭喜你获得了旅游物品\n可以用它来<color=#e37974>[展览]</color>，赚小钱钱</color>");
-            }
-            this.guideToastNode.parent = this.node;
-            this.guideToastNode.setPosition(0, -300);
+        // if (CACHE.userInfo && CACHE.userInfo.stage == 1) {
+        //     this.guideToastNode = cc.instantiate(this.guideToast);
+        //     let obj = this.guideToastNode.getComponent('guideToast');
+        //     if (obj) {
+        //         this.guideToastNode.item_obj = obj;
+        //         obj.setContentStr("<color=#887160>恭喜你获得了旅游物品\n可以用它来<color=#e37974>[展览]</color>，赚小钱钱</color>");
+        //     }
+        //     this.guideToastNode.parent = this.node;
+        //     this.guideToastNode.setPosition(0, -300);
 
-            this.guideToastArrowNode = cc.instantiate(this.guideToastArrow);
-            let arrowObj = this.guideToastArrowNode.getComponent('guideToastArrow');
-            if (arrowObj) {
-                arrowObj.animate();
-            }
-            this.guideToastArrowNode.scaleX = 0.5;
-            this.guideToastArrowNode.scaleY = 0.5;
-            this.guideToastArrowNode.parent = this.node;
-            this.guideToastArrowNode.setPosition(0, 0);
-        }
+        //     this.guideToastArrowNode = cc.instantiate(this.guideToastArrow);
+        //     let arrowObj = this.guideToastArrowNode.getComponent('guideToastArrow');
+        //     if (arrowObj) {
+        //         arrowObj.animate();
+        //     }
+        //     this.guideToastArrowNode.scaleX = 0.5;
+        //     this.guideToastArrowNode.scaleY = 0.5;
+        //     this.guideToastArrowNode.parent = this.node;
+        //     this.guideToastArrowNode.setPosition(0, 0);
+        // }
     },
 
     showDone() {
@@ -68,17 +68,17 @@ cc.Class({
             this.guideToastArrowNode.active = false;
         }
 
-        if (CACHE.userInfo.stage !== 99) {
-            this.handPressNode = cc.instantiate(this.hand);
-            this.handPressNode.scaleX = 0.7;
-            this.handPressNode.scaleY = 0.7;
-            this.handPressNode.parent = this.node;
-            this.handPressNode.setPosition(-230, 480);
-            let obj = this.handPressNode.getComponent('guideHand');
-            if (obj) {
-                obj.handAnimate();
-            }
-        }
+        // if (CACHE.userInfo.stage !== 99) {
+        //     this.handPressNode = cc.instantiate(this.hand);
+        //     this.handPressNode.scaleX = 0.7;
+        //     this.handPressNode.scaleY = 0.7;
+        //     this.handPressNode.parent = this.node;
+        //     this.handPressNode.setPosition(-230, 480);
+        //     let obj = this.handPressNode.getComponent('guideHand');
+        //     if (obj) {
+        //         obj.handAnimate();
+        //     }
+        // }
     },
 
     failedDone() {
@@ -266,8 +266,7 @@ cc.Class({
         if (conraol) {
             let conraolComponent = conraol.getComponent('conraol');
             if (conraolComponent) {
-                //conraolComponent._guideCallbackSetting(() => this.awardDone(), () => this.showDone(), () => this.failedDone(), () => this.rebornDone());
-                conraolComponent._guideCallbackSetting(null, null, () => this.failedDone(), () => this.rebornDone());
+                conraolComponent._guideCallbackSetting(() => this.awardDone(), () => this.showDone(), () => this.failedDone(), () => this.rebornDone());
                 if (CACHE.userInfo.stage == 1) {
                     this.completeStep = 0;
                     conraolComponent._checkCompleteCallbackSetting(() => this.checkComplete());
