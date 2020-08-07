@@ -131,7 +131,6 @@ cc.Class({
     },
 
     stageStepOver() {
-        CACHE.userInfo.stage++;
         this.shareWarp.active = false;
         this.shareWarp.destroy();
         // CACHE.targetScene = 'travel';
@@ -161,11 +160,7 @@ cc.Class({
                 this.stageStepOver();
             })
         } else {
-            this.shareWarp.active = false;
-            this.shareWarp.destroy();
-            // CACHE.targetScene = 'travel';
-            // cc.director.loadScene("innerLoading");
-            cc.director.loadScene("travel");
+            this.stageStepOver();
         }
     },
 
