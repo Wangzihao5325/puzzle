@@ -834,6 +834,10 @@ cc.Class({
         }
     },
     show_help() {
+        if(cc.find("Canvas/gameTips")){
+            return false
+        }
+
         let helpWarp = cc.instantiate(this.helPdig);
         var warp_parent = cc.find(`Canvas`)
         helpWarp.parent = warp_parent

@@ -94,6 +94,9 @@ cc.Class({
 
     //喂养
     show_help() {
+        if(cc.find("Canvas/homeTips")){
+            return false
+        }
         let helpWarp = cc.instantiate(this.helPdig);
         var warp_parent = cc.find(`Canvas`)
         helpWarp.parent = warp_parent
@@ -134,8 +137,8 @@ cc.Class({
         var catItem = cc.find(`Canvas/rootWarp/my_home/cat/catItem`)
         let { outward } = HOME_CACHE.pet_info
         this.cat.active = !outward
-        this.goOutIcon.active=!outward
-        this.dressIcon.active=!outward
+        // this.goOutIcon.active=!outward
+        // this.dressIcon.active=!outward
         this.showBowl(!outward)
 
         if (outside_item) {
@@ -419,6 +422,13 @@ cc.Class({
 
 
     checkCanOut() {
+        let { outward } = HOME_CACHE.pet_info
+        console.log("outward",outward)
+        if(outward){
+            Toast.show('小半月正在外出哦~')
+            return false
+        }
+
         Api.allow_goout((res) => {
             if (res.code === 0) {
                 this.handleGoout()
@@ -577,7 +587,11 @@ cc.Class({
 
 
     show_dress() {
-
+        let { outward } = HOME_CACHE.pet_info
+        if(outward){
+            Toast.show('小半月正在外出中，无法换装~')
+            return false
+        }
         //隐藏猫盆
         let homeIndeObj = cc.find('Canvas').getComponent('home_index')
         homeIndeObj.showBowl(false)
