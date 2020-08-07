@@ -12,7 +12,7 @@ cc.Class({
 
     properties: {
         awardContent: cc.Node,
-        award:cc.Node,
+        award: cc.Node,
         start1: cc.Node,
         start2: cc.Node,
         start3: cc.Node,
@@ -25,18 +25,18 @@ cc.Class({
         goodsItemWarp: cc.Node,
         goodsWarp: cc.Node,
         goodsContent: cc.Node,
-        starNum:cc.Label,
-        star:cc.Node,
-        starWarp:cc.Node,
-        starAmount:{
-            type:Number,
-            default:0
+        starNum: cc.Label,
+        star: cc.Node,
+        starWarp: cc.Node,
+        starAmount: {
+            type: Number,
+            default: 0
         },
-        doubleBtn:cc.Node,
-        noAdBtn:cc.Node,
-        awardList:{
-            type:cc.Array,
-            default:[]
+        doubleBtn: cc.Node,
+        noAdBtn: cc.Node,
+        awardList: {
+            type: cc.Array,
+            default: []
         }
     },
 
@@ -52,7 +52,7 @@ cc.Class({
     },
 
     setAnimation(leavel, list) {
-        this.awardList=list
+        this.awardList = list
         //弹窗动画
         this.awardContent.setPosition(cc.v2(0, -800))
         cc.tween(this.awardContent)
@@ -100,17 +100,17 @@ cc.Class({
                 .start()
         })
 
-        setTimeout(()=>{
-            const leavel=CACHE.hard_level
-            console.log("leavel",leavel)
-            const num=[0,1,2,3,4][leavel+1]
-            for(let i=0;i<num;i++){
-                setTimeout(()=>{
+        setTimeout(() => {
+            const leavel = CACHE.hard_level
+            console.log("leavel", leavel)
+            const num = [0, 1, 2, 3, 4][leavel + 1]
+            for (let i = 0; i < num; i++) {
+                setTimeout(() => {
                     this.addStart()
-                },i*400)
+                }, i * 400)
             }
-    
-        },1500)
+
+        }, 1500)
 
 
 
@@ -118,25 +118,48 @@ cc.Class({
 
 
 
-    addStart(){
+    addStart() {
         // this.star.active=true
-        const starNode=cc.instantiate(this.star)
-        starNode.active=true
-        starNode.parent=this.star.parent
+        const starNode = cc.instantiate(this.star)
+        starNode.active = true
+        starNode.parent = this.star.parent
         starNode.runAction(this.createBezierTo(.5, cc.v2(-130, 50), cc.v2(0, 0), 100, 360));
 
-        setTimeout(()=>{
-            this.starAmount=this.starAmount+1
-            this.starNum.string=`x${this.starAmount}`
+        setTimeout(() => {
+            this.starAmount = this.starAmount + 1
+            this.starNum.string = `x${this.starAmount}`
             cc.tween(this.starWarp)
-            .to(0.2,{scale:1.4})
-            .to(0.1,{scale:1.2})
-            .start()
-        },500)
+                .to(0.2, { scale: 1.4 })
+                .to(0.1, { scale: 1.2 })
+                .start()
+        }, 500)
     },
 
-    gloadAnimation(){
-
+    gloadAnimation() {
+        if (this.coinAdd || this.diamondAdd) {
+            let amount = this.coinAdd || 0;
+            let gemAmount = this.diamondAdd || 0;
+            let maxAmount = Math.max(amount, gemAmount);
+            let time = 0;
+            let header = cc.find('Canvas/headerWarp');
+            let headerObj = header.getComponent('header_warp_index');
+            this.coinTimer = setInterval(() => {
+                if (time < maxAmount) {
+                    if (time < amount) {
+                        CACHE.userData.coin++;
+                    }
+                    if (time < gemAmount) {
+                        CACHE.userData.gem++;
+                    }
+                    time++;
+                    headerObj.renderShowScene();
+                } else {
+                    clearInterval(this.coinTimer);
+                }
+            }, 150)
+            this.coinAdd = 0;
+            this.diamondAdd = 0;
+        }
 
 
         //金币动画
@@ -180,25 +203,25 @@ cc.Class({
 
     },
 
-    handleNoAd(){
+    handleNoAd() {
         this.gloadAnimation()
-        cc.find("sound").getComponent("sound").showToast(item,index)
+        cc.find("sound").getComponent("sound").showToast(item, index)
 
-        setTimeout(()=>{
-            this.awardList.map((item,index)=>{
-                console.log("item",item,index)
+        setTimeout(() => {
+            this.awardList.map((item, index) => {
+                console.log("item", item, index)
             })
 
-            
+
 
             const contralObj = cc.find(`Canvas/menuWarp`).getComponent('conraol')
-            const header=cc.find("Canvas/headerWarp")
+            const header = cc.find("Canvas/headerWarp")
             contralObj.showShare()
             this.award.destroy();
 
-        },2500)
+        }, 2500)
     },
-    doubleAward(){
+    doubleAward() {
         Toast.show('广告暂未开通')
     },
 
@@ -240,16 +263,16 @@ cc.Class({
             if (item.goodsType === 11 || item.goodsType === 12) {
                 arr.push(item)
             }
-            else if(item.goodsType===17){
-                this.starAmount=item.amount
-                this.starNum.string=`x ${item.amount}`
+            else if (item.goodsType === 17) {
+                this.starAmount = item.amount
+                this.starNum.string = `x ${item.amount}`
 
-            }  else {
+            } else {
                 arr2.push(item)
             }
         })
-        const text=['x1','x2','x4','x3']
-        this.star.string=text[leavel]
+        const text = ['x1', 'x2', 'x4', 'x3']
+        this.star.string = text[leavel]
         arr.map((item, index) => {
             var node = cc.instantiate(this.goodsItemWarp);
             node.name = `goodsItemWarp_${index}`
@@ -298,31 +321,6 @@ cc.Class({
             })
         }
         this.setAnimation(leavel, list)
-
-        if (this.coinAdd || this.diamondAdd) {
-            let amount = this.coinAdd;
-            let gemAmount = this.diamondAdd;
-            let maxAmount = Math.max(amount, gemAmount);
-            let time = 0;
-            let header = cc.find('Canvas/headerWarp');
-            let headerObj = header.getComponent('header_warp_index');
-            this.coinTimer = setInterval(() => {
-                if (time < maxAmount) {
-                    if (time < amount) {
-                        CACHE.userData.coin++;
-                    }
-                    if (time < gemAmount) {
-                        CACHE.userData.gem++;
-                    }
-                    time++;
-                    headerObj.renderShowScene();
-                } else {
-                    clearInterval(this.coinTimer);
-                }
-            }, 150)
-            this.coinAdd = 0;
-            this.diamondAdd = 0;
-        }
     },
 
     // update (dt) {},
