@@ -34,6 +34,10 @@ cc.Class({
         },
         doubleBtn:cc.Node,
         noAdBtn:cc.Node,
+        awardList:{
+            type:cc.Array,
+            default:[]
+        }
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -48,7 +52,7 @@ cc.Class({
     },
 
     setAnimation(leavel, list) {
-
+        this.awardList=list
         //弹窗动画
         this.awardContent.setPosition(cc.v2(0, -800))
         cc.tween(this.awardContent)
@@ -133,6 +137,8 @@ cc.Class({
 
     gloadAnimation(){
 
+
+
         //金币动画
 
         setTimeout(() => {
@@ -177,6 +183,14 @@ cc.Class({
     handleNoAd(){
         this.gloadAnimation()
         setTimeout(()=>{
+            this.awardList.map((item,index)=>{
+                console.log("item",item,index)
+                cc.find("sound").getComponent("sound").showToast(item,index)
+
+            })
+
+            
+
             const contralObj = cc.find(`Canvas/menuWarp`).getComponent('conraol')
             const header=cc.find("Canvas/headerWarp")
             contralObj.showShare()

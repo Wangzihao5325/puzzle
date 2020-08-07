@@ -58,7 +58,8 @@ cc.Class({
             default: null,
             type: cc.AudioClip
         },
-        awardGameOpen:cc.Prefab
+        awardGameOpen:cc.Prefab,
+        toastPrefab:cc.Prefab
 
     },
 
@@ -197,6 +198,14 @@ cc.Class({
     showAwardOpen(){
         let awardOpen = cc.instantiate(this.awardGameOpen);
         awardOpen.parent = cc.find("Canvas");
+    },
+    showToast(data,index=0){
+        data.indexY=index
+        let toast = cc.instantiate(this.toastPrefab);
+        toast.parent = cc.find("Canvas");
+        let toastObj=toast.getComponent('toast')
+        toastObj.init(data)
+
     }
     // update (dt) {},
 });
