@@ -403,6 +403,8 @@ const guideStageSpecialComplete = (payload = { event: 1 }, callback, failedCallb
 
 const openGemShowcase = (payload = { key: 1 }, callback, failedCallback) => new CusHttp().Post(`${API_DOMAIN}/exhibition/stand/stand_diamond/unlock`, payload, callback, failedCallback);
 
+const travelResetGuide = (callback, failedCallback) => new CusHttp().Get(`${API_DOMAIN}/travel/reset_guide`, callback, failedCallback);
+
 
 export default {
     cityDetails,
@@ -472,5 +474,6 @@ export default {
     guideState,
     guideStageComplete,
     guideStageSpecialComplete,
-    openGemShowcase
+    openGemShowcase,
+    travelResetGuide
 }

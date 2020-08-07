@@ -519,6 +519,9 @@ cc.Class({
             CACHE.isShowSign = false;
             this.signRoot.active = true;
         }
+        if (CACHE.userInfo.stage === 1) {
+            Api.travelResetGuide();
+        }
     },
 
     start() {
