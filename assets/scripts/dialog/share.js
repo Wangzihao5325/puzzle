@@ -141,6 +141,7 @@ cc.Class({
     handleBack() {
         if (CACHE.userInfo && typeof CACHE.userInfo.stage == 'number' && CACHE.userInfo.stage == 1) {
             Api.guideStageComplete({ stage: 1 }, (res) => {
+                CACHE.isShowSign = true;
                 CACHE.userInfo.stage = 99;
                 this.stageStepOver();
             }, (res) => {
