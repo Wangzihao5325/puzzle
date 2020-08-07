@@ -102,6 +102,7 @@ cc.Class({
     checkComplete() {
         if (this.completeStep === 0) {
             //设置文字提示
+            this.guideStepReg = 'makeOne';
             this.isInitDone = false;
             this.guideToastNode.item_obj.setContentStr("<color=#887160>磁铁可以帮助你自动完成一块哦\n快试试效果吧</color>");
             this.guideToastNode.setPosition(0, 380);
@@ -123,6 +124,7 @@ cc.Class({
         }
         if (this.completeStep === 5) {
             //设置文字提示
+            this.guideStepReg = 'makeView';
             this.isInitDone = false;
             this.guideToastNode.item_obj.setContentStr("<color=#887160>当忘记原图什么样子的时候\n,可以使用查看道具查看哦</color>");
             this.guideToastNode.setPosition(0, 380);
@@ -186,7 +188,7 @@ cc.Class({
                 return;
             }
             */
-        }else{
+        } else {
             this.node._touchListener.setSwallowTouches(false);
         }
     },
@@ -214,10 +216,58 @@ cc.Class({
         this.node._touchListener.setSwallowTouches(false);
     },
 
-    onTouchStartToolsGuide() {
+    onTouchStartToolsGuide(event) {
         if (!this.isInitDone) {
             this.node._touchListener.setSwallowTouches(true);
             return;
+        }
+        if (this.guideStepReg == 'queue') {
+            let originNode = cc.find('Canvas/menuWarp/menuContent');
+            let btn = cc.find('Canvas/menuWarp/menuContent/soreWarp');
+            if (!originNode || !btn) {
+                this.node._touchListener.setSwallowTouches(true);
+                return
+            }
+            let pos = originNode.convertToNodeSpaceAR(event.getLocation());
+            let rect = btn.getBoundingBox();
+            if (!rect.contains(pos)) {
+                this.node._touchListener.setSwallowTouches(true);
+                return
+            }
+            this.guideStepReg = '';
+            setTimeout(()=>{
+                this.guideHandShow();
+            },0);
+        }
+        if (this.guideStepReg == 'makeOne') {
+            let originNode = cc.find('Canvas/menuWarp/menuContent');
+            let btn = cc.find('Canvas/menuWarp/menuContent/magnetWarp');
+            if (!originNode || !btn) {
+                this.node._touchListener.setSwallowTouches(true);
+                return
+            }
+            let pos = originNode.convertToNodeSpaceAR(event.getLocation());
+            let rect = btn.getBoundingBox();
+            if (!rect.contains(pos)) {
+                this.node._touchListener.setSwallowTouches(true);
+                return
+            }
+            this.guideStepReg = '';
+        }
+        if (this.guideStepReg == 'makeView') {
+            let originNode = cc.find('Canvas/menuWarp/menuContent');
+            let btn = cc.find('Canvas/menuWarp/menuContent/viewWarp');
+            if (!originNode || !btn) {
+                this.node._touchListener.setSwallowTouches(true);
+                return
+            }
+            let pos = originNode.convertToNodeSpaceAR(event.getLocation());
+            let rect = btn.getBoundingBox();
+            if (!rect.contains(pos)) {
+                this.node._touchListener.setSwallowTouches(true);
+                return
+            }
+            this.guideStepReg = '';
         }
 
         // if (this.guideStep == 1) {
@@ -324,6 +374,7 @@ cc.Class({
                     this.guideToastNode.setPosition(180, 380);
 
                     this.isInitDone = true;
+                    this.guideStepReg = 'queue';
 
                     if (this.timer) {
                         clearTimeout(this.timer);
