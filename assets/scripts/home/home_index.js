@@ -134,6 +134,8 @@ cc.Class({
         var catItem = cc.find(`Canvas/rootWarp/my_home/cat/catItem`)
         let { outward } = HOME_CACHE.pet_info
         this.cat.active = !outward
+        this.goOutIcon.active=!outward
+        this.dressIcon.active=!outward
         this.showBowl(!outward)
 
         if (outside_item) {
@@ -443,7 +445,8 @@ cc.Class({
             Api.petGoout((res) => {
                 if (res.code === 0) {
                     Toast.show("宠物已外出")
-                    this.setOUtUi()
+                    this.getPetInfo()
+                    // this.setOUtUi()
                 } else if (res.code === 20008) {
                     //体力不够
                     Hunger.show("")
