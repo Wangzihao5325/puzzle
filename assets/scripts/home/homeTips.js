@@ -11,13 +11,13 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
-        warp:cc.Node,
-        modal:cc.Node,
-        goOut:cc.Node,
-        dress:cc.Node,
-        feed:cc.Node,
-        close:cc.Node,
-        mainContent:cc.Node,
+        warp: cc.Node,
+        modal: cc.Node,
+        goOut: cc.Node,
+        dress: cc.Node,
+        feed: cc.Node,
+        close: cc.Node,
+        mainContent: cc.Node,
         // foo: {
         //     // ATTRIBUTES:
         //     default: null,        // The default value will be used only when the component attaching
@@ -36,45 +36,45 @@ cc.Class({
     },
 
     // LIFE-CYCLE CALLBACKS:
- 
+
     // onLoad () {},
 
-    start () {
+    start() {
         this.setTouch()
 
-        if(CACHE.userInfo.firstMyHome===false){
+        if (CACHE.userInfo.firstMyHome === false) {
 
             let goOutIcon = cc.find('Canvas/rootWarp/my_home/actionOut')
             let dreesIcon = cc.find('Canvas/rootWarp/my_home/actionDress')
             let bowlIcon = cc.find('Canvas/rootWarp/my_home/bowlWarp')
-            goOutIcon.opacity=0
-            dreesIcon.opacity=0
-            bowlIcon.opacity=0
-            setTimeout(()=>{
+            goOutIcon.opacity = 0
+            dreesIcon.opacity = 0
+            bowlIcon.opacity = 0
+            setTimeout(() => {
                 this.handleClose()
-            },1000)
+            }, 1000)
         }
     },
-    init(type){
+    init(type) {
 
         this.warp.setScale(0.2)
         cc.tween(this.warp)
-        .to(.3,{scale:1.2})
-        .to(0.15,{scale:1})
-        .start()
+            .to(.3, { scale: 1.2 })
+            .to(0.15, { scale: 1 })
+            .start()
     },
 
 
-    handleClose(){
-        if(CACHE.userInfo.firstMyHome===false){
+    handleClose() {
+        if (CACHE.userInfo.firstMyHome === false) {
 
-            const positionOut=cc.v2(-250,-160)
+            const positionOut = cc.v2(-250, -160)
             let goOutIcon = cc.find('Canvas/rootWarp/my_home/actionOut')
             let dreesIcon = cc.find('Canvas/rootWarp/my_home/actionDress')
             let bowlIcon = cc.find('Canvas/rootWarp/my_home/bowlWarp')
-            goOutIcon.opacity=0
-            dreesIcon.opacity=0
-            bowlIcon.opacity=0
+            goOutIcon.opacity = 0
+            dreesIcon.opacity = 0
+            bowlIcon.opacity = 0
 
             let goOutIconWord = goOutIcon.parent.convertToWorldSpaceAR(goOutIcon.position);
             let goOutIconRoot = this.mainContent.convertToNodeSpaceAR(goOutIconWord);
@@ -89,68 +89,76 @@ cc.Class({
             // let goOutIconWord = goOutIcon.parent.convertToWorldSpaceAR(goOutIcon.position);
             // const root=cc.find("Canvas")
             // let targetRoot = root.convertToNodeSpaceAR(diamondIconWord);
-    
+
             // this.crossholo.opacity=100
             cc.tween(this.goOut)
                 .to(1, { position: cc.v2(goOutIconRoot.x, goOutIconRoot.y) })
-                .to(.1, { opacity: 0,scale:0.2 })
-                .call(()=>{
+                .to(.1, { opacity: 0, scale: 0.2 })
+                .call(() => {
                     cc.tween(goOutIcon)
-                    .to(.2, { opacity: 255 })
-                    .start()
+                        .to(.2, { opacity: 255 })
+                        .start()
                 })
                 .start()
             cc.tween(this.dress)
                 .delay(.2)
                 .to(1, { position: cc.v2(dreesIcontRoot.x, dreesIcontRoot.y) })
-                .to(.1, { opacity: 0,scale:0.2 })
-                .call(()=>{
+                .to(.1, { opacity: 0, scale: 0.2 })
+                .call(() => {
                     cc.tween(dreesIcon)
-                    .to(.2, { opacity: 255 })
-                    .start()
+                        .to(.2, { opacity: 255 })
+                        .start()
                 })
                 .start()
             cc.tween(this.feed)
                 .delay(.4)
                 .to(1, { position: cc.v2(bowlIconRoot.x, bowlIconRoot.y) })
-                .to(.1, { opacity: 0,scale:0.2 })
-                .call(()=>{
+                .to(.1, { opacity: 0, scale: 0.2 })
+                .call(() => {
                     cc.tween(bowlIcon)
-                    .to(.2, { opacity: 255 })
-                    .start()
+                        .to(.2, { opacity: 255 })
+                        .start()
                 })
                 .start()
 
-            setTimeout(()=>{
-                Api.myhome_first(res=>{})
+            setTimeout(() => {
+                Api.myhome_first(res => { })
                 this.closeDia()
-            },2000)
+            }, 2000)
 
-            setTimeout(()=>{
-                CACHE.userInfo.firstMyHome=true
-            },4000)
-        }else{
+            setTimeout(() => {
+                CACHE.userInfo.firstMyHome = true
+            }, 4000)
+        } else {
             this.closeDia()
         }
 
     },
 
-    closeDia(){
+    closeDia() {
         cc.tween(this.warp)
-        .to(.1,{scale:1.2})
-        .to(0.3,{scale:.2,opacity:0})
-        .call(()=>{
-            this.modal.destroy()
-        })
-        .start()
+            .to(.1, { scale: 1.2 })
+            .to(0.3, { scale: .2, opacity: 0 })
+            .call(() => {
+                this.modal.destroy()
+            })
+            .start()
     },
 
     setTouch() {
-
+        this.node.on(cc.Node.EventType.TOUCH_START, (event) => {
+            event.stopPropagation();
+        })
+        this.node.on(cc.Node.EventType.TOUCH_MOVE, (event) => {
+            event.stopPropagation();
+        })
+        this.node.on(cc.Node.EventType.TOUCH_END, (event) => {
+            event.stopPropagation();
+        })
 
         this.close.on(cc.Node.EventType.TOUCH_END, (event) => {
             cc.find("sound").getComponent("sound").tap()
-            if(CACHE.userInfo.firstMyHome!=false){
+            if (CACHE.userInfo.firstMyHome != false) {
                 this.handleClose()
             }
             event.stopPropagation();
