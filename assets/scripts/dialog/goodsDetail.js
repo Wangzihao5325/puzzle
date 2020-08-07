@@ -120,6 +120,8 @@ cc.Class({
     resetbackPackUi(){
         const backpackObj=cc.find('Canvas/backpack').getComponent('backpack')
         backpackObj.getBackpack()
+        cc.find("sound").getComponent("sound").updateAssets()
+
     },
 
     sellGoods(){

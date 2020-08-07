@@ -182,11 +182,11 @@ cc.Class({
 
     handleNoAd(){
         this.gloadAnimation()
+        cc.find("sound").getComponent("sound").showToast(item,index)
+
         setTimeout(()=>{
             this.awardList.map((item,index)=>{
                 console.log("item",item,index)
-                cc.find("sound").getComponent("sound").showToast(item,index)
-
             })
 
             
