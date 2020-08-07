@@ -182,15 +182,11 @@ cc.Class({
 
     handleNoAd(){
         this.gloadAnimation()
-        cc.find("sound").getComponent("sound").showToast(item,index)
+        this.awardList.map((item,index)=>{
+            cc.find("sound").getComponent("sound").showToast(item,index)
+        })
 
         setTimeout(()=>{
-            this.awardList.map((item,index)=>{
-                console.log("item",item,index)
-            })
-
-            
-
             const contralObj = cc.find(`Canvas/menuWarp`).getComponent('conraol')
             const header=cc.find("Canvas/headerWarp")
             contralObj.showShare()
