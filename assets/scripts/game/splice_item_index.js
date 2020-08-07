@@ -298,10 +298,17 @@ cc.Class({
 
             // }
             const outList = this.item_node.parent.name !== 'content';
+
+
+            if (outList) {
+            }
             if (outList) {
                 //在盒子外计算
+
                 let delta = event.touch.getDelta();
                 this.calPostion(this.item_node.x + delta.x, this.item_node.y + delta.y, this.item_node.angle, hardLevel);
+                this.item_node.parent = cc.find('Canvas/root/puzzleWarp/puzzleBg');
+            
             } else {
                 this.item_node.setScale(SCALELEAVEL[hardLevel])
             }
