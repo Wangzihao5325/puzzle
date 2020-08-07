@@ -330,9 +330,9 @@ cc.Class({
                 Toast.show('您今天已经签到过!');
             } else {
                 Api.doSign({ key: 1 }, (res) => {
-                    res.map((item,index)=>{
-                        cc.find("sound").getComponent("sound").showToast(item,index)
-                    })
+                    // res.map((item,index)=>{
+                    //     cc.find("sound").getComponent("sound").showToast(item,index)
+                    // })
 
 
                     let dayNode = cc.find(`Canvas/signPop/sign_item${res.data.day}`);

@@ -21,6 +21,7 @@ cc.Class({
     },
 
     initDaySeven(item, index) {
+        this.numberLabel.string = `x${item.amount}`;
         cc.loader.load(item.iconUrl, (err, texture) => {
             this.goods.spriteFrame = new cc.SpriteFrame(texture);
         });

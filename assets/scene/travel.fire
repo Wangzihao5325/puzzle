@@ -3760,8 +3760,8 @@
       }
     ],
     "_useOriginalSize": false,
-    "_string": "立即闯关",
-    "_N$string": "立即闯关",
+    "_string": "获得体力",
+    "_N$string": "获得体力",
     "_fontSize": 40,
     "_lineHeight": 40,
     "_enableWrapText": true,

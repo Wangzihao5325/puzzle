@@ -1,7 +1,7 @@
 import CusHttp from './custom_http';
 import { CACHE } from '../global/usual_cache';
-// const API_DOMAIN = 'http://192.168.3.144:8090';
-const API_DOMAIN = 'https://mp.becabaking.xyz:8090';
+const API_DOMAIN = 'http://192.168.3.144:8090';
+//const API_DOMAIN = 'https://mp.becabaking.xyz:8090';
 
 /**
  * 根据城市id获取城市详情
